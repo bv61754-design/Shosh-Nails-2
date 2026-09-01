@@ -171,8 +171,8 @@
         en: 'Nails that look like you — from the very first touch'
       },
       heroSub: {
-        ar: 'جاوبي على سبعة أسئلة بالصور، ونبني لك طقمًا كاملًا على ذوقك — اللون والشكل والطول والنقشة والزخارف. نجهّزه بمقاسك ويوصلك جاهز تلبسينه في دقائق.',
-        en: 'Answer seven picture questions and we build you a whole set in your taste — colour, shape, length, pattern and charms. We craft it to your size and send it ready to wear in minutes.'
+        ar: 'جاوبي على ثمانية أسئلة بالصور، ونبني لك طقمًا كاملًا على ذوقك — اللون والشكل والطول والنقشة والزخارف. نجهّزه بمقاسك ويوصلك جاهز تلبسينه في دقائق.',
+        en: 'Answer eight picture questions and we build you a whole set in your taste — colour, shape, length, pattern and charms. We craft it to your size and send it ready to wear in minutes.'
       },
       heroCta: { ar: 'ابدئي اختبار الستايل', en: 'Take the style quiz' },
       heroImage: '',
@@ -182,8 +182,8 @@
           icon: 'brush',
           title: { ar: 'طقم مبني على ذوقك', en: 'Built around your taste' },
           text: {
-            ar: 'سبعة أسئلة كلها صور، وفي آخرها يطلع لك طقم كامل: اللون واللمسة والنقشة والزخارف، مبني على إجاباتك أنتِ.',
-            en: 'Seven picture questions, and at the end a whole set — colour, finish, pattern and charms — built from your own answers.'
+            ar: 'ثمانية أسئلة كلها صور، وفي آخرها يطلع لك طقم كامل: اللون واللمسة والنقشة والزخارف، مبني على إجاباتك أنتِ.',
+            en: 'Eight picture questions, and at the end a whole set — colour, finish, pattern and charms — built from your own answers.'
           }
         },
         {
@@ -1141,8 +1141,8 @@
         id: 'fq-where-to-start', cat: 'general',
         q: { ar: 'ما أعرف أي تصميم يناسبني — من أين أبدأ؟', en: 'I have no idea what suits me — where do I start?' },
         a: {
-          ar: 'ابدئي باختبار الستايل في الصفحة الرئيسية: سبعة أسئلة كلها صور، ولا سؤال يحتاج كتابة، وفي آخره يطلع لك طقم مبني على إجاباتك — تطلبينه على طول. وإذا حبيتي تختصرين أكثر، افتحي «تصاميم جاهزة» واختاري واحدًا يعجبك واطلبيه.',
-          en: 'Start with the style quiz on the home page: seven questions, all pictures, nothing to type — and at the end it builds a set from your answers that you can order as it is. If you want an even shorter route, open Ready Designs and pick one you like.'
+          ar: 'ابدئي باختبار الستايل في الصفحة الرئيسية: ثمانية أسئلة كلها صور، ولا سؤال يحتاج كتابة، وفي آخره يطلع لك طقم مبني على إجاباتك — تطلبينه على طول. وإذا حبيتي تختصرين أكثر، افتحي «تصاميم جاهزة» واختاري واحدًا يعجبك واطلبيه.',
+          en: 'Start with the style quiz on the home page: eight questions, all pictures, nothing to type — and at the end it builds a set from your answers that you can order as it is. If you want an even shorter route, open Ready Designs and pick one you like.'
         }
       },
       {

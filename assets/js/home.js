@@ -24,7 +24,7 @@
         /* hero */
         eyebrow: 'أظافر مركّبة مصنوعة يدويًا',
         heroTitleFb: 'أظافر تشبهك… من أول لمسة',
-        heroSubFb: 'جاوبي على سبعة أسئلة بالصور، ونبني لك طقمًا كاملًا على ذوقك.',
+        heroSubFb: 'جاوبي على ثمانية أسئلة بالصور، ونبني لك طقمًا كاملًا على ذوقك.',
         heroCtaFb: 'ابدئي اختبار الستايل',
         heroCta2: 'شوفي التصاميم الجاهزة',
         heroAlt: 'معاينة حيّة لطقم أظافر مصمّم داخل الموقع',
@@ -103,7 +103,7 @@
       home: {
         eyebrow: 'Handcrafted press-on nails',
         heroTitleFb: 'Nails that look like you — from the very first touch',
-        heroSubFb: 'Answer seven picture questions and we build you a whole set in your taste.',
+        heroSubFb: 'Answer eight picture questions and we build you a whole set in your taste.',
         heroCtaFb: 'Take the style quiz',
         heroCta2: 'Browse ready-made sets',
         heroAlt: 'A live preview of a nail set designed on this site',

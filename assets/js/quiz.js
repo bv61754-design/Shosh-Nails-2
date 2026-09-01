@@ -211,7 +211,8 @@
         plain: 'سادة',
 
         /* skin */
-        skinTitle: 'شوفيه على بشرتك',
+        qSkin: 'وش لون بشرتك؟',
+        hSkin: 'عشان نختار لك درجة تليق عليك، ونعرف مقاسك وقت التجهيز.',
 
         /* price + actions */
         priceFrom: 'يبدأ من {p}',
@@ -410,7 +411,8 @@
         charmsN: '{n} charms',
         plain: 'Plain',
 
-        skinTitle: 'See it on your skin',
+        qSkin: 'What is your skin tone?',
+        hSkin: 'So we pick a shade that suits you, and know it when we make your set.',
 
         priceFrom: 'From {p}',
         priceNote: 'Shipping included. The total moves if you add to or simplify the design.',
@@ -1151,6 +1153,7 @@
   /* ==================================================================== */
 
   var STEPS = [
+    { key: 'skin', q: 'quiz.qSkin', hint: 'quiz.hSkin', art: 'skin', cols: 3 },
     { key: 'occasion', q: 'quiz.q1', hint: 'quiz.h1', art: 'thumb', cols: 2 },
     { key: 'vibe', q: 'quiz.q2', hint: 'quiz.h2', art: 'thumb', cols: 2 },
     { key: 'palette', q: 'quiz.q3', hint: 'quiz.h3', art: 'strip', cols: 3 },
@@ -1177,6 +1180,13 @@
   function optionsFor(key) {
     var out = [], arr, i;
 
+    if (key === 'skin') {
+      arr = list('skinTones');
+      for (i = 0; i < arr.length; i++) {
+        if (arr[i] && arr[i].id) out.push({ id: arr[i].id, label: pick(arr[i].name), row: arr[i] });
+      }
+      return out;
+    }
     if (key === 'length') {
       arr = list('lengths');
       for (i = 0; i < arr.length && i < 4; i++) {
@@ -1198,6 +1208,14 @@
   function tileArt(step, opt, answers) {
     var box = el('span', { 'class': 'quiz-art', 'aria-hidden': 'true' });
     var probe = {}, k, d, node = null, sh, pal, i;
+
+    if (step.art === 'skin') {
+      box.appendChild(el('span', {
+        'class': 'quiz-skin',
+        style: { backgroundColor: (opt.row && opt.row.hex) || '#EFCDB6' }
+      }));
+      return box;
+    }
 
     if (step.art === 'strip') {
       pal = rowOf(PALETTES, opt.id);
@@ -1260,7 +1278,6 @@
     vars: [],
     vi: 0,
     lit: false,          /* the sparkle burst is a first-reveal thing only */
-    skin: '',
     timer: 0,
     busy: false,
     hashLock: false
@@ -1422,16 +1439,11 @@
     return st.vars.length ? st.vars[Math.min(st.vi, st.vars.length - 1)] : null;
   }
 
-  /* the design as it will be ordered: her chosen skin tone applied on top */
+  /* the design as it will be ordered. The skin tone is her first answer now,
+     so build() has already put it on the design and there is nothing to lay
+     on top; this stays as the one accessor every caller already goes through. */
   function shown(v) {
-    var d;
-    if (!v) return null;
-    if (!st.skin) return v.design;
-    try {
-      d = JSON.parse(JSON.stringify(v.design));
-      d.skin = skinHex(st.skin);
-      return d;
-    } catch (e) { return v.design; }
+    return v ? v.design : null;
   }
 
   /* The set itself, the way press-ons actually arrive: the five plates laid
@@ -1586,36 +1598,6 @@
       el('h4', { 'class': 'quiz-recipe-t', text: t('quiz.recipeTitle') }),
       host,
       el('p', { 'class': 'tiny muted', text: t('quiz.recipeNote') })
-    ]);
-  }
-
-  function skinRow() {
-    var tones = list('skinTones');
-    var row, i;
-    if (tones.length < 2) return null;
-    row = el('div', { 'class': 'quiz-skins', role: 'group', 'aria-label': t('quiz.skinTitle') });
-    for (i = 0; i < tones.length; i++) {
-      row.appendChild((function (tone) {
-        var on = (st.skin || (tones[1] || tones[0]).id) === tone.id;
-        return el('button', {
-          type: 'button',
-          'class': 'quiz-skin-b sn-pickable',
-          'aria-pressed': on ? 'true' : 'false',
-          'aria-label': pick(tone.name),
-          title: pick(tone.name),
-          style: { backgroundColor: tone.hex || '#EFCDB6' },
-          on: {
-            click: function () {
-              st.skin = tone.id;
-              paintResult();
-            }
-          }
-        });
-      })(tones[i]));
-    }
-    return el('div', { 'class': 'quiz-skinbox' }, [
-      el('p', { 'class': 'tiny muted quiz-skin-t', text: t('quiz.skinTitle') }),
-      row
     ]);
   }
 
@@ -1848,7 +1830,6 @@
         text: v.price === null ? t('quiz.savedNote') : t('quiz.priceNote')
       }),
 
-      skinRow(),
       recipeBlock(v),
 
       el('div', { 'class': 'btns quiz-more' }, [
@@ -1961,7 +1942,6 @@
     st.vars = [];
     st.vi = 0;
     st.lit = false;
-    st.skin = '';
     st.step = 0;
     paint();
     box = scroller();
@@ -1995,7 +1975,6 @@
     st.ans = {};
     st.vars = [];
     st.vi = 0;
-    st.skin = '';
     st.busy = false;
     if (o.seed) {
       for (k in o.seed) {
