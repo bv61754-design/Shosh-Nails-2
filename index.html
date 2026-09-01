@@ -43,28 +43,24 @@
   padding-block:clamp(28px,5vw,64px) clamp(44px,7vw,88px);
   overflow:hidden;
 }
-/* minmax(0,…) everywhere: the hero art is an <svg> with an intrinsic width of
-   620, and an `auto` track would size itself to that and blow the page open
-   on a phone. */
+/* One column: this version carries no hero image, so the headline and the
+   copy simply stack and the text keeps the full width at every size. */
 .home-hero-in{
   display:grid;
   grid-template-columns:minmax(0,1fr);
   gap:clamp(18px,3.6vw,26px);
   align-items:center;
 }
-/* desktop: the copy stacks in one column beside a full-height hand */
+/* On a wide screen a start-aligned hero with no picture beside it leaves half
+   the viewport empty, so the whole block centres instead and reads as a
+   deliberate opening rather than as a layout with something missing. */
 @media (min-width:900px){
-  .home-hero-in{
-    grid-template-columns:minmax(0,1.02fr) minmax(0,.98fr);
-    grid-template-areas:"head art" "copy art";
-    grid-template-rows:auto auto;
-    align-content:center;
-    column-gap:clamp(28px,4.5vw,54px);
-    row-gap:18px;
-  }
-  .home-hero-head{ grid-area:head; align-self:end; }
-  .home-hero-copy{ grid-area:copy; align-self:start; }
-  .home-hero-art{ grid-area:art; align-self:center; }
+  .home-hero-in{ row-gap:18px; justify-items:center; text-align:center; }
+  .home-hero-head .eyebrow{ align-items:center; justify-content:center; }
+  .home-hero-head .h1{ max-inline-size:22ch; margin-inline:auto; }
+  .home-hero-copy .lead{ margin-inline:auto; }
+  .home-hero-btns{ justify-content:center; }
+  .home-notes{ justify-content:center; }
 }
 .home-hero-head > * + *{ margin-block-start:14px; }
 .home-hero-copy > * + *{ margin-block-start:16px; }
@@ -94,97 +90,6 @@
   line-height:1.6;
 }
 .home-note .ico{ color:var(--rose-2); }
-
-/* the live nail preview */
-.home-hero-art{
-  position:relative;
-  display:grid;
-  grid-template-columns:minmax(0,1fr);
-  justify-items:center;
-  align-items:center;
-  min-inline-size:0;
-}
-.home-hero-art::before{
-  content:"";
-  position:absolute;
-  inset-block-start:2%;
-  inset-inline-start:50%;
-  translate:-50% 0;
-  inline-size:min(560px,104%);
-  aspect-ratio:1/1;
-  border-radius:50%;
-  background:
-    radial-gradient(closest-side,var(--glow-2),transparent 70%) 62% 28%/68% 68% no-repeat,
-    radial-gradient(closest-side,var(--glow),transparent 72%);
-  pointer-events:none;
-}
-.home-hero-stage{
-  position:relative;
-  z-index:1;
-  inline-size:100%;
-  min-inline-size:0;
-  max-inline-size:520px;
-}
-/* the looks are stacked in one grid cell and cross-faded, so the hero never
-   changes height as the set changes and only opacity is ever animated */
-.home-hero-deck{ display:grid; }
-.home-hero-look{
-  grid-area:1 / 1;
-  opacity:0;
-  transition:opacity .5s var(--ease);
-  pointer-events:none;
-}
-.home-hero-look.is-on{ opacity:1; }
-.home-hero-look > svg,.home-hero-stage > svg,.home-hero-stage > img{
-  inline-size:100%;
-  block-size:auto;
-  filter:drop-shadow(0 22px 34px rgba(74,43,57,.16));
-}
-.home-hero-stage > img{
-  border-radius:var(--r-lg);
-  aspect-ratio:4/3;
-  object-fit:cover;
-}
-
-/* the look picker under the hand: dots she can drive herself */
-.home-hero-nav{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  margin-block-start:14px;
-}
-.home-hero-dot{
-  position:relative;
-  inline-size:9px;
-  block-size:9px;
-  padding:0;
-  border:0;
-  border-radius:50%;
-  background:var(--line-2);
-  cursor:pointer;
-  transition:background-color var(--dur-2) var(--ease), transform var(--dur-2) var(--ease-pop);
-}
-.home-hero-dot::before{ content:""; position:absolute; inset:-11px; border-radius:50%; }
-.home-hero-dot:hover{ background:var(--rose); }
-.home-hero-dot[aria-pressed="true"]{ background:var(--rose-2); transform:scale(1.55); }
-.home-hero-cap{
-  margin-block-start:10px;
-  text-align:center;
-  font-size:.82rem;
-  font-weight:700;
-  color:var(--ink-3);
-}
-@media (prefers-reduced-motion:no-preference){
-  .home-float{ animation:home-float 7.5s var(--ease) infinite; }
-  @keyframes home-float{
-    0%,100%{ transform:translateY(0) rotate(0deg); }
-    50%    { transform:translateY(-13px) rotate(-.5deg); }
-  }
-}
-@media (prefers-reduced-motion:reduce){
-  .home-float{ animation:none !important; transform:none !important; }
-}
 
 /* ── stats strip ─────────────────────────────────────────────────────── */
 .home-statsec{ padding-block:0; }
@@ -854,9 +759,6 @@
           <p class="eyebrow" data-i18n="home.eyebrow"></p>
           <h1 class="h1 display" id="home-hero-t"></h1>
         </div>
-        <!-- on a phone the hands sit right under the headline: the first
-             thing she scrolls past has to be the product, not a paragraph -->
-        <div class="home-hero-art" id="home-hero-art"></div>
         <div class="home-hero-copy">
           <p class="lead" id="home-hero-sub"></p>
           <div class="btns home-hero-btns">
