@@ -171,8 +171,8 @@
         en: 'Nails that look like you — from the very first touch'
       },
       heroSub: {
-        ar: 'جاوبي على ثمانية أسئلة بالصور، ونبني لك طقمًا كاملًا على ذوقك — اللون والشكل والطول والنقشة والزخارف. نجهّزه بمقاسك ويوصلك جاهز تلبسينه في دقائق.',
-        en: 'Answer eight picture questions and we build you a whole set in your taste — colour, shape, length, pattern and charms. We craft it to your size and send it ready to wear in minutes.'
+        ar: 'جاوبي على تسعة أسئلة بالصور، ونبني لك طقمًا كاملًا على ذوقك — اللون والشكل والطول والنقشة والزخارف. نجهّزه بمقاسك ويوصلك جاهز تلبسينه في دقائق.',
+        en: 'Answer nine picture questions and we build you a whole set in your taste — colour, shape, length, pattern and charms. We craft it to your size and send it ready to wear in minutes.'
       },
       heroCta: { ar: 'ابدئي اختبار الستايل', en: 'Take the style quiz' },
       heroImage: '',
@@ -182,8 +182,8 @@
           icon: 'brush',
           title: { ar: 'طقم مبني على ذوقك', en: 'Built around your taste' },
           text: {
-            ar: 'ثمانية أسئلة كلها صور، وفي آخرها يطلع لك طقم كامل: اللون واللمسة والنقشة والزخارف، مبني على إجاباتك أنتِ.',
-            en: 'Eight picture questions, and at the end a whole set — colour, finish, pattern and charms — built from your own answers.'
+            ar: 'تسعة أسئلة كلها صور، وفي آخرها يطلع لك طقم كامل: اللون واللمسة والنقشة والزخارف، مبني على إجاباتك أنتِ.',
+            en: 'Nine picture questions, and at the end a whole set — colour, finish, pattern and charms — built from your own answers.'
           }
         },
         {
@@ -341,6 +341,17 @@
         { id: 'gold', name: { ar: 'ذهبي', en: 'Gold' } },
         { id: 'silver', name: { ar: 'فضي', en: 'Silver' } },
         { id: 'none', name: { ar: 'بدون معدن', en: 'No metal' } }
+      ],
+
+      /* `max` is the ceiling in the shop's own currency. Only the ceiling is
+         used: a cheaper set is never withheld from someone who said she could
+         spend more. `max: 0` means no ceiling at all. Edit the numbers to
+         match your prices. */
+      budget: [
+        { id: 'b1', max: 150, name: { ar: 'أقل من ١٥٠', en: 'Under 150' } },
+        { id: 'b2', max: 250, name: { ar: 'لين ٢٥٠', en: 'Up to 250' } },
+        { id: 'b3', max: 400, name: { ar: 'لين ٤٠٠', en: 'Up to 400' } },
+        { id: 'any', max: 0, name: { ar: 'ما أحدد ميزانية', en: 'No budget limit' } }
       ]
     },
 
@@ -1189,8 +1200,8 @@
         id: 'fq-where-to-start', cat: 'general',
         q: { ar: 'ما أعرف أي تصميم يناسبني — من أين أبدأ؟', en: 'I have no idea what suits me — where do I start?' },
         a: {
-          ar: 'ابدئي باختبار الستايل في الصفحة الرئيسية: ثمانية أسئلة كلها صور، ولا سؤال يحتاج كتابة، وفي آخره يطلع لك طقم مبني على إجاباتك — تطلبينه على طول. وإذا حبيتي تختصرين أكثر، افتحي «تصاميم جاهزة» واختاري واحدًا يعجبك واطلبيه.',
-          en: 'Start with the style quiz on the home page: eight questions, all pictures, nothing to type — and at the end it builds a set from your answers that you can order as it is. If you want an even shorter route, open Ready Designs and pick one you like.'
+          ar: 'ابدئي باختبار الستايل في الصفحة الرئيسية: تسعة أسئلة كلها صور، ولا سؤال يحتاج كتابة، وفي آخره يطلع لك طقم مبني على إجاباتك — تطلبينه على طول. وإذا حبيتي تختصرين أكثر، افتحي «تصاميم جاهزة» واختاري واحدًا يعجبك واطلبيه.',
+          en: 'Start with the style quiz on the home page: nine questions, all pictures, nothing to type — and at the end it builds a set from your answers that you can order as it is. If you want an even shorter route, open Ready Designs and pick one you like.'
         }
       },
       {

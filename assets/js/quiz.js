@@ -211,6 +211,17 @@
         plain: 'سادة',
 
         /* skin */
+        qBudget: 'وش ميزانيتك للطقم؟',
+        hBudget: 'ما نعرض لك شي فوق اللي حددتيه. تقدرين ما تحددين.',
+        vNear1: 'الأقرب لك',
+        vNear2: 'قريب منك',
+        vNear3: 'خيار ثالث',
+        whyLead: 'اخترناه لك لأنه',
+        whyPalette: 'بعائلة الألوان اللي اخترتيها',
+        whySeason: 'يليق بجو {s}',
+        whyOccasion: 'يصلح لـ{o}',
+        whyVibe: 'وطابعه {v}',
+        whySkin: 'ويليق على درجة بشرتك',
         qSkin: 'وش لون بشرتك؟',
         hSkin: 'عشان نختار لك درجة تليق عليك، ونعرف مقاسك وقت التجهيز.',
 
@@ -411,6 +422,17 @@
         charmsN: '{n} charms',
         plain: 'Plain',
 
+        qBudget: 'What is your budget for a set?',
+        hBudget: 'We will not show you anything above it. You can leave it open.',
+        vNear1: 'Closest to you',
+        vNear2: 'Also close',
+        vNear3: 'Third option',
+        whyLead: 'We picked it because it is',
+        whyPalette: 'in the colour family you chose',
+        whySeason: 'right for {s}',
+        whyOccasion: 'made for {o}',
+        whyVibe: 'and its feel is {v}',
+        whySkin: 'and it suits your skin tone',
         qSkin: 'What is your skin tone?',
         hSkin: 'So we pick a shade that suits you, and know it when we make your set.',
 
@@ -882,6 +904,7 @@
       }
     }
     a.skin = (answers && answers.skin) ? answers.skin : '';
+    a.budget = (answers && answers.budget) ? answers.budget : '';
     a.tag = (answers && answers.tag) ? answers.tag : '';
     return a;
   }
@@ -1143,6 +1166,34 @@
      tells the rest of the screen to show her photograph, order it as a ready
      set, and skip the nail-by-nail recipe, which only describes a design the
      quiz invented. */
+  /* The sentence under a real set, assembled only from the axes that truly
+     matched. Nothing is claimed that the score did not earn. */
+  function whyReal(hit, it, a) {
+    var w = hit.why || [], parts = [], axis = function (key, id) {
+      var arr = list('matchAxes.' + key), j;
+      if (!Array.isArray(arr)) return '';
+      for (j = 0; j < arr.length; j++) if (arr[j] && arr[j].id === id) return pick(arr[j].name);
+      return '';
+    };
+    var m = it.match || {}, occ = '';
+
+    if (w.indexOf('palette') !== -1) parts.push(t('quiz.whyPalette'));
+    if (w.indexOf('season') !== -1 && axis('season', a.season)) {
+      parts.push(t('quiz.whySeason', { s: axis('season', a.season) }));
+    }
+    if (w.indexOf('occasion') !== -1) {
+      occ = axis('occasion', a.occasion);
+      if (occ) parts.push(t('quiz.whyOccasion', { o: occ }));
+    }
+    if (w.indexOf('vibe') !== -1 && Array.isArray(m.vibe) && m.vibe.length && axis('vibe', m.vibe[0])) {
+      parts.push(t('quiz.whyVibe', { v: axis('vibe', m.vibe[0]) }));
+    }
+    if (w.indexOf('skin') !== -1) parts.push(t('quiz.whySkin'));
+
+    if (!parts.length) return '';
+    return t('quiz.whyLead') + ' ' + parts.join('، ') + '.';
+  }
+
   function realVariant(hit, a) {
     var it = hit.it;
     var cfg = (it.config && typeof it.config === 'object') ? it.config : null;
@@ -1170,9 +1221,10 @@
       real: it,
       image: String(it.image || ''),
       design: cfg,
+      label: t('quiz.vNear' + Math.min(3, (hit.rank || 0) + 1)),
       name: pick(it.name) || '',
       sub: subFor(a, cfg || build(a)),
-      why: pick(it.desc) || '',
+      why: whyReal(hit, it, a) || pick(it.desc) || '',
       chips: chips,
       note: '',
       price: readyPrice(it)
@@ -1189,7 +1241,10 @@
     var hits = matchDesigns(a);
     var out = [], calmer, bolder, seen, i;
 
-    for (i = 0; i < hits.length && out.length < 3; i++) out.push(realVariant(hits[i], a));
+    for (i = 0; i < hits.length && out.length < 3; i++) {
+      hits[i].rank = i;
+      out.push(realVariant(hits[i], a));
+    }
     if (out.length >= 3) return out;
 
     if (!main) return out;
@@ -1215,7 +1270,8 @@
     { key: 'season', q: 'quiz.q4', hint: 'quiz.h4', art: 'thumb', cols: 2 },
     { key: 'attention', q: 'quiz.q5', hint: 'quiz.h5', art: 'thumb', cols: 2 },
     { key: 'metal', q: 'quiz.q6', hint: 'quiz.h6', art: 'nail', cols: 3 },
-    { key: 'length', q: 'quiz.q7', hint: 'quiz.h7', art: 'len', cols: 2 }
+    { key: 'length', q: 'quiz.q7', hint: 'quiz.h7', art: 'len', cols: 2 },
+    { key: 'budget', q: 'quiz.qBudget', hint: 'quiz.hBudget', art: 'budget', cols: 2 }
   ];
 
   var TOTAL = STEPS.length;
@@ -1235,6 +1291,13 @@
   function optionsFor(key) {
     var out = [], arr, i;
 
+    if (key === 'budget') {
+      arr = list('matchAxes.budget');
+      for (i = 0; i < arr.length; i++) {
+        if (arr[i] && arr[i].id) out.push({ id: arr[i].id, label: pick(arr[i].name), row: arr[i] });
+      }
+      return out;
+    }
     if (key === 'skin') {
       arr = list('skinTones');
       for (i = 0; i < arr.length; i++) {
@@ -1263,6 +1326,10 @@
   function tileArt(step, opt, answers) {
     var box = el('span', { 'class': 'quiz-art', 'aria-hidden': 'true' });
     var probe = {}, k, d, node = null, sh, pal, i;
+
+    /* the budget tiles carry their amount in the label; drawing it again
+       above the label only says the same number twice */
+    if (step.art === 'budget') return null;
 
     if (step.art === 'skin') {
       box.appendChild(el('span', {
@@ -1371,7 +1438,11 @@
     var h = c.h, s = c.s, l = c.l;
     if (l <= 0.22) return 'dark';
     if (s <= 0.09) return l <= 0.45 ? 'dark' : 'nude';
-    if (h >= 15 && h <= 50 && s <= 0.55 && l >= 0.45) return 'nude';
+    /* Warm and unsaturated is a nude at ANY depth. The lightness floor that
+       used to be here said "nude means pale", so a caramel or mocha nude —
+       the nude that suits deeper skin — was classed as a bright colour and
+       recommended to nobody at all. */
+    if (h >= 15 && h <= 50 && s <= 0.60) return 'nude';
     if (l >= 0.82 && s <= 0.45) return 'pastel';
     if (l >= 0.75 && s <= 0.55 && (h >= 330 || h <= 60)) return 'nude';
     if ((h >= 345 || h <= 20) && s >= 0.45 && l <= 0.62) return 'red';
@@ -1426,6 +1497,60 @@
     return lum >= 0.62 ? 'summer' : 'winter';
   }
 
+  /* ---- does this set flatter HER skin? ----------------------------------
+     Not a list of colours banned from a skin tone — that is both wrong and
+     insulting. What actually decides it is contrast against her own depth:
+
+       * A NUDE has one job, to read as her own nail bed a shade better. A
+         nude mixed for porcelain goes chalky and grey on deep skin, and a
+         caramel nude disappears on porcelain. So a nude must sit near her
+         own lightness, and far from it it is simply the wrong nude.
+       * EVERYTHING ELSE needs enough separation from her skin to be seen at
+         all. A colour sitting at her exact lightness washes out against the
+         finger. This is why brights and deep shades read so well on deeper
+         skin, and why the palest pastels can vanish on the fairest.
+
+     The owner can override the whole thing per design; she knows her
+     customers better than a formula does. */
+  function skinLum(id) {
+    var tones = list('skinTones'), i, c;
+    for (i = 0; i < tones.length; i++) {
+      if (tones[i] && tones[i].id === id) {
+        c = hsl(tones[i].hex);
+        return c ? c.l : null;
+      }
+    }
+    return null;
+  }
+
+  var NUDE_NEAR = 0.16, NUDE_FAR = 0.34, SEEN_GOOD = 0.18, SEEN_MIN = 0.10;
+
+  /* 1 = flatters her, 0.5 = passable, null = the wrong set for her skin */
+  function skinFit(it, a) {
+    var m = (it && it.match) || {};
+    var sl, cols, top, d;
+
+    if (Array.isArray(m.skin) && m.skin.length) {
+      return m.skin.indexOf(a.skin) !== -1 ? 1 : null;
+    }
+    if (!a.skin) return 1;
+    sl = skinLum(a.skin);
+    cols = designColors(it);
+    if (sl === null || !cols.length) return 1;
+
+    top = cols[0].c;
+    d = Math.abs(top.l - sl);
+
+    if (paletteOf(it) === 'nude') {
+      if (d <= NUDE_NEAR) return 1;
+      if (d <= NUDE_FAR) return 0.5;
+      return null;
+    }
+    if (d >= SEEN_GOOD) return 1;
+    if (d >= SEEN_MIN) return 0.5;
+    return null;
+  }
+
   function hasIn(arr, id) {
     return Array.isArray(arr) && arr.length ? arr.indexOf(id) !== -1 : null;
   }
@@ -1433,14 +1558,34 @@
   /* How well one design answers her. Every axis is optional on the design:
      left blank it neither helps nor hurts, so a half-filled design still
      competes on what the owner did fill in. */
-  var W_PALETTE = 34, W_OCCASION = 22, W_VIBE = 16, W_SEASON = 12,
+  var W_PALETTE = 34, W_OCCASION = 22, W_VIBE = 16, W_SKIN = 14, W_SEASON = 12,
       W_ATTENTION = 10, W_METAL = 8, W_LENGTH = 8;
+
+  function budgetMax(id) {
+    var arr = list('matchAxes.budget'), i;
+    for (i = 0; i < arr.length; i++) if (arr[i] && arr[i].id === id) return num(arr[i].max, 0);
+    return 0;
+  }
 
   function scoreDesign(it, a) {
     var m = (it && it.match) || {};
-    var score = 0, max = 0, hit;
+    var score = 0, max = 0, hit, cap, why = [];
 
     if (it && it.active === false) return null;
+
+    /* Over her ceiling is not a near miss, it is the wrong shelf. */
+    if (a.budget && a.budget !== 'any') {
+      cap = budgetMax(a.budget);
+      if (cap > 0 && num(readyPrice(it), 0) > cap) return null;
+    }
+
+    /* Wrong for her skin is a rejection too: a nude mixed for another depth
+       does not become right because the occasion matches. */
+    hit = skinFit(it, a);
+    if (hit === null) return null;
+    max += W_SKIN;
+    score += W_SKIN * hit;
+    if (hit === 1) why.push('skin');
 
     /* The colour family is a gate. Tested: without it a red set scored 0.50
        against a "nude" answer on occasion and season alone and was
@@ -1448,28 +1593,28 @@
     hit = paletteOf(it);
     if (hit) {
       max += W_PALETTE;
-      if (hit === a.palette) score += W_PALETTE;
+      if (hit === a.palette) { score += W_PALETTE; why.push('palette'); }
       else if ((PAL_NEAR[a.palette] || []).indexOf(hit) !== -1) score += W_PALETTE * 0.45;
       else return null;
     }
 
     hit = hasIn(m.occasion, a.occasion);
-    if (hit !== null) { max += W_OCCASION; if (hit) score += W_OCCASION; }
+    if (hit !== null) { max += W_OCCASION; if (hit) { score += W_OCCASION; why.push('occasion'); } }
 
     hit = hasIn(m.vibe, a.vibe);
-    if (hit !== null) { max += W_VIBE; if (hit) score += W_VIBE; }
+    if (hit !== null) { max += W_VIBE; if (hit) { score += W_VIBE; why.push('vibe'); } }
 
     hit = seasonOf(it);
-    if (hit) { max += W_SEASON; if (hit === a.season) score += W_SEASON; }
+    if (hit) { max += W_SEASON; if (hit === a.season) { score += W_SEASON; why.push('season'); } }
 
-    if (m.attention) { max += W_ATTENTION; if (m.attention === a.attention) score += W_ATTENTION; }
-    if (m.metal) { max += W_METAL; if (m.metal === a.metal) score += W_METAL; }
-    if (m.length) { max += W_LENGTH; if (m.length === a.length) score += W_LENGTH; }
+    if (m.attention) { max += W_ATTENTION; if (m.attention === a.attention) { score += W_ATTENTION; why.push('attention'); } }
+    if (m.metal) { max += W_METAL; if (m.metal === a.metal) { score += W_METAL; why.push('metal'); } }
+    if (m.length) { max += W_LENGTH; if (m.length === a.length) { score += W_LENGTH; why.push('length'); } }
 
-    /* nothing was tagged at all — the owner has not told us anything about
+    /* only the skin axis scored — the owner has told us nothing else about
        this design, so it cannot be recommended on merit */
-    if (max === 0) return null;
-    return { fit: score / max, max: max, score: score };
+    if (max <= W_SKIN) return null;
+    return { fit: score / max, max: max, score: score, why: why };
   }
 
   /* the designs worth showing her, best first. `floor` keeps a set that
@@ -1482,7 +1627,7 @@
     for (i = 0; i < arr.length; i++) {
       r = scoreDesign(arr[i], a);
       if (!r || r.fit < FIT_FLOOR) continue;
-      out.push({ it: arr[i], fit: r.fit, max: r.max });
+      out.push({ it: arr[i], fit: r.fit, max: r.max, why: r.why });
     }
     /* better fit first; on a tie the design the owner described more fully */
     out.sort(function (x, y) { return (y.fit - x.fit) || (y.max - x.max); });
@@ -1601,7 +1746,9 @@
     var step = STEPS[st.step];
     var opts = optionsFor(step.key);
     var grid = el('div', {
-      'class': 'quiz-opts quiz-cols-' + step.cols + (reducedMotion() ? '' : ' sn-stagger sn-stagger-sm'),
+      'class': 'quiz-opts quiz-cols-' + step.cols +
+        (step.art === 'budget' ? ' quiz-opts-txt' : '') +
+        (reducedMotion() ? '' : ' sn-stagger sn-stagger-sm'),
       role: 'group',
       'aria-label': t(step.q)
     });
@@ -1797,7 +1944,7 @@
             }
           }
         }, [
-          el('span', { 'class': 'quiz-var-t', text: t('quiz.variants.' + v.id) }),
+          el('span', { 'class': 'quiz-var-t', text: v.label || t('quiz.variants.' + v.id) }),
           el('span', { 'class': 'quiz-var-n', text: v.note })
         ]);
       })(st.vars[i], i));

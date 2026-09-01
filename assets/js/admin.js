@@ -336,6 +336,8 @@
           mShapeX: 'شكل الظفر. اتركيه «أي واحد» لو تنفّذينه بأي شكل.',
           mPal: 'عائلة الألوان',
           mPalX: 'اتركيه «احسبه من الألوان» والموقع يحدده من الألوان اللي فوق. غيّريه فقط لو طلع غلط.',
+          mSkin: 'يليق على أي درجات بشرة؟',
+          mSkinX: 'اتركيه فاضي والموقع يحسبها بنفسه: النيود لازم يقارب درجة بشرتها، وباقي الألوان لازم تبيّن عليها. علّمي درجات فقط لو تبين تفرضين اختيارك.',
           mSeason: 'الموسم',
           mSeasonX: 'اتركيه «احسبه من الألوان» والموقع يحدده بنفسه. غيّريه فقط لو طلع غلط.',
           featured: 'مميّز',
@@ -837,6 +839,8 @@
           mShapeX: 'The nail shape. Leave on “any” if you make it in any shape.',
           mPal: 'Colour family',
           mPalX: 'Leave it on “work it out from the colours” and the site decides from the colours above. Change it only if it comes out wrong.',
+          mSkin: 'Which skin tones does it suit?',
+          mSkinX: 'Leave it empty and the site works it out: a nude has to sit near her own depth, and every other colour has to show up against it. Tick tones only to force your own answer.',
           mSeason: 'Season',
           mSeasonX: 'Leave it on “work it out from the colours” and the site decides. Change it only if it comes out wrong.',
           featured: 'Featured',
@@ -1101,9 +1105,9 @@
     };
   }
 
-  function listOpts(key) {
+  function listOpts(key, bare) {
     return function () {
-      var arr = sList(key), out = [{ v: '', l: t('admin.d.mAny') }], i;
+      var arr = sList(key), out = bare ? [] : [{ v: '', l: t('admin.d.mAny') }], i;
       for (i = 0; i < arr.length; i++) {
         if (arr[i] && arr[i].id) out.push({ v: arr[i].id, l: pick(arr[i].name) || arr[i].id });
       }
@@ -3311,6 +3315,7 @@
         F('match.metal', 'select', 'admin.d.mMetal', { hint: 'admin.d.mMetalX', opts: axisOpts('metal', 'any') }),
         F('match.length', 'select', 'admin.d.mLen', { hint: 'admin.d.mLenX', opts: listOpts('lengths') }),
         F('match.shape', 'select', 'admin.d.mShape', { hint: 'admin.d.mShapeX', opts: listOpts('shapes') }),
+        F('match.skin', 'multi', 'admin.d.mSkin', { wide: true, hint: 'admin.d.mSkinX', opts: listOpts('skinTones', true) }),
         F('match.palette', 'select', 'admin.d.mPal', { hint: 'admin.d.mPalX', opts: axisOpts('palette', 'auto') }),
         F('match.season', 'select', 'admin.d.mSeason', { hint: 'admin.d.mSeasonX', opts: axisOpts('season', 'auto') })
       ],
