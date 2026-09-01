@@ -486,6 +486,10 @@
 .adm-tags{ display:flex; flex-wrap:wrap; align-items:center; gap:6px; min-block-size:34px; }
 
 /* the quiz-matching checkboxes: wrap freely, stay tappable on a phone */
+.adm-quizbar{ margin-block:0 12px; display:flex; align-items:center; gap:9px; }
+.adm-quizbar .ico{ flex:0 0 auto; }
+.adm-banner-slot:empty{ display:none; }
+
 .adm-multi{ display:flex; flex-wrap:wrap; gap:6px 10px; padding-block:2px; }
 .adm-multi-i{
   display:inline-flex;

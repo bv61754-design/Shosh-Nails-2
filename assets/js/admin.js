@@ -336,6 +336,11 @@
           mShapeX: 'شكل الظفر. اتركيه «أي واحد» لو تنفّذينه بأي شكل.',
           mPal: 'عائلة الألوان',
           mPalX: 'اتركيه «احسبه من الألوان» والموقع يحدده من الألوان اللي فوق. غيّريه فقط لو طلع غلط.',
+          qHidden: '⚠ ما يظهر في الاختبار',
+          qThin: 'ناقص تفاصيل',
+          qHiddenN: '{n} تصميم ما راح يظهر في اختبار الستايل — ما عليه أي وسم.',
+          qThinN: '{n} تصميم ناقص لونه أو مناسبته، فحظه بالترشيح ضعيف.',
+          qAllIn: 'كل التصاميم موسومة وتدخل اختبار الستايل.',
           mSkin: 'يليق على أي درجات بشرة؟',
           mSkinX: 'اتركيه فاضي والموقع يحسبها بنفسه: النيود لازم يقارب درجة بشرتها، وباقي الألوان لازم تبيّن عليها. علّمي درجات فقط لو تبين تفرضين اختيارك.',
           mSeason: 'الموسم',
@@ -839,6 +844,11 @@
           mShapeX: 'The nail shape. Leave on “any” if you make it in any shape.',
           mPal: 'Colour family',
           mPalX: 'Leave it on “work it out from the colours” and the site decides from the colours above. Change it only if it comes out wrong.',
+          qHidden: '⚠ not in the quiz',
+          qThin: 'missing details',
+          qHiddenN: '{n} design(s) will never appear in the style quiz — nothing is tagged.',
+          qThinN: '{n} design(s) have no colour or no occasion, so they rarely win a match.',
+          qAllIn: 'Every design is tagged and reaches the style quiz.',
           mSkin: 'Which skin tones does it suit?',
           mSkinX: 'Leave it empty and the site works it out: a nude has to sit near her own depth, and every other colour has to show up against it. Tick tones only to force your own answer.',
           mSeason: 'Season',
@@ -2603,21 +2613,30 @@
     var o = opts || {};
     var host = el('section', { 'class': 'adm-crud' });
     var rowsBox = el('div', { 'class': 'adm-rows' });
+    var bannerBox = el('div', { 'class': 'adm-banner-slot' });
     var countPill = el('span', { 'class': 'pill adm-count' });
     var searchInput = null;
 
     function items() { return sList(def.key); }
 
+    function drawBanner() {
+      if (typeof o.banner !== 'function') return;
+      empty(bannerBox);
+      var n = o.banner(items());
+      if (n) bannerBox.appendChild(n);
+    }
+
     function repaint() {
       var list = items(), q = trim(S.q[def.key] || '').toLowerCase(), i, it, shown = 0;
       empty(rowsBox);
+      drawBanner();
       countPill.textContent = t('admin.itemsN', { n: list.length });
       for (i = 0; i < list.length; i++) {
         it = list[i];
         if (!isObj(it)) continue;
         if (q && !matches(def, it, q)) continue;
         shown++;
-        rowsBox.appendChild(row(def, it, i, list.length, repaint));
+        rowsBox.appendChild(row(def, it, i, list.length, repaint, drawBanner));
       }
       if (!list.length) rowsBox.appendChild(emptyBox(t('admin.noItems'), t('admin.noItemsHint')));
       else if (!shown) rowsBox.appendChild(emptyBox(t('admin.noMatch'), t('common.emptyHint')));
@@ -2669,6 +2688,7 @@
     ]));
 
     if (o.help) host.appendChild(el('p', { 'class': 'hint adm-crud-help', text: o.help }));
+    host.appendChild(bannerBox);
     host.appendChild(rowsBox);
     repaint();
     /* a tab that has to wait for something async (the art library) repaints
@@ -2690,7 +2710,7 @@
     return hay.join(' ').toLowerCase().indexOf(q) !== -1;
   }
 
-  function row(def, it, index, total, repaint) {
+  function row(def, it, index, total, repaint, onEdit) {
     var okey = def.key + '/' + it.id;
     var open = !!S.open[okey];
     var bodyBox = el('div', { 'class': 'adm-row-b' + (open ? '' : ' adm-hide') });
@@ -2716,7 +2736,7 @@
         patch[top] = it[top];
         SN.Store.update(def.key, it.id, patch);
       },
-      after: function () { refreshRow(); }
+      after: function () { refreshRow(); if (typeof onEdit === 'function') onEdit(); }
     };
 
     function refreshRow() {
@@ -3289,6 +3309,53 @@
     return box;
   }
 
+  /* ---- is this design reachable by the style quiz? ----------------------
+     Tagging is optional and its absence is silent: an untagged set sits in
+     the shop looking perfectly fine and is never once recommended, and
+     nothing anywhere says so. This is the check that says so.
+
+     It mirrors the quiz's own rule. The quiz scores the skin axis for every
+     design, so a design with ONLY that scored has been told nothing about
+     itself and is dropped; and colour is the axis it weighs heaviest, so a
+     set with no colour competes with one hand tied.
+
+       hidden — nothing tagged at all: it can never be recommended
+       thin   — it can be, but without a colour or without an occasion   */
+  function quizGap(it) {
+    var m = (it && it.match) || {};
+    var hasCol = !!(it.c1 || it.c2 || it.c3 || it.c4) || !!m.palette;
+    var hasOcc = Array.isArray(m.occasion) && m.occasion.length > 0;
+    var hasAny = hasCol || hasOcc ||
+      (Array.isArray(m.vibe) && m.vibe.length > 0) ||
+      !!m.attention || !!m.metal || !!m.length || !!m.season;
+    if (!hasAny) return 'hidden';
+    if (!hasCol || !hasOcc) return 'thin';
+    return '';
+  }
+
+  function quizBanner(list) {
+    var hidden = 0, thin = 0, i, g;
+    for (i = 0; i < list.length; i++) {
+      if (!isObj(list[i])) continue;
+      g = quizGap(list[i]);
+      if (g === 'hidden') hidden++;
+      else if (g === 'thin') thin++;
+    }
+    if (!hidden && !thin) {
+      if (!list.length) return null;
+      return el('div', { 'class': 'note note-ok adm-quizbar' }, [
+        el('span', { html: icon('sparkle', 16), 'aria-hidden': 'true' }),
+        el('span', { text: t('admin.d.qAllIn') })
+      ]);
+    }
+    return el('div', { 'class': 'note note-warn adm-quizbar' }, [
+      el('span', { html: icon('sparkle', 16), 'aria-hidden': 'true' }),
+      el('span', { text: (hidden ? t('admin.d.qHiddenN', { n: hidden }) : '') +
+        (hidden && thin ? ' · ' : '') +
+        (thin ? t('admin.d.qThinN', { n: thin }) : '') })
+    ]);
+  }
+
   function renderDesigns() {
     var box = el('div', { 'class': 'adm-tabbody' });
     var def = {
@@ -3337,13 +3404,19 @@
       },
       preview: designThumb,
       sub: function (it) {
-        var bits = [money(numOf(it.price, 0)), t('admin.d.orders') + ': ' + numOf(it.orders, 0)];
+        var bits = [money(numOf(it.price, 0)), t('admin.d.orders') + ': ' + numOf(it.orders, 0)], gap;
         if (it.featured) bits.push(t('admin.d.featured'));
         if (it.active === false) bits.push(t('common.no'));
+        gap = quizGap(it);
+        if (gap === 'hidden') bits.push(t('admin.d.qHidden'));
+        else if (gap === 'thin') bits.push(t('admin.d.qThin'));
         return bits.join(' · ');
       },
     };
-    box.appendChild(card([crud(def, { title: t('admin.tab.designs'), help: t('admin.d.intro'), onChange: sideCounts })]));
+    box.appendChild(card([crud(def, {
+      title: t('admin.tab.designs'), help: t('admin.d.intro'),
+      banner: quizBanner, onChange: sideCounts
+    })]));
     return box;
   }
 
