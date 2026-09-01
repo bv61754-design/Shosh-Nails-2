@@ -1434,16 +1434,81 @@
     } catch (e) { return v.design; }
   }
 
+  /* The set itself, the way press-ons actually arrive: the five plates laid
+     out on their card, shortest to longest. `natural: true` gives each finger
+     its true shape and length, so a thumb reads as a thumb — the variety the
+     hand used to carry is all still here. A placeholder until the owner has
+     photographs of the real sets to put in its place. */
+  /* Relative nail-bed widths across a hand. A real set is graded — the thumb
+     plate is over half again the pinky's — and `single()` draws every finger
+     at one size, so without this the five plates come out identical and the
+     row reads as a swatch rather than as a set. Width scales the whole plate,
+     so the longer fingers come out longer too. */
+  var SET_W = { thumb: 1.00, index: 0.80, middle: 0.87, ring: 0.79, pinky: 0.62 };
+
+  /* The set itself, the way press-ons actually arrive: the five plates laid
+     out on their card, pinky to thumb, sitting on one baseline so the lengths
+     show along the top. A placeholder until the owner has photographs of the
+     real sets to put in its place.
+
+     This has to be ONE <svg> with a viewBox, not a row of elements: the share
+     card nests whatever comes back inside itself and reads that viewBox to
+     size it, so a <div> here would silently break "save the picture". Each
+     plate is a nested <svg>, positioned by x/y/width/height. */
   function previewNode(v) {
-    var svg = null;
-    if (SN.Nail && typeof SN.Nail.preview === 'function') {
+    var NS = 'http://www.w3.org/2000/svg';
+    var d = shown(v);
+    var fingers = (SN.Nail && SN.Nail.FINGERS) ? SN.Nail.FINGERS : [];
+    var UNIT = 100, GAP = 14;
+    var plates = [], i, f, key, nail, art, vb, iw, ih, w, h, maxH = 0, x = 0, svg, p;
+
+    if (!SN.Nail || typeof SN.Nail.single !== 'function' || !fingers.length) return null;
+
+    /* pinky first so the row runs small-to-large towards the thumb, which is
+       the order the eye gets in RTL and the order a set is carded in */
+    for (i = fingers.length - 1; i >= 0; i--) {
+      f = fingers[i];
+      key = 'right' + f.key.charAt(0).toUpperCase() + f.key.slice(1);
+      nail = d && d.nails ? d.nails[key] : null;
+      if (!nail) continue;
+      art = null;
       try {
-        svg = SN.Nail.preview(shown(v), {
-          w: 0, interactive: false,
-          ariaLabel: t('quiz.previewAlt', { name: v.name })
+        art = SN.Nail.single(nail, d, {
+          w: 0, natural: true, bg: false, key: 'qs-' + v.id + '-' + key
         });
-      } catch (e) { svg = null; }
+      } catch (e) { art = null; }
+      if (!art) continue;
+      vb = String(art.getAttribute('viewBox') || '').split(/[\s,]+/);
+      iw = parseFloat(vb[2]);
+      ih = parseFloat(vb[3]);
+      if (!(iw > 0) || !(ih > 0)) continue;
+      w = UNIT * (SET_W[f.key] || 0.8);
+      h = ih * (w / iw);
+      if (h > maxH) maxH = h;
+      plates.push({ node: art, w: w, h: h });
     }
+
+    if (!plates.length) return null;
+
+    svg = document.createElementNS(NS, 'svg');
+    svg.setAttribute('xmlns', NS);
+    svg.setAttribute('class', 'quiz-set');
+    svg.setAttribute('role', 'img');
+    svg.setAttribute('aria-label', t('quiz.previewAlt', { name: v.name }));
+
+    for (i = 0; i < plates.length; i++) {
+      p = plates[i];
+      p.node.removeAttribute('style');
+      p.node.removeAttribute('class');
+      p.node.setAttribute('x', String(x.toFixed(2)));
+      p.node.setAttribute('y', (maxH - p.h).toFixed(2));   /* one baseline */
+      p.node.setAttribute('width', String(p.w.toFixed(2)));
+      p.node.setAttribute('height', String(p.h.toFixed(2)));
+      svg.appendChild(p.node);
+      x += p.w + GAP;
+    }
+
+    svg.setAttribute('viewBox', '0 0 ' + (x - GAP).toFixed(2) + ' ' + maxH.toFixed(2));
     return svg;
   }
 
