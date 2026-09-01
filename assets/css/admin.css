@@ -484,6 +484,27 @@
 
 /* tags */
 .adm-tags{ display:flex; flex-wrap:wrap; align-items:center; gap:6px; min-block-size:34px; }
+
+/* the quiz-matching checkboxes: wrap freely, stay tappable on a phone */
+.adm-multi{ display:flex; flex-wrap:wrap; gap:6px 10px; padding-block:2px; }
+.adm-multi-i{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  padding:7px 11px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  font-size:.88rem;
+  line-height:1.3;
+  cursor:pointer;
+  user-select:none;
+}
+.adm-multi-i:has(.adm-multi-cb:checked){
+  border-color:var(--rose-2);
+  background:color-mix(in srgb, var(--rose-2) 10%, transparent);
+  font-weight:700;
+}
+.adm-multi-cb{ inline-size:16px; block-size:16px; accent-color:var(--rose-2); }
 .adm-chip{ padding-inline-end:6px; }
 .adm-chip-x{
   display:inline-grid;

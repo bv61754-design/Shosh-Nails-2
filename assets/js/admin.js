@@ -309,6 +309,35 @@
           price: 'السعر',
           orders: 'عدد الطلبات',
           ordersX: 'يُستخدم لترتيب «الأكثر طلباً» في المتجر والصفحة الرئيسية.',
+
+          /* ---- ما يعتمد عليه اختبار الستايل في ترشيح هذا الطقم ---- */
+          mAuto: '— احسبه من الألوان —',
+          mAny: '— أي واحد —',
+          cNone: 'بدون لون',
+          c1: 'اللون الأساسي',
+          c1X: 'اللون الأكبر في الطقم، اللي يغطي أكثر الأظافر. هذا أهم لون في الترشيح.',
+          c2: 'اللون الثاني',
+          c2X: 'اللون اللي بعده مساحة. مثلاً لون الظفر المميّز أو الفرنش.',
+          c3: 'اللون الثالث',
+          c3X: 'لمسة صغيرة إن وجدت — خط، نقطة، تدرّج خفيف. اتركيه فاضي لو ما فيه.',
+          c4: 'لون احتياطي',
+          c4X: 'لو الطقم فيه لون رابع. نادراً تحتاجينه.',
+          mOcc: 'يصلح لأي مناسبة؟',
+          mOccX: 'اختاري كل المناسبات اللي يصلح لها — مو وحدة فقط. كل ما اخترتِ أكثر، ظهر لعميلات أكثر.',
+          mVibe: 'طابع الطقم',
+          mVibeX: 'كيف يوصف هذا الطقم لو وصفتيه بكلمتين؟ يجوز أكثر من واحد.',
+          mAtt: 'مقدار اللفت',
+          mAttX: 'قد إيش يلفت الانتباه؟ طقم سادة «بهدوء»، وطقم مليان زخارف «ما أحد يعديها».',
+          mMetal: 'المعدن',
+          mMetalX: 'لون المعدن في الزخارف. «بدون معدن» لو ما فيه.',
+          mLen: 'الطول',
+          mLenX: 'طول هذا الطقم. اتركيه «أي واحد» لو تنفّذينه بأي طول.',
+          mShape: 'الشكل',
+          mShapeX: 'شكل الظفر. اتركيه «أي واحد» لو تنفّذينه بأي شكل.',
+          mPal: 'عائلة الألوان',
+          mPalX: 'اتركيه «احسبه من الألوان» والموقع يحدده من الألوان اللي فوق. غيّريه فقط لو طلع غلط.',
+          mSeason: 'الموسم',
+          mSeasonX: 'اتركيه «احسبه من الألوان» والموقع يحدده بنفسه. غيّريه فقط لو طلع غلط.',
           featured: 'مميّز',
           active: 'ظاهر في المتجر',
           tags: 'الوسوم',
@@ -782,6 +811,34 @@
           price: 'Price',
           orders: 'Orders count',
           ordersX: 'Drives the “most ordered” ranking in the shop and on the home page.',
+
+          mAuto: '— work it out from the colours —',
+          mAny: '— any —',
+          cNone: 'no colour',
+          c1: 'Main colour',
+          c1X: 'The largest colour in the set, on most of the nails. This one counts most in matching.',
+          c2: 'Second colour',
+          c2X: 'The next largest — an accent nail or a french tip, for example.',
+          c3: 'Third colour',
+          c3X: 'A small touch if there is one: a line, a dot, a soft fade. Leave empty if not.',
+          c4: 'Spare colour',
+          c4X: 'Only if the set has a fourth colour. Rarely needed.',
+          mOcc: 'What occasions does it suit?',
+          mOccX: 'Tick every occasion it works for, not just one. The more you tick, the more customers see it.',
+          mVibe: 'The feel of it',
+          mVibeX: 'How would you describe this set in two words? More than one is fine.',
+          mAtt: 'How much it turns heads',
+          mAttX: 'A plain set is “quietly”; a set covered in charms is “impossible to miss”.',
+          mMetal: 'Metal',
+          mMetalX: 'The metal colour in the charms. Pick “no metal” if there is none.',
+          mLen: 'Length',
+          mLenX: 'The length of this set. Leave on “any” if you make it in any length.',
+          mShape: 'Shape',
+          mShapeX: 'The nail shape. Leave on “any” if you make it in any shape.',
+          mPal: 'Colour family',
+          mPalX: 'Leave it on “work it out from the colours” and the site decides from the colours above. Change it only if it comes out wrong.',
+          mSeason: 'Season',
+          mSeasonX: 'Leave it on “work it out from the colours” and the site decides. Change it only if it comes out wrong.',
           featured: 'Featured',
           active: 'Visible in the shop',
           tags: 'Tags',
@@ -1026,6 +1083,32 @@
       cur = cur[p[i]];
     }
     cur[p[p.length - 1]] = value;
+  }
+
+  /* the quiz's own vocabulary, read from the store so the panel and the quiz
+     can never drift apart. `blank` prepends an empty choice, which for the
+     palette and the season means "work it out from the colours". */
+  function axisOpts(axis, blank) {
+    return function () {
+      var arr = (SN.Store && SN.Store.get) ? SN.Store.get('matchAxes.' + axis) : null;
+      var out = blank ? [{ v: '', l: t(blank === 'auto' ? 'admin.d.mAuto' : 'admin.d.mAny') }] : [];
+      var i;
+      if (!Array.isArray(arr)) return out;
+      for (i = 0; i < arr.length; i++) {
+        if (arr[i] && arr[i].id) out.push({ v: arr[i].id, l: pick(arr[i].name) || arr[i].id });
+      }
+      return out;
+    };
+  }
+
+  function listOpts(key) {
+    return function () {
+      var arr = sList(key), out = [{ v: '', l: t('admin.d.mAny') }], i;
+      for (i = 0; i < arr.length; i++) {
+        if (arr[i] && arr[i].id) out.push({ v: arr[i].id, l: pick(arr[i].name) || arr[i].id });
+      }
+      return out;
+    };
   }
 
   /* store shortcuts, all null-safe */
@@ -1317,16 +1400,31 @@
 
   function colorField(f, ctx) {
     var id = fid();
-    var cur = normHex(ctx.get(f.p)) || '#CCCCCC';
+    var raw = normHex(ctx.get(f.p));
+    var cur = raw || '#CCCCCC';
     var swatch = el('input', { 'class': 'input adm-cin', type: 'color', id: id, value: cur });
     var hex = el('input', {
       'class': 'input adm-hex', type: 'text', dir: 'ltr',
-      autocomplete: 'off', spellcheck: 'false', maxlength: 7, value: cur
+      autocomplete: 'off', spellcheck: 'false', maxlength: 7,
+      value: (f.empty && !raw) ? '' : cur,
+      placeholder: f.empty ? t('admin.d.cNone') : ''
     });
     var errBox = el('span', { 'class': 'field-err' });
 
     function apply(v, from) {
       var h = normHex(v);
+      /* an optional colour may be cleared, and blurring an empty box must not
+         quietly write the swatch's placeholder grey into the design */
+      if (!h && f.empty && !str(v).replace(/\s/g, '')) {
+        errBox.textContent = '';
+        if (from !== 'hex') hex.value = '';
+        if (!str(ctx.get(f.p))) return;
+        ctx.set(f.p, '');
+        flashSaved(hex);
+        savedToast();
+        if (typeof ctx.after === 'function') ctx.after(f.p, '');
+        return;
+      }
       if (!h) { errBox.textContent = t('admin.errHex'); return; }
       errBox.textContent = '';
       if (from !== 'swatch') swatch.value = h;
@@ -1364,6 +1462,42 @@
       if (typeof ctx.after === 'function') ctx.after(f.p, node.value);
     }, false);
     return fieldBox(f, node, id);
+  }
+
+  /* several answers at once. A set that works for a wedding usually works
+     for a night out too, and a single-choice field would make the quiz miss
+     that. Stores an array of ids. */
+  function multiField(f, ctx) {
+    var id = fid();
+    var opts = typeof f.opts === 'function' ? f.opts() : (f.opts || []);
+    var cur = ctx.get(f.p);
+    var picked = Array.isArray(cur) ? cur.slice() : [];
+    var box = el('div', { 'class': 'adm-multi', id: id, role: 'group' });
+    var i;
+
+    function commit() {
+      ctx.set(f.p, picked.slice());
+      flashSaved(box);
+      savedToast();
+      if (typeof ctx.after === 'function') ctx.after(f.p, picked.slice());
+    }
+
+    for (i = 0; i < opts.length; i++) {
+      box.appendChild((function (opt) {
+        var on = picked.indexOf(opt.v) !== -1;
+        var cb = el('input', { type: 'checkbox', 'class': 'adm-multi-cb' });
+        cb.checked = on;
+        cb.addEventListener('change', function () {
+          var at = picked.indexOf(opt.v);
+          if (cb.checked && at === -1) picked.push(opt.v);
+          else if (!cb.checked && at !== -1) picked.splice(at, 1);
+          commit();
+        }, false);
+        return el('label', { 'class': 'adm-multi-i' }, [cb, el('span', { text: str(opt.l) })]);
+      })(opts[i]));
+    }
+    if (!opts.length) box.appendChild(el('span', { 'class': 'hint', text: '—' }));
+    return fieldBox(f, box, id);
   }
 
   function boolField(f, ctx) {
@@ -1640,6 +1774,7 @@
       case 'num': return numField(f, ctx);
       case 'color': return colorField(f, ctx);
       case 'select': return selectField(f, ctx);
+      case 'multi': return multiField(f, ctx);
       case 'bool': return boolField(f, ctx);
       case 'tags': return tagsField(f, ctx);
       case 'tlist': return tlistField(f, ctx);
@@ -3163,7 +3298,21 @@
         F('active', 'bool', 'admin.d.active'),
         F('desc', 'tarea', 'admin.f.desc', { wide: true, rows: 4 }),
         F('tags', 'tags', 'admin.d.tags', { wide: true }),
-        F('image', 'image', 'admin.d.image', { wide: true, maxPx: MAX_DESIGN, hint: 'admin.img.designX' })
+        F('image', 'image', 'admin.d.image', { wide: true, maxPx: MAX_DESIGN, hint: 'admin.img.designX' }),
+
+        /* ---- what the style quiz matches on -------------------------- */
+        F('c1', 'color', 'admin.d.c1', { hint: 'admin.d.c1X', empty: true }),
+        F('c2', 'color', 'admin.d.c2', { hint: 'admin.d.c2X', empty: true }),
+        F('c3', 'color', 'admin.d.c3', { hint: 'admin.d.c3X', empty: true }),
+        F('c4', 'color', 'admin.d.c4', { hint: 'admin.d.c4X', empty: true }),
+        F('match.occasion', 'multi', 'admin.d.mOcc', { wide: true, hint: 'admin.d.mOccX', opts: axisOpts('occasion') }),
+        F('match.vibe', 'multi', 'admin.d.mVibe', { wide: true, hint: 'admin.d.mVibeX', opts: axisOpts('vibe') }),
+        F('match.attention', 'select', 'admin.d.mAtt', { hint: 'admin.d.mAttX', opts: axisOpts('attention', 'any') }),
+        F('match.metal', 'select', 'admin.d.mMetal', { hint: 'admin.d.mMetalX', opts: axisOpts('metal', 'any') }),
+        F('match.length', 'select', 'admin.d.mLen', { hint: 'admin.d.mLenX', opts: listOpts('lengths') }),
+        F('match.shape', 'select', 'admin.d.mShape', { hint: 'admin.d.mShapeX', opts: listOpts('shapes') }),
+        F('match.palette', 'select', 'admin.d.mPal', { hint: 'admin.d.mPalX', opts: axisOpts('palette', 'auto') }),
+        F('match.season', 'select', 'admin.d.mSeason', { hint: 'admin.d.mSeasonX', opts: axisOpts('season', 'auto') })
       ],
       blank: function () {
         var cfg = null;
@@ -3173,7 +3322,12 @@
         return {
           id: '', name: { ar: '', en: '' }, desc: { ar: '', en: '' },
           price: numOf(sGet('pricing.base', 120), 120), orders: 0,
-          featured: false, active: true, tags: [], image: '', config: cfg || {}
+          featured: false, active: true, tags: [], image: '', config: cfg || {},
+          c1: '', c2: '', c3: '', c4: '',
+          match: {
+            occasion: [], vibe: [], attention: '', metal: '',
+            length: '', shape: '', palette: '', season: ''
+          }
         };
       },
       preview: designThumb,

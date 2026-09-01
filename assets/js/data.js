@@ -297,6 +297,54 @@
     ],
 
     /* =====================================================================
+       MATCH AXES — the vocabulary the style quiz thinks in.
+
+       These ids are the SAME ids the quiz asks its questions with, and they
+       are what a ready design is tagged with in the admin panel. That is the
+       whole link: tag a design on these axes and the quiz can recommend it.
+       Change a LABEL freely; change an ID and the quiz stops matching on it.
+       ===================================================================== */
+    matchAxes: {
+      occasion: [
+        { id: 'wedding', name: { ar: 'عرس أو خطوبة', en: 'Wedding or engagement' } },
+        { id: 'daily', name: { ar: 'دوام ويوميات', en: 'Work and everyday' } },
+        { id: 'party', name: { ar: 'سهرة وطلعة', en: 'A night out' } },
+        { id: 'holiday', name: { ar: 'سفر وإجازة', en: 'Travel and holiday' } }
+      ],
+      vibe: [
+        { id: 'calm', name: { ar: 'هادئ ونظيف', en: 'Calm and clean' } },
+        { id: 'romantic', name: { ar: 'ناعم ورومانسي', en: 'Soft and romantic' } },
+        { id: 'bold', name: { ar: 'جريء وواضح', en: 'Bold and clear' } },
+        { id: 'glam', name: { ar: 'لامع وفخم', en: 'Glossy and glam' } }
+      ],
+      palette: [
+        { id: 'nude', name: { ar: 'نيود وبيج', en: 'Nude and beige' } },
+        { id: 'pink', name: { ar: 'وردي', en: 'Pink' } },
+        { id: 'red', name: { ar: 'أحمر ومرجاني', en: 'Red and coral' } },
+        { id: 'dark', name: { ar: 'غامق وعميق', en: 'Dark and deep' } },
+        { id: 'pastel', name: { ar: 'باستيل هادئ', en: 'Quiet pastel' } },
+        { id: 'bright', name: { ar: 'ألوان جريئة', en: 'Bright colours' } }
+      ],
+      season: [
+        { id: 'spring', name: { ar: 'ربيع', en: 'Spring' } },
+        { id: 'summer', name: { ar: 'صيف', en: 'Summer' } },
+        { id: 'autumn', name: { ar: 'خريف', en: 'Autumn' } },
+        { id: 'winter', name: { ar: 'شتاء', en: 'Winter' } }
+      ],
+      attention: [
+        { id: 'quiet', name: { ar: 'بهدوء', en: 'Quietly' } },
+        { id: 'soft', name: { ar: 'لفتة خفيفة', en: 'A light touch' } },
+        { id: 'clear', name: { ar: 'واضحة', en: 'Clearly' } },
+        { id: 'max', name: { ar: 'ما أحد يعديها', en: 'Impossible to miss' } }
+      ],
+      metal: [
+        { id: 'gold', name: { ar: 'ذهبي', en: 'Gold' } },
+        { id: 'silver', name: { ar: 'فضي', en: 'Silver' } },
+        { id: 'none', name: { ar: 'بدون معدن', en: 'No metal' } }
+      ]
+    },
+
+    /* =====================================================================
        SHAPES — ids must match SN.Nail.SHAPES exactly.
        ===================================================================== */
     shapes: [

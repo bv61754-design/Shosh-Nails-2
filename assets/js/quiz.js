@@ -1130,21 +1130,76 @@
     };
   }
 
-  /* main + the two alternates, with an alternate dropped when the answers
-     leave it identical to the main set (there is nothing to explore in a
-     second copy of the same thing) */
-  function variantsFor(ans) {
-    var main = makeVariant('match', normAnswers(ans));
-    var out = [], calmer, bolder, seen;
-    if (!main) return [];
-    seen = JSON.stringify(main.design);
+  function readyPrice(it) {
+    var p = null;
+    if (SN.Checkout && typeof SN.Checkout.priceReady === 'function') {
+      try { p = SN.Checkout.priceReady(it, 1); } catch (e) { p = null; }
+    }
+    if (p && isFinite(p.total)) return p.total;
+    return isFinite(num(it && it.price)) ? num(it.price) : null;
+  }
 
+  /* one of the owner's real sets, dressed as a quiz result. `real` is what
+     tells the rest of the screen to show her photograph, order it as a ready
+     set, and skip the nail-by-nail recipe, which only describes a design the
+     quiz invented. */
+  function realVariant(hit, a) {
+    var it = hit.it;
+    var cfg = (it.config && typeof it.config === 'object') ? it.config : null;
+    var chips = [], i, m = it.match || {};
+    var axis = function (key, id) {
+      var arr = list('matchAxes.' + key), j;
+      if (!Array.isArray(arr)) return '';
+      for (j = 0; j < arr.length; j++) if (arr[j] && arr[j].id === id) return pick(arr[j].name);
+      return '';
+    };
+
+    if (Array.isArray(m.occasion)) {
+      for (i = 0; i < m.occasion.length && chips.length < 2; i++) {
+        if (axis('occasion', m.occasion[i])) chips.push(axis('occasion', m.occasion[i]));
+      }
+    }
+    if (Array.isArray(m.vibe) && m.vibe.length) {
+      if (axis('vibe', m.vibe[0])) chips.push(axis('vibe', m.vibe[0]));
+    }
+    if (m.attention && axis('attention', m.attention)) chips.push(axis('attention', m.attention));
+
+    return {
+      id: 'real-' + String(it.id || ''),
+      ans: a,
+      real: it,
+      image: String(it.image || ''),
+      design: cfg,
+      name: pick(it.name) || '',
+      sub: subFor(a, cfg || build(a)),
+      why: pick(it.desc) || '',
+      chips: chips,
+      note: '',
+      price: readyPrice(it)
+    };
+  }
+
+  /* Her results: the owner's own sets that answer her, best first, topped up
+     with sets the quiz builds so the row is never thin. When she has tagged
+     nothing yet — a brand new shop — this falls all the way back to the
+     invented trio, which is exactly what it used to be. */
+  function variantsFor(ans) {
+    var a = normAnswers(ans);
+    var main = makeVariant('match', a);
+    var hits = matchDesigns(a);
+    var out = [], calmer, bolder, seen, i;
+
+    for (i = 0; i < hits.length && out.length < 3; i++) out.push(realVariant(hits[i], a));
+    if (out.length >= 3) return out;
+
+    if (!main) return out;
+    seen = JSON.stringify(main.design);
     calmer = makeVariant('calmer', shiftAnswers(ans, -1));
     bolder = makeVariant('bolder', shiftAnswers(ans, 1));
 
-    if (calmer && JSON.stringify(calmer.design) !== seen) out.push(calmer);
+    if (!out.length && calmer && JSON.stringify(calmer.design) !== seen) out.push(calmer);
     out.push(main);
-    if (bolder && JSON.stringify(bolder.design) !== seen) out.push(bolder);
+    if (out.length < 3 && bolder && JSON.stringify(bolder.design) !== seen) out.push(bolder);
     return out;
   }
 
@@ -1261,6 +1316,177 @@
       box.appendChild(el('span', { 'class': 'quiz-skin', style: { backgroundColor: i } }));
     }
     return box;
+  }
+
+  /* ==================================================================== */
+  /* 3b. matching the owner's own designs                                  */
+  /*                                                                       */
+  /*  A ready design is tagged in the admin panel on the same axes the     */
+  /*  quiz asks about, plus up to four colours ordered by how much of the  */
+  /*  set they cover. This scores every design against her answers and     */
+  /*  returns the best ones, so the quiz recommends sets that actually     */
+  /*  exist instead of only ever inventing one.                            */
+  /* ==================================================================== */
+
+  function hsl(hex) {
+    var h = String(hex || '').replace('#', '');
+    var r, g, b, mx, mn, d, H = 0, S, L;
+    if (h.length === 3) h = h.charAt(0) + h.charAt(0) + h.charAt(1) + h.charAt(1) + h.charAt(2) + h.charAt(2);
+    if (!/^[0-9a-fA-F]{6}$/.test(h)) return null;
+    r = parseInt(h.slice(0, 2), 16) / 255;
+    g = parseInt(h.slice(2, 4), 16) / 255;
+    b = parseInt(h.slice(4, 6), 16) / 255;
+    mx = Math.max(r, g, b); mn = Math.min(r, g, b); d = mx - mn;
+    L = (mx + mn) / 2;
+    S = d === 0 ? 0 : d / (1 - Math.abs(2 * L - 1));
+    if (d !== 0) {
+      if (mx === r) H = 60 * (((g - b) / d) % 6);
+      else if (mx === g) H = 60 * (((b - r) / d) + 2);
+      else H = 60 * (((r - g) / d) + 4);
+    }
+    if (H < 0) H += 360;
+    return { h: H, s: S, l: L };
+  }
+
+  /* the colours a design carries, largest first, weighted by that order:
+     a gold dot on one nail must not weigh the same as the base on eight */
+  var C_WEIGHT = [3, 2, 1, 1];
+
+  function designColors(it) {
+    var out = [], i, c, k;
+    for (i = 0; i < 4; i++) {
+      k = 'c' + (i + 1);
+      c = hsl(it && it[k]);
+      if (c) out.push({ c: c, w: C_WEIGHT[i] });
+    }
+    return out;
+  }
+
+  /* Which of the quiz's six colour families a single colour belongs to.
+     The order matters: the tests that pinned it down are a nude rose against
+     a ballet pink (#E9C2C0 vs #F4CBD2 — nearly the same hue and lightness,
+     told apart only by saturation) and a lavender against that same nude,
+     which is why the nude rule carries a warm-hue guard. */
+  function familyOf(c) {
+    var h = c.h, s = c.s, l = c.l;
+    if (l <= 0.22) return 'dark';
+    if (s <= 0.09) return l <= 0.45 ? 'dark' : 'nude';
+    if (h >= 15 && h <= 50 && s <= 0.55 && l >= 0.45) return 'nude';
+    if (l >= 0.82 && s <= 0.45) return 'pastel';
+    if (l >= 0.75 && s <= 0.55 && (h >= 330 || h <= 60)) return 'nude';
+    if ((h >= 345 || h <= 20) && s >= 0.45 && l <= 0.62) return 'red';
+    if (h >= 300 || h <= 12) return (s <= 0.20 && l >= 0.70) ? 'nude' : 'pink';
+    if (h > 12 && h <= 30 && s > 0.55) return 'red';
+    if (h > 30 && h <= 55 && s <= 0.60) return 'nude';
+    if (l >= 0.80) return 'pastel';
+    return 'bright';
+  }
+
+  /* Colour families that sit next to each other. A pink set is a fair answer
+     for someone who asked for pastel; a red one is not an answer for someone
+     who asked for nude, however well it matches on everything else. */
+  var PAL_NEAR = {
+    nude: ['pastel'],
+    pastel: ['nude', 'pink'],
+    pink: ['pastel', 'red'],
+    red: ['pink', 'bright'],
+    bright: ['red', 'dark'],
+    dark: ['bright']
+  };
+
+  /* the design's own family: the weighted vote of its colours */
+  function paletteOf(it) {
+    var cols = designColors(it), tally = {}, best = '', bestW = 0, i, f;
+    if (it && it.match && it.match.palette) return it.match.palette;
+    for (i = 0; i < cols.length; i++) {
+      f = familyOf(cols[i].c);
+      tally[f] = (tally[f] || 0) + cols[i].w;
+    }
+    for (f in tally) {
+      if (Object.prototype.hasOwnProperty.call(tally, f) && tally[f] > bestW) { bestW = tally[f]; best = f; }
+    }
+    return best;
+  }
+
+  /* warm colours read as spring/autumn, cool ones as summer/winter, and
+     lightness splits each pair. A rough map, which is exactly why the panel
+     lets the owner override it. */
+  function seasonOf(it) {
+    var cols = designColors(it), i, c, warm = 0, cool = 0, lum = 0, tot = 0;
+    if (it && it.match && it.match.season) return it.match.season;
+    for (i = 0; i < cols.length; i++) {
+      c = cols[i].c;
+      if (c.s < 0.08) { lum += c.l * cols[i].w; tot += cols[i].w; continue; }
+      if (c.h < 75 || c.h > 300) warm += cols[i].w; else cool += cols[i].w;
+      lum += c.l * cols[i].w; tot += cols[i].w;
+    }
+    if (!tot) return '';
+    lum = lum / tot;
+    if (warm >= cool) return lum >= 0.62 ? 'spring' : 'autumn';
+    return lum >= 0.62 ? 'summer' : 'winter';
+  }
+
+  function hasIn(arr, id) {
+    return Array.isArray(arr) && arr.length ? arr.indexOf(id) !== -1 : null;
+  }
+
+  /* How well one design answers her. Every axis is optional on the design:
+     left blank it neither helps nor hurts, so a half-filled design still
+     competes on what the owner did fill in. */
+  var W_PALETTE = 34, W_OCCASION = 22, W_VIBE = 16, W_SEASON = 12,
+      W_ATTENTION = 10, W_METAL = 8, W_LENGTH = 8;
+
+  function scoreDesign(it, a) {
+    var m = (it && it.match) || {};
+    var score = 0, max = 0, hit;
+
+    if (it && it.active === false) return null;
+
+    /* The colour family is a gate. Tested: without it a red set scored 0.50
+       against a "nude" answer on occasion and season alone and was
+       recommended — the one mistake that would cost a sale outright. */
+    hit = paletteOf(it);
+    if (hit) {
+      max += W_PALETTE;
+      if (hit === a.palette) score += W_PALETTE;
+      else if ((PAL_NEAR[a.palette] || []).indexOf(hit) !== -1) score += W_PALETTE * 0.45;
+      else return null;
+    }
+
+    hit = hasIn(m.occasion, a.occasion);
+    if (hit !== null) { max += W_OCCASION; if (hit) score += W_OCCASION; }
+
+    hit = hasIn(m.vibe, a.vibe);
+    if (hit !== null) { max += W_VIBE; if (hit) score += W_VIBE; }
+
+    hit = seasonOf(it);
+    if (hit) { max += W_SEASON; if (hit === a.season) score += W_SEASON; }
+
+    if (m.attention) { max += W_ATTENTION; if (m.attention === a.attention) score += W_ATTENTION; }
+    if (m.metal) { max += W_METAL; if (m.metal === a.metal) score += W_METAL; }
+    if (m.length) { max += W_LENGTH; if (m.length === a.length) score += W_LENGTH; }
+
+    /* nothing was tagged at all — the owner has not told us anything about
+       this design, so it cannot be recommended on merit */
+    if (max === 0) return null;
+    return { fit: score / max, max: max, score: score };
+  }
+
+  /* the designs worth showing her, best first. `floor` keeps a set that
+     matches almost nothing out of her results — a bad recommendation costs
+     more than one fewer option. */
+  var FIT_FLOOR = 0.45;
+
+  function matchDesigns(a) {
+    var arr = list('designs'), out = [], i, r;
+    for (i = 0; i < arr.length; i++) {
+      r = scoreDesign(arr[i], a);
+      if (!r || r.fit < FIT_FLOOR) continue;
+      out.push({ it: arr[i], fit: r.fit, max: r.max });
+    }
+    /* better fit first; on a tie the design the owner described more fully */
+    out.sort(function (x, y) { return (y.fit - x.fit) || (y.max - x.max); });
+    return out;
   }
 
   /* ==================================================================== */
@@ -1470,6 +1696,29 @@
   function previewNode(v) {
     var NS = 'http://www.w3.org/2000/svg';
     var d = shown(v);
+    var img;
+
+    /* a real set shows the owner's own photograph. It still has to be an
+       <svg> with a viewBox, because the share card nests this and scales it
+       by that box — an <img> here would break saving the picture. */
+    if (v && v.image) {
+      img = document.createElementNS(NS, 'svg');
+      img.setAttribute('xmlns', NS);
+      img.setAttribute('class', 'quiz-set quiz-photo');
+      img.setAttribute('viewBox', '0 0 100 75');
+      img.setAttribute('role', 'img');
+      img.setAttribute('aria-label', t('quiz.previewAlt', { name: v.name }));
+      img.appendChild((function () {
+        var n = document.createElementNS(NS, 'image');
+        n.setAttribute('x', '0'); n.setAttribute('y', '0');
+        n.setAttribute('width', '100'); n.setAttribute('height', '75');
+        n.setAttribute('preserveAspectRatio', 'xMidYMid slice');
+        n.setAttributeNS('http://www.w3.org/1999/xlink', 'href', v.image);
+        n.setAttribute('href', v.image);
+        return n;
+      })());
+      return img;
+    }
     var fingers = (SN.Nail && SN.Nail.FINGERS) ? SN.Nail.FINGERS : [];
     var UNIT = 100, GAP = 14;
     var plates = [], i, f, key, nail, art, vb, iw, ih, w, h, maxH = 0, x = 0, svg, p;
@@ -1570,7 +1819,9 @@
 
   /* the set read out nail by nail, each row carrying the real nail */
   function recipeBlock(v) {
-    var rows = recipeOf(shown(v));
+    var rows;
+    if (v && v.real) return null;
+    rows = recipeOf(shown(v));
     var host = el('ul', { 'class': 'quiz-recipe-list' });
     var i, r, art;
 
@@ -1772,7 +2023,8 @@
     if (!v) return;
     if (SN.Checkout && typeof SN.Checkout.open === 'function') {
       try {
-        SN.Checkout.open({ kind: 'custom', design: shown(v) });
+        if (v.real) SN.Checkout.open({ kind: 'ready', item: v.real, qty: 1 });
+        else SN.Checkout.open({ kind: 'custom', design: shown(v) });
         return;
       } catch (e) { console.warn('[SN.Quiz] checkout failed to open', e); }
     }
@@ -1904,8 +2156,13 @@
     var i;
     st.lit = false;
     st.vars = variantsFor(st.ans);
+    /* Show her the best answer first. variantsFor() puts the owner's own
+       best-matching set at the front, so that is what opens; only when there
+       is no real match does the invented middle option ('match') lead. */
     st.vi = 0;
-    for (i = 0; i < st.vars.length; i++) if (st.vars[i].id === 'match') st.vi = i;
+    if (!st.vars.length || !st.vars[0].real) {
+      for (i = 0; i < st.vars.length; i++) if (st.vars[i].id === 'match') st.vi = i;
+    }
     st.step = TOTAL + 1;
     paint();
     say(t('quiz.doneTitle'));
