@@ -126,8 +126,8 @@
          ملف كلمة المرور (password.js) مباشرة من الجوال بضغطة واحدة.
          The GitHub repo + branch this site is published from; the admin panel
          uses them to build a one-tap "edit password.js" link. */
-      repo: 'bv61754-design/Shosh-Nail',
-      repoBranch: 'claude/custom-nails-design-site-yc2op1',
+      repo: 'bv61754-design/Shosh-Nails-2',
+      repoBranch: 'main',
       notifyEndpoint: '',
       notifyKey: '',
       notifyEmail: '',
