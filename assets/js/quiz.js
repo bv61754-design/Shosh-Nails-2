@@ -149,40 +149,40 @@
            and the second name in each pair is picked by her other answers. */
         name: {
           nude: {
-            spring: ['حرير عاري', 'نيود ناعم'],
-            summer: ['رمال دافئة', 'كراميل'],
-            autumn: ['لاتيه', 'موكا'],
-            winter: ['بورسلين', 'رماد ناعم']
+            calm: ['نيود حرير', 'بيج صباحي', 'كريمة', 'رمل ناعم', 'ساتان نيود', 'بشرة ثانية', 'لؤلؤ بيج', 'كابتشينو فاتح', 'نيود كلاسيك', 'صدَف'],
+            romantic: ['نيود وردي', 'خوخ ناعم', 'بتلة بيج', 'عسل فاتح', 'نيود مخملي', 'وردة رملية', 'شاي بالحليب', 'مشمش هادئ', 'همس نيود', 'باليه بيج'],
+            bold: ['كراميل', 'موكا', 'توفي', 'قهوة بالحليب', 'بندق', 'كاكاو فاتح', 'رمال الصحراء', 'عسل غامق', 'نيود دافئ', 'شوكولا بالحليب'],
+            glam: ['شامبين', 'لؤلؤ نيود', 'ذهب وردي', 'نيود كروم', 'جليزد دونات', 'فانيلا لامعة', 'حليب وذهب', 'نيود لؤلؤي', 'بيج فخم', 'ساتان ذهبي']
           },
           pink: {
-            spring: ['باليه', 'فاوانيا'],
-            summer: ['سكر وردي', 'وردي صريح'],
-            autumn: ['وردة متأخرة', 'وردي مغبّر'],
-            winter: ['خدود وردية', 'فوشيا']
+            calm: ['وردي بودرة', 'باليه', 'وردي هادئ', 'بتلة', 'وردي مغبّر', 'زهر اللوز', 'وردي حليبي', 'روز ناعم', 'وردي صباحي', 'وردة بيضاء'],
+            romantic: ['فاوانيا', 'قلب وردي', 'وردة الصباح', 'روز رومانسي', 'سكر وردي', 'كرز مزهر', 'وردي حالم', 'حب أول', 'بتلات', 'وردي ناعم'],
+            bold: ['فوشيا', 'وردي فاقع', 'هوت بينك', 'بابل غم', 'وردي باربي', 'ماجنتا', 'وردي كهربائي', 'فراولة', 'وردي جريء', 'روز شوكينغ'],
+            glam: ['وردي كروم', 'روز جولد', 'وردي لؤلؤي', 'فوشيا لامع', 'وردي جليتر', 'بينك شامبين', 'وردي فخم', 'روز ميتاليك', 'وردي ساتان', 'ذهب وردي لامع']
           },
           red: {
-            spring: ['مرجان', 'مرجاني فاتح'],
-            summer: ['شفق', 'قرمزي'],
-            autumn: ['قرفة', 'طوبي دافئ'],
-            winter: ['كرزة', 'أحمر الموعد']
+            calm: ['مرجان هادئ', 'أحمر توتي', 'وردة حمراء', 'مرجاني ناعم', 'أحمر باهت', 'روبي فاتح', 'كرز فاتح', 'أحمر كلاسيك', 'مرجان الصباح', 'أحمر ناعم'],
+            romantic: ['أحمر الحب', 'وردة قرمزية', 'كرزة', 'فراولة حمراء', 'أحمر رومانسي', 'قلب أحمر', 'عنّاب', 'أحمر الورد', 'روبي رومانسي', 'توت أحمر'],
+            bold: ['أحمر ناري', 'قرمزي', 'أحمر صارخ', 'مرجان ناري', 'أحمر فيراري', 'شفق أحمر', 'أحمر بطل', 'روج أحمر', 'أحمر جريء', 'برتقالي مرجاني'],
+            glam: ['روبي', 'أحمر كروم', 'أحمر لامع', 'ياقوت', 'أحمر فخم', 'أحمر ميتاليك', 'قرمزي لامع', 'أحمر السجادة', 'روبي لامع', 'أحمر شامبين']
           },
           dark: {
-            spring: ['برقوق', 'بنفسج داكن'],
-            summer: ['ليل أزرق', 'كحلي'],
-            autumn: ['غابة', 'أخضر داكن'],
-            winter: ['بعد منتصف الليل', 'أسود ولؤلؤ']
+            calm: ['كحلي عميق', 'برقوق هادئ', 'رمادي فحمي', 'أخضر زيتوني', 'بني عميق', 'نبيذي هادئ', 'ليل هادئ', 'أزرق ليلي', 'بورغندي ناعم', 'شوكولا داكنة'],
+            romantic: ['نبيذي', 'بورغندي', 'برقوق', 'توت بري', 'عنبي', 'أحمر داكن', 'خمري', 'كرز أسود', 'وردة ليلية', 'بنفسج داكن'],
+            bold: ['أسود', 'أسود مطفي', 'ليل أسود', 'فحم', 'أسود عميق', 'أخضر غابة', 'كحلي ملكي', 'أسود جريء', 'بيتش بلاك', 'ظل أسود'],
+            glam: ['أسود ولؤلؤ', 'أسود كروم', 'ليل فضي', 'أسود جليتر', 'أسود وذهب', 'كات آي', 'أسود لامع', 'بعد منتصف الليل', 'أسود ميتاليك', 'ليل ونجوم']
           },
           pastel: {
-            spring: ['ليلك', 'غيمة ليلكية'],
-            summer: ['نعناع بارد', 'نسمة'],
-            autumn: ['ضحى', 'خوخ وزبدة'],
-            winter: ['غيمة', 'رمادي ناعم']
+            calm: ['باستيل ناعم', 'نعناع هادئ', 'ليلك فاتح', 'سماوي فاتح', 'غيمة', 'رمادي ناعم', 'أزرق بيبي', 'باستيل حليبي', 'نسمة', 'صباح هادئ'],
+            romantic: ['ليلك', 'خوخ باستيل', 'بنفسج فاتح', 'وردي باستيل', 'لافندر', 'خوخ وزبدة', 'مشمش ناعم', 'باستيل حالم', 'زهر الخوخ', 'غيمة ليلكية'],
+            bold: ['نعناع', 'أخضر باستيل', 'أصفر ليموني', 'باستيل حيوي', 'تركواز فاتح', 'أزرق باستيل', 'باستيل مرح', 'ليمون باستيل', 'سماوي', 'باستيل صيفي'],
+            glam: ['باستيل لؤلؤي', 'ليلك لامع', 'باستيل كروم', 'نعناع لؤلؤي', 'باستيل ميتاليك', 'ليلك ساتان', 'باستيل شامبين', 'غيمة لامعة', 'باستيل فخم', 'أوبال']
           },
           bright: {
-            spring: ['بنفسج', 'بنفسجي صريح'],
-            summer: ['تركواز', 'بحر'],
-            autumn: ['يوسفي', 'برتقالي دافئ'],
-            winter: ['شرارة زرقاء', 'أزرق كهربائي']
+            calm: ['أزرق سماوي', 'تركواز هادئ', 'أخضر نعناعي', 'بنفسج هادئ', 'أزرق بحري', 'أخضر ناعم', 'ليموني هادئ', 'أزرق ناعم', 'زمردي فاتح', 'بنفسجي ناعم'],
+            romantic: ['بنفسج', 'لافندر عميق', 'بنفسجي رومانسي', 'خزامى', 'أرجواني', 'بنفسج ناعم', 'تركواز حالم', 'أزرق حالم', 'بنفسجي وردي', 'ياسمين بنفسجي'],
+            bold: ['أزرق كهربائي', 'تركواز', 'زمردي', 'برتقالي', 'يوسفي', 'أخضر نيون', 'أصفر شمسي', 'أزرق ملكي', 'بنفسجي ملكي', 'كوبالت'],
+            glam: ['زمرد', 'ياقوت أزرق', 'أزرق كروم', 'بنفسجي ميتاليك', 'تركواز لامع', 'زمردي لامع', 'ذهبي', 'أزرق جليتر', 'أميثيست', 'سفير']
           }
         },
 
@@ -364,40 +364,40 @@
 
         name: {
           nude: {
-            spring: ['Bare Silk', 'Soft Nude'],
-            summer: ['Warm Sands', 'Caramel'],
-            autumn: ['Latte', 'Mocha'],
-            winter: ['Porcelain', 'Soft Ash']
+            calm: ['Silk Nude', 'Morning Beige', 'Cream', 'Soft Sand', 'Satin Nude', 'Second Skin', 'Beige Pearl', 'Light Cappuccino', 'Classic Nude', 'Seashell'],
+            romantic: ['Rosy Nude', 'Soft Peach', 'Beige Petal', 'Light Honey', 'Velvet Nude', 'Sand Rose', 'Milk Tea', 'Quiet Apricot', 'Nude Whisper', 'Ballet Beige'],
+            bold: ['Caramel', 'Mocha', 'Toffee', 'Café au Lait', 'Hazelnut', 'Light Cocoa', 'Desert Sand', 'Dark Honey', 'Warm Nude', 'Milk Chocolate'],
+            glam: ['Champagne', 'Nude Pearl', 'Rose Gold', 'Chrome Nude', 'Glazed Donut', 'Glossy Vanilla', 'Milk & Gold', 'Pearly Nude', 'Luxe Beige', 'Golden Satin']
           },
           pink: {
-            spring: ['Ballet', 'Peony'],
-            summer: ['Pink Sugar', 'Loud Pink'],
-            autumn: ['Late Rose', 'Dusty Rose'],
-            winter: ['Blushed', 'Fuchsia']
+            calm: ['Powder Pink', 'Ballet', 'Quiet Pink', 'Petal', 'Dusty Pink', 'Almond Blossom', 'Milky Pink', 'Soft Rose', 'Morning Pink', 'White Rose'],
+            romantic: ['Peony', 'Pink Heart', 'Morning Rose', 'Romantic Rose', 'Pink Sugar', 'Cherry Blossom', 'Dreamy Pink', 'First Love', 'Petals', 'Soft Pink'],
+            bold: ['Fuchsia', 'Vivid Pink', 'Hot Pink', 'Bubblegum', 'Barbie Pink', 'Magenta', 'Electric Pink', 'Strawberry', 'Bold Pink', 'Shocking Rose'],
+            glam: ['Chrome Pink', 'Rose Gold', 'Pearl Pink', 'Glossy Fuchsia', 'Pink Glitter', 'Pink Champagne', 'Luxe Pink', 'Metallic Rose', 'Satin Pink', 'Glossy Rose Gold']
           },
           red: {
-            spring: ['Coral', 'Light Coral'],
-            summer: ['Sunset', 'Scarlet'],
-            autumn: ['Cinnamon', 'Warm Brick'],
-            winter: ['Cherry', 'Date Night Red']
+            calm: ['Quiet Coral', 'Berry Red', 'Red Rose', 'Soft Coral', 'Muted Red', 'Light Ruby', 'Light Cherry', 'Classic Red', 'Morning Coral', 'Soft Red'],
+            romantic: ['Love Red', 'Crimson Rose', 'Cherry', 'Red Strawberry', 'Romantic Red', 'Red Heart', 'Jujube', 'Rose Red', 'Romantic Ruby', 'Red Berry'],
+            bold: ['Fire Red', 'Scarlet', 'Loud Red', 'Fiery Coral', 'Ferrari Red', 'Red Dusk', 'Hero Red', 'Rouge', 'Bold Red', 'Coral Orange'],
+            glam: ['Ruby', 'Chrome Red', 'Glossy Red', 'Garnet', 'Luxe Red', 'Metallic Red', 'Glossy Scarlet', 'Red Carpet', 'Glossy Ruby', 'Red Champagne']
           },
           dark: {
-            spring: ['Plum', 'Dark Violet'],
-            summer: ['Midnight Blue', 'Navy'],
-            autumn: ['Forest', 'Deep Green'],
-            winter: ['After Hours', 'Onyx and Pearl']
+            calm: ['Deep Navy', 'Quiet Plum', 'Charcoal', 'Olive Green', 'Deep Brown', 'Quiet Wine', 'Quiet Night', 'Night Blue', 'Soft Burgundy', 'Dark Chocolate'],
+            romantic: ['Wine', 'Burgundy', 'Plum', 'Wild Berry', 'Grape', 'Dark Red', 'Merlot', 'Black Cherry', 'Night Rose', 'Dark Violet'],
+            bold: ['Black', 'Matte Black', 'Black Night', 'Charcoal Black', 'Deep Black', 'Forest Green', 'Royal Navy', 'Bold Black', 'Pitch Black', 'Black Shadow'],
+            glam: ['Black & Pearl', 'Chrome Black', 'Silver Night', 'Black Glitter', 'Black & Gold', 'Cat Eye', 'Glossy Black', 'After Midnight', 'Metallic Black', 'Night & Stars']
           },
           pastel: {
-            spring: ['Lilac', 'Lilac Cloud'],
-            summer: ['Cool Mint', 'Sea Breeze'],
-            autumn: ['Morning Light', 'Peach and Butter'],
-            winter: ['Cloud', 'Soft Grey']
+            calm: ['Soft Pastel', 'Quiet Mint', 'Light Lilac', 'Light Sky', 'Cloud', 'Soft Grey', 'Baby Blue', 'Milky Pastel', 'Breeze', 'Quiet Morning'],
+            romantic: ['Lilac', 'Pastel Peach', 'Light Violet', 'Pastel Pink', 'Lavender', 'Peach & Butter', 'Soft Apricot', 'Dreamy Pastel', 'Peach Blossom', 'Lilac Cloud'],
+            bold: ['Mint', 'Pastel Green', 'Lemon Yellow', 'Vivid Pastel', 'Light Turquoise', 'Pastel Blue', 'Playful Pastel', 'Pastel Lemon', 'Sky Blue', 'Summer Pastel'],
+            glam: ['Pearl Pastel', 'Glossy Lilac', 'Chrome Pastel', 'Pearl Mint', 'Metallic Pastel', 'Satin Lilac', 'Pastel Champagne', 'Glossy Cloud', 'Luxe Pastel', 'Opal']
           },
           bright: {
-            spring: ['Violet', 'Bold Violet'],
-            summer: ['Turquoise', 'Sea'],
-            autumn: ['Tangerine', 'Warm Orange'],
-            winter: ['Electric Blue', 'Electric']
+            calm: ['Sky Blue', 'Quiet Turquoise', 'Minty Green', 'Quiet Violet', 'Sea Blue', 'Soft Green', 'Quiet Lemon', 'Soft Blue', 'Light Emerald', 'Soft Purple'],
+            romantic: ['Violet', 'Deep Lavender', 'Romantic Purple', 'Lavender Field', 'Amethyst Purple', 'Soft Violet', 'Dreamy Turquoise', 'Dreamy Blue', 'Pink Violet', 'Purple Jasmine'],
+            bold: ['Electric Blue', 'Turquoise', 'Emerald', 'Orange', 'Tangerine', 'Neon Green', 'Sunny Yellow', 'Royal Blue', 'Vivid Purple', 'Cobalt'],
+            glam: ['Emerald Gem', 'Blue Sapphire', 'Chrome Blue', 'Metallic Purple', 'Glossy Turquoise', 'Glossy Emerald', 'Gold', 'Blue Glitter', 'Amethyst', 'Sapphire']
           }
         },
 
@@ -1056,13 +1056,18 @@
 
   /* The three alternates share her palette and her season, so they share the
      name too — what tells them apart is printed on the tab above the card. */
+  /* The set's name comes from its colour family and its FEEL — a glam wedding
+     set and a quiet everyday one in the same pink must not share a name. Ten
+     curated names per cell; season, occasion, decoration, metal and length
+     decide which of the ten, so the same answers always give the same name
+     and neighbouring answers give different ones. */
   function nameFor(ans) {
     var a = normAnswers(ans);
     var pal = rowOf(PALETTES, a.palette).id;
-    var sea = rowOf(SEASONS, a.season).id;
-    var names = tList('quiz.name.' + pal + '.' + sea);
+    var vibe = rowOf(VIBES, a.vibe).id;
+    var names = tList('quiz.name.' + pal + '.' + vibe);
     if (!names.length) return t('quiz.doneTitle');
-    return String(at(names, hash([a.occasion, a.vibe, a.attention, a.metal, a.length].join('|'))) || names[0]);
+    return String(at(names, hash([a.season, a.occasion, a.attention, a.metal, a.length].join('|'))) || names[0]);
   }
 
   function whyFor(ans, design) {
