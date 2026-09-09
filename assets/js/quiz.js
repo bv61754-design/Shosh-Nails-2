@@ -1424,33 +1424,15 @@
     for (i = 0; i < 4; i++) {
       k = 'c' + (i + 1);
       c = hsl(it && it[k]);
-      if (c) out.push({ c: c, w: C_WEIGHT[i] });
+      if (c) out.push({ c: c, hex: it[k], w: C_WEIGHT[i] });
     }
     return out;
   }
 
-  /* Which of the quiz's six colour families a single colour belongs to.
-     The order matters: the tests that pinned it down are a nude rose against
-     a ballet pink (#E9C2C0 vs #F4CBD2 — nearly the same hue and lightness,
-     told apart only by saturation) and a lavender against that same nude,
-     which is why the nude rule carries a warm-hue guard. */
-  function familyOf(c) {
-    var h = c.h, s = c.s, l = c.l;
-    if (l <= 0.22) return 'dark';
-    if (s <= 0.09) return l <= 0.45 ? 'dark' : 'nude';
-    /* Warm and unsaturated is a nude at ANY depth. The lightness floor that
-       used to be here said "nude means pale", so a caramel or mocha nude —
-       the nude that suits deeper skin — was classed as a bright colour and
-       recommended to nobody at all. */
-    if (h >= 15 && h <= 50 && s <= 0.60) return 'nude';
-    if (l >= 0.82 && s <= 0.45) return 'pastel';
-    if (l >= 0.75 && s <= 0.55 && (h >= 330 || h <= 60)) return 'nude';
-    if ((h >= 345 || h <= 20) && s >= 0.45 && l <= 0.62) return 'red';
-    if (h >= 300 || h <= 12) return (s <= 0.20 && l >= 0.70) ? 'nude' : 'pink';
-    if (h > 12 && h <= 30 && s > 0.55) return 'red';
-    if (h > 30 && h <= 55 && s <= 0.60) return 'nude';
-    if (l >= 0.80) return 'pastel';
-    return 'bright';
+  /* The six colour families live in SN.Nail, loaded on every page, so the
+     shop can filter by exactly the families the quiz matches on. */
+  function familyOfHex(hex) {
+    return (SN.Nail && typeof SN.Nail.colourFamily === 'function') ? SN.Nail.colourFamily(hex) : '';
   }
 
   /* Colour families that sit next to each other. A pink set is a fair answer
@@ -1470,7 +1452,7 @@
     var cols = designColors(it), tally = {}, best = '', bestW = 0, i, f;
     if (it && it.match && it.match.palette) return it.match.palette;
     for (i = 0; i < cols.length; i++) {
-      f = familyOf(cols[i].c);
+      f = familyOfHex(cols[i].hex);
       tally[f] = (tally[f] || 0) + cols[i].w;
     }
     for (f in tally) {
@@ -1824,30 +1806,15 @@
      its true shape and length, so a thumb reads as a thumb — the variety the
      hand used to carry is all still here. A placeholder until the owner has
      photographs of the real sets to put in its place. */
-  /* Relative nail-bed widths across a hand. A real set is graded — the thumb
-     plate is over half again the pinky's — and `single()` draws every finger
-     at one size, so without this the five plates come out identical and the
-     row reads as a swatch rather than as a set. Width scales the whole plate,
-     so the longer fingers come out longer too. */
-  var SET_W = { thumb: 1.00, index: 0.80, middle: 0.87, ring: 0.79, pinky: 0.62 };
-
-  /* The set itself, the way press-ons actually arrive: the five plates laid
-     out on their card, pinky to thumb, sitting on one baseline so the lengths
-     show along the top. A placeholder until the owner has photographs of the
-     real sets to put in its place.
-
-     This has to be ONE <svg> with a viewBox, not a row of elements: the share
-     card nests whatever comes back inside itself and reads that viewBox to
-     size it, so a <div> here would silently break "save the picture". Each
-     plate is a nested <svg>, positioned by x/y/width/height. */
+  /* Her result. A real set shows the owner's photograph; anything else shows
+     the five plates on a backdrop of HER OWN skin tone, so she sees the set
+     on her colour instead of on nothing. Either way it must be ONE <svg>
+     with a viewBox, because the share card nests this and scales it by that
+     box — an <img> or a <div> here silently breaks "save the picture". */
   function previewNode(v) {
     var NS = 'http://www.w3.org/2000/svg';
-    var d = shown(v);
-    var img;
+    var img, strip;
 
-    /* a real set shows the owner's own photograph. It still has to be an
-       <svg> with a viewBox, because the share card nests this and scales it
-       by that box — an <img> here would break saving the picture. */
     if (v && v.image) {
       img = document.createElementNS(NS, 'svg');
       img.setAttribute('xmlns', NS);
@@ -1866,58 +1833,19 @@
       })());
       return img;
     }
-    var fingers = (SN.Nail && SN.Nail.FINGERS) ? SN.Nail.FINGERS : [];
-    var UNIT = 100, GAP = 14;
-    var plates = [], i, f, key, nail, art, vb, iw, ih, w, h, maxH = 0, x = 0, svg, p;
 
-    if (!SN.Nail || typeof SN.Nail.single !== 'function' || !fingers.length) return null;
-
-    /* pinky first so the row runs small-to-large towards the thumb, which is
-       the order the eye gets in RTL and the order a set is carded in */
-    for (i = fingers.length - 1; i >= 0; i--) {
-      f = fingers[i];
-      key = 'right' + f.key.charAt(0).toUpperCase() + f.key.slice(1);
-      nail = d && d.nails ? d.nails[key] : null;
-      if (!nail) continue;
-      art = null;
-      try {
-        art = SN.Nail.single(nail, d, {
-          w: 0, natural: true, bg: false, key: 'qs-' + v.id + '-' + key
-        });
-      } catch (e) { art = null; }
-      if (!art) continue;
-      vb = String(art.getAttribute('viewBox') || '').split(/[\s,]+/);
-      iw = parseFloat(vb[2]);
-      ih = parseFloat(vb[3]);
-      if (!(iw > 0) || !(ih > 0)) continue;
-      w = UNIT * (SET_W[f.key] || 0.8);
-      h = ih * (w / iw);
-      if (h > maxH) maxH = h;
-      plates.push({ node: art, w: w, h: h });
-    }
-
-    if (!plates.length) return null;
-
-    svg = document.createElementNS(NS, 'svg');
-    svg.setAttribute('xmlns', NS);
-    svg.setAttribute('class', 'quiz-set');
-    svg.setAttribute('role', 'img');
-    svg.setAttribute('aria-label', t('quiz.previewAlt', { name: v.name }));
-
-    for (i = 0; i < plates.length; i++) {
-      p = plates[i];
-      p.node.removeAttribute('style');
-      p.node.removeAttribute('class');
-      p.node.setAttribute('x', String(x.toFixed(2)));
-      p.node.setAttribute('y', (maxH - p.h).toFixed(2));   /* one baseline */
-      p.node.setAttribute('width', String(p.w.toFixed(2)));
-      p.node.setAttribute('height', String(p.h.toFixed(2)));
-      svg.appendChild(p.node);
-      x += p.w + GAP;
-    }
-
-    svg.setAttribute('viewBox', '0 0 ' + (x - GAP).toFixed(2) + ' ' + maxH.toFixed(2));
-    return svg;
+    if (!SN.Nail || typeof SN.Nail.setStrip !== 'function') return null;
+    try {
+      strip = SN.Nail.setStrip(shown(v), {
+        key: v.id,
+        bg: skinHex((v.ans && v.ans.skin) || ''),
+        ariaLabel: t('quiz.previewAlt', { name: v.name })
+      });
+      /* the page styles it by this class — setStrip ships its own, and
+         without ours the strip renders at its intrinsic width, not the box's */
+      if (strip) strip.setAttribute('class', 'sn-svg sn-setstrip quiz-set');
+      return strip;
+    } catch (e) { return null; }
   }
 
   /* the three versions, as one row of taps */
@@ -2001,19 +1929,47 @@
 
   /* ---- sharing --------------------------------------------------------- */
 
-  function quizURL() {
+  function quizURL(hash) {
     var base;
     try {
       base = window.location.href.split('#')[0];
       if (/\/$/.test(base)) base += 'index.html';
-      return base + '#quiz';
-    } catch (e) { return 'index.html#quiz'; }
+      return base + (hash || '#quiz');
+    } catch (e) { return 'index.html' + (hash || '#quiz'); }
+  }
+
+  /* The answers, in the order the questions are asked, joined by dots — short
+     enough to survive a WhatsApp message intact. The set is rebuilt from them
+     rather than carried in the link: the build is a pure function of the
+     answers, so the same nine ids give the same set every time. */
+  function answersCode(ans) {
+    var a = normAnswers(ans), out = [], i, k;
+    for (i = 0; i < STEPS.length; i++) {
+      k = STEPS[i].key;
+      out.push(encodeURIComponent(String(a[k] || '')));
+    }
+    return out.join('.');
+  }
+
+  function decodeAnswers(code) {
+    var parts = String(code || '').split('.'), out = {}, i;
+    if (parts.length < 2) return null;
+    for (i = 0; i < STEPS.length && i < parts.length; i++) {
+      if (parts[i]) out[STEPS[i].key] = decodeURIComponent(parts[i]);
+    }
+    return out;
+  }
+
+  /* the link to HER result */
+  function resultURL(v) {
+    var code = answersCode((v && v.ans) || st.ans);
+    return code ? quizURL('#r=' + code) : quizURL();
   }
 
   function shareIt(v) {
     var brand = pick(cfg('settings.brand', null)) || '';
     var text = t('quiz.shareText', { name: v.name, brand: brand });
-    var url = quizURL();
+    var url = resultURL(v);
     var u = ui();
 
     try {
@@ -2178,6 +2134,14 @@
     toast(t('common.error'), 'err');
   }
 
+  /* The three promises that answer "and then what?" — the question she is
+     asking herself with her thumb over the order button. */
+  function afterOrderNote() {
+    var txt = pick(cfg('settings.afterOrder', null));
+    if (!txt) return null;
+    return el('p', { 'class': 'quiz-after', text: txt });
+  }
+
   /* ---- the whole reveal ------------------------------------------------ */
 
   function doneScreen(first) {
@@ -2217,6 +2181,9 @@
       v.price === null ? null : el('p', {
         'class': 'quiz-price price', text: t('quiz.priceFrom', { p: money(v.price) })
       }),
+
+      /* what happens after she presses it, said before she presses it */
+      afterOrderNote(),
 
       el('div', { 'class': 'btns quiz-actions' }, [
         el('button', {
@@ -2421,6 +2388,22 @@
     return h === '#quiz' || h === '#!quiz';
   }
 
+  function hashResult() {
+    var m = String(window.location.hash || '').match(/^#r=(.+)$/);
+    return m ? decodeAnswers(m[1]) : null;
+  }
+
+  /* someone opened a friend's set: show that set, not question one */
+  function openResult(ans) {
+    var k;
+    if (st.open) return;
+    open();
+    if (!st.open) return;
+    st.ans = {};
+    for (k in ans) if (Object.prototype.hasOwnProperty.call(ans, k)) st.ans[k] = ans[k];
+    reveal();
+  }
+
   function start() {
     /* a language flip must not lose her place: repaint in the new language
        with every answer still where she left it */
@@ -2433,15 +2416,21 @@
     }
 
     window.addEventListener('hashchange', function () {
+      var shared;
       if (st.hashLock) return;
+      shared = hashResult();
+      if (shared) { if (!st.open) openResult(shared); return; }
       if (hashIsQuiz()) { if (!st.open) open(); }
       else if (st.open) close();
     }, false);
 
-    if (hashIsQuiz()) {
-      if (SN.Store && typeof SN.Store.ready === 'function') SN.Store.ready(function () { open(); });
-      else open();
-    }
+    (function () {
+      var shared = hashResult();
+      var go = shared ? function () { openResult(shared); } : function () { open(); };
+      if (!shared && !hashIsQuiz()) return;
+      if (SN.Store && typeof SN.Store.ready === 'function') SN.Store.ready(go);
+      else go();
+    })();
   }
 
   if (document.readyState === 'loading') {

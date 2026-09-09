@@ -1696,7 +1696,7 @@
           textAlign: 'center', paddingBlock: '14px'
         }
       });
-      var link = waLink('');
+      var link = waLink(''), igName, igBtn;
       var btns = U.el('div', { 'class': 'btns', style: { justifyContent: 'center' } });
       var imgBtn;
 
@@ -1741,6 +1741,31 @@
           U.el('span', { 'class': 'btn-ico', html: U.icon('whatsapp', 18), 'aria-hidden': 'true' }),
           U.el('span', { text: T('order.openWa') })
         ]));
+      }
+
+      /* Instagram is where most of these customers already are, but it has no
+         way to open a chat with the message written for her — so the order is
+         put on her clipboard first and she pastes it into the chat. Saying so
+         is the difference between a helpful button and a confusing one. */
+      igName = str(sget('settings.instagram', '')).replace(/^@/, '');
+      if (igName) {
+        igBtn = U.el('button', { 'class': 'btn btn-line', type: 'button' }, [
+          U.el('span', { 'class': 'btn-ico', html: U.icon('instagram', 18), 'aria-hidden': 'true' }),
+          U.el('span', { text: T('order.openIg') })
+        ]);
+        igBtn.addEventListener('click', function () {
+          var go = function () {
+            try { window.open('https://instagram.com/' + encodeURIComponent(igName), '_blank', 'noopener'); }
+            catch (e) { /* a blocked popup is not a failure worth shouting about */ }
+          };
+          if (U.copy) {
+            U.copy(summary(order, curLang())).then(function (ok) {
+              if (U.toast) U.toast(T(ok ? 'order.igCopied' : 'order.igCopyFail'), ok ? 'ok' : 'err');
+              go();
+            }, function () { if (U.toast) U.toast(T('order.igCopyFail'), 'err'); go(); });
+          } else { go(); }
+        }, false);
+        btns.appendChild(igBtn);
       }
 
       if (st.kind === 'custom' && SN.Nail &&

@@ -447,10 +447,61 @@
     return null;
   }
 
+  /* ---- the quiz's own tags, reused as shop filters -----------------------
+     Every design the owner tags for the style quiz already says what it is
+     for and what colour family it belongs to. Rather than build a second
+     filtering UI beside the existing chips, those answers appear AS chips:
+     "للعرس", "نيود", "شتوي". No extra work for her — the same tagging feeds
+     both. A virtual chip is "axis:id"; a plain string is her own free tag. */
+  function axisLabel(axis, id) {
+    var arr = list('matchAxes.' + axis), i;
+    if (!Array.isArray(arr)) return '';
+    for (i = 0; i < arr.length; i++) if (arr[i] && arr[i].id === id) return pick(arr[i].name);
+    return '';
+  }
+
+  function familyOf(it) {
+    var m = (it && it.match) || {}, best = '', bestW = 0, tally = {}, W = [3, 2, 1, 1], i, k, fam;
+    if (m.palette) return m.palette;
+    if (!SN.Nail || typeof SN.Nail.colourFamily !== 'function') return '';
+    for (i = 0; i < 4; i++) {
+      k = 'c' + (i + 1);
+      fam = it && it[k] ? SN.Nail.colourFamily(it[k]) : '';
+      if (fam) tally[fam] = (tally[fam] || 0) + W[i];
+    }
+    for (fam in tally) {
+      if (Object.prototype.hasOwnProperty.call(tally, fam) && tally[fam] > bestW) { bestW = tally[fam]; best = fam; }
+    }
+    return best;
+  }
+
+  function axisTags(it) {
+    var m = (it && it.match) || {}, out = [], i, fam;
+    if (Array.isArray(m.occasion)) {
+      for (i = 0; i < m.occasion.length; i++) if (m.occasion[i]) out.push('occasion:' + m.occasion[i]);
+    }
+    if (Array.isArray(m.vibe)) {
+      for (i = 0; i < m.vibe.length; i++) if (m.vibe[i]) out.push('vibe:' + m.vibe[i]);
+    }
+    fam = familyOf(it);
+    if (fam) out.push('palette:' + fam);
+    if (m.season) out.push('season:' + m.season);
+    return out;
+  }
+
+  function tagsOf(it) {
+    var own = Array.isArray(it && it.tags) ? it.tags : [];
+    return own.concat(axisTags(it));
+  }
+
   function tagLabel(tag) {
-    var key = 'shop.tag.' + String(tag || '');
-    var s = t(key);
-    return (s && s !== key) ? s : String(tag || '');
+    var raw = String(tag || ''), at = raw.indexOf(':'), s;
+    if (at > 0) {
+      s = axisLabel(raw.slice(0, at), raw.slice(at + 1));
+      if (s) return s;
+    }
+    s = t('shop.tag.' + raw);
+    return (s && s !== 'shop.tag.' + raw) ? s : raw;
   }
 
   function haystack(item) {
@@ -482,7 +533,7 @@
   function allTags(rows) {
     var counts = {}, order = [], i, j, tags, tag;
     for (i = 0; i < rows.length; i++) {
-      tags = Array.isArray(rows[i].it.tags) ? rows[i].it.tags : [];
+      tags = tagsOf(rows[i].it);
       for (j = 0; j < tags.length; j++) {
         tag = String(tags[j] || '').trim();
         if (!tag) continue;
@@ -510,7 +561,7 @@
     if (st.max !== null && p > st.max) return false;
 
     if (st.tags.length) {
-      tags = Array.isArray(it.tags) ? it.tags : [];
+      tags = tagsOf(it);
       for (i = 0; i < st.tags.length; i++) {
         if (tags.indexOf(st.tags[i]) === -1) return false;   /* AND across chips */
       }
@@ -920,10 +971,11 @@
       box.appendChild(el('img', { src: img, alt: pick(item.name), decoding: 'async' }));
       return box;
     }
-    if (SN.Nail && typeof SN.Nail.preview === 'function') {
+    /* the set itself, not a hand — the same strip the quiz result shows */
+    if (SN.Nail && typeof SN.Nail.setStrip === 'function') {
       try {
-        svg = SN.Nail.preview(item.config, {
-          w: 0,
+        svg = SN.Nail.setStrip(item.config, {
+          key: 'qv-' + String(item.id || ''),
           ariaLabel: t('shop.qvPreviewAlt', { name: pick(item.name) })
         });
       } catch (e) { svg = null; }

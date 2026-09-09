@@ -126,6 +126,13 @@
          ملف كلمة المرور (password.js) مباشرة من الجوال بضغطة واحدة.
          The GitHub repo + branch this site is published from; the admin panel
          uses them to build a one-tap "edit password.js" link. */
+      /* the reassurance shown right where she hesitates, above the order
+         button. Edited from the general settings. */
+      afterOrder: {
+        ar: 'نأكّد طلبك خلال ساعة · نجهّزه خلال ٣–٥ أيام · نرسل لك صورة طقمك قبل الشحن',
+        en: 'Confirmed within the hour · made in 3–5 days · we send you a photo of your set before it ships'
+      },
+
       repo: 'bv61754-design/Shosh-Nails-2',
       repoBranch: 'main',
       notifyEndpoint: '',

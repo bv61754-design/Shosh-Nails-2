@@ -206,6 +206,10 @@
           identityX: 'اسم المتجر ووصفه والعملة — تظهر في الهيدر والتذييل وكل الصفحات.',
           contact: 'التواصل',
           contactX: 'أي حقل تتركينه فاضي يختفي تلقائياً من الموقع.',
+          afterLbl: 'وعد ما بعد الطلب',
+          afterHint: 'يظهر فوق زر الطلب مباشرة عشان تطمئن قبل ما تضغط.',
+          bkNever: 'ما نزّلتِ نسخة احتياطية أبداً. كل بياناتك في هذا المتصفح فقط — لو انمسح ما نقدر نرجّعه. افتحي تبويب «النسخ الاحتياطي» ونزّلي نسخة.',
+          bkStale: 'صار {n} يوم من آخر نسخة احتياطية. نزّلي نسخة جديدة من تبويب «النسخ الاحتياطي».',
           announce: 'الشريط العلوي',
           announceX: 'شريط صغير فوق الهيدر لإعلان العروض أو مواعيد التجهيز.',
           notify: 'الإشعارات',
@@ -336,6 +340,8 @@
           mShapeX: 'شكل الظفر. اتركيه «أي واحد» لو تنفّذينه بأي شكل.',
           mPal: 'عائلة الألوان',
           mPalX: 'اتركيه «احسبه من الألوان» والموقع يحدده من الألوان اللي فوق. غيّريه فقط لو طلع غلط.',
+          ref: 'رابط مرجع (لك أنت فقط)',
+          refX: 'الصقي هنا رابط الصورة اللي استوحيتي منها — بينترست أو غيره. يبقى محفوظاً معك للرجوع، ولا يظهر للعميلة أبداً ولا يُرسل مع الطلب. الصورة نفسها لا تُرفع: نفّذي الطقم بيدك وصوّريه واستعملي صورتك.',
           qHidden: '⚠ ما يظهر في الاختبار',
           qThin: 'ناقص تفاصيل',
           qHiddenN: '{n} تصميم ما راح يظهر في اختبار الستايل — ما عليه أي وسم.',
@@ -844,6 +850,8 @@
           mShapeX: 'The nail shape. Leave on “any” if you make it in any shape.',
           mPal: 'Colour family',
           mPalX: 'Leave it on “work it out from the colours” and the site decides from the colours above. Change it only if it comes out wrong.',
+          ref: 'Reference link (yours only)',
+          refX: 'Paste the link you took the idea from — Pinterest or anywhere else. It stays here for you, is never shown to a customer and never goes out with an order. The image itself is not uploaded: make the set yourself, photograph it, and use your own photo.',
           qHidden: '⚠ not in the quiz',
           qThin: 'missing details',
           qHiddenN: '{n} design(s) will never appear in the style quiz — nothing is tagged.',
@@ -2973,7 +2981,8 @@
       sectionHead(t('admin.g.announce'), t('admin.g.announceX')),
       renderFields([
         F('announceOn', 'bool', 'admin.f2.announceOn'),
-        F('announce', 't', 'admin.f2.announceTxt', { wide: true, hint: 'admin.gh.announceTxt' })
+        F('announce', 't', 'admin.f2.announceTxt', { wide: true, hint: 'admin.gh.announceTxt' }),
+        F('afterOrder', 'tarea', 'admin.g.afterLbl', { wide: true, rows: 2, hint: 'admin.g.afterHint' })
       ], ctx)
     ]));
 
@@ -3370,6 +3379,7 @@
         F('desc', 'tarea', 'admin.f.desc', { wide: true, rows: 4 }),
         F('tags', 'tags', 'admin.d.tags', { wide: true }),
         F('image', 'image', 'admin.d.image', { wide: true, maxPx: MAX_DESIGN, hint: 'admin.img.designX' }),
+        F('ref', 'text', 'admin.d.ref', { wide: true, hint: 'admin.d.refX' }),
 
         /* ---- what the style quiz matches on -------------------------- */
         F('c1', 'color', 'admin.d.c1', { hint: 'admin.d.c1X', empty: true }),
@@ -3394,7 +3404,7 @@
         return {
           id: '', name: { ar: '', en: '' }, desc: { ar: '', en: '' },
           price: numOf(sGet('pricing.base', 120), 120), orders: 0,
-          featured: false, active: true, tags: [], image: '', config: cfg || {},
+          featured: false, active: true, tags: [], image: '', ref: '', config: cfg || {},
           c1: '', c2: '', c3: '', c4: '',
           match: {
             occasion: [], vibe: [], attention: '', metal: '',
@@ -3860,6 +3870,8 @@
           'class': 'btn btn-pri btn-sm', type: 'button', text: t('admin.b.exportBtn'),
           on: { click: function () {
             var ok = SN.Store.exportFile();
+            /* stamp it so the reminder knows how long it has been */
+            if (ok) { try { sSet('settings.lastBackup', Date.now()); } catch (e) { /* not fatal */ } }
             toast(t(ok ? 'admin.b.exportOk' : 'admin.b.exportErr'), ok ? 'ok' : 'err');
           } }
         }),
@@ -4659,10 +4671,35 @@
     ]);
   }
 
+  /* Everything the owner has — prices, designs, orders, photographs — lives
+     in ONE browser's storage. Clearing the browser, or moving to another
+     phone, takes all of it, and nothing anywhere says so until it is gone.
+     This is the nag that stops that being a surprise. */
+  var BACKUP_DAYS = 7;
+
+  function backupNag() {
+    var last = numOf(sGet('settings.lastBackup', 0), 0);
+    var days;
+    if (!last) {
+      return el('div', { 'class': 'note note-warn adm-quizbar' }, [
+        el('span', { html: icon('download', 16), 'aria-hidden': 'true' }),
+        el('span', { text: t('admin.g.bkNever') })
+      ]);
+    }
+    days = Math.floor((Date.now() - last) / 86400000);
+    if (days < BACKUP_DAYS) return null;
+    return el('div', { 'class': 'note note-warn adm-quizbar' }, [
+      el('span', { html: icon('download', 16), 'aria-hidden': 'true' }),
+      el('span', { text: t('admin.g.bkStale', { n: days }) })
+    ]);
+  }
+
   function renderBody() {
-    var host = refs.body, fn, node;
+    var host = refs.body, fn, node, nag;
     if (!host) return;
     empty(host);
+    nag = backupNag();
+    if (nag) host.appendChild(nag);
     fn = RENDER[S.tab] || RENDER.general;
     try { node = fn(); }
     catch (e) {

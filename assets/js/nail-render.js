@@ -4384,6 +4384,140 @@
     return g;
   }
 
+  /* ==================================================================== *
+   *  Two helpers that live here because every page loads this file, while  *
+   *  the quiz only loads on the home page. The shop needs both as well —   *
+   *  one implementation, not three copies drifting apart.                  *
+   * ==================================================================== */
+
+  /* hex -> {h,s,l}, hue in degrees. null when the string is not a colour. */
+  function toHSL(hex) {
+    var h = String(hex || '').replace('#', '');
+    var r, g, b, mx, mn, d, H = 0, S, L;
+    if (h.length === 3) h = h.charAt(0) + h.charAt(0) + h.charAt(1) + h.charAt(1) + h.charAt(2) + h.charAt(2);
+    if (!/^[0-9a-fA-F]{6}$/.test(h)) return null;
+    r = parseInt(h.slice(0, 2), 16) / 255;
+    g = parseInt(h.slice(2, 4), 16) / 255;
+    b = parseInt(h.slice(4, 6), 16) / 255;
+    mx = Math.max(r, g, b); mn = Math.min(r, g, b); d = mx - mn;
+    L = (mx + mn) / 2;
+    S = d === 0 ? 0 : d / (1 - Math.abs(2 * L - 1));
+    if (d !== 0) {
+      if (mx === r) H = 60 * (((g - b) / d) % 6);
+      else if (mx === g) H = 60 * (((b - r) / d) + 2);
+      else H = 60 * (((r - g) / d) + 4);
+    }
+    if (H < 0) H += 360;
+    return { h: H, s: S, l: L };
+  }
+
+  /* Which of the six colour families a colour belongs to: nude, pastel,
+     pink, red, dark, bright. The order of the tests matters — a nude rose
+     and a ballet pink differ almost only in saturation, and a lavender sits
+     on the other side of the same threshold, which is why the nude rule
+     carries a warm-hue guard. And "nude" is not a synonym for "pale": a
+     caramel nude is the nude that suits deeper skin. */
+  function colourFamily(hex) {
+    var c = toHSL(hex), h, s, l;
+    if (!c) return '';
+    h = c.h; s = c.s; l = c.l;
+    if (l <= 0.22) return 'dark';
+    if (s <= 0.09) return l <= 0.45 ? 'dark' : 'nude';
+    if (h >= 15 && h <= 50 && s <= 0.60) return 'nude';
+    if (l >= 0.82 && s <= 0.45) return 'pastel';
+    if (l >= 0.75 && s <= 0.55 && (h >= 330 || h <= 60)) return 'nude';
+    if ((h >= 345 || h <= 20) && s >= 0.45 && l <= 0.62) return 'red';
+    if (h >= 300 || h <= 12) return (s <= 0.20 && l >= 0.70) ? 'nude' : 'pink';
+    if (h > 12 && h <= 30 && s > 0.55) return 'red';
+    if (h > 30 && h <= 55 && s <= 0.60) return 'nude';
+    if (l >= 0.80) return 'pastel';
+    return 'bright';
+  }
+
+  /* Relative nail-bed widths across a hand. A real set is graded — the thumb
+     plate is over half again the pinky's — and single() draws every finger at
+     one size, so without this five plain nails come out identical and the row
+     reads as a swatch rather than as a set. */
+  var SET_W = { thumb: 1.00, index: 0.80, middle: 0.87, ring: 0.79, pinky: 0.62 };
+
+  /* The set as it actually arrives: the five plates on their card, pinky to
+     thumb, on one baseline so the lengths show along the top.
+
+     ONE <svg> carrying a viewBox, never a row of elements — the quiz's share
+     card nests whatever it gets and scales it by that box, so anything else
+     silently breaks "save the picture". Each plate is a nested <svg>.
+
+     opts.bg paints a backdrop behind the plates (the customer's own skin
+     tone, so she sees the set on her colour rather than on nothing). */
+  function setStrip(design, opts) {
+    var o = opts || {};
+    var d = normDesign(design);
+    var UNIT = 100, GAP = 14, PAD = o.bg ? 16 : 0;
+    var plates = [], i, fg, key, nail, art, vb, iw, ih, w, h, maxH = 0, x = PAD, svg, pl, W, defs, prev;
+
+    if (!d) return null;
+    for (i = FINGERS.length - 1; i >= 0; i--) {
+      fg = FINGERS[i];
+      key = 'right' + fg.key.charAt(0).toUpperCase() + fg.key.slice(1);
+      nail = d.nails ? d.nails[key] : null;
+      if (!nail) continue;
+      art = null;
+      try {
+        art = single(nail, d, {
+          w: 0, natural: true, bg: false,
+          key: 'set-' + String(o.key || 'x') + '-' + key
+        });
+      } catch (e) { art = null; }
+      if (!art) continue;
+      vb = String(art.getAttribute('viewBox') || '').split(/[\s,]+/);
+      iw = parseFloat(vb[2]); ih = parseFloat(vb[3]);
+      if (!(iw > 0) || !(ih > 0)) continue;
+      w = UNIT * (SET_W[fg.key] || 0.8);
+      h = ih * (w / iw);
+      if (h > maxH) maxH = h;
+      plates.push({ node: art, w: w, h: h });
+    }
+    if (!plates.length) return null;
+
+    W = x + PAD;
+    for (i = 0; i < plates.length; i++) W += plates[i].w + (i ? GAP : 0);
+
+    svg = E('svg', {
+      xmlns: 'http://www.w3.org/2000/svg',
+      viewBox: '0 0 ' + f(W) + ' ' + f(maxH + PAD * 2),
+      'class': 'sn-svg sn-setstrip'
+    });
+    if (o.ariaLabel) { svg.setAttribute('role', 'img'); svg.setAttribute('aria-label', String(o.ariaLabel)); }
+
+    if (o.bg) {
+      /* a flat block of her skin tone reads as a paint chip; a gentle
+         top-lit gradient reads as a surface the set is lying on */
+      defs = add(svg, E('defs'));
+      prev = ctxOpen(defs);
+      add(svg, E('rect', {
+        x: 0, y: 0, width: f(W), height: f(maxH + PAD * 2),
+        rx: f(Math.min(28, PAD * 1.6)),
+        fill: grad(defs, 'linearGradient',
+          [[0, lighten(o.bg, 0.10)], [1, darken(o.bg, 0.06)]],
+          { x1: 0, y1: 0, x2: 0, y2: 1 })
+      }));
+      ctxClose(prev);
+    }
+
+    for (i = 0; i < plates.length; i++) {
+      pl = plates[i];
+      pl.node.removeAttribute('style');
+      pl.node.removeAttribute('class');
+      pl.node.setAttribute('x', f(x));
+      pl.node.setAttribute('y', f(PAD + (maxH - pl.h)));   /* one baseline */
+      pl.node.setAttribute('width', f(pl.w));
+      pl.node.setAttribute('height', f(pl.h));
+      add(svg, pl.node);
+      x += pl.w + GAP;
+    }
+    return svg;
+  }
+
   function single(nailState, design, opts) {
     opts = opts || {};
     var d = normDesign(design);
@@ -5940,6 +6074,8 @@
     preloadPhoto: preloadPhoto,
     preview: preview,
     single: single,
+    setStrip: setStrip,
+    colourFamily: colourFamily,
     thumb: thumb,
     pointToNorm: pointToNorm,
     toPNG: toPNG,
