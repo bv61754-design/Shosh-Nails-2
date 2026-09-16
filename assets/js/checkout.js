@@ -37,14 +37,17 @@
   ];
 
   var RATE_DEFAULTS = {
-    base: 120, singleHandFactor: 0.6, perExtraColor: 3, perPatternNail: 8,
-    perCharm: 4, express: 40, giftWrap: 15, shipping: 20, freeShippingOver: 300,
-    vat: 0, depositPct: 0
+    base: 15000, singleHandFactor: 0.6, perExtraColor: 500, perPatternNail: 1000,
+    perCharm: 500, express: 5000, giftWrap: 2000, shipping: 5000, freeShippingOver: 0,
+    vat: 0, depositPct: 0, deposit: 0
   };
+
+  /* the three languages the site speaks; anything else is treated as Arabic */
+  var LANG_FALLBACK = { iq: ['iq', 'ar', 'en'], ar: ['ar', 'iq', 'en'], en: ['en', 'ar', 'iq'] };
 
   var PAY_ICON = {
     bank: 'shield', card: 'lock', wallet: 'phone',
-    cod: 'truck', applepay: 'phone'
+    cod: 'truck', applepay: 'phone', phone: 'phone'
   };
 
   /* ====================================================================== */
@@ -53,6 +56,24 @@
 
   if (SN.I18n && typeof SN.I18n.extend === 'function') {
     SN.I18n.extend({
+      iq: {
+        co: {
+          lead: 'ثلاث خطوات بسيطة وطلبك يوصلنا.',
+          customSub: 'طقم مسوّي على مقاسك أنتِ، ظفر ظفر.',
+          qtyHint: 'كل طقم بيه 10 أظافر مع اللاصقات وعدّة التركيب.',
+          qtyHintOne: 'طقم اليد الوحدة بيه 5 أظافر مع اللاصقات وعدّة التركيب.',
+          savedHint: 'نحفظ بياناتك على جهازك أنتِ بس، حتى طلبك الجاي يكون أسرع.',
+          noPay: 'ماكو طريقة دفع مفعّلة هسة',
+          noPayText: 'دزّي طلبك وإحنا نتفق وياك على طريقة الدفع مباشرة لمن نتواصل.',
+          noWa: 'ماكو رقم واتساب مسجّل هسة',
+          noWaText: 'انسخي ملخص الطلب ودزّيه إلنا على أي وحدة من هاي:',
+          imgWait: 'قاعدين نجهّز الصورة…'
+        },
+        pay: {
+          noneTitle: 'ماكو طرق دفع مضافة',
+          noneText: 'نتواصل وياك ونتفق على طريقة الدفع المناسبة لمن يوصلنا الطلب.'
+        }
+      },
       ar: {
         co: {
           title: 'إتمام الطلب',
@@ -279,25 +300,26 @@
   /* ------------------------------------------------------------ language */
 
   function curLang() {
-    return (SN.I18n && SN.I18n.lang === 'en') ? 'en' : 'ar';
+    var l = SN.I18n ? SN.I18n.lang : '';
+    return has(LANG_FALLBACK, l) ? l : 'ar';
   }
 
   function normLang(l) {
-    if (l === 'ar' || l === 'en') return l;
+    if (has(LANG_FALLBACK, l)) return l;
     return curLang();
   }
 
   /* Translate into an explicit language (SN.I18n.t only knows the current one). */
   function tl(key, lang, vars) {
-    var I = SN.I18n, L = normLang(lang), s, d;
+    var I = SN.I18n, L = normLang(lang), s, d, chain, i;
     var k = str(key);
     if (!k) return '';
     if (!I || !I.dict) return k;
-    d = I.dict[L];
-    s = d ? d[k] : undefined;
-    if (s === undefined || s === null) {
-      d = I.dict[L === 'ar' ? 'en' : 'ar'];
+    chain = LANG_FALLBACK[L];
+    for (i = 0; i < chain.length; i++) {
+      d = I.dict[chain[i]];
       s = d ? d[k] : undefined;
+      if (s !== undefined && s !== null) break;
     }
     if (s === undefined || s === null) return k;
     s = String(s);
@@ -314,13 +336,14 @@
 
   /* T-object -> string in an explicit language. */
   function pickL(tobj, lang) {
-    var L = normLang(lang), a, b;
+    var L = normLang(lang), chain, i, v;
     if (typeof tobj === 'string') return tobj;
     if (!isObj(tobj)) return '';
-    a = tobj[L];
-    b = tobj[L === 'ar' ? 'en' : 'ar'];
-    if (typeof a === 'string' && a) return a;
-    if (typeof b === 'string' && b) return b;
+    chain = LANG_FALLBACK[L];
+    for (i = 0; i < chain.length; i++) {
+      v = tobj[chain[i]];
+      if (typeof v === 'string' && v) return v;
+    }
     return '';
   }
 
@@ -328,7 +351,7 @@
     var I = SN.I18n, L = normLang(lang), n = r2(v);
     if (I && typeof I.num === 'function' && L === curLang()) return I.num(n);
     try {
-      return new Intl.NumberFormat(L === 'ar' ? 'ar-SA-u-nu-latn' : 'en-US',
+      return new Intl.NumberFormat(L === 'en' ? 'en-US' : 'ar-IQ-u-nu-latn',
         { maximumFractionDigits: 2 }).format(n);
     } catch (e) { /* older engine */ }
     return String(n);
@@ -345,7 +368,29 @@
     cur = currencyOf(L);
     s = fmtNum(n, L);
     if (!cur) return s;
-    return L === 'ar' ? (s + ' ' + cur) : (cur + ' ' + s);
+    return L === 'en' ? (cur + ' ' + s) : (s + ' ' + cur);
+  }
+
+  /* ------------------------------------------------------- governorates */
+
+  function govList() {
+    var arr = slist('governorates'), out = [], i;
+    for (i = 0; i < arr.length; i++) if (isObj(arr[i]) && arr[i].id) out.push(arr[i]);
+    return out;
+  }
+
+  function govById(id) {
+    var arr = govList(), i;
+    if (!id) return null;
+    for (i = 0; i < arr.length; i++) if (str(arr[i].id) === str(id)) return arr[i];
+    return null;
+  }
+
+  /* the courier fee for a governorate, or null when she has not picked one
+     (the pricing fallback then applies) */
+  function govFee(id) {
+    var g = govById(id);
+    return g ? Math.max(0, numOf(g.fee, 0)) : null;
   }
 
   /* ---------------------------------------------------------- nail model */
@@ -439,11 +484,12 @@
   }
 
   /* shipping / vat / total, shared by both price builders */
-  function finish(lines, lang) {
+  function finish(lines, lang, shipOverride) {
     var P = rates();
     var sub = sumLines(lines);
     var free = P.freeShippingOver > 0 && sub >= P.freeShippingOver;
-    var ship = (free || P.shipping <= 0) ? 0 : r2(P.shipping);
+    var base = typeof shipOverride === 'number' && isFinite(shipOverride) ? shipOverride : P.shipping;
+    var ship = (free || base <= 0) ? 0 : r2(base);
     var vat = P.vat > 0 ? r2(P.vat * sub) : 0;
     var total = r2(sub + ship + vat);
     return {
@@ -466,10 +512,13 @@
     if (giftWrap) addLine(lines, 'giftWrap', tl('order.giftWrap', lang), P.giftWrap, 1);
   }
 
-  /* The 10-step custom-set algorithm from SPEC.md section 12. */
-  function buildCustom(design, lang) {
+  /* The 10-step custom-set algorithm from SPEC.md section 12. `opts.shipping`
+     is the governorate fee the customer picked; without it the pricing
+     fallback applies. */
+  function buildCustom(design, lang, opts) {
     var L = normLang(lang);
     var P = rates();
+    var shipOpt = isObj(opts) && typeof opts.shipping === 'number' ? opts.shipping : undefined;
     var d = isObj(design) ? design : {};
     var keys = activeKeys(d);
     var lines = [];
@@ -590,7 +639,7 @@
     addExtras(lines, d.express, d.giftWrap, L);
 
     /* 9 + 10 — shipping and VAT */
-    return finish(lines, L);
+    return finish(lines, L, shipOpt);
   }
 
   function buildReady(item, qty, opts, lang) {
@@ -609,11 +658,11 @@
     });
 
     addExtras(lines, o.express, o.giftWrap, L);
-    return finish(lines, L);
+    return finish(lines, L, typeof o.shipping === 'number' ? o.shipping : undefined);
   }
 
-  function priceCustom(design) {
-    try { return buildCustom(design, curLang()); }
+  function priceCustom(design, opts) {
+    try { return buildCustom(design, curLang(), opts); }
     catch (e) {
       console.warn('[SN.Checkout] priceCustom failed', e);
       return finish([], curLang());
@@ -688,33 +737,39 @@
       };
     }
 
+    src = isObj(o.customer) ? govFee(o.customer.gov) : null;
     if (o.kind === 'ready') {
-      return buildReady(o.item, o.qty, { express: o.express, giftWrap: o.giftWrap }, L);
+      return buildReady(o.item, o.qty, { express: o.express, giftWrap: o.giftWrap, shipping: src === null ? undefined : src }, L);
     }
-    return buildCustom(o.design, L);
+    return buildCustom(o.design, L, { shipping: src === null ? undefined : src });
   }
 
   /* ====================================================================== */
   /* 4. Order numbers                                                        */
   /* ====================================================================== */
 
+  /* An order code the owner can tell apart on his phone. Every visitor's
+     browser keeps its own count, so a plain counter hands every first order
+     the same SN-0001; the day plus three letters does not collide in
+     practice. The counter is still kept for the panel's own numbering. */
+  var CODE_ALPHABET = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+
   function nextNumber() {
     var orders = slist('orders');
     var stored = intOf(sget(SEQ_PATH, 0), 0, 0);
-    var top = 0, i, m, n;
+    var top = 0, i, d, mm, dd, code = '';
 
-    for (i = 0; i < orders.length; i++) {
-      m = /(\d+)\s*$/.exec(str(orders[i] && orders[i].no));
-      n = m ? intOf(m[1], 0, 0) : 0;
-      if (n > top) top = n;
-    }
     if (orders.length > top) top = orders.length;
     if (stored > top) top = stored;
-
     top += 1;
     try { if (SN.Store && SN.Store.set) SN.Store.set(SEQ_PATH, top); }
     catch (e) { console.warn('[SN.Checkout] could not persist the order counter', e); }
-    return 'SN-' + pad4(top);
+
+    d = new Date();
+    mm = String(d.getMonth() + 1); if (mm.length < 2) mm = '0' + mm;
+    dd = String(d.getDate()); if (dd.length < 2) dd = '0' + dd;
+    for (i = 0; i < 3; i++) code += CODE_ALPHABET.charAt(Math.floor(Math.random() * CODE_ALPHABET.length));
+    return 'SN-' + mm + dd + '-' + code;
   }
 
   /* ====================================================================== */
@@ -792,7 +847,7 @@
       if (it && it.glyph) name = str(it.glyph) + ' ' + name;
       out.push(count[order[i]] > 1 ? (name + ' ×' + count[order[i]]) : name);
     }
-    return out.join(normLang(lang) === 'ar' ? '، ' : ', ');
+    return out.join(normLang(lang) === 'en' ? ', ' : '، ');
   }
 
   function sizeLabel(idx) {
@@ -835,10 +890,10 @@
     out.push(tl('co.f.hand', L) + ': ' + tl('co.hand.' + handOf(d), L));
     if (d.skin) out.push(tl('co.f.skin', L) + ': ' + (skinName(d.skin, L) || str(d.skin)));
 
-    for (i = 0; i < sides.length; i++) {
-      out.push(tl('co.f.sizes', L) + ' — ' + tl('co.hand.' + sides[i], L) + ': ' +
-        sizesLine(d, sides[i], L));
-    }
+    /* Sizes are never chosen on this site — they are agreed in chat after
+       the order. Printing the preset numbers as if she picked them would
+       read as her choice and get made. */
+    out.push(tl('order.sizeLine', L));
 
     out.push('');
     out.push(tl('co.s.nails', L));
@@ -882,7 +937,7 @@
       out.push(tl('order.customer', L));
       if (trim(cust.name)) out.push(tl('order.name', L) + ': ' + trim(cust.name));
       if (trim(cust.phone)) out.push(tl('order.phone', L) + ': ' + trim(cust.phone));
-      if (trim(cust.city)) out.push(tl('order.city', L) + ': ' + trim(cust.city));
+      if (govName(cust, L)) out.push(tl('order.city', L) + ': ' + govName(cust, L));
       if (trim(cust.address)) out.push(tl('order.address', L) + ': ' + trim(cust.address));
       if (trim(cust.note)) out.push(tl('order.note', L) + ': ' + trim(cust.note));
       out.push('');
@@ -928,12 +983,79 @@
         (p.shipping > 0 ? moneyL(p.shipping, L) : tl('common.free', L)));
       if (p.vat > 0) out.push(tl('order.vat', L) + ': ' + moneyL(p.vat, L));
       out.push(tl('order.total', L) + ': ' + moneyL(p.total, L));
-      if (p.deposit > 0) out.push(tl('order.deposit', L) + ': ' + moneyL(p.deposit, L));
+      if (p.deposit > 0) out.push(tl('order.deposit', L) + ': ' + moneyL(p.deposit, L) + ' — ' + tl('order.depositNote', L));
+      if (o.founding) out.push(tl('order.foundingLine', L, { n: fmtNum(foundingTotal(), L) }));
+      if (trim(o.link)) { out.push(''); out.push(tl('order.msgLink', L) + ': ' + trim(o.link)); }
     } catch (e) {
       console.warn('[SN.Checkout] summary failed', e);
       if (!out.length) out.push(tl('co.s.newOrder', L));
     }
 
+    return out.join('\n').replace(/\n{3,}/g, '\n\n');
+  }
+
+  /* the governorate she picked, by name — falls back to whatever the old
+     free-text city field held */
+  function govName(cust, lang) {
+    var g = isObj(cust) ? govById(cust.gov) : null;
+    if (g) return pickL(g.name, lang) || str(cust.city);
+    return isObj(cust) ? trim(cust.city) : '';
+  }
+
+  function foundingOn() {
+    var f = sget('settings.founding', null);
+    return isObj(f) && f.on !== false && numOf(f.total, 0) > 0;
+  }
+  function foundingTotal() { var f = sget('settings.founding', null); return isObj(f) ? intOf(f.total, 20, 1) : 20; }
+  function foundingGift() { var f = sget('settings.founding', null); return isObj(f) ? numOf(f.gift, 0) : 0; }
+
+  /* The message she actually sends: short enough to read on a phone, with
+     everything the owner needs to start — and, for a quiz set, the nail-by-
+     nail recipe, because that IS the product. The full itemised text stays
+     behind the copy button. */
+  function shortSummary(order, lang) {
+    var L = normLang(lang);
+    var o = isObj(order) ? order : {};
+    var out = [], cust, p, g, method, name, ref, ritem, dep;
+
+    try {
+      cust = isObj(o.customer) ? o.customer : {};
+      p = priceOf(o, L);
+      g = govById(cust.gov);
+      method = isObj(o.payment) && o.payment.id ? findItem('paymentMethods', o.payment.id) : null;
+      dep = numOf(p.deposit, 0);
+
+      out.push(tl('order.msgHi', L));
+      out.push(tl('order.msgNew', L) + (o.no ? ' — ' + str(o.no) : ''));
+      if (o.kind === 'ready') {
+        ritem = isObj(o.item) ? o.item : {};
+        ref = ritem.id ? findItem('designs', ritem.id) : null;
+        name = (ref && pickL(ref.name, L)) || pickL(ritem.name, L) || tl('order.ready', L);
+      } else {
+        name = tl('order.msgQuiz', L);
+      }
+      out.push(tl('order.msgSet', L) + ': ' + name + ' ×' + fmtNum(intOf(o.qty, 1, 1), L));
+      out.push(tl('order.msgTotal', L) + ': ' + moneyL(p.total, L) +
+        (g ? ' (' + tl('order.msgIncl', L, { g: pickL(g.name, L), f: moneyL(p.shipping, L) }) + ')' : ''));
+      if (method) {
+        out.push(tl('order.msgPay', L) + ': ' + (pickL(method.name, L) || str(method.id)) +
+          (dep > 0 ? ' — ' + tl('order.msgDeposit', L, { d: moneyL(dep, L) }) : ''));
+      }
+      out.push(tl('order.name', L) + ': ' + trim(cust.name) + ' · ' + tl('order.phone', L) + ': ' + trim(cust.phone));
+      if (govName(cust, L)) out.push(tl('order.msgGov', L) + ': ' + govName(cust, L) + (trim(cust.address) ? ' — ' + trim(cust.address) : ''));
+      out.push(tl('order.sizeLine', L));
+      if (trim(cust.note)) out.push(tl('order.note', L) + ': ' + trim(cust.note));
+      if (o.founding) out.push(tl('order.foundingLine', L, { n: fmtNum(foundingTotal(), L) }));
+
+      if (o.kind !== 'ready' && isObj(o.design)) {
+        out.push('');
+        designBlock(o.design, L, out);
+      }
+      if (trim(o.link)) { out.push(''); out.push(tl('order.msgLink', L) + ': ' + trim(o.link)); }
+    } catch (e) {
+      console.warn('[SN.Checkout] short summary failed', e);
+      return summary(order, lang);
+    }
     return out.join('\n').replace(/\n{3,}/g, '\n\n');
   }
 
@@ -1020,15 +1142,11 @@
       console.warn('[SN.Checkout] order notification failed', e2);
     }
 
-    /* Opened synchronously inside the click gesture so no popup blocker eats it. */
-    try {
-      if (sget('settings.whatsappOrder', true)) {
-        link = waLink(summary(saved, saved.lang));
-        if (link) window.open(link, '_blank', 'noopener');
-      }
-    } catch (e3) {
-      console.warn('[SN.Checkout] could not open WhatsApp', e3);
-    }
+    /* Nothing is opened here on purpose. The next screen hands her two
+       plain links — WhatsApp or Instagram — because a window.open() from
+       inside a modal is exactly what Instagram's in-app browser swallows,
+       and she would believe she had ordered. */
+    link = null;
 
     return Promise.resolve(saved);
   }
@@ -1047,7 +1165,7 @@
     if (!isObj(o)) return {};
     return {
       name: str(o.name), phone: str(o.phone),
-      city: str(o.city), address: str(o.address)
+      city: str(o.city), gov: str(o.gov), address: str(o.address)
     };
   }
 
@@ -1056,7 +1174,7 @@
     try {
       window.localStorage.setItem(CUST_KEY, JSON.stringify({
         name: trim(o.name), phone: trim(o.phone),
-        city: trim(o.city), address: trim(o.address)
+        city: trim(o.city), gov: trim(o.gov), address: trim(o.address)
       }));
     } catch (e) { /* Safari private mode — nothing to pre-fill next time */ }
   }
@@ -1092,6 +1210,36 @@
       if (isObj(list[i]) && list[i].enabled !== false) out.push(list[i]);
     }
     return out;
+  }
+
+  /* The measuring drawing: a fingertip, its nail, and a ruler laid across the
+     widest point. Plain shapes in the site's own colours, nothing traced. */
+  function sizeGuideSVG() {
+    var ticks = '', x, i;
+    for (i = 0; i <= 26; i++) {
+      x = 30 + i * 10;
+      ticks += '<line x1="' + x + '" y1="152" x2="' + x + '" y2="' + (i % 5 === 0 ? 166 : (i % 5 === 2.5 ? 160 : 158)) + '" stroke="#8A7350" stroke-width="' + (i % 5 === 0 ? 1.4 : 1) + '"/>';
+      if (i % 5 === 0) ticks += '<text x="' + x + '" y="176" font-size="8" text-anchor="middle" fill="#8A7350">' + (i / 5) * 5 + '</text>';
+    }
+    return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" width="320" height="200" role="img">' +
+      '<rect x="0" y="0" width="320" height="200" rx="14" fill="#FFF8F6"/>' +
+      '<path d="M112 200 V92 a48 48 0 0 1 96 0 V200 Z" fill="#E3B48F"/>' +
+      '<path d="M112 200 V92 a48 48 0 0 1 96 0 V200" fill="none" stroke="#C7946F" stroke-width="1.5"/>' +
+      '<path d="M134 112 C138 70 182 70 186 112 V142 C182 158 138 158 134 142 Z" fill="#F4CBD2" stroke="#D99AAE" stroke-width="2"/>' +
+      '<path d="M146 92 C152 80 168 80 174 92" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" opacity=".8"/>' +
+      '<line x1="134" y1="118" x2="186" y2="118" stroke="#8B2E4A" stroke-width="2"/>' +
+      '<path d="M134 118 l7 -5 v10 z M186 118 l-7 -5 v10 z" fill="#8B2E4A"/>' +
+      '<line x1="134" y1="112" x2="134" y2="150" stroke="#8B2E4A" stroke-width="1" stroke-dasharray="3 3"/>' +
+      '<line x1="186" y1="112" x2="186" y2="150" stroke="#8B2E4A" stroke-width="1" stroke-dasharray="3 3"/>' +
+      '<text x="160" y="56" font-size="13" font-weight="700" text-anchor="middle" fill="#5A2A38">' + esc(T('order.guideWidest')) + '</text>' +
+      '<rect x="22" y="148" width="276" height="34" rx="5" fill="#FFF3D6" stroke="#C8B48A"/>' +
+      ticks +
+      '<text x="288" y="176" font-size="8" text-anchor="end" fill="#8A7350">mm</text>' +
+      '</svg>';
+  }
+
+  function esc(s) {
+    return str(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
 
   function contactRows(U) {
@@ -1153,8 +1301,11 @@
       giftWrap: kind === 'custom' ? !!design.giftWrap : !!o.giftWrap,
       cust: loadCustomer(),
       note: kind === 'custom' ? str(design.notes) : '',
-      payId: '',
-      terms: false,
+      /* cash on delivery is how Iraq buys: the first enabled method is
+         pre-selected, and the seed puts COD first */
+      payId: enabledPayments().length ? str(enabledPayments()[0].id) : '',
+      link: str(o.link),
+      terms: true,
       busy: false,
       done: false,
       order: null
@@ -1171,10 +1322,16 @@
     }
 
     function price() {
+      var fee = govFee(st.cust.gov), p, method, P;
       syncDesign();
-      return st.kind === 'ready'
-        ? priceReady(st.item, st.qty, { express: st.express, giftWrap: st.giftWrap })
-        : priceCustom(st.design);
+      p = st.kind === 'ready'
+        ? priceReady(st.item, st.qty, { express: st.express, giftWrap: st.giftWrap, shipping: fee === null ? undefined : fee })
+        : priceCustom(st.design, { shipping: fee === null ? undefined : fee });
+      /* the flat deposit belongs to the payment method, not to the rates */
+      method = findItem('paymentMethods', st.payId);
+      P = rates();
+      if (method && method.deposit && P.deposit > 0) p.deposit = r2(Math.min(P.deposit, p.total));
+      return p;
     }
 
     /* ------------------------------------------------------------ chrome */
@@ -1272,13 +1429,16 @@
     function validateInfo(paint) {
       var okName = trim(st.cust.name).length >= 2;
       var okPhone = PHONE_RE.test(trim(st.cust.phone));
+      var okGov = !govList().length || !!govById(st.cust.gov);
       if (paint) {
         setErr(refs.name, refs.nameErr, okName ? '' : T('order.nameErr'));
         setErr(refs.phone, refs.phoneErr, okPhone ? '' : T('order.phoneErr'));
+        setErr(refs.gov, refs.govErr, okGov ? '' : T('order.govErr'));
         if (!okName && refs.name) { try { refs.name.focus(); } catch (e) { /* ignore */ } }
         else if (!okPhone && refs.phone) { try { refs.phone.focus(); } catch (e2) { /* ignore */ } }
+        else if (!okGov && refs.gov) { try { refs.gov.focus(); } catch (e3) { /* ignore */ } }
       }
-      return okName && okPhone;
+      return okName && okPhone && okGov;
     }
 
     function validatePay(paint) {
@@ -1288,12 +1448,9 @@
       return ok;
     }
 
-    function validateTerms(paint) {
-      var ok = !!st.terms;
-      if (paint && refs.termsErr) refs.termsErr.textContent = ok ? '' : T('order.termsErr');
-      if (paint && !ok && refs.terms) { try { refs.terms.focus(); } catch (e) { /* ignore */ } }
-      return ok;
-    }
+    /* The terms are a sentence with a link now, not a box that led nowhere:
+       pressing "confirm" is the agreement. */
+    function validateTerms() { return true; }
 
     function stepValid(n) {
       if (n === 1) return validateInfo(false);
@@ -1327,6 +1484,55 @@
       ]);
       if (multiline) { try { input.value = str(value); } catch (e) { /* ignore */ } }
       return { field: field, input: input, err: err };
+    }
+
+    /* the governorate picker: the fee and the delivery days appear under it
+       the moment she chooses, so "how much is delivery?" never needs a DM */
+    function govField() {
+      var id = 'sn-co-gov-' + Math.random().toString(36).slice(2, 6);
+      var errId = id + '-err';
+      var L = curLang();
+      var list = govList(), i, opt;
+      var select = U.el('select', {
+        'class': 'input select', id: id, 'aria-describedby': errId, 'aria-required': 'true'
+      });
+      var hint = U.el('span', { 'class': 'hint', style: { display: 'block', marginBlockStart: '6px' } });
+      var err = U.el('span', { 'class': 'field-err', id: errId, role: 'alert' });
+
+      function paintHint() {
+        var g = govById(st.cust.gov);
+        hint.textContent = g ? T('order.govFee', {
+          g: pickL(g.name, L), f: moneyL(numOf(g.fee, 0), L), d: pickL(g.days, L) || '—'
+        }) : '';
+      }
+
+      opt = U.el('option', { value: '', text: T('order.cityPh') });
+      select.appendChild(opt);
+      for (i = 0; i < list.length; i++) {
+        opt = U.el('option', { value: str(list[i].id), text: pickL(list[i].name, L) || str(list[i].id) });
+        if (str(list[i].id) === str(st.cust.gov)) opt.selected = true;
+        select.appendChild(opt);
+      }
+      select.addEventListener('change', function () {
+        var g = govById(select.value);
+        st.cust.gov = g ? str(g.id) : '';
+        st.cust.city = g ? (pickL(g.name, L) || '') : '';
+        setErr(select, err, '');
+        paintHint();
+        syncBar();
+      }, false);
+      paintHint();
+
+      return {
+        field: U.el('div', { 'class': 'field' }, [
+          U.el('label', { 'class': 'label', 'for': id }, [
+            U.el('span', { text: T('order.city') }),
+            U.el('span', { style: { color: 'var(--err)' }, text: ' *' })
+          ]),
+          select, hint, err
+        ]),
+        input: select, err: err
+      };
     }
 
     function qtyRow() {
@@ -1420,9 +1626,15 @@
       catch (e) { /* ignore */ }
       box.appendChild(f.field);
 
-      f = textField('order.city', 'order.cityPh', st.cust.city, false,
-        function (v) { st.cust.city = v; });
-      box.appendChild(f.field);
+      if (govList().length) {
+        f = govField();
+        refs.gov = f.input; refs.govErr = f.err;
+        box.appendChild(f.field);
+      } else {
+        f = textField('order.city', 'order.cityPh', st.cust.city, false,
+          function (v) { st.cust.city = v; });
+        box.appendChild(f.field);
+      }
 
       f = textField('order.address', 'order.addressPh', st.cust.address, true,
         function (v) { st.cust.address = v; });
@@ -1627,11 +1839,18 @@
         ]),
         reviewRow('order.name', st.cust.name),
         reviewRow('order.phone', st.cust.phone),
-        reviewRow('order.city', st.cust.city),
+        reviewRow('order.city', govName(st.cust, L)),
         reviewRow('order.address', st.cust.address),
         reviewRow('order.note', st.note)
       ]);
       box.appendChild(panel);
+      if (govById(st.cust.gov)) {
+        box.appendChild(U.el('p', { 'class': 'hint', text: T('order.govFee', {
+          g: pickL(govById(st.cust.gov).name, L),
+          f: moneyL(numOf(govById(st.cust.gov).fee, 0), L),
+          d: pickL(govById(st.cust.gov).days, L) || '—'
+        }) }));
+      }
 
       box.appendChild(U.el('div', { 'class': 'panel panel-soft', style: { padding: '14px' } }, [
         U.el('div', { 'class': 'row', style: { gap: '8px', marginBlockEnd: '8px' } }, [
@@ -1666,23 +1885,67 @@
       box.appendChild(U.el('h3', { 'class': 'h4', text: T('co.breakdown') }));
       box.appendChild(priceTable(p));
 
-      refs.terms = U.el('input', {
-        type: 'checkbox',
-        checked: st.terms ? true : null,
-        on: {
-          change: function (ev) {
-            st.terms = !!ev.target.checked;
-            if (refs.termsErr) refs.termsErr.textContent = '';
-          }
-        }
-      });
-      box.appendChild(U.el('label', { 'class': 'check check-card' }, [
-        refs.terms,
-        U.el('span', { text: T('order.terms') })
+      /* the reassurance she needs with her thumb over the button */
+      box.appendChild(U.el('p', { 'class': 'hint', text: T('order.sizeNote') }));
+      if (st.kind === 'custom') box.appendChild(U.el('p', { 'class': 'hint', text: T('order.editHint') }));
+      if (foundingOn()) {
+        box.appendChild(U.el('div', { 'class': 'note note-ok' }, [
+          U.el('span', { 'class': 'ico', html: U.icon('sparkle', 18), 'aria-hidden': 'true' }),
+          U.el('span', { text: T('order.foundingConfirm', { g: moneyL(foundingGift(), L) }) })
+        ]));
+      }
+      box.appendChild(afterSteps());
+
+      box.appendChild(U.el('p', { 'class': 'tiny muted' }, [
+        U.el('span', { text: T('order.terms') + ' ' }),
+        U.el('a', { href: 'faq.html#fq-change-cancel', target: '_blank', rel: 'noopener', text: T('order.termsLink') })
       ]));
-      refs.termsErr = U.el('span', { 'class': 'field-err', role: 'alert' });
-      box.appendChild(refs.termsErr);
       return box;
+    }
+
+    /* "and then what?" — the owner's own four promises, numbered */
+    function afterSteps() {
+      var raw = pickL(sget('settings.afterSteps', null), curLang());
+      var parts = str(raw).split('|'), i, items = [];
+      for (i = 0; i < parts.length; i++) if (trim(parts[i])) items.push(U.el('li', { text: trim(parts[i]) }));
+      if (!items.length) return null;
+      return U.el('div', { 'class': 'co-steps' }, [
+        U.el('strong', { 'class': 'co-steps-t', text: T('order.stepsTitle') }),
+        U.el('ol', { 'class': 'co-steps-l' }, items)
+      ]);
+    }
+
+    /* the measuring guide: one drawing, one sentence, and a button that
+       saves it — this is the "message with a picture" she gets after
+       ordering, only she does not have to wait for it */
+    function sizeGuide() {
+      var wrap = U.el('div', { 'class': 'co-guide' });
+      var art = U.el('div', { 'class': 'co-guide-art', 'aria-hidden': 'true' });
+      var btn;
+      art.innerHTML = sizeGuideSVG();
+      wrap.appendChild(U.el('strong', { 'class': 'co-guide-t', text: T('order.guideTitle') }));
+      wrap.appendChild(art);
+      wrap.appendChild(U.el('p', { 'class': 'hint', text: T('order.guideText') }));
+      if (SN.Nail && typeof SN.Nail.toPNG === 'function' && U.download) {
+        btn = U.el('button', { 'class': 'btn btn-line btn-sm', type: 'button' }, [
+          U.el('span', { 'class': 'btn-ico', html: U.icon('download', 16), 'aria-hidden': 'true' }),
+          U.el('span', { text: T('order.guideSave') })
+        ]);
+        btn.addEventListener('click', function () {
+          var svg = art.querySelector('svg');
+          if (!svg || btn.disabled) return;
+          btn.disabled = true;
+          SN.Nail.toPNG(svg, { scale: 3, bg: '#FFF8F6' }).then(function (blob) {
+            btn.disabled = false;
+            U.download(blob, 'shosh-nail-size-guide.png', 'image/png');
+          }, function () {
+            btn.disabled = false;
+            if (U.toast) U.toast(T('co.imgErr'), 'err');
+          });
+        }, false);
+        wrap.appendChild(btn);
+      }
+      return wrap;
     }
 
     /* ----------------------------------------------------------- success */
@@ -1697,28 +1960,63 @@
         }
       });
       var link = waLink(''), igName, igBtn;
+      var main = U.el('div', { 'class': 'btns co-send', style: { justifyContent: 'center' } });
       var btns = U.el('div', { 'class': 'btns', style: { justifyContent: 'center' } });
+      var msg = shortSummary(order, curLang());
       var imgBtn;
 
-      box.appendChild(U.el('span', {
-        html: U.icon('check', 34),
-        style: {
-          display: 'inline-flex', color: 'var(--ok)', background: 'var(--ok-soft)',
-          inlineSize: '68px', blockSize: '68px', borderRadius: '999px',
-          alignItems: 'center', justifyContent: 'center'
-        },
-        'aria-hidden': 'true'
-      }));
-      box.appendChild(U.el('h3', { 'class': 'h2 display', tabindex: '-1', text: T('order.sent') }));
-      box.appendChild(U.el('div', {
-        'class': 'pill pill-gold num',
-        style: { fontSize: '1.15rem', fontWeight: '800' },
-        text: str(order.no)
-      }));
-      box.appendChild(U.el('p', { 'class': 'lead', text: T('order.thanks') }));
+      box.appendChild(U.el('h3', { 'class': 'h2 display', tabindex: '-1', text: T('order.sendTitle') }));
+      box.appendChild(U.el('p', { 'class': 'lead', text: T('order.sendLead') }));
+
+      /* Two plain links, no window.open(): a popup from inside a modal is
+         exactly what Instagram's in-app browser swallows, and she would
+         believe she had ordered. */
+      if (link) {
+        main.appendChild(U.el('a', {
+          'class': 'btn btn-pri btn-lg',
+          href: waLink(msg),
+          target: '_blank', rel: 'noopener'
+        }, [
+          U.el('span', { 'class': 'btn-ico', html: U.icon('whatsapp', 20), 'aria-hidden': 'true' }),
+          U.el('span', { text: T('order.sendWa') })
+        ]));
+      }
+
+      /* Instagram has no way to open a chat with the message written for
+         her — so the order is put on her clipboard first, then the chat is
+         opened as a plain link, and the button says so. */
+      igName = str(sget('settings.instagram', '')).replace(/^@/, '');
+      if (igName) {
+        igBtn = U.el('a', {
+          'class': 'btn ' + (link ? 'btn-line' : 'btn-pri') + ' btn-lg',
+          href: 'https://ig.me/m/' + encodeURIComponent(igName),
+          target: '_blank', rel: 'noopener'
+        }, [
+          U.el('span', { 'class': 'btn-ico', html: U.icon('instagram', 20), 'aria-hidden': 'true' }),
+          U.el('span', { text: T('order.sendIg') })
+        ]);
+        igBtn.addEventListener('click', function () {
+          if (!U.copy) return;
+          U.copy(msg).then(function (ok) {
+            if (U.toast) U.toast(T(ok ? 'order.igCopied' : 'order.igCopyFail'), ok ? 'ok' : 'err');
+          }, function () { if (U.toast) U.toast(T('order.igCopyFail'), 'err'); });
+        }, false);
+        main.appendChild(igBtn);
+      }
+      box.appendChild(main);
+      if (igName) box.appendChild(U.el('p', { 'class': 'tiny muted', text: T('order.igHow') }));
+
+      box.appendChild(U.el('div', { 'class': 'row', style: { gap: '8px', justifyContent: 'center' } }, [
+        U.el('span', { 'class': 'tiny muted', text: T('order.codeLbl') }),
+        U.el('span', {
+          'class': 'pill pill-gold num',
+          style: { fontSize: '1.05rem', fontWeight: '800' },
+          text: str(order.no)
+        })
+      ]));
 
       btns.appendChild(U.el('button', {
-        'class': 'btn btn-line', type: 'button',
+        'class': 'btn btn-line btn-sm', type: 'button',
         on: {
           click: function () {
             if (!U.copy) return;
@@ -1728,45 +2026,9 @@
           }
         }
       }, [
-        U.el('span', { 'class': 'btn-ico', html: U.icon('copy', 18), 'aria-hidden': 'true' }),
-        U.el('span', { text: T('order.copySummary') })
+        U.el('span', { 'class': 'btn-ico', html: U.icon('copy', 16), 'aria-hidden': 'true' }),
+        U.el('span', { text: T('order.copyFull') })
       ]));
-
-      if (link) {
-        btns.appendChild(U.el('a', {
-          'class': 'btn btn-pri',
-          href: waLink(summary(order, curLang())),
-          target: '_blank', rel: 'noopener'
-        }, [
-          U.el('span', { 'class': 'btn-ico', html: U.icon('whatsapp', 18), 'aria-hidden': 'true' }),
-          U.el('span', { text: T('order.openWa') })
-        ]));
-      }
-
-      /* Instagram is where most of these customers already are, but it has no
-         way to open a chat with the message written for her — so the order is
-         put on her clipboard first and she pastes it into the chat. Saying so
-         is the difference between a helpful button and a confusing one. */
-      igName = str(sget('settings.instagram', '')).replace(/^@/, '');
-      if (igName) {
-        igBtn = U.el('button', { 'class': 'btn btn-line', type: 'button' }, [
-          U.el('span', { 'class': 'btn-ico', html: U.icon('instagram', 18), 'aria-hidden': 'true' }),
-          U.el('span', { text: T('order.openIg') })
-        ]);
-        igBtn.addEventListener('click', function () {
-          var go = function () {
-            try { window.open('https://instagram.com/' + encodeURIComponent(igName), '_blank', 'noopener'); }
-            catch (e) { /* a blocked popup is not a failure worth shouting about */ }
-          };
-          if (U.copy) {
-            U.copy(summary(order, curLang())).then(function (ok) {
-              if (U.toast) U.toast(T(ok ? 'order.igCopied' : 'order.igCopyFail'), ok ? 'ok' : 'err');
-              go();
-            }, function () { if (U.toast) U.toast(T('order.igCopyFail'), 'err'); go(); });
-          } else { go(); }
-        }, false);
-        btns.appendChild(igBtn);
-      }
 
       if (st.kind === 'custom' && SN.Nail &&
         typeof SN.Nail.preview === 'function' && typeof SN.Nail.toPNG === 'function') {
@@ -1803,14 +2065,19 @@
       }
 
       btns.appendChild(U.el('a', {
-        'class': 'btn btn-ghost', href: 'index.html#quiz'
+        'class': 'btn btn-ghost btn-sm', href: 'index.html#quiz'
       }, [
-        U.el('span', { 'class': 'btn-ico', html: U.icon('sparkle', 18), 'aria-hidden': 'true' }),
+        U.el('span', { 'class': 'btn-ico', html: U.icon('sparkle', 16), 'aria-hidden': 'true' }),
         U.el('span', { text: T('order.newDesign') })
       ]));
       box.appendChild(btns);
 
-      if (!link) {
+      /* what happens next, and how to measure — the two things she would
+         otherwise have to ask */
+      box.appendChild(afterSteps());
+      box.appendChild(sizeGuide());
+
+      if (!link && !igName) {
         box.appendChild(U.el('div', {
           'class': 'note note-warn',
           style: {
@@ -1855,6 +2122,7 @@
       var L = curLang();
       var method = findItem('paymentMethods', st.payId);
       var p = price();
+      var g = govById(st.cust.gov);
       var order = {
         no: nextNumber(),
         ts: Date.now(),
@@ -1862,10 +2130,13 @@
         customer: {
           name: trim(st.cust.name),
           phone: trim(st.cust.phone),
-          city: trim(st.cust.city),
+          gov: g ? str(g.id) : '',
+          city: g ? (pickL(g.name, L) || '') : trim(st.cust.city),
           address: trim(st.cust.address),
           note: trim(st.note)
         },
+        link: trim(st.link),
+        founding: foundingOn(),
         payment: {
           id: method ? str(method.id) : '',
           name: method ? (pickL(method.name, L) || str(method.id)) : ''
@@ -2015,6 +2286,8 @@
       cls: 'modal-checkout',
       body: bodyRoot,
       actions: [],
+      /* a stray tap outside must not lose the send screen */
+      closeOnBackdrop: false,
       onClose: function () {
         if (offLang) { try { offLang(); } catch (e) { /* ignore */ } offLang = null; }
         if (typeof o.onClose === 'function') {
@@ -2059,6 +2332,7 @@
     priceReady: priceReady,
     open: open,
     summary: summary,
+    shortSummary: shortSummary,
     submit: submit,
     waLink: waLink,
     nextNumber: nextNumber

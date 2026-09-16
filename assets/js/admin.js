@@ -90,7 +90,9 @@
           faq: 'الأسئلة الشائعة',
           payments: 'طرق الدفع',
           orders: 'الطلبات',
-          backup: 'النسخ الاحتياطي'
+          backup: 'النسخ الاحتياطي',
+          governorates: 'المحافظات والتوصيل',
+          publish: 'النشر'
         },
 
         /* ---- أسماء المجموعات والأنواع (بدل المعرّفات الإنجليزية) ---- */
@@ -153,6 +155,9 @@
         /* ---- field labels ---- */
         f: {
           name: 'الاسم',
+          deposit: 'تطلب عربونًا مقدّمًا',
+          fee: 'أجرة التوصيل',
+          days: 'مدة التوصيل',
           person: 'اسم العميلة',
           price: 'السعر الإضافي',
           desc: 'الوصف',
@@ -187,6 +192,9 @@
 
         /* ---- field hints ---- */
         h: {
+          deposit: 'العربون نفسه تحددينه في تبويب «الأسعار». الطريقة اللي عليها هذا الخيار تطلب العربون وتخصمه من الإجمالي.',
+          fee: 'تنضاف على كل طلب من هذه المحافظة وتظهر للزبونة لمن تختارها.',
+          days: 'مثال: «يوم إلى يومين». يظهر تحت المحافظة عند الطلب.',
           price: 'يُضاف على سعر الطقم الأساسي. اكتبي 0 إذا ما فيه فرق سعر.',
           factor: 'نسبة الطول مقارنة بالمتوسط: 0.72 قصير، 1 متوسط، 1.28 طويل، 1.6 طويل جداً.',
           shadow: 'درجة أغمق شوي من لون البشرة — تُستخدم لحواف اليد في الرسم.',
@@ -208,6 +216,13 @@
           contactX: 'أي حقل تتركينه فاضي يختفي تلقائياً من الموقع.',
           afterLbl: 'وعد ما بعد الطلب',
           afterHint: 'يظهر فوق زر الطلب مباشرة عشان تطمئن قبل ما تضغط.',
+          stepsLbl: 'خطوات «شنو يصير بعد ما أدز؟»',
+          stepsHint: 'تظهر مرقّمة قبل تأكيد الطلب وبعده. افصلي بين الخطوات بالعلامة | (مثال: نرد خلال ساعة|نتفق على المقاس|…).',
+          fHead: 'عرض أول الزبونات',
+          fHeadX: 'شريط في الصفحة الرئيسية ونتيجة الاختبار وصفحة الطلب: أول N زبونة تدز صورة الطقم ورأيها بعد التسليم تحصل على طقم هدية. طفّيه لمن يكتمل العدد.',
+          fOn: 'العرض مفعّل',
+          fTotal: 'عدد الزبونات (أول كم زبونة)',
+          fGift: 'قيمة طقم الهدية',
           bkNever: 'ما نزّلتِ نسخة احتياطية أبداً. كل بياناتك في هذا المتصفح فقط — لو انمسح ما نقدر نرجّعه. افتحي تبويب «النسخ الاحتياطي» ونزّلي نسخة.',
           bkStale: 'صار {n} يوم من آخر نسخة احتياطية. نزّلي نسخة جديدة من تبويب «النسخ الاحتياطي».',
           announce: 'الشريط العلوي',
@@ -295,6 +310,8 @@
           freeShippingOverX: 'إذا وصل المجموع لهذا الرقم يصير الشحن مجاني. اكتبي 0 لتعطيل الميزة.',
           vat: 'ضريبة القيمة المضافة',
           vatX: 'كنسبة من 0 إلى 1 — يعني 0.15 = 15%. اكتبي 0 لإخفاء سطر الضريبة.',
+          deposit: 'العربون (مبلغ ثابت)',
+          depositX: 'المبلغ اللي تطلبينه مقدّمًا على طلبات الدفع عند الاستلام، وينخصم من الإجمالي. اكتبي 0 لتعطيله.',
           depositPct: 'نسبة العربون',
           depositPctX: 'كنسبة من 0 إلى 1 — 0.5 = نص المبلغ مقدماً. اكتبي 0 لتعطيلها.',
           sample: 'سعر طقم نموذجي',
@@ -469,6 +486,26 @@
           designSafe: 'التصميم محفوظ كما أرسلته العميلة'
         },
 
+        /* ---- publish tab ---- */
+        pub: {
+          head: 'نشر التعديلات للزبونات',
+          intro: 'اللوحة تعدّل نسخة داخل هذا المتصفح فقط. الزبونات يشوفن الملف المنشور على GitHub — وهذا التبويب يجهّزه لك بثلاث ضغطات: انسخي، افتحي، الصقي.',
+          dirty: 'عندك تعديلات ما انتشرت بعد. انشريها حتى تشوفها الزبونات.',
+          clean: 'كل شي منشور — اللي تشوفينه هنا هو اللي تشوفه الزبونات.',
+          s1: 'اضغطي «انسخي ملف النشر».',
+          s2: 'اضغطي «افتحي الملف على GitHub»، وسجّلي دخولك إذا طلب.',
+          s3: 'في المحرر: اضغطي داخل النص، حدّدي الكل (Ctrl+A أو «تحديد الكل»)، والصقي مكانه.',
+          s4: 'اضغطي «Commit changes» ثم «Commit changes» مرة ثانية. خلال دقيقة تصير التعديلات على الموقع.',
+          copy: 'انسخي ملف النشر',
+          copied: 'انتسخ الملف — الآن افتحي الملف على GitHub والصقيه.',
+          copyErr: 'ما قدرنا ننسخ. نزّلي الملف بدل ذلك وارفعيه.',
+          open: 'افتحي الملف على GitHub',
+          download: 'نزّلي الملف (content.js)',
+          size: 'حجم الملف: {n} كيلوبايت.',
+          big: 'الملف كبير (صور كثيرة). لو رفض المحرر اللصق، نزّلي الملف وارفعيه من GitHub: داخل مجلد assets/js اضغطي Add file ← Upload files.',
+          noRepo: 'ما فيه رابط مستودع في الإعدادات، فما نقدر نفتح المحرر. نزّلي الملف وارفعيه بنفسك.'
+        },
+
         /* ---- backup tab ---- */
         b: {
           dataHead: 'النسخ الاحتياطي والاستعادة',
@@ -516,7 +553,7 @@
           passSafe: 'النص اللي نسختيه ما فيه كلمة المرور نفسها، فيه «بصمة» مشفّرة لها. يعني لو شافه أحد ما يقدر يعرف كلمتك، وآمن إنه ينحفظ في GitHub.',
           passSafePlain: 'هذي النسخة فيها كلمة المرور نفسها مكتوبة، وملفات GitHub يقدر يشوفها أي أحد. اختاري كلمة مرور تخص هذا الموقع فقط.',
           passReuse: 'لا تستخدمين كلمة مرور تستخدمينها في الإيميل أو البنك أو أي حساب ثاني. خصّصي كلمة مرور لهذا الموقع لحالها.',
-          passGuard: 'ملاحظة مهمة: هذي الكلمة تحمي لوحة التحكم فقط. اللوحة تعدّل نسخة المحتوى داخل المتصفح اللي فُتحت منه، وما تقدر تغيّر اللي يشوفه زوار الموقع. المحتوى المنشور ما يتغيّر إلا لما ترفعينه من حسابك على GitHub.',
+          passGuard: 'ملاحظة مهمة: هذي الكلمة تحمي لوحة التحكم فقط. اللوحة تعدّل نسخة المحتوى داخل المتصفح اللي فُتحت منه، وما تقدر تغيّر اللي يشوفه زوار الموقع. المحتوى المنشور يتغيّر من تبويب «النشر» — ثلاث ضغطات وترفعينه من حسابك على GitHub.',
           passRedo: 'أعيدي فتح الخطوة 2',
           passRedoX: 'محتوى الملف محفوظ لك في هذي الجلسة، ما يحتاج تكتبين كلمة المرور من جديد.',
           storeHead: 'مساحة التخزين',
@@ -613,7 +650,9 @@
           faq: 'FAQ',
           payments: 'Payment methods',
           orders: 'Orders',
-          backup: 'Backup & security'
+          backup: 'Backup & security',
+          governorates: 'Delivery by governorate',
+          publish: 'Publish'
         },
 
         grp: {
@@ -673,6 +712,9 @@
 
         f: {
           name: 'Name',
+          deposit: 'Asks for a deposit up front',
+          fee: 'Delivery fee',
+          days: 'Delivery time',
           person: 'Customer name',
           price: 'Extra price',
           desc: 'Description',
@@ -706,6 +748,9 @@
         },
 
         h: {
+          deposit: 'The amount itself is set in the Pricing tab. A method with this on asks for it and takes it off the total.',
+          fee: 'Added to every order from this governorate and shown the moment the customer picks it.',
+          days: 'e.g. “1–2 days”. Shown under the governorate at checkout.',
           price: 'Added on top of the base set price. Use 0 when there is no surcharge.',
           factor: 'Length relative to medium: 0.72 short, 1 medium, 1.28 long, 1.6 extra long.',
           shadow: 'A slightly darker shade of the skin tone — used for the hand edges in the drawing.',
@@ -724,6 +769,13 @@
           identityX: 'Shop name, description and currency — used across the header, footer and every page.',
           contact: 'Contact',
           contactX: 'Any field you leave empty disappears from the site automatically.',
+          stepsLbl: '“What happens after I send?” steps',
+          stepsHint: 'Shown numbered before and after the order is confirmed. Separate steps with | (e.g. We reply within the hour|We agree the size|…).',
+          fHead: 'Founding customers offer',
+          fHeadX: 'A band on the home page, the quiz result and the checkout: the first N customers who send a photo of the set and a review after delivery get a gift set. Turn it off once the number is reached.',
+          fOn: 'Offer is on',
+          fTotal: 'Number of customers (first N)',
+          fGift: 'Gift set value',
           announce: 'Announcement bar',
           announceX: 'A slim bar above the header for offers or production times.',
           notify: 'Notifications',
@@ -807,6 +859,8 @@
           freeShippingOverX: 'Orders reaching this subtotal ship free. Set 0 to switch the perk off.',
           vat: 'VAT',
           vatX: 'A rate between 0 and 1 — 0.15 means 15%. Set 0 to hide the VAT line.',
+          deposit: 'Deposit (flat amount)',
+          depositX: 'The amount asked up front on cash-on-delivery orders; it comes off the total. Set 0 to disable.',
           depositPct: 'Deposit percentage',
           depositPctX: 'A rate between 0 and 1 — 0.5 asks for half up front. Set 0 to disable.',
           sample: 'Sample set price',
@@ -975,6 +1029,25 @@
           designSafe: 'The design is kept exactly as the customer sent it'
         },
 
+        pub: {
+          head: 'Publish your changes',
+          intro: 'The panel edits a copy inside this browser only. Visitors see the file published on GitHub — this tab prepares it in three taps: copy, open, paste.',
+          dirty: 'You have changes that are not published yet. Publish them so visitors see them.',
+          clean: 'Everything is published — what you see here is what visitors see.',
+          s1: 'Tap “Copy the publish file”.',
+          s2: 'Tap “Open the file on GitHub” and sign in if asked.',
+          s3: 'In the editor: tap inside the text, select all (Ctrl+A or “Select all”), and paste over it.',
+          s4: 'Tap “Commit changes”, then “Commit changes” again. Within a minute the site carries your changes.',
+          copy: 'Copy the publish file',
+          copied: 'Copied — now open the file on GitHub and paste.',
+          copyErr: 'Could not copy. Download the file instead and upload it.',
+          open: 'Open the file on GitHub',
+          download: 'Download the file (content.js)',
+          size: 'File size: {n} KB.',
+          big: 'The file is large (many photos). If the editor refuses the paste, download the file and upload it on GitHub: inside assets/js tap Add file → Upload files.',
+          noRepo: 'No repository link in the settings, so the editor cannot be opened. Download the file and upload it yourself.'
+        },
+
         b: {
           dataHead: 'Backup & restore',
           dataX: 'Save a copy of your content now and then. The file holds everything: settings, colours, designs and orders.',
@@ -1021,7 +1094,7 @@
           passSafe: 'The text you copied does not contain the password itself, only a scrambled fingerprint of it. Nobody can read your password from it, so it is safe to keep in GitHub.',
           passSafePlain: 'This version contains the password itself, and files on GitHub can be read by anyone. Use a password you use only for this site.',
           passReuse: 'Never use a password you also use for your email, your bank, or any other account. Give this site a password of its own.',
-          passGuard: 'Worth knowing: this password protects the control panel only. The panel edits a copy of your content inside whichever browser it is opened in; it cannot change what visitors see. The published content only changes when you push it to GitHub from your account.',
+          passGuard: 'Worth knowing: this password protects the control panel only. The panel edits a copy of your content inside whichever browser it is opened in; it cannot change what visitors see. The published content changes from the Publish tab — three taps and it goes to GitHub from your account.',
           passRedo: 'Open step 2 again',
           passRedoX: 'The file contents are kept for you during this session — no need to type the password again.',
           storeHead: 'Storage usage',
@@ -1180,7 +1253,9 @@
     { id: 'designs', ico: 'image' },
     { id: 'faq', ico: 'search' },
     { id: 'payments', ico: 'shield' },
+    { id: 'governorates', ico: 'pin' },
     { id: 'orders', ico: 'truck' },
+    { id: 'publish', ico: 'share' },
     { id: 'backup', ico: 'download' }
   ];
 
@@ -1262,7 +1337,7 @@
     return namedOpts(['stones', 'stars', 'flowers', 'letters', 'hearts', 'misc'], 'admin.grp.');
   }
   function payIconOpts() {
-    return optsFrom(['bank', 'card', 'wallet', 'cod', 'applepay']);
+    return optsFrom(['bank', 'card', 'wallet', 'cod', 'applepay', 'phone']);
   }
   function uiIconOpts() {
     return optsFrom(['sparkle', 'brush', 'hand', 'ruler', 'gem', 'shield', 'truck', 'clock',
@@ -2461,12 +2536,13 @@
           F('note', 't', 'admin.f.note'),
           F('icon', 'select', 'admin.f.icon', { opts: payIconOpts }),
           F('enabled', 'bool', 'admin.f.enabled'),
+          F('deposit', 'bool', 'admin.f.deposit', { hint: 'admin.h.deposit' }),
           F('details', 'tarea', 'admin.f.details', { wide: true, rows: 5, hint: 'admin.h.details' })
         ],
         blank: function () {
           return {
             id: '', name: { ar: '', en: '' }, note: { ar: '', en: '' },
-            icon: 'bank', enabled: true, details: { ar: '', en: '' }
+            icon: 'bank', enabled: true, deposit: false, details: { ar: '', en: '' }
           };
         },
         preview: function (it) { return el('span', { 'class': 'adm-ico-pv', html: icon(str(it.icon) || 'bank', 20) }); },
@@ -2602,6 +2678,18 @@
         blank: function () { return { id: '', value: '', label: { ar: '', en: '' } }; },
         label: function (it) { return str(it.value); },
         preview: function (it) { return el('span', { 'class': 'adm-num-pv', text: str(it.value) || '·' }); }
+      };
+
+      case 'governorates': return {
+        key: 'governorates',
+        fields: [
+          F('name', 't', 'admin.f.name'),
+          F('fee', 'num', 'admin.f.fee', { step: 500, min: 0, hint: 'admin.h.fee' }),
+          F('days', 't', 'admin.f.days', { hint: 'admin.h.days' })
+        ],
+        blank: function () { return { id: '', name: { ar: '', en: '' }, fee: 5000, days: { ar: '', en: '' } }; },
+        preview: function (it) { return el('span', { 'class': 'adm-num-pv', text: money(numOf(it.fee, 0)) }); },
+        sub: function (it) { return pick(it.days); }
       };
 
       default: return null;
@@ -2982,7 +3070,17 @@
       renderFields([
         F('announceOn', 'bool', 'admin.f2.announceOn'),
         F('announce', 't', 'admin.f2.announceTxt', { wide: true, hint: 'admin.gh.announceTxt' }),
-        F('afterOrder', 'tarea', 'admin.g.afterLbl', { wide: true, rows: 2, hint: 'admin.g.afterHint' })
+        F('afterOrder', 'tarea', 'admin.g.afterLbl', { wide: true, rows: 2, hint: 'admin.g.afterHint' }),
+        F('afterSteps', 'tarea', 'admin.g.stepsLbl', { wide: true, rows: 3, hint: 'admin.g.stepsHint' })
+      ], ctx)
+    ]));
+
+    box.appendChild(card([
+      sectionHead(t('admin.g.fHead'), t('admin.g.fHeadX')),
+      renderFields([
+        F('founding.on', 'bool', 'admin.g.fOn'),
+        F('founding.total', 'num', 'admin.g.fTotal', { step: 1, min: 1, int: true, def: 20 }),
+        F('founding.gift', 'num', 'admin.g.fGift', { step: 500, min: 0, def: 12000 })
       ], ctx)
     ]));
 
@@ -2994,13 +3092,6 @@
         F('notifyEmail', 'text', 'admin.f2.notifyEmail', { dir: 'ltr', inputType: 'email' })
       ], ctx),
       el('p', { 'class': 'hint', text: t('admin.b.notifyGo') })
-    ]));
-
-    box.appendChild(card([
-      sectionHead(t('admin.g.options')),
-      renderFields([
-        F('whatsappOrder', 'bool', 'admin.f2.whatsappOrder', { hint: 'admin.gh.whatsappOrder' })
-      ], ctx)
     ]));
 
     return box;
@@ -3065,6 +3156,7 @@
     { k: 'shipping', step: 1, min: 0 },
     { k: 'freeShippingOver', step: 10, min: 0 },
     { k: 'vat', step: 0.01, min: 0, max: 1 },
+    { k: 'deposit', step: 500, min: 0 },
     { k: 'depositPct', step: 0.05, min: 0, max: 1 }
   ];
 
@@ -3841,6 +3933,106 @@
     ]);
   }
 
+  /* ====================================================================== */
+  /* 15b. Publish                                                            */
+  /*                                                                         */
+  /*  The panel edits this browser's copy. Visitors see assets/js/content.js */
+  /*  on GitHub, loaded after data.js and laid over it. This tab writes that */
+  /*  file for the owner: copy, open the editor, paste, commit.              */
+  /* ====================================================================== */
+
+  var PUBLISH_PATH = 'assets/js/content.js';
+  var PUBLISH_SKIP = ['adminPass', 'orderSeq', 'lastBackup'];
+
+  /* everything visitors should see — never the orders, never the password */
+  function publishable(src) {
+    var out = {}, k, s;
+    if (!isObj(src)) return out;
+    for (k in src) {
+      if (!Object.prototype.hasOwnProperty.call(src, k)) continue;
+      if (k === 'orders' || k === 'version') continue;
+      out[k] = src[k];
+    }
+    if (isObj(src.settings)) {
+      s = {};
+      for (k in src.settings) {
+        if (Object.prototype.hasOwnProperty.call(src.settings, k) && PUBLISH_SKIP.indexOf(k) === -1) s[k] = src.settings[k];
+      }
+      out.settings = s;
+    }
+    return out;
+  }
+
+  function publishText() {
+    var json;
+    try { json = JSON.stringify(publishable(SN.Store.state)); }
+    catch (e) { return ''; }
+    return '/* Shosh Nail — المحتوى المنشور. يُكتب من لوحة التحكم ← تبويب «النشر».\n' +
+           '   The published content, written by the control panel. Do not edit by hand. */\n' +
+           'window.SN_PUBLISHED = ' + json + ';\n';
+  }
+
+  /* does this browser hold anything visitors cannot see yet? */
+  function publishDirty() {
+    var cur, pub;
+    try {
+      cur = JSON.stringify(publishable(SN.Store.state));
+      pub = JSON.stringify(publishable(SN.Store.defaults ? SN.Store.defaults() : null));
+    } catch (e) { return true; }
+    return cur !== pub;
+  }
+
+  function renderPublish() {
+    var box = el('div', { 'class': 'adm-tabbody' });
+    var dirty = publishDirty();
+    var url = repoFileURL(PUBLISH_PATH);
+    var text = publishText();
+    var kb = Math.max(1, Math.round(text.length / 1024));
+    var U = SN.UI;
+
+    box.appendChild(card([
+      sectionHead(t('admin.pub.head'), t('admin.pub.intro')),
+      el('div', { 'class': 'note ' + (dirty ? 'note-warn' : 'note-ok') }, [
+        el('span', { 'class': 'ico', html: icon(dirty ? 'sparkle' : 'check', 18), 'aria-hidden': 'true' }),
+        el('span', { text: t(dirty ? 'admin.pub.dirty' : 'admin.pub.clean') })
+      ]),
+      el('ol', { 'class': 'adm-steps' }, [
+        el('li', { text: t('admin.pub.s1') }),
+        el('li', { text: t('admin.pub.s2') }),
+        el('li', { text: t('admin.pub.s3') }),
+        el('li', { text: t('admin.pub.s4') })
+      ]),
+      el('div', { 'class': 'adm-btnrow' }, [
+        el('button', {
+          'class': 'btn btn-pri btn-sm', type: 'button', text: t('admin.pub.copy'),
+          on: { click: function () {
+            var txt = publishText();
+            if (!txt || !U || !U.copy) { toast(t('admin.pub.copyErr'), 'err'); return; }
+            U.copy(txt).then(function (ok) {
+              toast(t(ok ? 'admin.pub.copied' : 'admin.pub.copyErr'), ok ? 'ok' : 'err');
+            }, function () { toast(t('admin.pub.copyErr'), 'err'); });
+          } }
+        }),
+        url ? el('a', {
+          'class': 'btn btn-line btn-sm', href: url, target: '_blank', rel: 'noopener', text: t('admin.pub.open')
+        }) : null,
+        el('button', {
+          'class': 'btn btn-ghost btn-sm', type: 'button', text: t('admin.pub.download'),
+          on: { click: function () {
+            var txt = publishText();
+            if (!txt || !U || !U.download) { toast(t('common.error'), 'err'); return; }
+            U.download(txt, 'content.js', 'text/javascript;charset=utf-8');
+          } }
+        })
+      ]),
+      url ? null : el('p', { 'class': 'hint', text: t('admin.pub.noRepo') }),
+      el('p', { 'class': 'hint', text: t('admin.pub.size', { n: kb }) }),
+      kb > 900 ? el('p', { 'class': 'hint', text: t('admin.pub.big') }) : null
+    ]));
+
+    return box;
+  }
+
   function renderBackup() {
     var box = el('div', { 'class': 'adm-tabbody' });
     var fileIn = el('input', { 'class': 'sr-only adm-file', type: 'file', accept: 'application/json,.json' });
@@ -4268,13 +4460,15 @@
     designs: renderDesigns,
     faq: renderFaq,
     payments: simpleTab('payments'),
+    governorates: simpleTab('governorates'),
     orders: renderOrders,
+    publish: renderPublish,
     backup: renderBackup
   };
 
   function tabCount(id) {
     switch (id) {
-      case 'general': case 'pricing': case 'backup': return null;
+      case 'general': case 'pricing': case 'backup': case 'publish': return null;
       case 'home': return sList('home.features').length + sList('home.steps').length +
         sList('home.testimonials').length + sList('home.stats').length;
       case 'sizes': return sList('sizeGuide').length + sList('sizeSets').length + sList('measureMethods').length;

@@ -98,6 +98,30 @@
 
 /* ── stats strip ─────────────────────────────────────────────────────── */
 .home-statsec{ padding-block:0; }
+
+/* ── the launch offer ─────────────────────────────────────────────── */
+.home-foundsec{ padding-block-start:0; }
+.home-founding{
+  text-align:center;
+  padding:clamp(22px,4vw,36px) clamp(18px,4vw,40px);
+  border-radius:var(--r-lg);
+  background:linear-gradient(135deg,var(--gold-soft),var(--rose-soft));
+  border:1px solid var(--line);
+}
+.home-founding .eyebrow{ color:var(--plum); }
+.home-founding .lead{ max-inline-size:60ch; margin-inline:auto; }
+.home-founding .btns{ justify-content:center; margin-block-start:18px; }
+
+/* ── a design from her own picture ────────────────────────────────── */
+.home-yours{
+  text-align:center;
+  padding:clamp(22px,4vw,36px) clamp(18px,4vw,40px);
+  border-radius:var(--r-lg);
+  background:var(--bg-2);
+  border:1px dashed var(--line-2);
+}
+.home-yours .lead{ max-inline-size:62ch; margin-inline:auto; }
+.home-yours .btns{ justify-content:center; margin-block-start:18px; }
 .home-stats{
   /* one equal-width row whatever the owner leaves in the collection */
   display:grid;
@@ -751,6 +775,7 @@
 </style>
 
 <script defer src="assets/js/data.js"></script>
+<script defer src="assets/js/content.js"></script>
 <script defer src="assets/js/store.js"></script>
 <script defer src="assets/js/i18n.js"></script>
 <script defer src="assets/js/nail-art.js"></script>
@@ -810,6 +835,13 @@
             <span class="home-quiz-note" id="home-quiz-note"></span>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- ═══ 1c. the launch offer — hidden by the panel once it is over ═ -->
+    <section class="sec-sm home-foundsec" aria-labelledby="home-founding-t">
+      <div class="wrap">
+        <div class="home-founding" id="home-founding"></div>
       </div>
     </section>
 
@@ -883,6 +915,13 @@
           <p class="lead" data-i18n="home.testiSub"></p>
         </div>
         <div class="grid-3" id="home-testimonials"></div>
+      </div>
+    </section>
+
+    <!-- ═══ 7b. a design from her own picture ═════════════════════════ -->
+    <section class="sec-sm" aria-labelledby="home-yours-t">
+      <div class="wrap">
+        <div class="home-yours" id="home-yours"></div>
       </div>
     </section>
 

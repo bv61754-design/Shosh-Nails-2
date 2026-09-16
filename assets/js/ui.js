@@ -137,12 +137,12 @@
   }
 
   function dictHas(key){
-    var I = SN.I18n, d;
+    var I = SN.I18n, k;
     if (!I || !isObj(I.dict)) return false;
-    d = I.dict[lang()];
-    if (isObj(d) && has(d, key)) return true;
-    d = I.dict[lang() === 'ar' ? 'en' : 'ar'];
-    return isObj(d) && has(d, key);
+    for (k in I.dict){
+      if (has(I.dict, k) && isObj(I.dict[k]) && has(I.dict[k], key)) return true;
+    }
+    return false;
   }
 
   /* 'common.saved' -> translated ; 'أي نص' -> printed as-is */
@@ -676,6 +676,26 @@
     catch (e){ window.scrollTo(0, 0); }
   }
 
+  /* Iraqi <-> standard Arabic, in the footer where it does not compete with
+     the language button. Hidden in English. */
+  function variantSwitch(){
+    var I = SN.I18n, cur;
+    if (!I || typeof I.variant !== 'function' || I.lang === 'en') return null;
+    cur = I.variant();
+    function b(v, key){
+      return el('button', {
+        'class': 'ft-variant' + (cur === v ? ' is-on' : ''), type: 'button',
+        'aria-pressed': cur === v ? 'true' : 'false',
+        text: t(key),
+        on: { click: function(){ if (cur !== v) I.variant(v); } }
+      });
+    }
+    return el('div', { 'class': 'ft-variants', role: 'group', 'aria-label': t('footer.variantLbl') }, [
+      b('iq', 'footer.dialect'),
+      b('ar', 'footer.fusha')
+    ]);
+  }
+
   function mountFooter(){
     var f = doc() ? doc().getElementById('sn-footer') : null;
     var brand = brandName();
@@ -742,6 +762,7 @@
       el('div', { 'class': 'ft-bot' }, [
         el('p', { 'class': 'ft-copy muted', text: t('footer.copy', { year: new Date().getFullYear(), brand: brand }) }),
         el('div', { 'class': 'ft-bot-actions' }, [
+          variantSwitch(),
           el('a', { 'class': 'ft-admin muted', href: 'admin.html', 'data-i18n': 'footer.admin', rel: 'nofollow' }, t('footer.admin')),
           el('button', {
             'class': 'icon-btn ft-top', type: 'button',

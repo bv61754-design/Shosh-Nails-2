@@ -10,13 +10,95 @@
   var SN = (window.SN = window.SN || {});
 
   var LANG_KEY = 'shosh-lang';
-  var LANGS    = ['ar', 'en'];
+  /* the Arabic variant she last used, so the EN toggle brings her back to it */
+  var ARV_KEY  = 'shosh-arv';
+  /* 'iq' is Iraqi Arabic — the default — and falls back to 'ar' (standard
+     Arabic) for any string it does not carry, then to English */
+  var LANGS    = ['iq', 'ar', 'en'];
+  var CHAIN    = { iq: ['iq', 'ar', 'en'], ar: ['ar', 'iq', 'en'], en: ['en', 'ar', 'iq'] };
 
   /* ==================================================================== */
   /* Base dictionary (authored nested for readability, flattened on boot)  */
   /* ==================================================================== */
 
   var BASE = {
+
+    /* ------------------------------------------------------------- IRAQI */
+    /* Only the keys whose Iraqi wording differs from `ar`; everything else
+       falls through iq -> ar -> en. Labels that are single nouns stay in `ar`.
+       nav.* has nothing dialect-specific, so it is not repeated here.       */
+    iq: {
+      a11y: {
+        toggleMenu: 'افتحي القائمة أو سدّيها',
+        toggleTheme: 'بدّلي بين المظهر الفاتح والداكن',
+        toggleLang: 'غيّري لغة الموقع',
+        selectNail: 'اختاري الظفر',
+        openDetails: 'شوفي التفاصيل',
+        scrollTop: 'ارجعي لفوق'
+      },
+      common: {
+        deleteConfirm: 'متأكدة تحذفين؟ ما راح نقدر نرجّعه بعدين.',
+        searchPh: 'دوّري هنا…',
+        loading: 'لحظة… دا يحمّل',
+        empty: 'ماكو شي هنا هسة',
+        emptyHint: 'جرّبي تغيّرين البحث أو التصفية',
+        shipping: 'التوصيل',
+        more: 'شوفي أكثر',
+        less: 'شوفي أقل',
+        instagram: 'إنستغرام',
+        phone: 'رقم الموبايل',
+        hours: 'أوقات الدوام',
+        notePh: 'أكو شي تحبين نعرفه؟',
+        retry: 'جرّبي مرة ثانية'
+      },
+      footer: {
+        hours: 'أوقات الدوام',
+        made: 'مسوّي بحبّ بالعراق',
+        backToTop: 'ارجعي لفوق'
+      },
+      theme: {
+        toggle: 'بدّلي المظهر'
+      },
+      order: {
+        phone: 'رقم الموبايل',
+        addressPh: 'المنطقة والشارع وأقرب نقطة دالة',
+        notePh: 'أكو طلب خاص؟ اكتبيه هنا',
+        expressNote: 'نجهّز لك طلبك خلال 24 إلى 48 ساعة',
+        giftWrapNote: 'علبة أنيقة ويّاها كارت إهداء',
+        shipping: 'التوصيل',
+        freeShip: 'توصيل مجاني',
+        freeShipHint: 'التوصيل مجاني للطلبات فوق {n}',
+        sending: 'لحظة… دا ندزّ الطلب',
+        thanks: 'طلبك يوصلنا لمن تضغطين إرسال بالواتساب أو الإنستغرام. إذا ما انفتح التطبيق، انسخي الطلب من الزر اللي تحت ودزّيه لنا بنفسك.',
+        openWa: 'افتحي واتساب',
+        openIg: 'دزّي على إنستغرام',
+        igCopied: 'نسخنا لك طلبك — بس الصقيه بالمحادثة',
+        igCopyFail: 'ما قدرنا ننسخ الطلب. انسخيه من زر «نسخ الطلب» اللي فوق.',
+        downloadImg: 'حمّلي صورة التصميم',
+        terms: 'لمن تضغطين «تأكيد الطلب» يعني توافقين على شروط الطلب والاستبدال.',
+        termsLink: 'اقري الشروط',
+        termsErr: 'لازم توافقين على الشروط قبل ما تأكدين',
+        phoneErr: 'تأكدي من رقم الموبايل',
+        sizeLine: 'المقاس: نتفق عليه بالمحادثة بعد ما تدزين الطلب',
+        sizeNote: 'ما تعرفين مقاسك؟ عادي — بعد ما تدزين طلبك ندزّ لك طريقة القياس ويّاها صورة، أو تختارين S / M / L.',
+        depositNote: 'تدفعينه مقدّمًا وينخصم من المبلغ',
+        editHint: 'تحبين تغيّرين شي بهالطقم (لون، طول، شكل)؟ اكتبيه بالملاحظات ونضبطه لك.',
+        foundingConfirm: 'عرض التأسيس: اطلبي أي طقم بأي سعر، وبعد ما يوصلك دزّي لنا صورة الطقم على إيدك ورأيك، ويوصلك طقم هدية بقيمة {g}.',
+        igHow: 'ننسخ لك رسالة الطلب، وإنتي تلصقينها بمحادثة إنستغرام.',
+        guideText: 'صوّري إيدك من فوق وحطّي مسطرة ملاصقة للأظافر، ودزّي لنا الصورة بالمحادثة. أو قيسي عرض كل ظفر بالمليمتر عند أوسع نقطة. وإذا طلع بين رقمين، خذي الأوسع دائمًا.',
+        notifyErr: 'ما قدرنا ندزّ الإشعار، بس طلبك محفوظ عندنا.',
+        empty: 'ماكو طلبات هسة',
+        status: {
+          shipped: 'طلع للتوصيل'
+        }
+      },
+      pay: {
+        choose: 'اختاري طريقة الدفع اللي تناسبك',
+        required: 'اختاري طريقة الدفع أول شي',
+        after: 'بعد التحويل دزّي لنا صورة الوصل على الواتساب',
+        secure: 'معلوماتك محفوظة، وما نطلب منك أي بيانات بطاقة داخل الموقع'
+      }
+    },
 
     /* ------------------------------------------------------------ ARABIC */
     ar: {
@@ -151,7 +233,7 @@
         resultsN: '{n} نتيجة',
         color: 'اللون',
         size: 'المقاس',
-        currency: 'ر.س',
+        currency: 'د.ع',
         print: 'طباعة',
         exportLbl: 'تصدير',
         importLbl: 'استيراد',
@@ -175,9 +257,12 @@
         hours: 'أوقات العمل',
         location: 'الموقع',
         admin: 'لوحة التحكم',
+        dialect: 'عراقي',
+        fusha: 'فصحى',
+        variantLbl: 'لهجة الموقع',
         rights: 'جميع الحقوق محفوظة',
         copy: '© {year} {brand} — جميع الحقوق محفوظة',
-        made: 'صُنع بحبّ في السعودية',
+        made: 'صُنع بحبّ في العراق',
         backToTop: 'العودة للأعلى'
       },
       theme: {
@@ -194,10 +279,10 @@
         customer: 'بيانات التواصل',
         name: 'الاسم الكامل',
         namePh: 'اكتبي اسمك',
-        phone: 'رقم الجوال',
-        phonePh: '05XXXXXXXX',
-        city: 'المدينة',
-        cityPh: 'مثال: الرياض',
+        phone: 'رقم الهاتف',
+        phonePh: '07XXXXXXXXX',
+        city: 'المحافظة',
+        cityPh: 'اختاري محافظتك',
         address: 'العنوان',
         addressPh: 'الحي والشارع وأقرب معلم',
         note: 'ملاحظات',
@@ -221,8 +306,8 @@
         ready: 'تصميم جاهز',
         submit: 'تأكيد الطلب',
         sending: 'جاري الإرسال…',
-        sent: 'تم إرسال طلبك',
-        thanks: 'شكراً لك! وصلنا طلبك، وبنتواصل معك على الواتساب قريب.',
+        sent: 'باقي خطوة وحدة',
+        thanks: 'طلبك يوصلنا لمن تضغطين إرسال في واتساب أو إنستغرام. إذا ما انفتح التطبيق، انسخي الطلب من الزر تحت وأرسليه لنا بنفسك.',
         copySummary: 'نسخ الملخص',
         openWa: 'فتح واتساب',
         openIg: 'إرسال على إنستغرام',
@@ -230,10 +315,41 @@
         igCopyFail: 'ما قدرنا ننسخ الطلب. انسخيه من زر «نسخ الطلب» فوق.',
         downloadImg: 'تحميل صورة التصميم',
         newDesign: 'تصميم جديد',
-        terms: 'أوافق على شروط الطلب والاستبدال',
+        terms: 'بضغطك «تأكيد الطلب» توافقين على شروط الطلب والاستبدال.',
+        termsLink: 'اقرئي الشروط',
         termsErr: 'لازم توافقين على الشروط قبل التأكيد',
         nameErr: 'اكتبي اسمك (حرفين على الأقل)',
-        phoneErr: 'تأكدي من رقم الجوال',
+        phoneErr: 'تأكدي من رقم الهاتف',
+        govErr: 'اختاري محافظتك حتى نحسب لك أجرة التوصيل',
+        govFee: 'التوصيل إلى {g}: {f} · يوصلك خلال {d}',
+        sizeLine: 'المقاس: نتفق عليه بالمحادثة بعد الطلب',
+        sizeNote: 'ما تعرفين مقاسك؟ عادي — بعد ما تدزين طلبك نرسل لك طريقة القياس مع صورة، أو تختارين S / M / L.',
+        stepsTitle: 'شنو يصير بعد ما تدزين؟',
+        depositNote: 'يُدفع مقدّمًا وينخصم من المبلغ',
+        editHint: 'تحبين تغيّرين شي بهالطقم (لون، طول، شكل)؟ اكتبيه في الملاحظات ونضبطه لك.',
+        foundingLine: 'زبونة تأسيس ✨ (عرض أول {n} زبونة)',
+        foundingConfirm: 'عرض التأسيس: اطلبي أي طقم بأي سعر، وبعد ما يوصلك دزي لنا صورة الطقم على يدك ورأيك، ويوصلك طقم هدية بقيمة {g}.',
+        sendTitle: 'دزّي طلبك',
+        sendLead: 'طلبك يوصلنا لمن تدزين الرسالة. اختاري وين تدزينها:',
+        sendWa: 'دزّي على واتساب',
+        sendIg: 'دزّي على إنستغرام',
+        igHow: 'ننسخ لك رسالة الطلب، وتلصقينها في محادثة إنستغرام.',
+        copyFull: 'نسخ كل التفاصيل',
+        codeLbl: 'رمز طلبك',
+        guideTitle: 'طريقة القياس',
+        guideText: 'صوّري يدك من فوق ومسطرة ملاصقة للأظافر، ودزي الصورة لنا بالمحادثة. أو قيسي عرض كل ظفر بالمليمتر عند أوسع نقطة. وإذا طلع بين رقمين، الأوسع دائمًا.',
+        guideSave: 'احفظي صورة الشرح',
+        guideWidest: 'قيسي أوسع نقطة في الظفر',
+        msgHi: 'هلا شوش 💅',
+        msgNew: 'طلب جديد',
+        msgSet: 'الطقم',
+        msgQuiz: 'طقم من اختبار الستايل',
+        msgTotal: 'الإجمالي',
+        msgIncl: 'شامل التوصيل إلى {g} {f}',
+        msgPay: 'الدفع',
+        msgDeposit: 'عربون {d} مقدّمًا',
+        msgGov: 'المحافظة',
+        msgLink: 'رابط النتيجة',
         notifyErr: 'ما قدرنا نرسل الإشعار، بس طلبك محفوظ عندنا.',
         empty: 'ما فيه طلبات حالياً',
         status: {
@@ -395,7 +511,7 @@
         resultsN: '{n} results',
         color: 'Color',
         size: 'Size',
-        currency: 'SAR',
+        currency: 'IQD',
         print: 'Print',
         exportLbl: 'Export',
         importLbl: 'Import',
@@ -419,9 +535,12 @@
         hours: 'Working hours',
         location: 'Location',
         admin: 'Owner panel',
+        dialect: 'عراقي',
+        fusha: 'فصحى',
+        variantLbl: 'Arabic variant',
         rights: 'All rights reserved',
         copy: '© {year} {brand} — All rights reserved',
-        made: 'Made with love in Saudi Arabia',
+        made: 'Made with love in Iraq',
         backToTop: 'Back to top'
       },
       theme: {
@@ -438,10 +557,10 @@
         customer: 'Your details',
         name: 'Full name',
         namePh: 'Your name',
-        phone: 'Mobile number',
-        phonePh: '05XXXXXXXX',
-        city: 'City',
-        cityPh: 'e.g. Riyadh',
+        phone: 'Phone number',
+        phonePh: '07XXXXXXXXX',
+        city: 'Governorate',
+        cityPh: 'Pick your governorate',
         address: 'Address',
         addressPh: 'District, street, nearest landmark',
         note: 'Notes',
@@ -465,8 +584,8 @@
         ready: 'Ready design',
         submit: 'Place order',
         sending: 'Sending…',
-        sent: 'Your order has been sent',
-        thanks: 'Thank you! We received your order and will reach you on WhatsApp shortly.',
+        sent: 'One step left',
+        thanks: 'Your order reaches us when you press Send in WhatsApp or Instagram. If the app did not open, copy the order with the button below and send it yourself.',
         copySummary: 'Copy summary',
         openWa: 'Open WhatsApp',
         openIg: 'Send on Instagram',
@@ -474,10 +593,41 @@
         igCopyFail: 'Could not copy the order. Use the “copy order” button above.',
         downloadImg: 'Download design image',
         newDesign: 'New design',
-        terms: 'I agree to the order and exchange terms',
+        terms: 'By pressing “confirm order” you agree to the order and exchange terms.',
+        termsLink: 'Read the terms',
         termsErr: 'Please accept the terms before confirming',
         nameErr: 'Please enter your name (2 characters or more)',
-        phoneErr: 'Please check your mobile number',
+        phoneErr: 'Please check your phone number',
+        govErr: 'Pick your governorate so we can work out delivery',
+        govFee: 'Delivery to {g}: {f} · arrives within {d}',
+        sizeLine: 'Size: agreed in chat after ordering',
+        sizeNote: 'Don’t know your size? No problem — once you send your order we send you the measuring method with a picture, or pick S / M / L.',
+        stepsTitle: 'What happens after you send?',
+        depositNote: 'paid up front and taken off the total',
+        editHint: 'Want to change something on this set (colour, length, shape)? Write it in the notes and we adjust it for you.',
+        foundingLine: 'Founding customer ✨ (first {n} offer)',
+        foundingConfirm: 'Founding offer: order any set at any price, and after it arrives send us a photo of it on your hand and your review — a gift set worth {g} comes your way.',
+        sendTitle: 'Send your order',
+        sendLead: 'Your order reaches us when you send the message. Pick where to send it:',
+        sendWa: 'Send on WhatsApp',
+        sendIg: 'Send on Instagram',
+        igHow: 'We copy the order message for you; paste it into the Instagram chat.',
+        copyFull: 'Copy all the details',
+        codeLbl: 'Your order code',
+        guideTitle: 'How to measure',
+        guideText: 'Photograph your hand from above with a ruler against the nails and send us the picture in chat. Or measure each nail in millimetres at its widest point. Between two numbers, always the wider.',
+        guideSave: 'Save the guide picture',
+        guideWidest: 'Measure the widest point of the nail',
+        msgHi: 'Hi Shosh 💅',
+        msgNew: 'New order',
+        msgSet: 'Set',
+        msgQuiz: 'A set from the style quiz',
+        msgTotal: 'Total',
+        msgIncl: 'incl. delivery to {g} {f}',
+        msgPay: 'Payment',
+        msgDeposit: 'deposit {d} up front',
+        msgGov: 'Governorate',
+        msgLink: 'Result link',
         notifyErr: 'We couldn’t send the notification, but your order is saved.',
         empty: 'No orders yet',
         status: {
@@ -513,7 +663,7 @@
 
   function has(o, k){ return Object.prototype.hasOwnProperty.call(o, k); }
   function isObj(v){ return !!v && typeof v === 'object' && !Array.isArray(v); }
-  function isT(v){ return isObj(v) && (typeof v.ar === 'string' || typeof v.en === 'string'); }
+  function isT(v){ return isObj(v) && (typeof v.ar === 'string' || typeof v.en === 'string' || typeof v.iq === 'string'); }
 
   /* nested object -> flat dotted keys */
   function flatten(src, prefix, out){
@@ -530,7 +680,7 @@
   }
 
   /* nested map of T-objects -> one flat dict per language */
-  function flattenT(src, prefix, outAr, outEn){
+  function flattenT(src, prefix, outAr, outEn, outIq){
     var k, v, key;
     if (!isObj(src)) return;
     for (k in src){
@@ -540,8 +690,9 @@
       if (isT(v)){
         if (typeof v.ar === 'string') outAr[key] = v.ar;
         if (typeof v.en === 'string') outEn[key] = v.en;
+        if (outIq && typeof v.iq === 'string') outIq[key] = v.iq;
       } else if (isObj(v)){
-        flattenT(v, key, outAr, outEn);
+        flattenT(v, key, outAr, outEn, outIq);
       } else {
         outAr[key] = v === null || v === undefined ? '' : String(v);
         outEn[key] = outAr[key];
@@ -555,26 +706,45 @@
     return target;
   }
 
-  var dict = { ar: flatten(BASE.ar, '', {}), en: flatten(BASE.en, '', {}) };
+  var dict = {
+    iq: flatten(BASE.iq || {}, '', {}),
+    ar: flatten(BASE.ar, '', {}),
+    en: flatten(BASE.en, '', {})
+  };
 
   var lang = 'ar';
   var dir  = 'rtl';
   var subs = [];
   var fmtCache = {};
 
-  function other(l){ return l === 'ar' ? 'en' : 'ar'; }
-  function normalize(l){ return String(l) === 'en' ? 'en' : 'ar'; }
+  function chain(l){ return CHAIN[l] || CHAIN.iq; }
+  function normalize(l){
+    var s = String(l);
+    if (s === 'en' || s === 'ar' || s === 'iq') return s;
+    return 'iq';
+  }
+  function isArabic(l){ return l !== 'en'; }
 
   function storedLang(){
     var v = null;
     try { v = window.localStorage.getItem(LANG_KEY); }
     catch (e){ v = null; }
-    return (v === 'ar' || v === 'en') ? v : null;
+    return (v === 'ar' || v === 'en' || v === 'iq') ? v : null;
+  }
+
+  /* the Arabic she last read: Iraqi unless she chose standard Arabic */
+  function storedVariant(){
+    var v = null;
+    try { v = window.localStorage.getItem(ARV_KEY); }
+    catch (e){ v = null; }
+    return v === 'ar' ? 'ar' : 'iq';
   }
 
   function persist(l){
-    try { window.localStorage.setItem(LANG_KEY, l); }
-    catch (e){ /* Safari private mode — language just won't stick */ }
+    try {
+      window.localStorage.setItem(LANG_KEY, l);
+      if (isArabic(l)) window.localStorage.setItem(ARV_KEY, l);
+    } catch (e){ /* Safari private mode — language just won't stick */ }
   }
 
   /* -------------------------------------------------------- formatting */
@@ -582,7 +752,7 @@
     if (has(fmtCache, lang)) return fmtCache[lang];
     var f = null;
     try {
-      f = new Intl.NumberFormat(lang === 'ar' ? 'ar-SA-u-nu-latn' : 'en-US', { maximumFractionDigits: 2 });
+      f = new Intl.NumberFormat(isArabic(lang) ? 'ar-IQ-u-nu-latn' : 'en-US', { maximumFractionDigits: 2 });
     } catch (e){
       try { f = new Intl.NumberFormat('en-US', { maximumFractionDigits: 2 }); }
       catch (e2){ f = null; }
@@ -602,12 +772,14 @@
   }
 
   function pick(tobj){
+    var c, i, v;
     if (typeof tobj === 'string') return tobj;
     if (!isObj(tobj)) return '';
-    if (typeof tobj[lang] === 'string' && tobj[lang] !== '') return tobj[lang];
-    var o = tobj[other(lang)];
-    if (typeof o === 'string' && o !== '') return o;
-    if (typeof tobj[lang] === 'string') return tobj[lang];
+    c = chain(lang);
+    for (i = 0; i < c.length; i++){
+      v = tobj[c[i]];
+      if (typeof v === 'string' && v !== '') return v;
+    }
     return '';
   }
 
@@ -629,16 +801,20 @@
     s = num(v);
     cur = currencySymbol();
     if (!cur) return s;
-    return lang === 'ar' ? (s + ' ' + cur) : (cur + ' ' + s);
+    return isArabic(lang) ? (s + ' ' + cur) : (cur + ' ' + s);
   }
 
   /* -------------------------------------------------------- translation */
   function t(key, vars){
     var k = String(key === null || key === undefined ? '' : key);
-    var s;
+    var s, c, i, d;
     if (!k) return '';
-    s = dict[lang] ? dict[lang][k] : undefined;
-    if (s === undefined || s === null) s = dict[other(lang)] ? dict[other(lang)][k] : undefined;
+    c = chain(lang);
+    for (i = 0; i < c.length; i++){
+      d = dict[c[i]];
+      s = d ? d[k] : undefined;
+      if (s !== undefined && s !== null) break;
+    }
     if (s === undefined || s === null) return k;      /* missing key -> the key itself */
     if (typeof s !== 'string') s = String(s);
     if (!vars || typeof vars !== 'object') return s;
@@ -650,15 +826,17 @@
   }
 
   function extend(partial){
-    var ar, en;
+    var ar, en, iq;
     if (!isObj(partial)) return dict;
-    if (has(partial, 'ar') || has(partial, 'en')){
+    if (has(partial, 'ar') || has(partial, 'en') || has(partial, 'iq')){
+      if (isObj(partial.iq)) assign(dict.iq, flatten(partial.iq, '', {}));
       if (isObj(partial.ar)) assign(dict.ar, flatten(partial.ar, '', {}));
       if (isObj(partial.en)) assign(dict.en, flatten(partial.en, '', {}));
     } else {
-      /* also accept { 'key.path': {ar:'…', en:'…'} } */
-      ar = {}; en = {};
-      flattenT(partial, '', ar, en);
+      /* also accept { 'key.path': {ar:'…', en:'…', iq:'…'} } */
+      ar = {}; en = {}; iq = {};
+      flattenT(partial, '', ar, en, iq);
+      assign(dict.iq, iq);
       assign(dict.ar, ar);
       assign(dict.en, en);
     }
@@ -726,7 +904,7 @@
   function set(l){
     var next = normalize(l);
     lang = next;
-    dir  = next === 'ar' ? 'rtl' : 'ltr';
+    dir  = isArabic(next) ? 'rtl' : 'ltr';
     I18n.lang = lang;
     I18n.dir  = dir;
     markDoc();
@@ -741,7 +919,14 @@
     return lang;
   }
 
-  function toggle(){ return set(lang === 'ar' ? 'en' : 'ar'); }
+  /* the header button: Arabic <-> English, back to the Arabic she last read */
+  function toggle(){ return set(isArabic(lang) ? 'en' : storedVariant()); }
+
+  /* the footer switch: Iraqi <-> standard Arabic (no-op while in English) */
+  function variant(v){
+    if (v === undefined) return isArabic(lang) ? lang : storedVariant();
+    return set(v === 'ar' ? 'ar' : 'iq');
+  }
 
   function onChange(fn){
     if (typeof fn !== 'function') return function(){};
@@ -753,17 +938,19 @@
   }
 
   /* ============================================================== boot */
-  lang = storedLang() || 'ar';
-  dir  = lang === 'ar' ? 'rtl' : 'ltr';
+  lang = storedLang() || 'iq';
+  dir  = isArabic(lang) ? 'rtl' : 'ltr';
   markDoc();                       /* lang + dir as early as possible */
 
   var I18n = {
     lang: lang,
     dir: dir,
     dict: dict,
+    langs: LANGS.slice(),
     extend: extend,
     set: set,
     toggle: toggle,
+    variant: variant,
     t: t,
     pick: pick,
     num: num,

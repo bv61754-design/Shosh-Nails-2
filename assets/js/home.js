@@ -19,6 +19,58 @@
   /* ==================================================================== */
 
   var DICT = {
+    iq: {
+      home: {
+        /* hero */
+        heroSubFb: 'جاوبي على تسعة أسئلة بالصور، ونسوّي لك طقم كامل على ذوقك.',
+        note1: 'الأسعار مكتوبة قدامك — ماكو «سعر بالخاص»',
+        note3: 'نصوّر لك طقمك قبل ما ندزّه',
+
+        /* the launch offer band */
+        foundingText: 'اطلبي أي طقم بأي سعر، ولمن يوصلك دزّي لنا صورة الطقم على إيدك ورأيك بالمحادثة — ويوصلك طقم هدية بقيمة {g}.',
+
+        /* a design from her own picture */
+        yoursTitle: 'تريدين شي مو موجود هنا؟',
+        yoursText: 'تقدرين تغيّرين أي طقم تشوفينه — لون، طول، شكل، زخرفة — أو تدزين لنا صورة تصميم من عندك، حتى من بنترست، ونسوّيه لك على مقاسك.',
+        yoursWa: 'دزّي لنا الصورة على واتساب',
+        yoursMsg: 'هلا شوش 💅 عندي تصميم أريده، راح أدزّلك الصورة.',
+
+        /* the hero looks */
+        lookPick: 'شوفي طقم {name}',
+
+        /* steps */
+        stepsEyebrow: 'بأربع خطوات بس',
+        stepsTitle: 'شلون تطلبين طقمك؟',
+        stepsSub: 'من أول فكرة ببالك لحد ما العلبة توصل باب بيتك — الطريق قصير وواضح.',
+
+        /* features */
+        featSub: 'شغل يدوي، خامة مريحة، ومقاس مفصّل عليك — مو مقاس عام يمشّي الحال.',
+
+        /* most ordered */
+        topEyebrow: 'اختيارات الزبونات',
+        topSub: 'التصاميم اللي الطلب عليها ما يوقف. اطلبيها مثل ما هي، أو خلّيها أساس وعدّلي عليها براحتك.',
+        topEmpty: 'ماكو تصاميم جاهزة معروضة هسة — بس تقدرين تسوّين اختبار الستايل ونختار لك طقمك.',
+
+        /* colours */
+        colorsTitle: 'اللون اللي ببالك… عندنا',
+        colorsSub: '{n} لون جاهز بين نيود هادئ ووردي وأحمر وألوان جريئة، وإذا لونك بالضبط مو موجود تقدرين تختارينه بنفسك بالكود.',
+
+        /* testimonials */
+        testiTitle: 'شنو قالت الزبونات؟',
+        testiEmpty: 'أول الآراء تنزل هنا بعد أول تسليم — كوني إنتي الأولى.',
+
+        /* closing band */
+        bandText: 'ما تحتاجين خبرة ولا برنامج — كل شي بالموقع، وتشوفين النتيجة قدّامك خطوة بخطوة.',
+        bandCta2: 'عندي سؤال قبل ما أبدي',
+
+        /* 404 */
+        nf: {
+          text: 'يمكن الرابط قديم أو بيه حرف ناقص. لا يهمك — كل شي على بُعد ضغطة.',
+          home: 'ارجعي للرئيسية'
+        }
+      }
+    },
+
     ar: {
       home: {
         /* hero */
@@ -28,9 +80,23 @@
         heroCtaFb: 'ابدئي اختبار الستايل',
         heroCta2: 'شوفي التصاميم الجاهزة',
         heroAlt: 'معاينة حيّة لطقم أظافر مصمّم داخل الموقع',
-        note1: 'شحن مجاني للطلبات فوق {n}',
-        note2: 'مقاس مضبوط لكل ظفر على حدة',
-        note3: 'تشوفين تصميمك قبل ما تطلبينه',
+        note1: 'الأسعار مكتوبة قدامك — ما فيه «سعر بالخاص»',
+        note2: 'الدفع عند الاستلام لكل المحافظات',
+        note3: 'نصوّر لك طقمك قبل ما يطلع',
+
+        /* the launch offer band */
+        foundingEyebrow: 'عرض الافتتاح',
+        foundingTitle: 'أول {n} زبونة: طقم هدية بقيمة {g}',
+        foundingText: 'اطلبي أي طقم بأي سعر، وبعد ما يوصلك دزي لنا صورة الطقم على يدك ورأيك بالمحادثة — ويوصلك طقم هدية بقيمة {g}.',
+        foundingCta: 'ابدئي اختبار الستايل',
+
+        /* a design from her own picture */
+        yoursEyebrow: 'تصميم من عندك',
+        yoursTitle: 'تحبين شي مو موجود هنا؟',
+        yoursText: 'تقدرين تعدّلين على أي طقم تشوفينه — لون، طول، شكل، زخرفة — أو تدزين لنا صورة تصميم من عندك، حتى من بنترست، ونصنعه لك بمقاسك.',
+        yoursWa: 'دزي لنا الصورة على واتساب',
+        yoursIg: 'أو على إنستغرام',
+        yoursMsg: 'هلا شوش 💅 عندي تصميم أريده، راح أدزلج الصورة.',
 
         /* the hero looks — the same hand, three different sets */
         lookCap: 'كلها مصمّمة داخل الموقع · {name}',
@@ -79,7 +145,7 @@
         testiTitle: 'وش قالت العميلات؟',
         testiSub: 'آراء وصلتنا من بنات جرّبن الطقم وصار جزء من روتينهنّ.',
         starsN: '{n} من 5',
-        testiEmpty: 'ما فيه آراء منشورة حالياً.',
+        testiEmpty: 'أول الآراء تنزل هنا بعد أول تسليم — كوني أول وحدة.',
 
         /* closing band */
         bandTitle: 'جاهزة تصمّمين طقمك؟',
@@ -107,9 +173,21 @@
         heroCtaFb: 'Take the style quiz',
         heroCta2: 'Browse ready-made sets',
         heroAlt: 'A live preview of a nail set designed on this site',
-        note1: 'Free shipping over {n}',
-        note2: 'Every nail sized individually',
-        note3: 'See your design before you order',
+        note1: 'Prices right here — no “price in DM”',
+        note2: 'Cash on delivery in every governorate',
+        note3: 'A photo of your set before it ships',
+
+        foundingEyebrow: 'Launch offer',
+        foundingTitle: 'First {n} customers: a gift set worth {g}',
+        foundingText: 'Order any set at any price, and after it arrives send us a photo of it on your hand and your review in chat — a gift set worth {g} comes your way.',
+        foundingCta: 'Take the style quiz',
+
+        yoursEyebrow: 'Your own design',
+        yoursTitle: 'Want something that is not here?',
+        yoursText: 'Change any set you see — colour, length, shape, charms — or send us a picture of a design of your own, even from Pinterest, and we make it to your size.',
+        yoursWa: 'Send us the picture on WhatsApp',
+        yoursIg: 'Or on Instagram',
+        yoursMsg: 'Hi Shosh 💅 I have a design in mind, sending you the picture.',
 
         lookCap: 'All designed on this site · {name}',
         lookPick: 'Show the {name} set',
@@ -151,7 +229,7 @@
         testiTitle: 'What customers say',
         testiSub: 'Notes from women who tried a set and made it part of the routine.',
         starsN: '{n} out of 5',
-        testiEmpty: 'No reviews are published yet.',
+        testiEmpty: 'The first reviews land here after the first deliveries — be the first.',
 
         bandTitle: 'Ready to design your set?',
         bandText: 'No experience and no software needed — everything happens right here, and you see the result at every step.',
@@ -620,13 +698,13 @@
     if (sub) setText(sub, pick(cfg('home.heroSub', null)) || t('home.heroSubFb'));
     if (cta) setText(cta, pick(cfg('home.heroCta', null)) || t('home.heroCtaFb'));
 
-    /* trust notes — the shipping threshold is read live from pricing */
+    /* trust notes — the three sentences an Iraqi customer checks first */
     if (notes) {
-      free = toNum(cfg('pricing.freeShippingOver', 0), 0);
+      free = 0;
       items = [];
-      if (free > 0) items.push({ ico: 'truck', text: t('home.note1', { n: money(free) }) });
-      items.push({ ico: 'ruler', text: t('home.note2') });
-      items.push({ ico: 'sparkle', text: t('home.note3') });
+      items.push({ ico: 'check', text: t('home.note1') });
+      items.push({ ico: 'truck', text: t('home.note2') });
+      items.push({ ico: 'image', text: t('home.note3') });
       fill(notes, items.map(function (it) {
         return el('li', { 'class': 'home-note' }, [
           el('span', { html: icon(it.ico, 18), 'aria-hidden': 'true' }),
@@ -1109,6 +1187,63 @@
 
   var isHome = false;
 
+  /* ── 4.7 the launch offer ────────────────────────────────────────── */
+
+  function renderFounding() {
+    var host = q('home-founding');
+    var f = cfg('settings.founding', null);
+    var on = f && typeof f === 'object' && f.on !== false && toNum(f.total, 0) > 0;
+    var vars;
+    if (!host) return;
+    showSection(host, !!on);
+    if (!on) return;
+    vars = { n: num(toNum(f.total, 0)), g: money(toNum(f.gift, 0)) };
+    fill(host, [
+      el('p', { 'class': 'eyebrow', text: t('home.foundingEyebrow') }),
+      el('h2', { 'class': 'h2 display', id: 'home-founding-t', text: t('home.foundingTitle', vars) }),
+      el('p', { 'class': 'lead', text: t('home.foundingText', vars) }),
+      el('div', { 'class': 'btns' }, [
+        el('a', { 'class': 'btn btn-pri btn-lg', href: 'index.html#quiz', text: t('home.foundingCta') })
+      ])
+    ]);
+  }
+
+  /* ── 4.8 a design from her own picture ───────────────────────────── */
+
+  function renderYours() {
+    var host = q('home-yours');
+    var wa = String(cfg('settings.whatsapp', '') || '').replace(/[^0-9]/g, '');
+    var ig = String(cfg('settings.instagram', '') || '').replace(/^@/, '');
+    var btns = [];
+    if (!host) return;
+    if (wa) {
+      btns.push(el('a', {
+        'class': 'btn btn-pri btn-lg', target: '_blank', rel: 'noopener',
+        href: 'https://wa.me/' + wa + '?text=' + encodeURIComponent(t('home.yoursMsg'))
+      }, [
+        el('span', { 'class': 'btn-ico', html: icon('whatsapp', 18), 'aria-hidden': 'true' }),
+        el('span', { text: t('home.yoursWa') })
+      ]));
+    }
+    if (ig) {
+      btns.push(el('a', {
+        'class': 'btn ' + (wa ? 'btn-ghost' : 'btn-pri') + ' btn-lg', target: '_blank', rel: 'noopener',
+        href: 'https://ig.me/m/' + encodeURIComponent(ig)
+      }, [
+        el('span', { 'class': 'btn-ico', html: icon('instagram', 18), 'aria-hidden': 'true' }),
+        el('span', { text: t('home.yoursIg') })
+      ]));
+    }
+    showSection(host, btns.length > 0);
+    if (!btns.length) return;
+    fill(host, [
+      el('p', { 'class': 'eyebrow', text: t('home.yoursEyebrow') }),
+      el('h2', { 'class': 'h2 display', id: 'home-yours-t', text: t('home.yoursTitle') }),
+      el('p', { 'class': 'lead', text: t('home.yoursText') }),
+      el('div', { 'class': 'btns' }, btns)
+    ]);
+  }
+
   function render() {
     if (!isHome) return;
     dropObserved();
@@ -1116,11 +1251,13 @@
     try {
       renderHero();
       renderQuiz();
+      renderFounding();
       renderStats();
       renderSteps();
       renderFeatures();
       renderTop();
       renderColors();
+      renderYours();
       renderTestimonials();
     } catch (e) {
       console.error('[SN.Home] render failed', e);

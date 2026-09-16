@@ -2695,3 +2695,52 @@ a.card:active,.card:has(> .card-link:active){ transform:translateY(-1px) scale(.
   }
   .sk::after{ display:none !important; }
 }
+
+/* ══════════════════════════════════════════════════════════════════════
+   checkout: the send screen, the four steps, the measuring guide
+   ══════════════════════════════════════════════════════════════════════ */
+.co-send{ inline-size:100%; }
+.co-send .btn{ flex:1 1 220px; }
+.co-steps{
+  inline-size:100%;
+  text-align:start;
+  padding:14px 16px;
+  border-radius:var(--r-sm);
+  background:var(--bg-4);
+  border:1px solid var(--line);
+}
+.co-steps-t{ display:block; margin-block-end:8px; }
+.co-steps-l{
+  margin:0;
+  padding-inline-start:22px;
+  display:grid;
+  gap:6px;
+  font-size:.92rem;
+  line-height:1.7;
+  color:var(--ink-2);
+}
+.co-steps-l li::marker{ color:var(--rose-2); font-weight:800; }
+.co-guide{
+  inline-size:100%;
+  display:grid;
+  gap:10px;
+  justify-items:center;
+  text-align:center;
+  padding:14px 16px;
+  border-radius:var(--r-sm);
+  border:1px solid var(--line);
+  background:var(--bg-2);
+}
+.co-guide-t{ display:block; }
+.co-guide-art{ inline-size:min(100%,320px); }
+.co-guide-art > svg{ inline-size:100%; block-size:auto; border-radius:14px; display:block; }
+.quiz-founding{ color:var(--plum); }
+
+/* footer: Iraqi <-> standard Arabic */
+.ft-variants{ display:inline-flex; gap:2px; padding:2px; border-radius:var(--r-full); border:1px solid var(--line); }
+.ft-variant{
+  border:0; background:transparent; color:var(--ink-3); cursor:pointer;
+  font:inherit; font-size:.8rem; font-weight:700;
+  padding:4px 10px; border-radius:var(--r-full);
+}
+.ft-variant.is-on{ background:var(--rose-soft); color:var(--rose-3); }

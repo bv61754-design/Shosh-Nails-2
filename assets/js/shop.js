@@ -24,6 +24,46 @@
   /* ==================================================================== */
 
   var DICT = {
+    /* ------------------------------------------------------------- IRAQI */
+    /* Only the keys whose Iraqi wording differs from `ar`; everything else
+       falls through iq -> ar -> en. Single-noun labels and tags stay in `ar`. */
+    iq: {
+      shop: {
+        lead: 'مجموعة مختارة من أطقم شوش نيل، كل طقم مرسوم ظفر بظفر. اطلبيه مثل ما هو بمقاسك، أو سوّي اختبار الستايل إذا تريدين طقم مبني على ذوقك.',
+
+        /* hero pills */
+        quizCta: 'ما تعرفين شنو يناسبك؟ سوّي اختبار الستايل',
+
+        /* rail */
+        topEyebrow: 'اختيارات الزبونات',
+        topSub: 'التصاميم اللي ما تنقطع الطلبات عليها. اضغطي على أي طقم حتى تشوفينه بالتفصيل.',
+
+        /* catalogue */
+        allSub: 'دوّري بالاسم أو الوسم، رتّبي بالسعر، وحدّدي ميزانيتك — والنتائج تتبدّل بنفس اللحظة.',
+        searchPh: 'دوّري باسم التصميم أو وصفه أو وسمه…',
+        priceNote: 'حرّكي المؤشرين حتى تحدّدين ميزانيتك، والنتائج تتصفّى على طول.',
+        favAdd: 'ضيفي «{name}» للمفضلة',
+        favOn: 'انحفظ بالمفضلة',
+        favEmpty: 'بعدك ما عندك تصاميم محفوظة — اضغطي على القلب بأي تصميم يعجبك وينحفظ لك هنا.',
+
+        /* cards */
+        orderNow: 'اطلبيه هسة',
+
+        /* empty states */
+        emptyTitle: 'ماكو تصميم بهالمواصفات',
+        emptyText: 'جرّبي كلمة بحث ثانية، أو وسّعي نطاق السعر، أو امسحي الفلاتر وابدي من جديد.',
+        emptyAll: 'ماكو تصاميم جاهزة معروضة هسة — بس تقدرين تسوّين اختبار الستايل ونختار لك طقمك.',
+        emptyAllCta: 'ابدي اختبار الستايل',
+        notFound: 'التصميم اللي تدوّرين عليه ما بقى متوفر.',
+
+        /* quick view */
+        qvNote: 'السعر مكتوب قدامك — أجرة التوصيل تنضاف حسب محافظتك لمن تطلبين.',
+        qvEdit: 'تحبين تغيّرين شي بهالطقم؟ لون، طول، شكل — اكتبيه بالملاحظات لمن تطلبين ونضبطه لك.',
+        qvSize: 'المقاس نتفق عليه بالمحادثة بعد ما تدزين الطلب — ما تحتاجين تعرفينه هسة.',
+        qvIncludes: 'شنو يوصلك بهالطقم؟'
+      }
+    },
+
     ar: {
       shop: {
         eyebrow: 'جاهزة للطلب',
@@ -89,7 +129,9 @@
         qvTags: 'الوسوم',
         qvOptions: 'خيارات الطلب',
         qvTotal: 'الإجمالي',
-        qvNote: 'السعر شامل الشحن والضريبة إن وجدت، ويتحدث مع كل تغيير.',
+        qvNote: 'السعر مكتوب قدامك — أجرة التوصيل تنضاف حسب محافظتك عند الطلب.',
+        qvEdit: 'تحبين تغيّرين شي بهالطقم؟ لون، طول، شكل — اكتبيه في الملاحظات عند الطلب ونضبطه لك.',
+        qvSize: 'المقاس نتفق عليه بالمحادثة بعد الطلب — ما تحتاجين تعرفينه الآن.',
         qvPreviewAlt: 'معاينة تصميم «{name}»',
 
         /* what she actually gets — every line read off the design itself */
@@ -192,7 +234,9 @@
         qvTags: 'Tags',
         qvOptions: 'Order options',
         qvTotal: 'Total',
-        qvNote: 'The total includes shipping and VAT where they apply, and updates with every change.',
+        qvNote: 'The price is right here — delivery is added by governorate at checkout.',
+        qvEdit: 'Want to change something on this set? Colour, length, shape — write it in the notes when you order and we adjust it.',
+        qvSize: 'Your size is agreed in chat after you order — nothing to know now.',
         qvPreviewAlt: 'Preview of the “{name}” design',
 
         qvIncludes: 'What comes in this set',
@@ -1228,6 +1272,8 @@
         ]),
 
         el('p', { 'class': 'hint', text: t('shop.qvNote') }),
+        el('p', { 'class': 'hint', text: t('shop.qvEdit') }),
+        el('p', { 'class': 'hint', text: t('shop.qvSize') }),
 
         el('div', { 'class': 'btns shop-qv-actions' }, [
           el('button', {

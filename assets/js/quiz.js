@@ -38,16 +38,85 @@
   /* ==================================================================== */
 
   var DICT = {
+    /* Iraqi Arabic — only the keys whose wording differs from `ar`; the
+       runtime falls back iq → ar → en, so everything else is inherited.
+       The set names live in `ar` alone on purpose. */
+    iq: {
+      quiz: {
+        cardTitle: 'خلّي نطلّع لك طقمك أنتِ',
+        cardText: 'تسع أسئلة، كلها صور وضغطة وحدة — وبالأخير يطلع لك طقم كامل: اسمه، لونه، شكله، وزخرفته ظفر ظفر. اطلبيه مثل ما هو.',
+        cardCta: 'ابدي الاختبار',
+        cardTease: 'ابدي من هنا — ياهو اللون الأقرب لبشرتك؟',
+
+        h1: 'أول شي نعرفه: وين راح تلبسينه؟',
+        occasion: {
+          holiday: 'سفر وعطلة'
+        },
+
+        q2: 'شنو الإحساس اللي يشبهك؟',
+
+        q3: 'شنو اللون اللي دايمًا ترجعين له؟',
+        h3: 'اللي تشوفين نفسك تختارينه كل مرة، بدون ما تفكرين.',
+
+        h4: 'كل فصل له درجات تليق بيه — وهاي درجاتك أنتِ.',
+
+        q5: 'شكد تحبين يدك تلفت النظر؟',
+        h5: 'من هدوء واثق، إلى يد محد يعدّيها.',
+        attention: {
+          max: 'محد يعدّيها'
+        },
+
+        q6: 'ذهبي لو فضي؟',
+
+        q7: 'شنو الطول المريح لك؟',
+        h7: 'الطول أكثر شي يغيّر شكل يدك بالصورة.',
+
+        waitTitle: 'هسة نجمع لك طقمك…',
+
+        variants: {
+          calmer: 'أهدى شوية',
+          bolder: 'أجرأ شوية'
+        },
+        variantsHint: 'قلّبي بين الثلاثة — كلها مبنية على أجوبتك.',
+
+        whyOcc: {
+          daily: 'طقم يمشي وياك من الدوام لحد آخر اليوم'
+        },
+        whyAtt: {
+          soft: 'وظفر واحد مميّز يكفي حتى يلفت النظر',
+          clear: 'وزخرفة على ظفرين، واضحة بدون مبالغة',
+          max: 'ومزيّن على طول اليد، لأنك مو جاية تمرّين مرور الكرام'
+        },
+
+        qBudget: 'شكد ميزانيتك للطقم؟',
+        hBudget: 'ماكو شي نعرضه لك فوق اللي حددتيه. وتقدرين ما تحددين.',
+        qSkin: 'شنو لون بشرتك؟',
+        hSkin: 'حتى نختار لك درجة تليق عليك، ونعرف مقاسك وقت التجهيز.',
+
+        priceNote: 'السعر بدون التوصيل — أجرة التوصيل تنضاف حسب محافظتك لمن تطلبين.',
+        order: 'اطلبيه هسة',
+        again: 'عيدي الاختبار',
+        editHint: 'تحبين تغيّرين شي بهذا الطقم؟ لون، طول، شكل — اكتبيه بالملاحظات وقت الطلب ونضبطه لك.',
+        sizeHint: 'المقاس نتفق عليه بالمحادثة بعد الطلب — مو لازم تعرفينه هسة.',
+        founding: 'عرض أول {n} زبونة: اطلبي أي طقم، ولمن يوصلك دزّي لنا صورته على يدك ورأيك، ويوصلك طقم هدية بقيمة {g}.',
+        shareText: 'طلع لي طقم «{name}» من اختبار الستايل مال {brand} 💅 سوّي الاختبار وشوفي طقمك:',
+        shareCopied: 'انتسخ الرابط — الصقيه بالستوري مالتك',
+
+        savedNote: 'التصميم صار جاهز — عدّلي بيه اللي تريدينه قبل ما تطلبين.',
+        failText: 'جرّبي مرة ثانية، أو اختاري تصميم جاهز من المتجر.'
+      }
+    },
+
     ar: {
       quiz: {
         /* the entry point on the home page */
         cardEyebrow: 'اختبار الستايل',
         cardTitle: 'خلّينا نطلع لك طقمك أنتِ',
-        cardText: 'سبع أسئلة، كلها صور وضغطة وحدة — وفي الآخر يطلع لك طقم كامل: اسمه، لونه، شكله، وزخرفته ظفر ظفر. اطلبيه زي ما هو أو عدّلي عليه.',
+        cardText: 'تسع أسئلة، كلها صور وضغطة وحدة — وفي الآخر يطلع لك طقم كامل: اسمه، لونه، شكله، وزخرفته ظفر ظفر. اطلبيه زي ما هو.',
         cardCta: 'ابدئي الاختبار',
         cardNote: 'أقل من دقيقة · بدون كتابة',
         cardProof: 'كل بنت تطلع لها نتيجة غير',
-        cardTease: 'ابدئي من هنا — الطقم لأي مناسبة؟',
+        cardTease: 'ابدئي من هنا — أي لون أقرب لبشرتك؟',
 
         /* the shell */
         title: 'اختبار الستايل',
@@ -227,9 +296,12 @@
 
         /* price + actions */
         priceFrom: 'يبدأ من {p}',
-        priceNote: 'السعر شامل الشحن، ويتغيّر لو زدتي أو نقّصتي في التصميم.',
+        priceNote: 'السعر بدون التوصيل — أجرة التوصيل تُضاف حسب محافظتك عند الطلب.',
         order: 'اطلبيه الآن',
         again: 'أعيدي الاختبار',
+        editHint: 'تحبين تغيّرين شي بهالطقم؟ لون، طول، شكل — اكتبيه في الملاحظات عند الطلب ونضبطه لك.',
+        sizeHint: 'المقاس نتفق عليه بالمحادثة بعد الطلب — ما تحتاجين تعرفينه الآن.',
+        founding: 'عرض أول {n} زبونة: اطلبي أي طقم، وبعد ما يوصلك دزي لنا صورته على يدك ورأيك، ويوصلك طقم هدية بقيمة {g}.',
         share: 'شاركيه',
         saveImg: 'احفظي الصورة',
         shareTitle: 'طقمي من شوش نيل',
@@ -271,11 +343,11 @@
       quiz: {
         cardEyebrow: 'Style quiz',
         cardTitle: 'Let us build the set that is yours',
-        cardText: 'Seven questions, all pictures, one tap each — and at the end a full set: its name, its colour, its shape and its decoration nail by nail. Order it as it is, or open it up and change anything.',
+        cardText: 'Nine questions, all pictures, one tap each — and at the end a full set: its name, its colour, its shape and its decoration nail by nail. Order it as it is.',
         cardCta: 'Take the quiz',
         cardNote: 'Under a minute · nothing to type',
         cardProof: 'No two answers give the same set',
-        cardTease: 'Start here — what is the set for?',
+        cardTease: 'Start here — which is closest to your skin tone?',
 
         title: 'Style quiz',
         stepN: 'Question {n} of {total}',
@@ -437,9 +509,12 @@
         hSkin: 'So we pick a shade that suits you, and know it when we make your set.',
 
         priceFrom: 'From {p}',
-        priceNote: 'Shipping included. The total moves if you add to or simplify the design.',
+        priceNote: 'Price without delivery — the courier fee is added by governorate at checkout.',
         order: 'Order it now',
         again: 'Retake the quiz',
+        editHint: 'Want to change something on this set? Colour, length, shape — write it in the notes when you order and we adjust it.',
+        sizeHint: 'Your size is agreed in chat after you order — nothing to know now.',
+        founding: 'First {n} customers: order any set, and after it arrives send us a photo of it on your hand and your review — a gift set worth {g} comes your way.',
         share: 'Share it',
         saveImg: 'Save the picture',
         shareTitle: 'My Shosh Nail set',
@@ -1138,12 +1213,44 @@
       try { p = SN.Checkout.priceCustom(design); }
       catch (e) { p = null; }
     }
-    return (p && isFinite(p.total)) ? p.total : null;
+    return (p && isFinite(p.subtotal)) ? p.subtotal : null;
+  }
+
+  /* The budget answer is a ceiling, not a hint. A generated set that lands
+     over it is trimmed the way she would trim it herself — charms first,
+     then the small patterns, then the accent nail, then the finish — and
+     only what the owner's base price forces stays. Rejected: quietly
+     showing a set priced over the number she just tapped. */
+  function fitBudget(d, ans) {
+    var a = normAnswers(ans);
+    var cap, keys, i, key, p;
+    var over = function () { var x = priceOf(d); return x !== null && x > cap; };
+    var bare = function (k) {
+      p = d.nails[k].pattern || {};
+      d.nails[k].pattern = { kind: 'none', color: p.color, color2: p.color2, scale: 1 };
+    };
+
+    if (!d || !a.budget || a.budget === 'any') return d;
+    cap = budgetMax(a.budget);
+    if (!(cap > 0) || !over()) return d;
+    keys = (SN.Nail && SN.Nail.KEYS && SN.Nail.KEYS.length) ? SN.Nail.KEYS : [];
+
+    for (i = 0; i < keys.length; i++) { key = keys[i]; if (d.nails[key]) d.nails[key].charms = []; }
+    if (!over()) return d;
+    for (i = 0; i < keys.length; i++) {
+      key = keys[i];
+      if (d.nails[key] && fingerOf(key) !== 'Ring') bare(key);
+    }
+    if (!over()) return d;
+    for (i = 0; i < keys.length; i++) { key = keys[i]; if (d.nails[key]) bare(key); }
+    if (!over()) return d;
+    for (i = 0; i < keys.length; i++) { key = keys[i]; if (d.nails[key]) d.nails[key].finish = finishOk('gloss'); }
+    return d;
   }
 
   /* one complete answer to "what did the quiz make for me?" */
   function makeVariant(id, ans) {
-    var design = build(ans);
+    var design = fitBudget(build(ans), ans);
     if (!design) return null;
     return {
       id: id,
@@ -1163,8 +1270,10 @@
     if (SN.Checkout && typeof SN.Checkout.priceReady === 'function') {
       try { p = SN.Checkout.priceReady(it, 1); } catch (e) { p = null; }
     }
-    if (p && isFinite(p.total)) return p.total;
-    return isFinite(num(it && it.price)) ? num(it.price) : null;
+    /* the set's own price, without delivery: the courier fee depends on the
+       governorate she picks later, so it is neither shown nor gated here */
+    if (p && isFinite(p.subtotal)) return p.subtotal;
+    return isFinite(Number(it && it.price)) ? Number(it.price) : null;
   }
 
   /* one of the owner's real sets, dressed as a quiz result. `real` is what
@@ -1550,7 +1659,9 @@
 
   function budgetMax(id) {
     var arr = list('matchAxes.budget'), i;
-    for (i = 0; i < arr.length; i++) if (arr[i] && arr[i].id === id) return num(arr[i].max, 0);
+    /* Number(), never num(): num() is the display formatter and would hand
+       back "15,000", which compares as NaN and silently switches the gate off */
+    for (i = 0; i < arr.length; i++) if (arr[i] && arr[i].id === id) return Number(arr[i].max) || 0;
     return 0;
   }
 
@@ -1563,7 +1674,7 @@
     /* Over her ceiling is not a near miss, it is the wrong shelf. */
     if (a.budget && a.budget !== 'any') {
       cap = budgetMax(a.budget);
-      if (cap > 0 && num(readyPrice(it), 0) > cap) return null;
+      if (cap > 0 && (Number(readyPrice(it)) || 0) > cap) return null;
     }
 
     /* Wrong for her skin is a rejection too: a nude mixed for another depth
@@ -2005,7 +2116,7 @@
     var brand = pick(cfg('settings.brand', null)) || '';
     var handle = String(cfg('settings.instagram', '') || '').replace(/^@/, '');
     var vb, iw, ih, scale, dw, dh, dx, dy, defs, grad, clip, box, wrap;
-    var rtl = (SN.I18n && SN.I18n.lang) === 'ar';
+    var rtl = (SN.I18n && SN.I18n.lang) !== 'en';
 
     function node(tag, attrs) {
       var n = document.createElementNS(NS, tag), k;
@@ -2131,8 +2242,8 @@
     if (!v) return;
     if (SN.Checkout && typeof SN.Checkout.open === 'function') {
       try {
-        if (v.real) SN.Checkout.open({ kind: 'ready', item: v.real, qty: 1 });
-        else SN.Checkout.open({ kind: 'custom', design: shown(v) });
+        if (v.real) SN.Checkout.open({ kind: 'ready', item: v.real, qty: 1, link: resultURL(v) });
+        else SN.Checkout.open({ kind: 'custom', design: shown(v), link: resultURL(v) });
         return;
       } catch (e) { console.warn('[SN.Quiz] checkout failed to open', e); }
     }
@@ -2145,6 +2256,15 @@
     var txt = pick(cfg('settings.afterOrder', null));
     if (!txt) return null;
     return el('p', { 'class': 'quiz-after', text: txt });
+  }
+
+  /* the launch offer, only while the owner keeps it on */
+  function foundingNote() {
+    var f = cfg('settings.founding', null);
+    if (!f || typeof f !== 'object' || f.on === false || !(Number(f.total) > 0)) return null;
+    return el('p', { 'class': 'quiz-after quiz-founding', text: t('quiz.founding', {
+      n: num(Number(f.total)), g: money(Number(f.gift) || 0)
+    }) });
   }
 
   /* ---- the whole reveal ------------------------------------------------ */
@@ -2189,6 +2309,7 @@
 
       /* what happens after she presses it, said before she presses it */
       afterOrderNote(),
+      foundingNote(),
 
       el('div', { 'class': 'btns quiz-actions' }, [
         el('button', {
@@ -2200,6 +2321,8 @@
         'class': 'hint quiz-note center',
         text: v.price === null ? t('quiz.savedNote') : t('quiz.priceNote')
       }),
+      el('p', { 'class': 'hint quiz-note center', text: t('quiz.editHint') }),
+      el('p', { 'class': 'hint quiz-note center', text: t('quiz.sizeHint') }),
 
       recipeBlock(v),
 

@@ -216,16 +216,16 @@
       phone: '', whatsapp: '', email: '',
       instagram: '', snapchat: '', tiktok: '',
       city: { ar: '', en: '' }, address: { ar: '', en: '' }, hours: { ar: '', en: '' },
-      currency: { ar: 'ر.س', en: 'SAR' },
+      currency: { ar: 'د.ع', en: 'IQD' },
       adminPass: 'shosh1234',
       notifyEndpoint: '', notifyKey: '', notifyEmail: '',
       announce: { ar: '', en: '' }, announceOn: false,
       whatsappOrder: true, theme: 'light'
     },
     pricing: {
-      base: 120, perExtraColor: 3, perPatternNail: 8, perCharm: 4,
-      express: 40, giftWrap: 15, shipping: 20, freeShippingOver: 300,
-      vat: 0, depositPct: 0
+      base: 15000, perExtraColor: 500, perPatternNail: 1000, perCharm: 500,
+      express: 5000, giftWrap: 2000, shipping: 5000, freeShippingOver: 0,
+      vat: 0, depositPct: 0, deposit: 0
     },
     home: {
       heroTitle: { ar: '', en: '' }, heroSub: { ar: '', en: '' }, heroCta: { ar: '', en: '' },
@@ -233,12 +233,12 @@
     },
     skinTones: [], shapes: [], lengths: [], finishes: [], colors: [], patterns: [],
     charms: [], sizeGuide: [], sizeSets: [], measureMethods: [], paymentMethods: [],
-    designs: [], faqCats: [], faq: [], orders: []
+    governorates: [], designs: [], faqCats: [], faq: [], orders: []
   };
 
   /* Collections we recognise — used by importFile() validation and shape repair. */
   var COLLECTIONS = ['skinTones','shapes','lengths','finishes','colors','patterns','charms',
-    'sizeGuide','sizeSets','measureMethods','paymentMethods','designs','faqCats','faq','orders'];
+    'sizeGuide','sizeSets','measureMethods','paymentMethods','governorates','designs','faqCats','faq','orders'];
 
   /* Collections that live one level down, under `home`. */
   var HOME_LISTS = ['features','steps','testimonials','stats'];
@@ -246,7 +246,7 @@
   var PREFIX = {
     colors: 'c', charms: 'ch', patterns: 'p', shapes: 'sh', finishes: 'f', lengths: 'l',
     skinTones: 'sk', designs: 'd', faq: 'q', faqCats: 'fc', orders: 'o',
-    sizeGuide: 's', sizeSets: 'ss', measureMethods: 'mm', paymentMethods: 'pm'
+    sizeGuide: 's', sizeSets: 'ss', measureMethods: 'mm', paymentMethods: 'pm', governorates: 'gv'
   };
   function prefixFor(key){
     var k = String(key == null ? '' : key).split('.').pop();
@@ -262,8 +262,19 @@
   var readyQ  = [];
   var subs    = [];
 
+  /* What a fresh browser starts from: the seed in data.js with the owner's
+     PUBLISHED content (assets/js/content.js, written by the panel's publish
+     tab) laid over it. Saved arrays replace seed arrays wholesale, so a
+     design she deleted stays deleted for visitors too. */
+  var pubCache = null, pubFor = null;
   function defaults(){
-    return isObj(SN.DEFAULTS) ? SN.DEFAULTS : FALLBACK;
+    var base = isObj(SN.DEFAULTS) ? SN.DEFAULTS : FALLBACK;
+    var pub = (typeof window !== 'undefined') ? window.SN_PUBLISHED : null;
+    if (!isObj(pub)) return base;
+    if (pubCache && pubFor === pub) return pubCache;
+    pubFor = pub;
+    pubCache = merge(base, pub);
+    return pubCache;
   }
 
   /* Replace the contents of `state` in place so references stay valid. */
@@ -340,8 +351,42 @@
     }
   }
 
+  /* Only the control panel edits content. Every other page must never write
+     a snapshot of the catalogue into a visitor's browser: `merge` takes saved
+     arrays wholesale, so one order would freeze her on the designs and
+     prices of that day for good. A visitor's page persists her orders and
+     the order counter, laid over whatever the browser already holds — on the
+     owner's own phone that is his unpublished work, and it stays intact. */
+  var VISITOR_KEYS = ['orders'];
+  var VISITOR_SETTINGS = ['orderSeq'];
+
+  function isAdminPage(){
+    try {
+      if (document.body && document.body.getAttribute('data-page') === 'admin') return true;
+      return /(^|\/)admin\.html$/i.test(String(location.pathname || ''));
+    } catch (e){ return false; }
+  }
+
+  function visitorBlob(){
+    var prev = parse(lsGet(LS_KEY), LS_KEY);
+    var out = isObj(prev) ? prev : {};
+    var i, k;
+    for (i = 0; i < VISITOR_KEYS.length; i++){
+      k = VISITOR_KEYS[i];
+      if (state[k] !== undefined) out[k] = clone(state[k]);
+    }
+    if (isObj(state.settings)){
+      if (!isObj(out.settings)) out.settings = {};
+      for (i = 0; i < VISITOR_SETTINGS.length; i++){
+        k = VISITOR_SETTINGS[i];
+        if (state.settings[k] !== undefined) out.settings[k] = clone(state.settings[k]);
+      }
+    }
+    return out;
+  }
+
   function save(){
-    var text = stringify(state, LS_KEY);
+    var text = stringify(isAdminPage() ? state : visitorBlob(), LS_KEY);
     var ok = false;
     mutated = true;
     if (text !== null) ok = lsSet(LS_KEY, text);
@@ -829,6 +874,10 @@
   Store.logout = function(){
     ssDel(ADMIN_KEY);
   };
+
+  /* a copy of what a fresh browser would see — the publish tab compares
+     against it to say whether this browser holds unpublished work */
+  Store.defaults = function(){ return clone(defaults()); };
 
   Store.isAdmin = function(){
     return ssGet(ADMIN_KEY) === '1';
