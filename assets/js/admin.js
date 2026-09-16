@@ -505,7 +505,7 @@
           big: 'الملف كبير (صور كثيرة). لو رفض المحرر اللصق، نزّلي الملف وارفعيه من GitHub: داخل مجلد assets/js اضغطي Add file ← Upload files.',
           noRepo: 'ما فيه رابط مستودع في الإعدادات، فما نقدر نفتح المحرر. نزّلي الملف وارفعيه بنفسك.',
           autoHead: 'نشر بضغطة وحدة (اختياري)',
-          autoX: 'بدل النسخ واللصق: تحطين مرة وحدة «مفتاح» من حسابك على GitHub، وبعدها كل ما تعدّلين تضغطين «انشري هسة» ويوصل الزبونات خلال دقيقة. المفتاح ينحفظ في هذا الجهاز فقط — ما يطلع مع الموقع ولا مع النسخة الاحتياطية.',
+          autoX: 'مرة وحدة بس: تحطين «مفتاح» من حسابك على GitHub وتحفظينه هنا. بعدها كل تعديل تسوّينه في اللوحة ينشر لحاله بعد ثواني ويوصل الزبونات وكل الأجهزة خلال دقيقة — وتشوفين حالة النشر فوق بجنب العنوان. المفتاح ينحفظ في هذا الجهاز فقط — ما يطلع مع الموقع ولا مع النسخة الاحتياطية.',
           tokS1: 'افتحي صفحة إنشاء المفتاح على GitHub (الزر تحت) وسجّلي دخولك.',
           tokS2: 'Token name: أي اسم. Expiration: أطول مدة. Repository access: «Only select repositories» واختاري Shosh-Nails-2.',
           tokS3: 'Permissions ← Repository permissions ← Contents: «Read and write». بعدين Generate token.',
@@ -526,7 +526,12 @@
           errAuth: 'GitHub رفض المفتاح. تأكدي إنه صحيح وإن صلاحية Contents «Read and write» على مستودع Shosh-Nails-2، أو أنشئي مفتاحًا جديدًا.',
           errRepo: 'ما لقينا المستودع أو الملف. تأكدي من اسم المستودع في الإعدادات ومن اختيار Shosh-Nails-2 عند إنشاء المفتاح.',
           errConflict: 'تغيّر الملف على GitHub بنفس اللحظة. اضغطي «انشري هسة» مرة ثانية.',
-          errNet: 'ما وصلنا لـ GitHub. تأكدي من الإنترنت وجرّبي مرة ثانية، أو استعملي النسخ واللصق.'
+          errNet: 'ما وصلنا لـ GitHub. تأكدي من الإنترنت وجرّبي مرة ثانية، أو استعملي النسخ واللصق.',
+          chipOff: 'النشر التلقائي متوقف',
+          chipPending: 'راح ينشر بعد لحظات…',
+          chipBusy: 'جاري النشر…',
+          chipClean: 'منشور للكل ✅',
+          chipError: 'ما انتشر — اضغطي للمحاولة'
         },
 
         /* ---- backup tab ---- */
@@ -1070,7 +1075,7 @@
           big: 'The file is large (many photos). If the editor refuses the paste, download the file and upload it on GitHub: inside assets/js tap Add file → Upload files.',
           noRepo: 'No repository link in the settings, so the editor cannot be opened. Download the file and upload it yourself.',
           autoHead: 'One-tap publish (optional)',
-          autoX: 'Instead of copy and paste: store a GitHub “token” from your account once, then after every edit tap “Publish now” and visitors get it within a minute. The token stays in this device only — it never ships with the site or the backup.',
+          autoX: 'Once only: create a GitHub “token” from your account and save it here. After that every edit you make in the panel publishes by itself a few seconds later and reaches visitors and every device within a minute — the chip next to the title shows where things stand. The token stays in this device only — it never ships with the site or the backup.',
           tokS1: 'Open the token page on GitHub (button below) and sign in.',
           tokS2: 'Token name: anything. Expiration: the longest. Repository access: “Only select repositories” → Shosh-Nails-2.',
           tokS3: 'Permissions → Repository permissions → Contents: “Read and write”. Then Generate token.',
@@ -1091,7 +1096,12 @@
           errAuth: 'GitHub refused the token. Check it is correct and has Contents “Read and write” on Shosh-Nails-2, or create a new one.',
           errRepo: 'Repository or file not found. Check the repository name in the settings and that Shosh-Nails-2 was selected when creating the token.',
           errConflict: 'The file changed on GitHub at the same moment. Tap “Publish now” again.',
-          errNet: 'Could not reach GitHub. Check the connection and try again, or use copy and paste.'
+          errNet: 'Could not reach GitHub. Check the connection and try again, or use copy and paste.',
+          chipOff: 'Auto-publish is off',
+          chipPending: 'Publishing in a moment…',
+          chipBusy: 'Publishing…',
+          chipClean: 'Live for everyone ✅',
+          chipError: 'Not published — tap to retry'
         },
 
         b: {
@@ -3989,6 +3999,7 @@
 
   var PUBLISH_PATH = 'assets/js/content.js';
   var PUBLISH_SKIP = ['adminPass', 'orderSeq', 'lastBackup'];
+  var PUBLISH_SKIP_TOP = ['orders', 'version', 'savedAt', 'publishedAt'];
 
   /* everything visitors should see — never the orders, never the password */
   function publishable(src) {
@@ -3996,7 +4007,7 @@
     if (!isObj(src)) return out;
     for (k in src) {
       if (!Object.prototype.hasOwnProperty.call(src, k)) continue;
-      if (k === 'orders' || k === 'version') continue;
+      if (PUBLISH_SKIP_TOP.indexOf(k) !== -1) continue;
       out[k] = src[k];
     }
     if (isObj(src.settings)) {
@@ -4010,9 +4021,14 @@
   }
 
   function publishText() {
-    var json;
-    try { json = JSON.stringify(publishable(SN.Store.state)); }
-    catch (e) { return ''; }
+    var json, data;
+    try {
+      data = publishable(SN.Store.state);
+      /* the stamp that lets another phone tell a newer publish from its
+         own older copy (store.js load) */
+      data.publishedAt = Date.now();
+      json = JSON.stringify(data);
+    } catch (e) { return ''; }
     return '/* Shosh Nail — المحتوى المنشور. يُكتب من لوحة التحكم ← تبويب «النشر».\n' +
            '   The published content, written by the control panel. Do not edit by hand. */\n' +
            'window.SN_PUBLISHED = ' + json + ';\n';
@@ -4108,6 +4124,77 @@
     if (/http404/.test(m)) return 'admin.pub.errRepo';
     if (/http409|http422/.test(m)) return 'admin.pub.errConflict';
     return 'admin.pub.errNet';
+  }
+
+  /* ---- automatic publishing --------------------------------------------
+     With a token saved, every change this panel makes goes to GitHub a few
+     seconds after the last edit, so "edit in the panel" IS "live for
+     everyone". One chip in the top bar says where things stand; tapping it
+     retries after a failure or opens the publish tab. */
+  var AUTO_DELAY = 4000;
+  var autoPub = { timer: null, busy: false, again: false, err: '' };
+
+  function autoPubEnabled() { return !!ghToken() && !!ghRepo(); }
+
+  function scheduleAutoPublish() {
+    if (!autoPubEnabled()) { paintPubChip(); return; }
+    if (autoPub.timer) clearTimeout(autoPub.timer);
+    autoPub.timer = setTimeout(runAutoPublish, AUTO_DELAY);
+    paintPubChip();
+  }
+
+  function runAutoPublish() {
+    if (autoPub.timer) { clearTimeout(autoPub.timer); autoPub.timer = null; }
+    if (!autoPubEnabled()) { paintPubChip(); return; }
+    if (autoPub.busy) { autoPub.again = true; return; }
+    if (!publishDirty()) { autoPub.err = ''; paintPubChip(); return; }
+    autoPub.busy = true;
+    paintPubChip();
+    ghPublish(null).then(function () {
+      autoPub.busy = false;
+      autoPub.err = '';
+      if (autoPub.again) { autoPub.again = false; scheduleAutoPublish(); }
+      paintPubChip();
+      if (S.tab === 'publish') renderPanel();
+    }, function (err) {
+      autoPub.busy = false;
+      autoPub.again = false;
+      autoPub.err = publishErrorKey(err);
+      paintPubChip();
+    });
+  }
+
+  function pubChipState() {
+    if (!autoPubEnabled()) return 'off';
+    if (autoPub.busy) return 'busy';
+    if (autoPub.timer) return 'pending';
+    if (autoPub.err) return 'error';
+    return publishDirty() ? 'pending' : 'clean';
+  }
+
+  function pubChip() {
+    var chip = el('button', {
+      'class': 'adm-pubchip', type: 'button', id: 'adm-pubchip',
+      on: { click: function () {
+        var st = pubChipState();
+        if (st === 'error' || st === 'pending') runAutoPublish();
+        else goTab('publish');
+      } }
+    });
+    refs.pubChip = chip;
+    paintPubChip();
+    /* unpublished work found on opening the panel goes out on its own too */
+    if (autoPubEnabled() && !autoPub.timer && !autoPub.busy && !autoPub.err && publishDirty()) scheduleAutoPublish();
+    return chip;
+  }
+
+  function paintPubChip() {
+    var c = refs.pubChip, st;
+    if (!c) return;
+    st = pubChipState();
+    c.className = 'adm-pubchip is-' + st;
+    c.textContent = t('admin.pub.chip' + st.charAt(0).toUpperCase() + st.slice(1));
+    c.title = st === 'error' ? t(autoPub.err || 'admin.pub.errNet') : '';
   }
 
   /* the outcome of the last one-tap publish, shown again after the tab
@@ -5128,6 +5215,7 @@
       }),
       refs.title,
       el('div', { 'class': 'adm-top-a' }, [
+        pubChip(),
         el('a', { 'class': 'btn btn-ghost btn-sm only-desk', href: 'index.html', text: t('admin.viewSite') }),
         el('button', {
           'class': 'btn btn-line btn-sm', type: 'button', text: t('admin.logout'),
@@ -5212,6 +5300,11 @@
     }, false);
 
     SN.I18n.onChange(function () { renderAll(); });
+
+    /* every saved change is a candidate for automatic publishing */
+    if (typeof SN.Store.subscribe === 'function') {
+      SN.Store.subscribe(function () { if (SN.Store.isAdmin()) scheduleAutoPublish(); });
+    }
 
     /* keep the panel honest if another tab clears the session */
     window.addEventListener('storage', function (ev) {

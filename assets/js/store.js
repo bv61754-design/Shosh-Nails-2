@@ -267,6 +267,28 @@
      tab) laid over it. Saved arrays replace seed arrays wholesale, so a
      design she deleted stays deleted for visitors too. */
   var pubCache = null, pubFor = null;
+  var LOCAL_SETTINGS = ['adminPass', 'orderSeq', 'lastBackup'];
+
+  function publishedAt(){
+    var pub = (typeof window !== 'undefined') ? window.SN_PUBLISHED : null;
+    return isObj(pub) ? (Number(pub.publishedAt) || 0) : 0;
+  }
+  function publishedAfter(saved){
+    return publishedAt() > (Number(saved && saved.savedAt) || 0);
+  }
+  function localOnly(saved){
+    var out = {}, s = {}, i, k;
+    if (Array.isArray(saved.orders)) out.orders = saved.orders;
+    if (isObj(saved.settings)){
+      for (i = 0; i < LOCAL_SETTINGS.length; i++){
+        k = LOCAL_SETTINGS[i];
+        if (saved.settings[k] !== undefined) s[k] = saved.settings[k];
+      }
+      out.settings = s;
+    }
+    return out;
+  }
+
   function defaults(){
     var base = isObj(SN.DEFAULTS) ? SN.DEFAULTS : FALLBACK;
     var pub = (typeof window !== 'undefined') ? window.SN_PUBLISHED : null;
@@ -323,6 +345,11 @@
       console.warn('[SN.Store] saved state is not an object — falling back to defaults.');
       saved = null;
     }
+    /* A newer publish beats what this browser saved: the owner published from
+       another phone (or from this one, before this copy was refreshed), so the
+       browser's copy of the CONTENT is stale. Orders and the local-only
+       settings (password, order counter, backup stamp) are kept. */
+    if (saved && publishedAfter(saved)) saved = localOnly(saved);
     next = saved ? merge(def, saved) : clone(def);
     /* Version drift never throws; we simply stamp the current schema version. */
     next.version = def && def.version !== undefined ? def.version : 1;
@@ -385,8 +412,17 @@
     return out;
   }
 
+  /* the panel's full copy, stamped with the moment it was saved so a newer
+     publish from another phone can be told apart from it on the next load */
+  function adminBlob(){
+    var out = {}, k;
+    for (k in state){ if (Object.prototype.hasOwnProperty.call(state, k)) out[k] = state[k]; }
+    out.savedAt = Date.now();
+    return out;
+  }
+
   function save(){
-    var text = stringify(isAdminPage() ? state : visitorBlob(), LS_KEY);
+    var text = stringify(isAdminPage() ? adminBlob() : visitorBlob(), LS_KEY);
     var ok = false;
     mutated = true;
     if (text !== null) ok = lsSet(LS_KEY, text);
@@ -878,6 +914,7 @@
   /* a copy of what a fresh browser would see — the publish tab compares
      against it to say whether this browser holds unpublished work */
   Store.defaults = function(){ return clone(defaults()); };
+  Store.publishedAt = publishedAt;
 
   Store.isAdmin = function(){
     return ssGet(ADMIN_KEY) === '1';

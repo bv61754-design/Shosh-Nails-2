@@ -973,6 +973,20 @@
 .adm-btnrow{ display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
 .adm-tok{ flex:1 1 240px; min-inline-size:0; }
 .adm-pubstat{ margin:0; }
+
+/* the auto-publish chip in the top bar */
+.adm-pubchip{
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:5px 10px;
+  font:inherit; font-size:.76rem; font-weight:700; line-height:1.2;
+  background:var(--bg-2); color:var(--ink-2);
+  cursor:pointer; white-space:nowrap;
+}
+.adm-pubchip.is-off{ color:var(--ink-3); }
+.adm-pubchip.is-clean{ background:var(--ok-soft); color:var(--ok-ink); border-color:transparent; }
+.adm-pubchip.is-pending,.adm-pubchip.is-busy{ background:var(--warn-soft); color:var(--warn-ink); border-color:transparent; }
+.adm-pubchip.is-error{ background:var(--err-soft); color:var(--err-ink); border-color:transparent; }
 .adm-steps{
   margin:0;
   padding-inline-start:1.2em;
