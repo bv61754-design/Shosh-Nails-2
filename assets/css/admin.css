@@ -971,6 +971,8 @@
    09  BACKUP TAB
    ========================================================================= */
 .adm-btnrow{ display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+.adm-tok{ flex:1 1 240px; min-inline-size:0; }
+.adm-pubstat{ margin:0; }
 .adm-steps{
   margin:0;
   padding-inline-start:1.2em;

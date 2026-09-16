@@ -219,7 +219,7 @@
           stepsLbl: 'خطوات «شنو يصير بعد ما أدز؟»',
           stepsHint: 'تظهر مرقّمة قبل تأكيد الطلب وبعده. افصلي بين الخطوات بالعلامة | (مثال: نرد خلال ساعة|نتفق على المقاس|…).',
           fHead: 'عرض أول الزبونات',
-          fHeadX: 'شريط في الصفحة الرئيسية ونتيجة الاختبار وصفحة الطلب: أول N زبونة تدز صورة الطقم ورأيها بعد التسليم تحصل على طقم هدية. طفّيه لمن يكتمل العدد.',
+          fHeadX: 'شريط في الصفحة الرئيسية ونتيجة الاختبار وصفحة الطلب: أول N زبونة ينضاف لطلبها طقم مجاني بالقيمة المحددة مهما كان سعر الطلب، وتنكتب «زبونة تأسيس» في رسالة الطلب. طفّيه لمن يكتمل العدد.',
           fOn: 'العرض مفعّل',
           fTotal: 'عدد الزبونات (أول كم زبونة)',
           fGift: 'قيمة طقم الهدية',
@@ -503,7 +503,30 @@
           download: 'نزّلي الملف (content.js)',
           size: 'حجم الملف: {n} كيلوبايت.',
           big: 'الملف كبير (صور كثيرة). لو رفض المحرر اللصق، نزّلي الملف وارفعيه من GitHub: داخل مجلد assets/js اضغطي Add file ← Upload files.',
-          noRepo: 'ما فيه رابط مستودع في الإعدادات، فما نقدر نفتح المحرر. نزّلي الملف وارفعيه بنفسك.'
+          noRepo: 'ما فيه رابط مستودع في الإعدادات، فما نقدر نفتح المحرر. نزّلي الملف وارفعيه بنفسك.',
+          autoHead: 'نشر بضغطة وحدة (اختياري)',
+          autoX: 'بدل النسخ واللصق: تحطين مرة وحدة «مفتاح» من حسابك على GitHub، وبعدها كل ما تعدّلين تضغطين «انشري هسة» ويوصل الزبونات خلال دقيقة. المفتاح ينحفظ في هذا الجهاز فقط — ما يطلع مع الموقع ولا مع النسخة الاحتياطية.',
+          tokS1: 'افتحي صفحة إنشاء المفتاح على GitHub (الزر تحت) وسجّلي دخولك.',
+          tokS2: 'Token name: أي اسم. Expiration: أطول مدة. Repository access: «Only select repositories» واختاري Shosh-Nails-2.',
+          tokS3: 'Permissions ← Repository permissions ← Contents: «Read and write». بعدين Generate token.',
+          tokS4: 'انسخي المفتاح، الصقيه هنا، واضغطي «احفظي المفتاح». ما راح يظهر مرة ثانية على GitHub.',
+          tokOpen: 'افتحي صفحة إنشاء المفتاح',
+          tokPh: 'github_pat_…',
+          tokSave: 'احفظي المفتاح',
+          tokSaved: 'انحفظ المفتاح في هذا الجهاز.',
+          tokCleared: 'انمسح المفتاح من هذا الجهاز.',
+          tokWhere: 'لو ضاع جهازك أو تريدين توقفينه: GitHub ← Settings ← Developer settings ← Fine-grained tokens ← Revoke.',
+          now: 'انشري هسة',
+          working: 'لحظة…',
+          step1: 'نقرأ الملف الحالي على GitHub…',
+          step2: 'نرفع التعديلات…',
+          step3: 'انتشر ✅',
+          done: 'انتشر ✅ — خلال دقيقة يظهر على الموقع للكل.',
+          errToken: 'ما فيه مفتاح محفوظ. احفظي المفتاح أولًا.',
+          errAuth: 'GitHub رفض المفتاح. تأكدي إنه صحيح وإن صلاحية Contents «Read and write» على مستودع Shosh-Nails-2، أو أنشئي مفتاحًا جديدًا.',
+          errRepo: 'ما لقينا المستودع أو الملف. تأكدي من اسم المستودع في الإعدادات ومن اختيار Shosh-Nails-2 عند إنشاء المفتاح.',
+          errConflict: 'تغيّر الملف على GitHub بنفس اللحظة. اضغطي «انشري هسة» مرة ثانية.',
+          errNet: 'ما وصلنا لـ GitHub. تأكدي من الإنترنت وجرّبي مرة ثانية، أو استعملي النسخ واللصق.'
         },
 
         /* ---- backup tab ---- */
@@ -772,7 +795,7 @@
           stepsLbl: '“What happens after I send?” steps',
           stepsHint: 'Shown numbered before and after the order is confirmed. Separate steps with | (e.g. We reply within the hour|We agree the size|…).',
           fHead: 'Founding customers offer',
-          fHeadX: 'A band on the home page, the quiz result and the checkout: the first N customers who send a photo of the set and a review after delivery get a gift set. Turn it off once the number is reached.',
+          fHeadX: 'A band on the home page, the quiz result and the checkout: the first N customers get a free set of the given value added to their order, whatever it costs, and "founding customer" is written in the order message. Turn it off once the number is reached.',
           fOn: 'Offer is on',
           fTotal: 'Number of customers (first N)',
           fGift: 'Gift set value',
@@ -1045,7 +1068,30 @@
           download: 'Download the file (content.js)',
           size: 'File size: {n} KB.',
           big: 'The file is large (many photos). If the editor refuses the paste, download the file and upload it on GitHub: inside assets/js tap Add file → Upload files.',
-          noRepo: 'No repository link in the settings, so the editor cannot be opened. Download the file and upload it yourself.'
+          noRepo: 'No repository link in the settings, so the editor cannot be opened. Download the file and upload it yourself.',
+          autoHead: 'One-tap publish (optional)',
+          autoX: 'Instead of copy and paste: store a GitHub “token” from your account once, then after every edit tap “Publish now” and visitors get it within a minute. The token stays in this device only — it never ships with the site or the backup.',
+          tokS1: 'Open the token page on GitHub (button below) and sign in.',
+          tokS2: 'Token name: anything. Expiration: the longest. Repository access: “Only select repositories” → Shosh-Nails-2.',
+          tokS3: 'Permissions → Repository permissions → Contents: “Read and write”. Then Generate token.',
+          tokS4: 'Copy the token, paste it here and tap “Save the token”. GitHub will not show it again.',
+          tokOpen: 'Open the token page',
+          tokPh: 'github_pat_…',
+          tokSave: 'Save the token',
+          tokSaved: 'Token saved on this device.',
+          tokCleared: 'Token removed from this device.',
+          tokWhere: 'Lost the device, or want to stop it: GitHub → Settings → Developer settings → Fine-grained tokens → Revoke.',
+          now: 'Publish now',
+          working: 'One moment…',
+          step1: 'Reading the current file on GitHub…',
+          step2: 'Uploading your changes…',
+          step3: 'Published ✅',
+          done: 'Published ✅ — within a minute it is live for everyone.',
+          errToken: 'No token saved. Save the token first.',
+          errAuth: 'GitHub refused the token. Check it is correct and has Contents “Read and write” on Shosh-Nails-2, or create a new one.',
+          errRepo: 'Repository or file not found. Check the repository name in the settings and that Shosh-Nails-2 was selected when creating the token.',
+          errConflict: 'The file changed on GitHub at the same moment. Tap “Publish now” again.',
+          errNet: 'Could not reach GitHub. Check the connection and try again, or use copy and paste.'
         },
 
         b: {
@@ -3982,6 +4028,150 @@
     return cur !== pub;
   }
 
+  /* ---- one tap, through the GitHub API ---------------------------------
+     The token lives in THIS browser only (localStorage), never in the state,
+     so it is never exported, published or backed up. A fine-grained token
+     limited to this one repository with "Contents: read and write" is all it
+     needs, and revoking it on GitHub ends its power at once. */
+  var GH_TOKEN_KEY = 'shosh2-gh-token';
+  var GH_NEW_TOKEN = 'https://github.com/settings/personal-access-tokens/new';
+
+  function ghToken() {
+    try { return trim(window.localStorage.getItem(GH_TOKEN_KEY)); }
+    catch (e) { return ''; }
+  }
+  function ghTokenSet(v) {
+    try {
+      if (trim(v)) window.localStorage.setItem(GH_TOKEN_KEY, trim(v));
+      else window.localStorage.removeItem(GH_TOKEN_KEY);
+    } catch (e) { /* private mode: nothing to keep */ }
+  }
+  function ghRepo() { return trim(sGet('settings.repo', '')).replace(/^\/+|\/+$/g, ''); }
+  function ghBranch() { return trim(sGet('settings.repoBranch', '')) || 'main'; }
+  function ghApi(path) {
+    var enc = function (s) { return s.split('/').map(encodeURIComponent).join('/'); };
+    return 'https://api.github.com/repos/' + enc(ghRepo()) + '/contents/' + enc(path);
+  }
+
+  /* UTF-8 text -> base64, in slices so a multi-megabyte file does not blow
+     the call stack */
+  function b64utf8(text) {
+    var bytes, bin = '', i, CH = 0x8000;
+    if (typeof TextEncoder === 'function' && typeof Uint8Array !== 'undefined') {
+      bytes = new TextEncoder().encode(text);
+      for (i = 0; i < bytes.length; i += CH) bin += String.fromCharCode.apply(null, bytes.subarray(i, i + CH));
+      return btoa(bin);
+    }
+    return btoa(unescape(encodeURIComponent(text)));
+  }
+
+  /* read the file's sha (none when it does not exist yet), then write it */
+  function ghPublish(onStep) {
+    var token = ghToken(), text = publishText(), url, headers;
+    if (!token) return Promise.reject(new Error('token'));
+    if (!ghRepo() || !text || typeof fetch !== 'function') return Promise.reject(new Error('repo'));
+    url = ghApi(PUBLISH_PATH);
+    headers = {
+      'Authorization': 'Bearer ' + token,
+      'Accept': 'application/vnd.github+json',
+      'X-GitHub-Api-Version': '2022-11-28'
+    };
+    if (onStep) onStep(1);
+    return fetch(url + '?ref=' + encodeURIComponent(ghBranch()), { headers: headers }).then(function (res) {
+      if (res.status === 404) return null;
+      if (!res.ok) throw new Error('http' + res.status);
+      return res.json().then(function (j) { return j && j.sha ? String(j.sha) : null; });
+    }).then(function (sha) {
+      var body = { message: 'content: publish from the panel', content: b64utf8(text), branch: ghBranch() };
+      var h = {}, k;
+      for (k in headers) if (Object.prototype.hasOwnProperty.call(headers, k)) h[k] = headers[k];
+      h['Content-Type'] = 'application/json';
+      if (sha) body.sha = sha;
+      if (onStep) onStep(2);
+      return fetch(url, { method: 'PUT', headers: h, body: JSON.stringify(body) });
+    }).then(function (res) {
+      if (!res.ok) throw new Error('http' + res.status);
+      return res.json();
+    }).then(function () {
+      /* what visitors now get is exactly what this browser holds */
+      try { window.SN_PUBLISHED = JSON.parse(JSON.stringify(publishable(SN.Store.state))); }
+      catch (e) { /* the next page load reads the real file anyway */ }
+      if (onStep) onStep(3);
+      return true;
+    });
+  }
+
+  function publishErrorKey(err) {
+    var m = str(err && err.message);
+    if (m === 'token') return 'admin.pub.errToken';
+    if (/http40[13]/.test(m)) return 'admin.pub.errAuth';
+    if (/http404/.test(m)) return 'admin.pub.errRepo';
+    if (/http409|http422/.test(m)) return 'admin.pub.errConflict';
+    return 'admin.pub.errNet';
+  }
+
+  /* the outcome of the last one-tap publish, shown again after the tab
+     re-renders (the re-render is what turns the "unpublished" note green) */
+  var pubLastMsg = '';
+
+  function autoPublishCard() {
+    var tokIn = el('input', {
+      'class': 'input adm-tok', type: 'password', autocomplete: 'off', dir: 'ltr',
+      placeholder: t('admin.pub.tokPh')
+    });
+    var status = el('p', { 'class': 'hint adm-pubstat', 'aria-live': 'polite', text: pubLastMsg });
+    var hasTok = !!ghToken();
+    var goBtn;
+    pubLastMsg = '';
+    tokIn.value = ghToken();
+
+    goBtn = el('button', {
+      'class': 'btn btn-pri', type: 'button', text: t('admin.pub.now'),
+      disabled: hasTok ? null : true,
+      on: { click: function () {
+        goBtn.disabled = true;
+        status.textContent = t('admin.pub.working');
+        ghPublish(function (step) { status.textContent = t('admin.pub.step' + step); }).then(function () {
+          goBtn.disabled = false;
+          pubLastMsg = t('admin.pub.done');
+          toast(t('admin.pub.done'), 'ok');
+          renderPanel();
+        }, function (err) {
+          var key = publishErrorKey(err);
+          goBtn.disabled = false;
+          status.textContent = t(key);
+          toast(t(key), 'err');
+        });
+      } }
+    });
+
+    return card([
+      sectionHead(t('admin.pub.autoHead'), t('admin.pub.autoX')),
+      el('ol', { 'class': 'adm-steps' }, [
+        el('li', { text: t('admin.pub.tokS1') }),
+        el('li', { text: t('admin.pub.tokS2') }),
+        el('li', { text: t('admin.pub.tokS3') }),
+        el('li', { text: t('admin.pub.tokS4') })
+      ]),
+      el('div', { 'class': 'adm-btnrow' }, [
+        el('a', { 'class': 'btn btn-line btn-sm', href: GH_NEW_TOKEN, target: '_blank', rel: 'noopener', text: t('admin.pub.tokOpen') })
+      ]),
+      el('div', { 'class': 'adm-btnrow' }, [
+        tokIn,
+        el('button', {
+          'class': 'btn btn-line btn-sm', type: 'button', text: t('admin.pub.tokSave'),
+          on: { click: function () {
+            ghTokenSet(tokIn.value);
+            toast(t(trim(tokIn.value) ? 'admin.pub.tokSaved' : 'admin.pub.tokCleared'), 'ok');
+            renderPanel();
+          } }
+        })
+      ]),
+      el('p', { 'class': 'hint', text: t('admin.pub.tokWhere') }),
+      el('div', { 'class': 'adm-btnrow' }, [goBtn, status])
+    ]);
+  }
+
   function renderPublish() {
     var box = el('div', { 'class': 'adm-tabbody' });
     var dirty = publishDirty();
@@ -4029,6 +4219,8 @@
       el('p', { 'class': 'hint', text: t('admin.pub.size', { n: kb }) }),
       kb > 900 ? el('p', { 'class': 'hint', text: t('admin.pub.big') }) : null
     ]));
+
+    box.appendChild(autoPublishCard());
 
     return box;
   }
