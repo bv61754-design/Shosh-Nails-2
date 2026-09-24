@@ -4722,7 +4722,16 @@
       'X-GitHub-Api-Version': '2022-11-28'
     };
     if (onStep) onStep(1);
-    return fetch(url + '?ref=' + encodeURIComponent(ghBranch()), { headers: headers }).then(function (res) {
+    /* the «object» type: GitHub still returns the sha once the file passes
+       1 MB (pictures in the FAQ can take it there); the default type
+       refuses a file that size, and the publish would fail */
+    return fetch(url + '?ref=' + encodeURIComponent(ghBranch()), {
+      headers: {
+        'Authorization': headers.Authorization,
+        'Accept': 'application/vnd.github.object+json',
+        'X-GitHub-Api-Version': headers['X-GitHub-Api-Version']
+      }
+    }).then(function (res) {
       if (res.status === 404) return null;
       if (!res.ok) throw new Error('http' + res.status);
       return res.json().then(function (j) { return j && j.sha ? String(j.sha) : null; });
