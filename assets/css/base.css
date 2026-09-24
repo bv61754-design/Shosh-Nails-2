@@ -584,6 +584,19 @@ body.is-scrolled #sn-header{ box-shadow:var(--sh-1); }
 @media (max-width:900px){
   :root{ --hdr-row:50px; --hdr-tabs:50px; --hdr:51px; }
   #sn-header{ inset-block-start:calc(-1 * var(--hdr-row)); }
+  /* Keyboard focus must never land on a control she cannot see. Once the
+     page is scrolled, the brand link and the language/theme buttons sit in
+     the brand row above the top of the screen; tabbing into them used to
+     focus something invisible and throw the page ~460px up. While keyboard
+     focus is inside that row, the whole header is pinned instead, and --hdr
+     grows to match so the shop toolbar and the admin top bar step down
+     under it rather than being covered. Taps and clicks never match
+     :focus-visible, so touch users see no change; a browser without :has()
+     keeps the plain behaviour above. */
+  #sn-header:has(.brand:focus-visible, .hdr-actions :focus-visible){ inset-block-start:0; }
+  :root:has(#sn-header .brand:focus-visible, #sn-header .hdr-actions :focus-visible){
+    --hdr:calc(var(--hdr-row) + var(--hdr-tabs) + 1px);
+  }
   .hdr-inner{
     display:grid;
     grid-template-columns:auto minmax(0,1fr);
