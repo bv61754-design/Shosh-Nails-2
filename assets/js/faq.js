@@ -9,7 +9,8 @@
  *    category tabs built from faqCats with a live per-category count ·
  *    an aria accordion, one panel open at a time, deep-linkable by #id,
  *    with a copy-link and an "ask about this" shortcut per question ·
- *    a numbered application guide parsed out of the `install` answers ·
+ *    a numbered application guide, shown only when an application answer
+ *    really has numbered steps (three or more) ·
  *    a contact card assembled row by row from settings (an empty setting
  *    never renders a broken link) · an enquiry box that composes a
  *    WhatsApp message and optionally posts to settings.notifyEndpoint.
@@ -95,6 +96,9 @@
         noneT: 'لم نجد سؤالاً بهذه الكلمة',
         noneX: 'جرّبي كلمة أقصر، أو افتحي قسم «الكل»، أو أرسلي لنا سؤالك مباشرة من البطاقة في الأسفل ونرد عليك.',
         clearAll: 'مسح البحث والتصفية',
+        zeroT: 'لم نضف أسئلة هنا بعد',
+        zeroX: 'نجهّز الإجابات قريبًا. وإلى ذلك الحين، أرسلي لنا سؤالك من البطاقة في الأسفل ونرد عليك بأنفسنا.',
+        picAlt: '{q} — صورة {n}',
         copyLink: 'نسخ الرابط',
         linkCopied: 'تم نسخ رابط السؤال',
         copyFail: 'لم نتمكن من نسخ الرابط — انسخيه من شريط العنوان',
@@ -190,6 +194,9 @@
         noneT: 'Nothing matches that word',
         noneX: 'Try a shorter word, switch back to “All”, or send us the question directly from the card below and we will answer it.',
         clearAll: 'Clear search and filter',
+        zeroT: 'No questions here yet',
+        zeroX: 'We are preparing the answers. Until then, send us your question from the card below and we will reply ourselves.',
+        picAlt: '{q} — picture {n}',
         copyLink: 'Copy link',
         linkCopied: 'Link to this question copied',
         copyFail: 'We could not copy the link — copy it from the address bar',
@@ -410,7 +417,20 @@
 
   var HAY = {};   /* id -> {src, n} search haystack cache */
 
-  function faqList() { return slist('faq'); }
+  /* THE list every part of the page reads — tabs, counts, search, guide,
+     chips, the removal note. A row with no question text (the panel's
+     «إضافة جديد» makes one, and auto-publish can push it live) is not a
+     question yet, so it is dropped here, once, for all of them. */
+  function faqList() {
+    var all = slist('faq'), out = [], i, it;
+    for (i = 0; i < all.length; i++) {
+      it = all[i];
+      if (!isObj(it) || !it.id) continue;
+      if (!trim(pick(it.q))) continue;
+      out.push(it);
+    }
+    return out;
+  }
   function catList() { return slist('faqCats'); }
 
   function catOf(id) {
@@ -430,6 +450,54 @@
     return str(o);
   }
 
+  /* ------------------------------------------------------------ pictures
+     An answer may carry up to four pictures: {src, w, h, cap:{ar,en}}.
+     Only an embedded JPEG/PNG/WebP or an https:// address is ever put in
+     an <img> — anything else in the data is ignored, not rendered. */
+  var MAX_PICS = 4;
+  var PIC_DATA = /^data:image\/(?:jpeg|png|webp);base64,[A-Za-z0-9+\/]+={0,2}$/;
+  var PIC_HTTPS = /^https:\/\/[^\s"'<>\\]+$/i;
+
+  function picSrc(p) {
+    var v = isObj(p) ? trim(p.src) : '';
+    return (PIC_DATA.test(v) || PIC_HTTPS.test(v)) ? v : '';
+  }
+
+  function picsOf(it) {
+    var arr = isObj(it) && Array.isArray(it.pics) ? it.pics : [], out = [], i;
+    for (i = 0; i < arr.length && out.length < MAX_PICS; i++) {
+      if (picSrc(arr[i])) out.push(arr[i]);
+    }
+    return out;
+  }
+
+  /* every caption, both languages — so a word in a caption finds its question */
+  function capsOf(it) {
+    var pics = picsOf(it), out = '', i;
+    for (i = 0; i < pics.length; i++) out += '\n' + both(pics[i].cap);
+    return out;
+  }
+
+  function dimOf(v) {
+    var n = Math.round(Number(v));
+    return n > 0 && n <= 10000 ? n : 0;
+  }
+
+  /* one picture, below the answer text. The width/height attributes let the
+     browser keep its space before the file arrives, so nothing jumps. */
+  function picHtml(p, n, qText, q) {
+    var src = picSrc(p), cap = trim(pick(p.cap)), w = dimOf(p.w), h = dimOf(p.h);
+    var alt = cap || t('faq.picAlt', { q: stripQ(qText), n: numf(n) });
+    if (!src) return '';
+    /* --ar / --w let the CSS narrow a tall picture (or a small one) instead
+       of framing it in empty bands — see .faq-fig in faq.html */
+    return '<figure class="faq-fig"><img src="' + esc(src) + '"' +
+      (w && h ? ' width="' + w + '" height="' + h + '" style="--ar:' + (Math.round(w / h * 10000) / 10000) + ';--w:' + w + 'px"' : '') +
+      ' alt="' + esc(alt) + '" loading="lazy" decoding="async">' +
+      (cap ? '<figcaption>' + hl(cap, q) + '</figcaption>' : '') +
+      '</figure>';
+  }
+
   /* Both languages go in the haystack, so an English word finds an Arabic
      answer. The category name is in there too: Arabic inflection means
      "إزالة" never appears literally inside "كيف أزيلها…", and matching the
@@ -439,7 +507,7 @@
   function haystack(it) {
     var id = str(it.id);
     var c = catOf(it.cat);
-    var src = both(it.q) + '\n' + both(it.a) + '\n' + id + '\n' + (c ? both(c.name) : str(it.cat));
+    var src = both(it.q) + '\n' + both(it.a) + '\n' + id + '\n' + (c ? both(c.name) : str(it.cat)) + capsOf(it);
     var hit = HAY[id];
     if (hit && hit.src === src) return hit.n;
     hit = { src: src, n: normalize(src) };
@@ -456,20 +524,11 @@
     return null;
   }
 
-  function byCat(cat) {
-    var list = faqList(), out = [], i;
-    for (i = 0; i < list.length; i++) {
-      if (isObj(list[i]) && list[i].id && str(list[i].cat) === str(cat)) out.push(list[i]);
-    }
-    return out;
-  }
-
   /* search-only pass (drives both the list and the per-category counts) */
   function searched() {
     var list = faqList(), q = normalize(st.q), out = [], i, it;
     for (i = 0; i < list.length; i++) {
       it = list[i];
-      if (!isObj(it) || !it.id) continue;
       if (q && haystack(it).indexOf(q) === -1) continue;
       out.push(it);
     }
@@ -490,8 +549,10 @@
   /* ==================================================================== */
 
   /* ")", "." and ":" can never sit inside a number, so they need no space
-     after them; a dash does — otherwise "15–20 seconds" reads as item 15. */
-  var NUM_LINE = /^\s*(\d{1,2})\s*(?:[)\.:]\s*|[-–—]\s+)(.+)$/;
+     after them; a dash does — otherwise "15–20 seconds" reads as item 15.
+     The number may be typed in Arabic-Indic digits too (١) ٢) ٣)), which is
+     what an Arabic phone keyboard gives her. */
+  var NUM_LINE = /^\s*([0-9\u0660-\u0669\u06F0-\u06F9]{1,2})\s*(?:[)\.:]\s*|[-–—]\s+)(.+)$/;
 
   function lines(text) {
     return str(text).split(/\r?\n/);
@@ -506,9 +567,10 @@
     return out;
   }
 
-  /* an answer becomes <p> blocks, with any numbered run promoted to <ol> */
-  function answerHtml(text, q) {
-    var ls = lines(text), out = '', buf = [], i, ln, m;
+  /* an answer becomes <p> blocks, with any numbered run promoted to <ol>,
+     and then its pictures, in order, below the text */
+  function answerHtml(text, q, pics, qText) {
+    var ls = lines(text), out = '', buf = [], i, ln, m, figs = '';
 
     function flush() {
       var k;
@@ -528,8 +590,9 @@
       out += '<p>' + hl(ln, q) + '</p>';
     }
     flush();
-    if (!out) out = '<p>' + hl(str(text), q) + '</p>';
-    return out;
+    for (i = 0; pics && i < pics.length; i++) figs += picHtml(pics[i], i + 1, qText, q);
+    if (!out && !figs) out = '<p>' + hl(str(text), q) + '</p>';
+    return out + figs;
   }
 
   function clip(s, n) {
@@ -541,12 +604,6 @@
   }
 
   function stripQ(s) { return trim(s).replace(/[?؟]\s*$/, ''); }
-
-  function firstSentence(s) {
-    var v = trim(lines(s)[0]);
-    var m = /^([\s\S]{18,150}?[\.!؟?])(\s|$)/.exec(v);
-    return m ? trim(m[1]) : clip(v, 150);
-  }
 
   /* "buff the surface, this is the secret" -> {t:'buff the surface', x:'this is the secret'} */
   function splitStep(s) {
@@ -565,6 +622,7 @@
   var dom = {};
   var inited = false;
   var guideSrc = '';        /* id of the faq item the numbered guide came from */
+  var guideOn = true;       /* is the guide section on the page at all */
 
   function cacheDom() {
     dom.main = byId('main');
@@ -578,6 +636,11 @@
     dom.empty = byId('faq-empty');
     dom.emptyIco = byId('faq-empty-ico');
     dom.reset = byId('faq-reset');
+    dom.questions = byId('faq-questions');
+    dom.bar = dom.tabs ? dom.tabs.parentNode : null;
+    dom.guide = byId('faq-guide');
+    dom.emptyT = dom.empty ? dom.empty.querySelector('.empty-t') : null;
+    dom.emptyX = dom.empty ? dom.empty.querySelector('.empty-x') : null;
     dom.steps = byId('faq-steps');
     dom.guideFoot = byId('faq-guide-foot');
     dom.tips = byId('faq-tips');
@@ -620,11 +683,19 @@
   /* ==================================================================== */
 
   function renderTabs() {
-    var base, cats = catList(), counts = {}, i, c, id, n, total;
+    var base, cats = catList(), counts = {}, has = {}, all = faqList(), i, c, id, n, total;
     if (!dom.tabs) return;
 
-    /* the owner may have deleted the category we are sitting on */
-    if (st.cat !== ALL && !catOf(st.cat)) st.cat = ALL;
+    /* A section with no questions at all gets no tab (a tab that can only
+       ever say 0 is a dead end). One that simply has no match for the
+       current search keeps its tab, dimmed. */
+    for (i = 0; i < all.length; i++) has[str(all[i].cat)] = true;
+
+    /* the owner may have deleted the category we are sitting on, or emptied it */
+    if (st.cat !== ALL && (!catOf(st.cat) || !has[st.cat])) st.cat = ALL;
+
+    /* no questions at all: no tabs and no «0 من 0» either */
+    show(dom.bar, all.length > 0);
 
     base = searched();
     clear(dom.tabs);
@@ -640,6 +711,7 @@
       c = cats[i];
       if (!isObj(c) || !c.id) continue;
       id = str(c.id);
+      if (!has[id]) continue;
       n = counts[id] || 0;
       dom.tabs.appendChild(tabBtn(id, pick(c.name) || id, n));
     }
@@ -721,7 +793,7 @@
       'aria-labelledby': bid
     }, [
       el('div', { 'class': 'acc-in' }, [
-        el('div', { 'class': 'faq-a', html: answerHtml(pick(it.a), st.q) }),
+        el('div', { 'class': 'faq-a', html: answerHtml(pick(it.a), st.q, picsOf(it), pick(it.q)) }),
         foot
       ])
     ]);
@@ -743,6 +815,19 @@
     for (i = 0; i < items.length; i++) dom.list.appendChild(itemNode(items[i]));
     show(dom.list, items.length > 0);
     show(dom.empty, items.length === 0);
+    if (!items.length) paintEmpty(faqList().length === 0);
+  }
+
+  /* Two different empties. No match for a search offers to clear it; no
+     questions at all says so plainly — there is nothing to clear. The keys
+     go on data-i18n too, so a language switch keeps the right one. */
+  function paintEmpty(zero) {
+    var tk = zero ? 'faq.zeroT' : 'faq.noneT';
+    var xk = zero ? 'faq.zeroX' : 'faq.noneX';
+    if (dom.emptyT) { dom.emptyT.setAttribute('data-i18n', tk); dom.emptyT.textContent = t(tk); }
+    if (dom.emptyX) { dom.emptyX.setAttribute('data-i18n', xk); dom.emptyX.textContent = t(xk); }
+    if (dom.emptyIco) dom.emptyIco.innerHTML = icon(zero ? 'sparkle' : 'search', 40);
+    show(dom.reset, !zero);
   }
 
   function itemNodeById(id) {
@@ -824,40 +909,54 @@
   /* 6. the step-by-step guide                                             */
   /* ==================================================================== */
 
+  /* Is this a question about applying the set? The seeded category is
+     'install'; a category the owner makes himself gets a random id, so its
+     name — or the question itself — has to say it. «ركب» catches أركّب,
+     ركّبت, نركب…, «تركيب» the noun; a «م» in front is refused, so «الأظافر
+     المركّبة» (what the product is called) does not count. */
+  var INSTALLISH = /(?:^|[^م])ركب|تركيب|\bappl(?:y|ies|ied|ying|ication)\b/;
+
+  function installish(it) {
+    var c;
+    if (str(it.cat) === 'install') return true;
+    c = catOf(it.cat);
+    return INSTALLISH.test(normalize(both(it.q) + ' ' + (c ? both(c.name) : '')));
+  }
+
+  /* The guide is an application answer that really is numbered — three
+     steps or more. There is no fallback any more: turning every question
+     of a category into «step» cards put his delivery and wear-time
+     questions under «طريقة التركيب». No numbered answer, no guide. */
   function guideSteps() {
-    var items = byCat('install'), best = null, i, ls, out, s;
-
-    /* first choice: a genuinely numbered answer (data.js ships one) */
+    var items = faqList(), best = null, i, ls, out, s;
     for (i = 0; i < items.length; i++) {
+      if (!installish(items[i])) continue;
       ls = numberedLines(pick(items[i].a));
-      if (!best || ls.length > best.ls.length) best = { id: str(items[i].id), ls: ls };
+      if (ls.length >= 3 && (!best || ls.length > best.ls.length)) best = { id: str(items[i].id), ls: ls };
     }
-    if (best && best.ls.length >= 3) {
-      out = [];
-      for (i = 0; i < best.ls.length && i < 10; i++) {
-        s = splitStep(best.ls[i]);
-        s.id = best.id;
-        out.push(s);
-      }
-      return { id: best.id, steps: out };
-    }
-
-    /* fallback: one card per install question */
+    if (!best) return { id: '', steps: [] };
     out = [];
-    for (i = 0; i < items.length && out.length < 8; i++) {
-      out.push({
-        t: stripQ(pick(items[i].q)),
-        x: firstSentence(pick(items[i].a)),
-        id: str(items[i].id)
-      });
+    for (i = 0; i < best.ls.length && i < 10; i++) {
+      s = splitStep(best.ls[i]);
+      s.id = best.id;
+      out.push(s);
     }
-    return { id: '', steps: out };
+    return { id: best.id, steps: out };
   }
 
   function renderGuide() {
-    var g = guideSteps(), i, s, rest, chips;
+    var g = guideSteps(), i, s, rest, chips, on = g.steps.length > 0;
 
     guideSrc = g.id;
+
+    /* with no numbered answer the whole section goes — heading, tips and
+       all — along with the hero chip that jumps to it */
+    show(dom.guide, on);
+    if (on !== guideOn) {
+      guideOn = on;
+      renderJump();
+    }
+    if (!on) return;
 
     if (dom.steps) {
       clear(dom.steps);
@@ -909,13 +1008,13 @@
 
     renderRemoval();
 
-    /* the install questions the numbered guide did not consume. With no
-       numbered source the cards ARE the questions, so there is no remainder. */
+    /* the other application questions, the ones the numbered guide did
+       not come from */
     if (dom.more && dom.moreChips) {
-      rest = guideSrc ? byCat('install') : [];
+      rest = faqList();
       chips = [];
       for (i = 0; i < rest.length; i++) {
-        if (str(rest[i].id) === guideSrc) continue;
+        if (str(rest[i].id) === guideSrc || !installish(rest[i])) continue;
         chips.push(chipFor(rest[i]));
       }
       clear(dom.moreChips);
@@ -1283,6 +1382,7 @@
     if (!dom.jump) return;
     clear(dom.jump);
     for (i = 0; i < items.length; i++) {
+      if (items[i].href === '#faq-guide' && !guideOn) continue;
       dom.jump.appendChild(el('a', { 'class': 'chip', href: items[i].href }, [
         el('span', { html: icon(items[i].ico, 15) }),
         el('span', { text: t(items[i].key) })
@@ -1324,11 +1424,55 @@
     return h;
   }
 
+  /* Links elsewhere on the site point at two shipped questions by id
+     (links.html → the size question, the checkout → changing or cancelling
+     an order). Once the owner deletes or rewrites those questions the ids
+     are gone, so each one maps to the word that finds whatever answers it
+     now. */
+  var GONE = { 'fq-know-size': 'مقاس', 'fq-change-cancel': 'إلغاء' };
+
+  function sectionAnchor(id) {
+    var node = byId(id);
+    if (!node) return false;
+    while (node && node.nodeType === 1) {
+      if (node.hasAttribute('hidden')) return false;   /* e.g. the guide, hidden */
+      node = node.parentNode;
+    }
+    return true;
+  }
+
   function openFromHash(moveFocus) {
     var id = hashId();
     if (!id) return;
-    if (!findFaq(id)) return;      /* #faq-guide, #faq-contact … are section anchors */
-    reveal(id, moveFocus);
+    if (findFaq(id)) { reveal(id, moveFocus); return; }
+    if (sectionAnchor(id)) return;   /* #faq-guide, #faq-contact … the browser handles */
+    landOnList(GONE[id] || '');
+  }
+
+  /* A question link that no longer leads anywhere: search for its word when
+     we know one and it finds something, otherwise just the whole list — the
+     visitor lands on the questions either way, never on a dead anchor. */
+  function landOnList(word) {
+    var hits;
+    st.open = '';
+    st.cat = ALL;
+    st.q = trim(word);
+    if (st.q && !filtered().length) st.q = '';
+    if (dom.q) dom.q.value = st.q;
+    show(dom.qClear, !!st.q);
+    render();
+    hits = filtered();
+    if (st.q && hits.length === 1) { reveal(str(hits[0].id), false); return; }
+    scrollTo(dom.questions);
+  }
+
+  /* faq.html?q=مقاس opens with that search already typed */
+  function queryWord() {
+    var m = /[?&]q=([^&#]*)/.exec(str(location.search));
+    var v = m ? m[1].replace(/\+/g, ' ') : '';
+    try { v = decodeURIComponent(v); }
+    catch (e) { /* keep the raw value */ }
+    return trim(v);
   }
 
   function wire() {
@@ -1380,8 +1524,15 @@
   }
 
   function first() {
+    var word = queryWord();
+    if (word) {
+      st.q = word;
+      if (dom.q) dom.q.value = word;
+      show(dom.qClear, true);
+    }
     render();
-    openFromHash(false);
+    if (hashId()) openFromHash(false);
+    else if (word) scrollTo(dom.questions);
 
     if (SN.I18n && typeof SN.I18n.onChange === 'function') {
       SN.I18n.onChange(function () {

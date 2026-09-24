@@ -116,6 +116,33 @@
 }
 
 .faq-a p + p{ margin-block-start:12px; }
+
+/* pictures under an answer: the full width of the answer column, never
+   taller than three quarters of the screen, the whole picture always
+   visible, caption underneath. A picture that would pass 75vh at full
+   width (a portrait, a phone screenshot) narrows to keep its shape rather
+   than sitting in empty bands, and none is blown up past its own width —
+   --ar and --w come from the picture's stored size. object-fit:contain is
+   the safety net for a picture whose size was never stored. */
+.faq-fig{ margin:14px 0 0; min-inline-size:0; }
+.faq-a > .faq-fig:first-child{ margin-block-start:0; }
+.faq-fig img{
+  display:block;
+  inline-size:100%;
+  max-inline-size:min(calc(75vh * var(--ar, 100)), var(--w, 100%));
+  block-size:auto;
+  max-block-size:75vh;
+  object-fit:contain;
+  border-radius:var(--r-sm);
+  border:1px solid var(--line);
+  background:var(--bg-3);
+}
+.faq-fig figcaption{
+  margin-block-start:6px;
+  font-size:.86rem;
+  line-height:1.7;
+  color:var(--ink-2);
+}
 .faq-ol{
   list-style:none;
   counter-reset:faq-a;
