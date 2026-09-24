@@ -1432,6 +1432,14 @@
     }
     if (out.length >= 3) return out;
 
+    /* A set the quiz invents is drawn, and the owner's own sets are
+       photographed. Mixing the two in one row makes the drawing look like a
+       product she can order and the photographs look inconsistent beside it,
+       so once a real set has answered her we stop there. The invented sets
+       remain for the shop that has nothing to answer with yet — an empty
+       result is worse than a drawing. */
+    if (out.length) return out;
+
     if (!main) return out;
     seen = JSON.stringify(main.design);
     calmer = makeVariant('calmer', shiftAnswers(ans, -1));
