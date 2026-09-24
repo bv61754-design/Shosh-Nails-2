@@ -373,6 +373,12 @@
           active: 'ظاهر في المتجر',
           tags: 'الوسوم',
           groups: 'ضمن أي قوائم؟',
+          lkNone: '— بدون تحديد —',
+          lkPattern: 'نوع النقشة',
+          lkPatternX: 'اختاري نوع الطقم — فرنش، كات آي، كروم، نمر، أومبريه… وما تختارينه هنا يُرسم فعلاً في بطاقة الطقم بألوانه. اتركيه بدون تحديد إذا الطقم لون واحد بلا نقشة.',
+          lkFinish: 'اللمسة النهائية',
+          lkShape: 'شكل الظفر',
+          lkLength: 'الطول',
           groupsX: 'اختاري كل قائمة ينتمي إليها هذا الطقم، ويجوز أكثر من واحدة. القوائم نفسها تضيفينها من تبويب «القوائم»، وأي قائمة جديدة تظهر هنا فورًا.',
           tagsPh: 'وسم جديد ثم Enter',
           tagAdd: 'إضافة وسم',
@@ -966,6 +972,12 @@
           active: 'Visible in the shop',
           tags: 'Tags',
           groups: 'Which lists is it in?',
+          lkNone: '— not set —',
+          lkPattern: 'Pattern',
+          lkPatternX: 'Pick the kind of set — french, cat eye, chrome, leopard, ombre… and what you pick here is actually drawn on the set\u2019s card in its own colours. Leave it unset for a plain one-colour set.',
+          lkFinish: 'Finish',
+          lkShape: 'Nail shape',
+          lkLength: 'Length',
           groupsX: 'Tick every list this set belongs to — more than one is fine. You create the lists themselves in the Lists tab, and a new one shows up here straight away.',
           tagsPh: 'New tag, then Enter',
           tagAdd: 'Add tag',
@@ -1297,6 +1309,60 @@
       }
       return out;
     };
+  }
+
+  /* like listOpts, but its empty entry reads «بدون تحديد» rather than
+     «أي واحد» — a look is a choice about one set, not a filter */
+  function lookOpts(key) {
+    return function () {
+      var arr = sList(key), out = [{ v: '', l: t('admin.d.lkNone') }], i;
+      for (i = 0; i < arr.length; i++) {
+        if (arr[i] && arr[i].id) out.push({ v: arr[i].id, l: pick(arr[i].name) || arr[i].id });
+      }
+      return out;
+    };
+  }
+
+  function rowById(key, id) {
+    var arr = sList(key), i;
+    if (!id) return null;
+    for (i = 0; i < arr.length; i++) if (arr[i] && String(arr[i].id) === String(id)) return arr[i];
+    return null;
+  }
+
+  /* Draw the set she described.
+
+     A set she adds has no drawing of its own, only a photograph — and a
+     photograph is not always ready on the day. Choosing the pattern, the
+     finish, the shape and the length is enough for the site to draw it for
+     real: the colours come from her swatches (which the photo filled in), and
+     every nail carries the same recipe, which is what a press-on set is. */
+  function applyLook(it) {
+    var look = (it && it.look) || {}, cfg, k, n, pat, fin, c1, c2, c3;
+    if (!look.pattern && !look.finish && !look.shape && !look.length) return false;
+    if (!SN.Nail || typeof SN.Nail.blank !== 'function') return false;
+    try { cfg = SN.Nail.blank(); } catch (e) { return false; }
+    if (!cfg || !cfg.nails) return false;
+
+    pat = rowById('patterns', look.pattern);
+    fin = rowById('finishes', look.finish);
+    c1 = trim(str(it.c1));
+    c2 = trim(str(it.c2)) || '#FFFFFF';
+    c3 = trim(str(it.c3)) || c1 || '#FFFFFF';
+
+    if (look.shape) cfg.shape = look.shape;
+    if (look.length) cfg.length = look.length;
+
+    for (k in cfg.nails) {
+      if (!Object.prototype.hasOwnProperty.call(cfg.nails, k)) continue;
+      n = cfg.nails[k];
+      if (c1) n.color = c1;
+      if (fin && fin.kind) n.finish = fin.kind;
+      n.pattern = { kind: (pat && pat.kind) || 'none', color: c2, color2: c3, scale: 1 };
+    }
+    delete cfg.auto;                 /* this is a real description now */
+    SN.Store.update('designs', it.id, { config: cfg });
+    return true;
   }
 
   function listOpts(key, bare) {
@@ -3044,6 +3110,9 @@
         setIn(it, p, v);
         patch[top] = it[top];
         SN.Store.update(def.key, it.id, patch);
+        if (typeof def.onField === 'function') {
+          try { def.onField(it, str(p)); } catch (e) { /* never break an edit */ }
+        }
       },
       after: function () { refreshRow(); if (typeof onEdit === 'function') onEdit(); }
     };
@@ -3697,6 +3766,12 @@
         F('image', 'image', 'admin.d.image', { wide: true, maxPx: MAX_DESIGN, hint: 'admin.img.designX' }),
         F('ref', 'text', 'admin.d.ref', { wide: true, hint: 'admin.d.refX' }),
 
+        /* ---- كيف يُرسم الطقم في الموقع ---- */
+        F('look.pattern', 'select', 'admin.d.lkPattern', { hint: 'admin.d.lkPatternX', opts: lookOpts('patterns') }),
+        F('look.finish', 'select', 'admin.d.lkFinish', { opts: lookOpts('finishes') }),
+        F('look.shape', 'select', 'admin.d.lkShape', { opts: lookOpts('shapes') }),
+        F('look.length', 'select', 'admin.d.lkLength', { opts: lookOpts('lengths') }),
+
         /* ---- what the style quiz matches on -------------------------- */
         F('c1', 'color', 'admin.d.c1', { hint: 'admin.d.c1X', empty: true }),
         F('c2', 'color', 'admin.d.c2', { hint: 'admin.d.c2X', empty: true }),
@@ -3722,7 +3797,8 @@
         return {
           id: '', name: { ar: '', en: '' }, desc: { ar: '', en: '' },
           price: numOf(sGet('pricing.base', 120), 120), orders: 0,
-          featured: false, active: true, tags: [], groups: [], image: '', ref: '', config: cfg || {},
+          featured: false, active: true, tags: [], groups: [], image: '', ref: '',
+          look: { pattern: '', finish: '', shape: '', length: '' }, config: cfg || {},
           c1: '', c2: '', c3: '', c4: '',
           match: {
             occasion: [], vibe: [], attention: '', metal: '',
@@ -3731,6 +3807,12 @@
         };
       },
       preview: designThumb,
+      onField: function (it, path) {
+        /* the drawing follows the look and the colours it is made of */
+        if (/^look\./.test(path) || /^c[1-4]$/.test(path)) {
+          if (applyLook(it)) { /* the row repaints itself through ctx.after */ }
+        }
+      },
       sub: function (it) {
         var bits = [money(numOf(it.price, 0)), t('admin.d.orders') + ': ' + numOf(it.orders, 0)], gap;
         if (it.featured) bits.push(t('admin.d.featured'));
