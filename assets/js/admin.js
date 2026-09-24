@@ -150,7 +150,7 @@
           cats: 'تصنيفات الأسئلة',
           catsX: 'التبويبات التي تظهر فوق الأسئلة في صفحة الأسئلة والتواصل.',
           list: 'الأسئلة والأجوبة',
-          listX: 'أسئلة تصنيف «التركيب» تظهر كمان كدليل مرقّم في أسفل الصفحة.'
+          listX: 'دليل «طريقة التركيب خطوة بخطوة» في أسفل الصفحة يظهر فقط إذا كان جواب أحد أسئلة التركيب فيه ثلاثة أسطر مرقّمة أو أكثر، مثل: 1) … 2) … 3) …'
         },
 
         /* ---- field labels ---- */
@@ -188,7 +188,8 @@
           pinky: 'الخنصر',
           steps: 'الخطوات',
           stars: 'التقييم (من 5)',
-          tags: 'الوسوم'
+          tags: 'الوسوم',
+          pics: 'صور توضيحية'
         },
 
         /* ---- field hints ---- */
@@ -206,7 +207,8 @@
           steps: 'خطوات مرقّمة تظهر للعميلة في صفحة المقاسات.',
           person: 'اكتبي الاسم بالعربي وبالحروف اللاتينية، عشان يقرأه الزائر باللغتين.',
           stars: 'من 1 إلى 5 — تظهر كنجوم في الصفحة الرئيسية.',
-          statValue: 'مثال: +1200 أو 4.9 أو 3–5.'
+          statValue: 'مثال: +1200 أو 4.9 أو 3–5.',
+          pics: 'تظهر الصور تحت الجواب بالترتيب نفسه، والحد الأقصى 4 صور لكل سؤال. انتبهي: كل صورة تزيد وزن الموقع كله، لأن كل صفحاته تحمّلها — فأضيفيها حين تشرح ما لا يشرحه الكلام.'
         },
 
         /* ---- general tab ---- */
@@ -428,6 +430,24 @@
           patternX: 'صورة لظفر منفّذ بهذه النقشة فعلياً.',
           charmX: 'صورة للزخرفة الحقيقية على خلفية فاتحة. الصورة تغلب على الرسمة والإيموجي.',
           designX: 'صورة الطقم كامل. إذا ما فيه صورة يظهر مكانها «الصورة قريبًا».'
+        },
+
+        /* ---- صور داخل أجوبة الأسئلة ---- */
+        pics: {
+          add: 'إضافة صورة',
+          none: 'لا توجد صور في هذا السؤال بعد.',
+          count: '{n} من {m} صور',
+          max: 'وصلتِ إلى الحد: {m} صور لكل سؤال. احذفي صورة لتضيفي غيرها.',
+          no: 'صورة {n}',
+          cap: 'وصف قصير تحت الصورة (اختياري)',
+          capPh: 'مثال: هكذا يبدو الظفر بعد البرد',
+          delAsk: 'حذف الصورة {n} من هذا السؤال؟',
+          shrink: 'تُصغَّر كل صورة إلى {n} بكسل. لقطة الشاشة تبقى PNG ما دام حجمها صغيرًا، لتبقى الكتابة فيها واضحة.',
+          n1: 'صورة واحدة',
+          n2: 'صورتان',
+          nN: '{n} صور',
+          total: 'صور الأسئلة: {c} · {n} كيلوبايت تُضاف إلى وزن الموقع.',
+          heavy: 'صور الأسئلة وصلت إلى {n} كيلوبايت، أي أكثر من 1 ميغابايت. كل صفحات الموقع تحمّلها، حتى الرئيسية، فيصبح فتحه على الهاتف أبطأ. احذفي بعض الصور أو استبدليها بصور أصغر.'
         },
 
         /* ---- مكتبة الرسومات (SN.Art) ---- */
@@ -763,7 +783,7 @@
           cats: 'FAQ categories',
           catsX: 'The tabs shown above the questions on the help page.',
           list: 'Questions & answers',
-          listX: 'Questions in the “Application” category also become the numbered guide at the bottom of the page.'
+          listX: 'The numbered “how to apply” guide at the bottom of the page appears only when an application question has an answer with three or more numbered lines, like 1) … 2) … 3) …'
         },
 
         f: {
@@ -800,7 +820,8 @@
           pinky: 'Pinky',
           steps: 'Steps',
           stars: 'Rating (out of 5)',
-          tags: 'Tags'
+          tags: 'Tags',
+          pics: 'Pictures'
         },
 
         h: {
@@ -817,7 +838,8 @@
           steps: 'Numbered steps shown to the customer on the sizing step.',
           person: 'Write the name in Arabic and in Latin letters, so it reads naturally in both languages.',
           stars: '1 to 5 — displayed as stars on the home page.',
-          statValue: 'For example +1200, 4.9 or 3–5.'
+          statValue: 'For example +1200, 4.9 or 3–5.',
+          pics: 'Pictures appear under the answer, in this order, up to 4 per question. Every picture adds weight to the whole site, because every page loads it — use one when it explains what words cannot.'
         },
 
         g: {
@@ -1029,6 +1051,23 @@
           patternX: 'A photo of a nail actually painted with this pattern.',
           charmX: 'A photo of the real charm on a light background. The photo wins over the drawing and the emoji.',
           designX: 'A photo of the finished set. With no photo a neutral “Photo coming soon” placeholder shows instead.'
+        },
+
+        pics: {
+          add: 'Add a picture',
+          none: 'No pictures in this question yet.',
+          count: '{n} of {m} pictures',
+          max: 'That is the limit: {m} pictures per question. Remove one to add another.',
+          no: 'Picture {n}',
+          cap: 'Short caption under the picture (optional)',
+          capPh: 'e.g. This is how the nail looks after buffing',
+          delAsk: 'Remove picture {n} from this question?',
+          shrink: 'Every picture is resized to {n}px. A screenshot stays PNG while it is small, so its text stays sharp.',
+          n1: '1 picture',
+          n2: '2 pictures',
+          nN: '{n} pictures',
+          total: 'FAQ pictures: {c} · {n} KB added to the site.',
+          heavy: 'FAQ pictures have reached {n} KB — more than 1 MB. Every page loads them, the home page too, so the site opens more slowly on a phone. Remove some or replace them with smaller ones.'
         },
 
         art: {
@@ -2016,6 +2055,231 @@
     ]);
   }
 
+  /* ---------------------------------------------------------------------- */
+  /* Pictures inside an FAQ answer: faq[i].pics = [{src, w, h, cap:{ar,en}}] */
+  /*                                                                         */
+  /*  Modelled on tlistField. Two rules keep the data sound:                  */
+  /*   · setIn() cannot walk into an array ("pics.0.src" would turn the list  */
+  /*     into a plain object), so EVERY change writes the whole array back    */
+  /*     through ctx.set(f.p, next);                                          */
+  /*   · a picture only ever enters the list through putImage(), so the      */
+  /*     storage budget check and the rollback still apply, and a refused    */
+  /*     write puts the list back exactly as it was — never a row without a  */
+  /*     src.                                                                 */
+  /* ---------------------------------------------------------------------- */
+
+  function picRow(p) { return isObj(p) && !!str(p.src); }
+
+  /* the pictures of one item, empties dropped */
+  function picsOf(it) {
+    var arr = isObj(it) && Array.isArray(it.pics) ? it.pics : [], out = [], i;
+    for (i = 0; i < arr.length; i++) if (picRow(arr[i])) out.push(arr[i]);
+    return out;
+  }
+
+  function picsCount(n) {
+    if (n === 1) return t('admin.pics.n1');
+    if (n === 2) return t('admin.pics.n2');
+    return t('admin.pics.nN', { n: n });
+  }
+
+  function picsField(f, ctx) {
+    var host = el('div', { 'class': 'adm-pics' });
+    var file = el('input', { 'class': 'sr-only adm-file', type: 'file', accept: 'image/*', tabindex: '-1', 'aria-hidden': 'true' });
+    var target = -1;            /* -1: the next upload adds a picture; n: it replaces row n */
+    var busy = false;
+
+    function list() {
+      var v = ctx.get(f.p), out = [], i;
+      if (!Array.isArray(v)) return out;
+      for (i = 0; i < v.length; i++) if (picRow(v[i])) out.push(v[i]);
+      return out;
+    }
+    function commit(next) {
+      ctx.set(f.p, next);
+      savedToast();
+      if (typeof ctx.after === 'function') ctx.after(f.p, next);
+    }
+
+    /* write one freshly shrunk picture at `idx` (or append it) */
+    function place(idx, res) {
+      var before = list();              /* what a refused write goes back to */
+      var sub, ok;
+      if (idx < 0 && before.length >= FAQ_PICS) {
+        toast(t('admin.pics.max', { m: FAQ_PICS }), 'err');
+        return false;
+      }
+      sub = {
+        get: function () { return idx >= 0 && before[idx] ? str(before[idx].src) : ''; },
+        set: function (p, v) {
+          var next = before.slice(), row;
+          if (str(v) === res.url) {
+            if (idx >= 0 && before[idx]) {
+              row = clone(before[idx]) || {};
+              row.src = res.url; row.w = res.w; row.h = res.h;
+              next[idx] = row;
+            } else {
+              next.push({ src: res.url, w: res.w, h: res.h, cap: { ar: '', en: '' } });
+            }
+          }
+          /* anything else is putImage rolling back: the list as it was */
+          ctx.set(f.p, next);
+        }
+      };
+      ok = putImage(sub, 'src', res.url);
+      if (ok && typeof ctx.after === 'function') ctx.after(f.p, list());
+      return ok;
+    }
+
+    function pickFile(idx) {
+      if (busy) return;
+      if (idx < 0 && list().length >= FAQ_PICS) {
+        toast(t('admin.pics.max', { m: FAQ_PICS }), 'err');
+        return;
+      }
+      target = idx;
+      file.click();
+    }
+
+    file.addEventListener('change', function () {
+      var fl = file.files && file.files[0], idx = target;
+      file.value = '';
+      target = -1;
+      if (!fl) return;
+      if (!/^image\//.test(str(fl.type))) { toast(t('admin.img.type'), 'err'); return; }
+      busy = true;
+      paint();
+      downscale(fl, MAX_FAQ, { keepPng: PNG_KEEP, colours: false }).then(function (res) {
+        busy = false;
+        if (place(idx, res)) toast(t('admin.img.ok', { n: Math.max(1, kbOf(res.chars)) }), 'ok');
+        paint();
+      }).catch(function () {
+        busy = false;
+        toast(t('admin.img.err'), 'err');
+        paint();
+      });
+    }, false);
+
+    function swap(a, b) {
+      var next = list().slice(), tmp;
+      if (a < 0 || b < 0 || a >= next.length || b >= next.length) return;
+      tmp = next[a]; next[a] = next[b]; next[b] = tmp;
+      commit(next);
+      paint();
+    }
+
+    function rowNode(arr, idx) {
+      var p = arr[idx];
+      var cap = isObj(p.cap) ? p.cap : {};
+      var arId = fid();
+      var ar = el('input', {
+        'class': 'input', type: 'text', dir: 'rtl', id: arId, maxlength: '160',
+        placeholder: t('admin.pics.capPh'), autocomplete: 'off', value: str(cap.ar)
+      });
+      var en = el('input', {
+        'class': 'input', type: 'text', dir: 'ltr', maxlength: '160',
+        'aria-label': t('admin.pics.cap') + ' (EN)', autocomplete: 'off', value: str(cap.en)
+      });
+      var up, down, meta, deb;
+
+      function saveCap() {
+        var next = list(), row;
+        if (!next[idx]) return;
+        row = clone(next[idx]) || {};
+        if (isObj(row.cap) && str(row.cap.ar) === ar.value && str(row.cap.en) === en.value) return;
+        row.cap = { ar: ar.value, en: en.value };
+        next = next.slice();
+        next[idx] = row;
+        commit(next);
+        flashSaved(ar);
+      }
+      deb = SN.UI.debounce(saveCap, 450);
+      ar.addEventListener('input', function () { deb(); }, false);
+      en.addEventListener('input', function () { deb(); }, false);
+      ar.addEventListener('blur', function () { deb.cancel(); saveCap(); }, false);
+      en.addEventListener('blur', function () { deb.cancel(); saveCap(); }, false);
+
+      meta = t('admin.img.meta', {
+        n: Math.max(1, kbOf(str(p.src).length)),
+        w: numOf(p.w, 0) || '?',
+        h: numOf(p.h, 0) || '?'
+      });
+
+      up = iconBtn('arrow', t('admin.up'), function () { swap(idx, idx - 1); }, 'adm-mini adm-pic-up');
+      down = iconBtn('arrow', t('admin.down'), function () { swap(idx, idx + 1); }, 'adm-mini adm-pic-down');
+      up.disabled = idx <= 0;
+      down.disabled = idx >= arr.length - 1;
+
+      return el('div', { 'class': 'adm-pic', 'data-n': String(idx + 1) }, [
+        el('div', { 'class': 'adm-pic-top' }, [
+          el('span', { 'class': 'adm-tlno', text: String(idx + 1), 'aria-hidden': 'true' }),
+          el('span', { 'class': 'adm-pic-pv' }, el('img', { src: str(p.src), alt: t('admin.pics.no', { n: idx + 1 }), loading: 'lazy' })),
+          el('div', { 'class': 'adm-pic-side' }, [
+            el('p', { 'class': 'hint adm-pic-meta', text: meta }),
+            el('div', { 'class': 'adm-pic-act' }, [
+              el('button', {
+                'class': 'btn btn-line btn-sm adm-pic-re', type: 'button', disabled: busy ? '' : null,
+                on: { click: function () { pickFile(idx); } }
+              }, [
+                el('span', { 'class': 'adm-bico', html: icon('image', 15), 'aria-hidden': 'true' }),
+                el('span', { text: t('admin.img.replace') })
+              ]),
+              up,
+              down,
+              iconBtn('trash', t('common.delete'), function () {
+                confirmBox(t('admin.pics.delAsk', { n: idx + 1 })).then(function (yes) {
+                  var next;
+                  if (!yes) return;
+                  next = list().slice();
+                  next.splice(idx, 1);
+                  commit(next);
+                  paint();
+                  toast(t('common.deleted'), 'ok');
+                });
+              }, 'adm-mini adm-danger')
+            ])
+          ])
+        ]),
+        el('div', { 'class': 'adm-f adm-pic-cap' }, [
+          el('label', { 'class': 'label', 'for': arId, text: t('admin.pics.cap') }),
+          el('div', { 'class': 'adm-pair' }, [
+            el('div', { 'class': 'adm-lang' }, [el('span', { 'class': 'adm-tag', text: 'ع', 'aria-hidden': 'true' }), ar]),
+            el('div', { 'class': 'adm-lang' }, [el('span', { 'class': 'adm-tag', text: 'EN', 'aria-hidden': 'true' }), en])
+          ])
+        ])
+      ]);
+    }
+
+    function paint() {
+      var arr = list(), full = arr.length >= FAQ_PICS, i, add;
+      empty(host);
+      for (i = 0; i < arr.length; i++) host.appendChild(rowNode(arr, i));
+      if (!arr.length) host.appendChild(el('p', { 'class': 'hint adm-pics-none', text: t('admin.pics.none') }));
+      add = el('button', {
+        'class': 'btn btn-line btn-sm adm-pics-add', type: 'button',
+        disabled: (full || busy) ? '' : null,
+        on: { click: function () { pickFile(-1); } }
+      }, [
+        el('span', { 'class': 'adm-bico', html: icon('plus', 15), 'aria-hidden': 'true' }),
+        el('span', { text: busy ? t('admin.img.working') : t('admin.pics.add') })
+      ]);
+      host.appendChild(el('div', { 'class': 'adm-pics-foot' }, [
+        add,
+        el('span', {
+          'class': 'hint adm-pics-n' + (full ? ' is-full' : ''),
+          text: full ? t('admin.pics.max', { m: FAQ_PICS }) : t('admin.pics.count', { n: arr.length, m: FAQ_PICS })
+        })
+      ]));
+      host.appendChild(file);
+    }
+
+    paint();
+    return fieldBox(f, [
+      host,
+      el('p', { 'class': 'hint adm-imgshrink', text: t('admin.pics.shrink', { n: MAX_FAQ }) })
+    ]);
+  }
+
   function renderField(f, ctx) {
     switch (f.type) {
       case 't': return tField(f, ctx, false);
@@ -2030,6 +2294,7 @@
       case 'tags': return tagsField(f, ctx);
       case 'tlist': return tlistField(f, ctx);
       case 'image': return imageField(f, ctx);
+      case 'pics': return picsField(f, ctx);
       case 'art': return artField(f, ctx);
       default: return null;
     }
@@ -2073,6 +2338,10 @@
   var JPEG_Q      = 0.82;
   var MAX_SWATCH  = 240;           /* colours, finishes, patterns, charms    */
   var MAX_DESIGN  = 900;           /* a whole ready-made set                 */
+  var MAX_FAQ     = 1000;          /* a picture inside an FAQ answer         */
+  var FAQ_PICS    = 4;             /* pictures per question, at most         */
+  var PNG_KEEP    = 250 * 1024;    /* a screenshot stays PNG under this      */
+  var FAQ_HEAVY   = 1024 * 1024;   /* all FAQ pictures together: warn above  */
 
   function kbOf(chars) { return Math.round(numOf(chars, 0) / 1024); }
 
@@ -2096,8 +2365,9 @@
 
   /* Walks the saved content and totals every embedded photo, so the backup
      tab can tell him what the photos actually cost him. Depth-limited: the
-     content tree is shallow, and a cycle must never hang the panel. */
-  function imageAudit() {
+     content tree is shallow, and a cycle must never hang the panel.
+     `root` (optional) audits one branch instead of the whole content. */
+  function imageAudit(root) {
     var out = { count: 0, chars: 0 };
     function walk(v, depth) {
       var i, k;
@@ -2114,7 +2384,7 @@
         for (k in v) { if (Object.prototype.hasOwnProperty.call(v, k)) walk(v[k], depth + 1); }
       }
     }
-    try { walk(SN.Store.state, 0); }
+    try { walk(root === undefined ? SN.Store.state : root, 0); }
     catch (e) { /* a corrupt branch must not break the meter */ }
     return out;
   }
@@ -2225,7 +2495,13 @@
     return out;
   }
 
-  function downscale(file, maxPx) {
+  /* `opts.keepPng` (characters): a PNG source is kept as PNG while the
+     encoded result stays at or under that size — a phone screenshot keeps
+     sharp text instead of picking up JPEG smudge. Bigger ones still become
+     JPEG. `opts.colours === false` skips the colour reading (it only serves
+     a design photo). */
+  function downscale(file, maxPx, opts) {
+    var o = opts || {};
     return new Promise(function (resolve, reject) {
       var fr;
       maxPx = numOf(maxPx, MAX_DESIGN);
@@ -2254,6 +2530,15 @@
             cx.drawImage(img, 0, 0, cw, ch);
             png = maybeAlpha ? hasAlpha(cx, cw, ch) : false;
 
+            if (o.keepPng && /png/i.test(str(file.type))) {
+              url = cv.toDataURL('image/png');
+              if (isDataImage(url) && url.slice(0, 15) === 'data:image/png;' && url.length <= o.keepPng) {
+                resolve({ url: url, chars: url.length, w: cw, h: ch, png: true, colours: [] });
+                return;
+              }
+              png = false;                /* too heavy as PNG: JPEG on white below */
+            }
+
             if (!png) {
               /* JPEG has no alpha: composite on white first, or Chrome and
                  Safari disagree about what shows through. */
@@ -2264,7 +2549,10 @@
             }
             url = cv.toDataURL(png ? 'image/png' : 'image/jpeg', JPEG_Q);
             if (!isDataImage(url)) { reject(new Error('encode')); return; }
-            resolve({ url: url, chars: url.length, w: cw, h: ch, png: png, colours: photoColours(cx, cw, ch) });
+            resolve({
+              url: url, chars: url.length, w: cw, h: ch, png: png,
+              colours: o.colours === false ? [] : photoColours(cx, cw, ch)
+            });
           } catch (e) { reject(e); }
         };
         img.src = String(fr.result);
@@ -2539,6 +2827,24 @@
   /* 6. Small building blocks                                                */
   /* ====================================================================== */
 
+  /* how far down the page the stuck bars (site header, panel bar, a list's
+     sticky head on a phone) reach once the page scrolls */
+  function stickyBottom() {
+    var list = D.querySelectorAll('#sn-header, .site-header, .adm-top, .adm-crud-h'), max = 0, i, cs, b;
+    for (i = 0; i < list.length; i++) {
+      try { cs = window.getComputedStyle(list[i]); }
+      catch (e) { continue; }
+      if (cs.position !== 'sticky' && cs.position !== 'fixed') continue;
+      b = (parseFloat(cs.top) || 0) + list[i].offsetHeight;
+      if (b > max) max = b;
+    }
+    return max;
+  }
+  function reducedMotion() {
+    try { return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches); }
+    catch (e) { return false; }
+  }
+
   function iconBtn(name, label, onClick, cls) {
     return el('button', {
       'class': 'icon-btn icon-btn-sm ' + (cls || ''), type: 'button',
@@ -2773,20 +3079,26 @@
         fields: [
           F('cat', 'select', 'admin.f.cat', { opts: faqCatOpts }),
           F('q', 't', 'admin.f.q', { wide: true }),
-          F('a', 'tarea', 'admin.f.a', { wide: true, rows: 6 })
+          F('a', 'tarea', 'admin.f.a', { wide: true, rows: 6 }),
+          F('pics', 'pics', 'admin.f.pics', { wide: true, hint: 'admin.h.pics' })
         ],
         blank: function () {
           var cats = sList('faqCats');
           return {
             id: '', cat: cats.length ? str(cats[0].id) : 'general',
-            q: { ar: '', en: '' }, a: { ar: '', en: '' }
+            q: { ar: '', en: '' }, a: { ar: '', en: '' }, pics: []
           };
         },
-        preview: function () { return el('span', { 'class': 'adm-ico-pv', html: icon('search', 18) }); },
+        preview: function (it) {
+          var pics = picsOf(it);
+          if (pics.length) return photoChip(pics[0].src);
+          return el('span', { 'class': 'adm-ico-pv', html: icon('search', 18) });
+        },
         sub: function (it) {
-          var c = null, list = sList('faqCats'), i;
+          var c = null, list = sList('faqCats'), i, n = picsOf(it).length, name;
           for (i = 0; i < list.length; i++) if (str(list[i].id) === str(it.cat)) c = list[i];
-          return c ? pick(c.name) : str(it.cat);
+          name = c ? pick(c.name) : str(it.cat);
+          return n ? name + ' · ' + picsCount(n) : name;
         }
       };
 
@@ -2995,9 +3307,35 @@
       if (blank && blank.id === '') delete blank.id;
       made = SN.Store.add(def.key, blank);
       if (made && made.id) S.open[def.key + '/' + made.id] = true;
+      /* a search typed in the list would hide the empty new row */
+      if (trim(S.q[def.key] || '')) {
+        S.q[def.key] = '';
+        if (searchInput) searchInput.value = '';
+      }
       toast(t('admin.addOk'), 'ok');
       repaint();
       sideCounts();
+      if (made && made.id) showRow(made.id);
+    }
+
+    /* The new row lands at the end of the list — on a phone that can be
+       several screens down. Bring it under the sticky bars and put the
+       cursor in its first field. */
+    function showRow(id) {
+      var kids = rowsBox.childNodes, node = null, i, top, pad, fld;
+      for (i = 0; i < kids.length; i++) {
+        if (kids[i].getAttribute && kids[i].getAttribute('data-id') === str(id)) { node = kids[i]; break; }
+      }
+      if (!node) return;
+      pad = stickyBottom() + 12;
+      top = node.getBoundingClientRect().top + (window.pageYOffset || D.documentElement.scrollTop || 0) - pad;
+      try { window.scrollTo({ top: Math.max(0, top), behavior: reducedMotion() ? 'auto' : 'smooth' }); }
+      catch (e) { window.scrollTo(0, Math.max(0, top)); }
+      fld = node.querySelector('.adm-row-b input:not([type="file"]):not([type="hidden"]), .adm-row-b select, .adm-row-b textarea');
+      if (fld) {
+        try { fld.focus({ preventScroll: true }); }
+        catch (e2) { /* old engine: the scroll above already shows it */ }
+      }
     }
 
     host.appendChild(el('div', { 'class': 'adm-crud-h' }, [
@@ -3144,16 +3482,31 @@
         upBtn,
         downBtn,
         iconBtn('copy', t('admin.dup'), function () {
-          var copy = clone(it);
+          var copy = clone(it), need, made;
           if (!copy) return;
           delete copy.id;
-          if (isObj(copy.name)) {
-            copy.name = {
-              ar: trim(copy.name.ar) ? copy.name.ar + ' (' + t('admin.copyStr') + ')' : '',
-              en: trim(copy.name.en) ? copy.name.en + ' (' + t('admin.copyStr') + ')' : ''
-            };
+          /* «(نسخة)» on whichever text names the row: `name`, or an FAQ's `q` */
+          ['name', 'q'].forEach(function (k) {
+            if (!isObj(copy[k])) return;
+            copy[k].ar = trim(copy[k].ar) ? copy[k].ar + ' (' + t('admin.copyStr') + ')' : str(copy[k].ar);
+            copy[k].en = trim(copy[k].en) ? copy[k].en + ' (' + t('admin.copyStr') + ')' : str(copy[k].en);
+            if (typeof copy[k].iq === 'string' && trim(copy[k].iq)) copy[k].iq += ' (' + t('admin.copyStr') + ')';
+          });
+          /* a copy of a row with photos copies the photos too — it has to
+             pass the same storage check as an upload, and roll back the same
+             way if the browser refuses it */
+          need = imageAudit(copy).chars;
+          if (need && need > budgetLeft()) {
+            toast(t('admin.img.full', { n: kbOf(need), r: Math.max(0, kbOf(budgetLeft())) }), 'err');
+            return;
           }
-          SN.Store.add(def.key, copy);
+          made = SN.Store.add(def.key, copy);
+          if (need && made && made.id && !writeLanded()) {
+            SN.Store.remove(def.key, made.id);
+            toast(t('admin.img.rejected'), 'err');
+            repaint();
+            return;
+          }
           toast(t('admin.dupOk'), 'ok');
           repaint();
           sideCounts();
@@ -3631,10 +3984,33 @@
   /* 13. Tab: FAQ (categories + questions)                                   */
   /* ====================================================================== */
 
+  /* Every FAQ picture is published inside content.js, which all six pages
+     load — so their total is a cost the whole site pays. Say it in numbers,
+     and warn once it passes 1 MB. */
+  function faqPicsBanner(list) {
+    var c = 0, chars = 0, i, j, pics, heavy;
+    for (i = 0; i < list.length; i++) {
+      pics = picsOf(list[i]);
+      for (j = 0; j < pics.length; j++) { c++; chars += str(pics[j].src).length; }
+    }
+    if (!c) return null;
+    heavy = chars > FAQ_HEAVY;
+    return el('div', { 'class': 'note ' + (heavy ? 'note-warn' : '') + ' adm-picsbar' }, [
+      el('span', { 'class': 'ico', html: icon(heavy ? 'shield' : 'image', 16), 'aria-hidden': 'true' }),
+      el('span', {
+        text: heavy
+          ? t('admin.pics.heavy', { n: Math.max(1, kbOf(chars)) })
+          : t('admin.pics.total', { c: picsCount(c), n: Math.max(1, kbOf(chars)) })
+      })
+    ]);
+  }
+
   function renderFaq() {
     var box = el('div', { 'class': 'adm-tabbody' });
     box.appendChild(card([crud(schema('faqCats'), { title: t('admin.fq.cats'), help: t('admin.fq.catsX') })]));
-    box.appendChild(card([crud(schema('faq'), { title: t('admin.fq.list'), help: t('admin.fq.listX') })]));
+    box.appendChild(card([crud(schema('faq'), {
+      title: t('admin.fq.list'), help: t('admin.fq.listX'), banner: faqPicsBanner
+    })]));
     return box;
   }
 

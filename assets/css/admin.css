@@ -573,6 +573,43 @@
 .adm-imgno{ color:var(--ink-3); display:grid; place-items:center; }
 .adm-imgact{ display:flex; flex-direction:column; gap:8px; align-items:flex-start; }
 
+/* pictures inside an FAQ answer: one card per picture, in answer order */
+.adm-pics{ display:flex; flex-direction:column; gap:10px; }
+.adm-pic{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  padding:10px;
+  border:1px solid var(--line);
+  border-radius:var(--r-sm);
+  background:var(--bg-2);
+  min-inline-size:0;
+}
+.adm-pic-top{ display:flex; align-items:flex-start; gap:10px; min-inline-size:0; }
+.adm-pic-pv{
+  flex:0 0 auto;
+  inline-size:84px;
+  block-size:84px;
+  border:1px solid var(--line-2);
+  border-radius:var(--r-sm);
+  background:var(--bg-3);
+  overflow:hidden;
+}
+.adm-pic-pv img{ inline-size:100%; block-size:100%; object-fit:cover; display:block; }
+.adm-pic-side{ flex:1 1 auto; min-inline-size:0; display:flex; flex-direction:column; gap:8px; }
+.adm-pic-meta{ margin:0; }
+.adm-pic-act{ display:flex; flex-wrap:wrap; align-items:center; gap:4px; }
+.adm-pic-act .icon-btn[disabled]{ opacity:.3; cursor:not-allowed; }
+/* the arrow icon points along the line; turned, it reads up and down in
+   either direction of text */
+.adm-pic-up .ico,[dir="rtl"] .adm-pic-up .ico{ transform:rotate(-90deg); }
+.adm-pic-down .ico,[dir="rtl"] .adm-pic-down .ico{ transform:rotate(90deg); }
+.adm-pic-cap{ margin:0; }
+.adm-pics-none{ margin:0; }
+.adm-pics-foot{ display:flex; flex-wrap:wrap; align-items:center; gap:8px 12px; }
+.adm-pics-n.is-full{ color:var(--warn-ink); font-weight:700; }
+.adm-picsbar{ margin-block-end:10px; }
+
 
 /* =========================================================================
    07  PREVIEWS
@@ -1016,7 +1053,9 @@
 @media (max-width:640px){
   .adm-row-a .icon-btn,
   .adm-orow-a .icon-btn,
-  .adm-tlact .icon-btn{ inline-size:40px; block-size:40px; }
+  .adm-tlact .icon-btn,
+  .adm-pic-act .icon-btn{ inline-size:40px; block-size:40px; }
+  .adm-pic-pv{ inline-size:72px; block-size:72px; }
   .adm-row-a{ gap:0; }
   /* «إضافة جديد» stays in reach even 50 rows down the list */
   .adm-crud-h{
