@@ -54,6 +54,8 @@
         emptyText: 'جرّبي كلمة بحث ثانية، أو وسّعي نطاق السعر، أو امسحي الفلاتر وابدي من جديد.',
         emptyAll: 'ماكو تصاميم جاهزة معروضة هسة — بس خبّرينا شنو يعجبك ونسوّي لك طقمك.',
         emptyAllCta: 'ابدي اختبار الستايل',
+        emptyAllWa: 'دزّي لنا على واتساب',
+        emptyAllMsg: 'هلا شوش 💅 أريد طقم، راح أدزّلك شنو يعجبني.',
         notFound: 'التصميم اللي تدوّرين عليه ما بقى متوفر.',
 
         /* quick view */
@@ -123,6 +125,8 @@
         emptyText: 'جرّبي كلمة بحث ثانية، أو وسّعي نطاق السعر، أو امسحي الفلاتر وابدئي من جديد.',
         emptyAll: 'لا توجد تصاميم جاهزة معروضة حالياً — لكن أخبرينا بما يعجبك ونصنع لك طقمك.',
         emptyAllCta: 'ابدئي اختبار الستايل',
+        emptyAllWa: 'راسلينا على واتساب',
+        emptyAllMsg: 'مرحباً شوش 💅 أريد طقمًا، سأرسل لك ما يعجبني.',
         notFound: 'التصميم الذي تبحثين عنه لم يعد متوفراً.',
 
         /* quick view */
@@ -231,6 +235,8 @@
         emptyText: 'Try another word, widen the price range, or clear the filters and start again.',
         emptyAll: 'No ready-made sets are on show right now — but tell us what you like and we will make your set.',
         emptyAllCta: 'Take the style quiz',
+        emptyAllWa: 'Message us on WhatsApp',
+        emptyAllMsg: 'Hi Shosh 💅 I would like a set — sending you what I like.',
         notFound: 'That design is no longer available.',
 
         qvTags: 'Tags',
@@ -1633,7 +1639,15 @@
     }
   }
 
+  function waNumber() {
+    var v = '';
+    try { v = (SN.Store && typeof SN.Store.get === 'function') ? SN.Store.get('settings.whatsapp', '') : ''; }
+    catch (e) { v = ''; }
+    return String(v || '').replace(/[^0-9]/g, '');
+  }
+
   function emptyState(hasAny) {
+    var wa;
     var kids = [
       el('span', { 'class': 'empty-ico', html: icon(hasAny ? 'search' : 'sparkle', 30), 'aria-hidden': 'true' }),
       el('p', { 'class': 'empty-t', text: hasAny ? t('shop.emptyTitle') : t('shop.emptyAll') })
@@ -1654,8 +1668,16 @@
         el('a', { 'class': 'btn btn-line', href: 'index.html#quiz', text: t('shop.quizCta') })
       ]));
     } else {
+      /* no sets at all: the line says «tell us what you like», so the button
+         opens the chat — the quiz has nothing of hers to recommend yet */
+      wa = waNumber();
       kids.push(el('p', { 'class': 'mt-2' }, [
-        el('a', { 'class': 'btn btn-pri', href: 'index.html#quiz', text: t('shop.emptyAllCta') })
+        wa
+          ? el('a', {
+              'class': 'btn btn-pri', href: 'https://wa.me/' + wa + '?text=' + encodeURIComponent(t('shop.emptyAllMsg')),
+              target: '_blank', rel: 'noopener', text: t('shop.emptyAllWa')
+            })
+          : el('a', { 'class': 'btn btn-pri', href: 'index.html#quiz', text: t('shop.emptyAllCta') })
       ]));
     }
     return el('div', { 'class': 'empty' }, kids);
