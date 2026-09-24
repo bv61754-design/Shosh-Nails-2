@@ -470,7 +470,7 @@
   var qv = null;          /* the open quick view, or null */
   var urlLock = false;    /* set while we write location.hash ourselves */
   var inited = false;
-  var barKept = false;    /* a filter or sort has been on: keep every control */
+  var barKept = false;    /* a search, price or sort has been on: keep the bar row */
 
   /* ==================================================================== */
   /* 4. data                                                               */
@@ -1610,16 +1610,17 @@
 
     fill(dom.chips, kids);
     /* «الكل» and «المفضلة» alone are not a choice, just a row. It stays
-       once a filter has been on, so «المفضلة» can be switched off again. */
-    show(dom.chips, kids.length > 2 || barKept);
+       while a tag or «المفضلة» is on (a shared link can carry one), so it
+       can be switched off again, and once the bar row has been kept. */
+    show(dom.chips, kids.length > 2 || st.fav || st.tags.length > 0 || barKept);
     refocusChip(keep);
   }
 
   function renderToolbar() {
     /* A handful of sets needs no search box, no sort and no price range.
-       Once a filter or a sort has been on (a shared link can carry one)
-       they stay for the rest of the visit: a search box must not vanish
-       from under her finger the moment she clears it. */
+       Once a search, a price range or a sort has been on (a shared link can
+       carry one) they stay for the rest of the visit: a search box must not
+       vanish from under her finger the moment she clears it. */
     var few = activeRows().length < FEW_N && !barKept;
     var open;
 
@@ -1752,7 +1753,12 @@
   function render() {
     if (io) { try { io.disconnect(); } catch (e) { /* ignore */ } }
     clampRange();
-    if (anyFilter() || st.sort !== 'orders') barKept = true;
+    /* Only the row's own controls keep the row. A chip tap must not: the
+       search box, the sort and the price button would drop in above the
+       chips mid-tap, push every chip about 108px down under her finger, and
+       her next tap there would land in the search box and open the
+       keyboard. Chips, «المفضلة» and «الكل» keep the bar exactly as it was. */
+    if (st.q || st.min !== null || st.max !== null || st.sort !== 'orders') barKept = true;
     renderHero();
     renderRail();
     renderToolbar();
