@@ -292,6 +292,11 @@
   var FAV_KEY = 'shosh2-fav';
   var SORTS = { orders: 1, 'new': 1, priceUp: 1, priceDown: 1 };
   var RAIL_N = 6;
+  /* below this many live sets there is nothing to search, sort or price
+     through: one set gave a price slider running from 20,000 to 20,005 */
+  var FEW_N = 6;
+  /* quiz answers that are tags but never chips — see renderChips */
+  var AUTO_CHIP = /^(occasion|vibe|season):/;
   var THUMB_PX = 280;
   var RAIL_PX = 200;
 
@@ -469,6 +474,7 @@
   var qv = null;          /* the open quick view, or null */
   var urlLock = false;    /* set while we write location.hash ourselves */
   var inited = false;
+  var barKept = false;    /* a filter or sort has been on: keep every control */
 
   /* ==================================================================== */
   /* 4. data                                                               */
@@ -1548,6 +1554,13 @@
 
     for (i = 0; i < tags.order.length; i++) {
       if (String(tags.order[i]).indexOf('group:') === 0) continue;   /* already above */
+      /* The quiz's occasion, vibe and season answers were 8 of the 40
+         chips shipped, and they doubled her own lists: «دوام ويوميات»
+         appeared twice, once as her list and once as an occasion.
+         They stay in tagsOf, so a shared ?tag= link still filters, and a
+         chip that such a link switched on still shows, so she can switch it
+         off. The colour-family chips stay: nothing else filters by colour. */
+      if (AUTO_CHIP.test(String(tags.order[i])) && st.tags.indexOf(tags.order[i]) === -1) continue;
       kids.push((function (tag) {
         return chip('tag:' + tag, tagLabel(tag), st.tags.indexOf(tag) !== -1, tags.counts[tag], function () {
           var at = st.tags.indexOf(tag);
@@ -1559,11 +1572,29 @@
     }
 
     fill(dom.chips, kids);
+    /* «الكل» and «المفضلة» alone are not a choice, just a row. It stays
+       once a filter has been on, so «المفضلة» can be switched off again. */
+    show(dom.chips, kids.length > 2 || barKept);
     refocusChip(keep);
   }
 
   function renderToolbar() {
-    var open = dom.price && !dom.price.hasAttribute('hidden');
+    /* A handful of sets needs no search box, no sort and no price range.
+       Once a filter or a sort has been on (a shared link can carry one)
+       they stay for the rest of the visit: a search box must not vanish
+       from under her finger the moment she clears it. */
+    var few = activeRows().length < FEW_N && !barKept;
+    var open;
+
+    show(dom.barRow, !few);
+    if (few) show(dom.price, false);
+    open = dom.price && !dom.price.hasAttribute('hidden');
+
+    /* the phone bar shows its result line only while a filter is on */
+    if (dom.bar && dom.bar.classList) {
+      if (anyFilter()) dom.bar.classList.add('is-filtered');
+      else dom.bar.classList.remove('is-filtered');
+    }
 
     /* the search box is never rewritten from here: a store or language
        re-render must not swallow what the shopper is halfway through typing */
@@ -1671,13 +1702,25 @@
     wireMedia(dom.grid);
   }
 
+  /* The bar earns its box only when it holds something to press. With no
+     sets at all it goes completely, so «لا توجد تصاميم جاهزة معروضة
+     حالياً» sits right under the title, not under a search box, a sort and a
+     price range with nothing behind them. */
+  function fitBar() {
+    var rowOn = !!dom.barRow && !dom.barRow.hasAttribute('hidden');
+    var chipsOn = !!dom.chips && !dom.chips.hasAttribute('hidden');
+    show(dom.bar, activeRows().length > 0 && (rowOn || chipsOn || anyFilter()));
+  }
+
   function render() {
     if (io) { try { io.disconnect(); } catch (e) { /* ignore */ } }
     clampRange();
+    if (anyFilter() || st.sort !== 'orders') barKept = true;
     renderHero();
     renderRail();
     renderToolbar();
     renderChips();
+    fitBar();
     renderGrid();
     /* scoped to <main>: the header/footer are SN.UI's to re-fill, and an
        open checkout sheet must not be re-applied from under it */
@@ -1715,6 +1758,7 @@
     dom.railSec = byId('shop-top-sec');
     dom.rail = byId('shop-rail');
     dom.bar = byId('shop-bar');
+    dom.barRow = dom.bar && dom.bar.querySelector ? dom.bar.querySelector('.shop-bar-row') : null;
     dom.searchIco = byId('shop-search-ico');
     dom.q = byId('shop-q');
     dom.qClear = byId('shop-q-clear');
@@ -1842,16 +1886,49 @@
   }
 
   var stuckTick = false;
+  var hdrRaw = null, hdrVal = 66;
+
+  /* The header's height, read from the --hdr token that base.css publishes,
+     never typed in here. This used to be a literal 84 (66 + 18), which goes
+     quietly wrong the day the header changes height. The token is usually
+     plain px; anything else (rem, calc) is resolved once through a
+     throwaway element, and cached until the token itself changes. */
+  function hdrPx() {
+    var raw = '', n, probe, host;
+    try { raw = String(window.getComputedStyle(document.documentElement).getPropertyValue('--hdr') || '').trim(); }
+    catch (e) { raw = ''; }
+    if (raw === hdrRaw) return hdrVal;
+    hdrRaw = raw;
+    n = parseFloat(raw);
+    if (/^-?\d*\.?\d+(px)?$/.test(raw) && isFinite(n)) {
+      hdrVal = n;
+    } else if (raw && document.createElement && (host = document.body || document.documentElement)) {
+      probe = document.createElement('div');
+      probe.setAttribute('aria-hidden', 'true');
+      probe.style.cssText = 'position:absolute;visibility:hidden;pointer-events:none;width:0;height:var(--hdr);';
+      host.appendChild(probe);
+      n = probe.getBoundingClientRect().height;
+      host.removeChild(probe);
+      if (isFinite(n) && n > 0) hdrVal = n;
+    }
+    return hdrVal;
+  }
 
   function onScroll() {
     if (stuckTick) return;
     stuckTick = true;
     var run = function () {
-      var top;
+      var top, sticky;
       stuckTick = false;
       if (!dom.bar || !dom.bar.classList) return;
+      /* on a phone the bar is not sticky, so it never gets stuck: it just
+         scrolls away with the page */
+      try { sticky = /sticky/.test(window.getComputedStyle(dom.bar).position); }
+      catch (e) { sticky = true; }
       top = dom.bar.getBoundingClientRect().top;
-      if (top <= 84) dom.bar.classList.add('is-stuck');
+      /* the bar rests at --hdr + 8px (shop.html); 10px more is the slack
+         the old literal had */
+      if (sticky && top <= hdrPx() + 18) dom.bar.classList.add('is-stuck');
       else dom.bar.classList.remove('is-stuck');
     };
     if (window.requestAnimationFrame) window.requestAnimationFrame(run);

@@ -50,6 +50,27 @@
   gap:8px;
   margin-block-start:18px;
 }
+/* On a phone the hero used to take 330-370px of a first screen that already
+   loses 124px to the announcement bar and the header: eyebrow, a big title,
+   a three-line lead and three stacked pills, and not one design in sight.
+   Here it keeps only the title and the quiz button. The count and «from»
+   price pills go too: the cards right under it show the sets and their
+   prices. Everything comes back on a wider screen. The button may wrap its
+   own text rather than ever run past the edge. */
+@media (max-width:560px){
+  .shop-hero{ padding-block:14px 10px; }
+  .shop-hero .eyebrow,
+  .shop-hero .lead,
+  .shop-hero-meta > .pill{ display:none; }
+  .shop-hero .h1{ font-size:1.6rem; max-inline-size:none; }
+  .shop-hero-meta{ margin-block-start:8px; }
+  .shop-hero .shop-quiz{
+    max-inline-size:100%;
+    min-block-size:40px;
+    white-space:normal;
+    text-align:start;
+  }
+}
 
 /* ── the "most ordered" rail ─────────────────────────────────────────
    Mobile: a snap carousel that peeks the next card so it reads as
@@ -168,9 +189,7 @@
   transition:box-shadow var(--dur) var(--ease);
 }
 .shop-bar.is-stuck{ box-shadow:var(--sh-2); }
-@media (max-width:560px){
-  .shop-bar{ padding:10px; gap:10px; inset-block-start:calc(var(--hdr) + 4px); }
-}
+/* (the phone version of the bar is at the end of this section) */
 
 .shop-bar-row{
   display:flex;
@@ -257,6 +276,58 @@
 }
 .shop-result{ margin:0; }
 .shop-result b{ color:var(--ink); font-weight:800; }
+
+/* The bar on a phone. Sticky, the 212px bar and the header covered the top
+   282px of an 800px screen for as long as she browsed. Here it scrolls away
+   with the page, and it is three rows instead of four: search / sort + price
+   / chips. The «عرض 3 من 13» line and its clear button come back the moment
+   a filter is on. At rest the line is only hidden from sight, never with
+   display:none, so it stays the page's live region and the first count
+   after a filter is still read aloud. */
+@media (max-width:560px){
+  .shop-bar{
+    position:relative;
+    inset-block-start:auto;
+    gap:8px;
+    padding:8px;
+    margin-block-end:14px;
+  }
+  .shop-bar > .shop-bar-row{ gap:8px; }
+  .shop-bar:not(.is-filtered) > .shop-bar-foot{
+    position:absolute !important;
+    inline-size:1px;
+    block-size:1px;
+    min-block-size:0;
+    padding:0;
+    margin:-1px;
+    overflow:hidden;
+    clip:rect(0,0,0,0);
+    clip-path:inset(50%);
+    white-space:nowrap;
+    border:0;
+  }
+}
+
+/* On a phone «كل التصاميم» sat a few lines under «التصاميم الجاهزة», saying
+   the same thing, with a two-line lead describing the bar right below it:
+   150px with the section's own padding. It leaves the screen only. It is the
+   h2 that opens the catalogue, so it stays for screen readers, hidden the
+   same way base.css's .sr-only hides things. */
+@media (max-width:560px){
+  #catalogue{ padding-block-start:6px; }
+  #catalogue > .wrap > .sec-head{
+    position:absolute !important;
+    inline-size:1px;
+    block-size:1px;
+    padding:0;
+    margin:-1px;
+    overflow:hidden;
+    clip:rect(0,0,0,0);
+    clip-path:inset(50%);
+    white-space:nowrap;
+    border:0;
+  }
+}
 
 /* ── catalogue cards ────────────────────────────────────────────────── */
 .shop-grid{ align-items:stretch; }
@@ -445,18 +516,6 @@
     </div>
   </section>
 
-  <!-- ── most ordered rail ────────────────────────────────────────── -->
-  <section class="sec sec-sm sec-alt sec-line shop-sec" id="shop-top-sec" hidden>
-    <div class="wrap">
-      <div class="sec-head sec-head-start">
-        <p class="eyebrow" data-i18n="shop.topEyebrow"></p>
-        <h2 class="h2 display" data-i18n="shop.topTitle"></h2>
-        <p class="lead" data-i18n="shop.topSub"></p>
-      </div>
-      <div class="shop-rail scroll-x" id="shop-rail"></div>
-    </div>
-  </section>
-
   <!-- ── catalogue ────────────────────────────────────────────────── -->
   <section class="sec shop-sec" id="catalogue">
     <div class="wrap">
@@ -519,6 +578,20 @@
 
       <div class="grid shop-grid" id="shop-grid"></div>
       <div id="shop-empty" hidden></div>
+    </div>
+  </section>
+
+  <!-- ── most ordered rail ──────────────────────────────────────────
+       Below the catalogue on purpose: above it, on a phone, it pushed the
+       filters and the first set 560-580px further down the page. -->
+  <section class="sec sec-sm sec-alt sec-line shop-sec" id="shop-top-sec" hidden>
+    <div class="wrap">
+      <div class="sec-head sec-head-start">
+        <p class="eyebrow" data-i18n="shop.topEyebrow"></p>
+        <h2 class="h2 display" data-i18n="shop.topTitle"></h2>
+        <p class="lead" data-i18n="shop.topSub"></p>
+      </div>
+      <div class="shop-rail scroll-x" id="shop-rail"></div>
     </div>
   </section>
 
