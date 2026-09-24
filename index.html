@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>شوش نيل — أظافر مركّبة تُفصّل على ذوقك ومقاسك | Shosh Nail</title>
-<meta name="description" content="شوش نيل: سوّي اختبار الستايل ونبني لك طقم أظافرك المركّبة من إجاباتك — اللون والشكل والطول والنقشة والزخارف — أو اختاري تصميمًا جاهزًا. Take the style quiz and we build your press-on nail set from your answers.">
+<meta name="description" content="شوش نيل: سوّي اختبار الستايل ونرشّح لك من أطقمنا اللي تناسب ذوقك — اللون والشكل والطول والنقشة والزخارف — أو اختاري تصميمًا جاهزًا. Take the style quiz and we match you with the Shosh Nail sets that suit your taste.">
 <meta name="theme-color" content="#C97B92">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Cpath%20d='M12%202.6c3.1%200%204.9%201.9%204.9%204.7%200%202.6-.6%204.9-1%207.1-.5%202.8-1%205.3-3.9%205.3s-3.4-2.5-3.9-5.3c-.4-2.2-1-4.5-1-7.1%200-2.8%201.8-4.7%204.9-4.7Z'%20fill='%23C97B92'/%3E%3Cpath%20d='M9.6%206.7c1.3-1.1%203.5-1.1%204.8%200'%20stroke='%23FCF7F5'%20stroke-width='1.2'%20stroke-linecap='round'%20fill='none'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -472,7 +472,6 @@
 }
 @media (prefers-reduced-motion:reduce){
   .home-top-rail{ scroll-snap-type:none; }
-  .home-hero-look{ transition:none !important; }
 }
 
 /* ═════════════════════════════════════════════════════════════════════
@@ -595,6 +594,11 @@
   border-radius:var(--r);
   display:block;
 }
+/* metal «none»: an empty ring rather than a colour */
+.quiz-skin-none{ background:transparent; box-shadow:none; border:2px dashed var(--line,#d9c6cc); }
+/* the honest note under a closest-sets result, outside the shareable card */
+.quiz-closest{ display:grid; justify-items:center; gap:10px; margin-block:14px 4px; text-align:center; }
+.quiz-notice{ text-align:center; margin-block-end:10px; }
 .quiz-ico{
   display:grid;
   place-items:center;

@@ -193,8 +193,8 @@
         en: 'Nails that look like you — from the very first touch'
       },
       heroSub: {
-        ar: 'أجيبي عن أسئلة سريعة كلها صور، ونحن نبني لك طقمًا كاملًا على ذوقك — اللون والشكل والطول والنقشة والزخارف. نجهّزه على مقاسك ويصلك جاهزًا تلبسينه في دقائق.',
-        en: 'Answer nine picture questions and we build you a whole set in your taste — colour, shape, length, pattern and charms. We craft it to your size and send it ready to wear in minutes.'
+        ar: 'أجيبي عن أسئلة سريعة، ونرشّح لك من أطقمنا ما يناسب ذوقك — اللون والشكل والطول والنقشة والزخارف. نجهّزه على مقاسك ويصلك جاهزًا تلبسينه في دقائق.',
+        en: 'Answer a few quick questions and we match you with the sets from our collection that suit your taste — colour, shape, length, pattern and charms. We craft yours to your size and send it ready to wear in minutes.'
       },
       heroCta: { ar: 'ابدئي اختبار الستايل', en: 'Take the style quiz' },
       heroImage: '',
@@ -202,10 +202,10 @@
         {
           id: 'f-custom',
           icon: 'brush',
-          title: { ar: 'طقم مبني على ذوقك', en: 'Built around your taste' },
+          title: { ar: 'طقم يناسب ذوقك', en: 'Matched to your taste' },
           text: {
-            ar: 'أسئلة سريعة كلها صور، وفي آخرها يظهر لك طقم كامل: اللون واللمسة والنقشة والزخارف، كله مبني على إجاباتك أنتِ.',
-            en: 'A few picture questions, and at the end a whole set — colour, finish, pattern and charms — built from your own answers.'
+            ar: 'أسئلة سريعة، وفي آخرها تظهر لك أطقمنا التي تناسبك: اللون واللمسة والنقشة والزخارف، كلها مختارة حسب إجاباتك أنتِ.',
+            en: 'A few quick questions, and at the end the sets from our collection that suit you — colour, finish, pattern and charms — picked from your own answers.'
           }
         },
         {
@@ -241,8 +241,8 @@
           id: 'st-1',
           title: { ar: 'ابدئي الاختبار أو اختاري', en: 'Take the quiz or pick one' },
           text: {
-            ar: 'ابدئي اختبار الستايل ونحن نبني لك طقمك من إجاباتك، أو اختاري تصميمًا جاهزًا من المتجر مباشرة.',
-            en: 'Take the style quiz and we build your set from your answers, or pick a ready-made design from the shop.'
+            ar: 'ابدئي اختبار الستايل ونرشّح لك من أطقمنا ما يناسب إجاباتك، أو اختاري تصميمًا جاهزًا من المتجر مباشرة.',
+            en: 'Take the style quiz and we point you to the sets that fit your answers, or pick a ready-made design from the shop.'
           }
         },
         {
@@ -774,310 +774,12 @@
     ],
 
     /* =====================================================================
-       READY-MADE DESIGNS — 13 items, each with a complete DESIGN_CONFIG.
+       READY-MADE DESIGNS — the owner's own, added from the panel.
        ===================================================================== */
-    designs: [
-      /* THE flagship — the set @shosh_nail actually makes and sells, and the
-         one the glitter cat-eye renderer was measured from. Ten identical
-         nails on purpose: this is a product, not a composition, and what the
-         customer sees here is exactly what arrives in the box. */
-      {
-        id: 'd-cateye-silver',
-        name: { ar: 'ليل فضي', en: 'Silver Midnight' },
-        desc: {
-          ar: 'توقيع شوش نيل، وأكثر طقم يتكرّر طلبه: أسود عميق مثل الليل، وفوقه شريط فضي مغناطيسي يتحرّك مع حركة يدك ويلمع من مسافة. الجليتر ناعم جدًا — بريق لا لمعان صارخ — على شكل لوز طويل يطوّل الأصابع. طقم سهرة يسأل عنه كل من يراه.',
-          en: 'The Shosh Nail signature, and the set we remake more than any other: a midnight black under a magnetic ribbon of silver that travels with every turn of your hand. The glitter is fine — light rather than sparkle — on a long almond that stretches the finger. An evening set people ask about all night.'
-        },
-        price: 24000, orders: 0, featured: true, active: true,
-        tags: ['luxe', 'party', 'winter'], image: '',
-        groups: ['g-evening'],
-        match: { occasion: ['party'], vibe: ['glam', 'bold'], attention: 'max', metal: 'silver' },
-        config: mkConfig({
-          skin: '#E3B48F', shape: 'almond', length: 'long', sizes: mkSizes(1, 4, 3, 5, 7),
-          def: { c: '#17131A', f: 'gloss', p: ['glitterCatEye', '#E6E6E9', '#17131A', 1.15] }
-        })
-      },
-      {
-        id: 'd-bride',
-        name: { ar: 'عروس', en: 'Bridal Veil' },
-        desc: {
-          ar: 'طقم عروس بلون عاجي هادئ، مرسوم عليه دانتيل بخيط ذهبي رفيع، وظفر البنصر مكسو بلمعة لؤلؤية وحبات لؤلؤ وحجر صغير. طول لوز أنيق يظهر فاخرًا في الصور من دون أن يعيقك في يومك.',
-          en: 'An ivory bridal set drawn with fine gold lace, and ring nails dressed in a pearl glaze with tiny pearls and a single stone. An elegant almond length that photographs like couture without getting in your way all day.'
-        },
-        price: 26000, orders: 0, featured: true, active: true,
-        tags: ['bridal', 'luxe', 'pearl'], image: '',
-        groups: ['g-wedding', 'g-engagement'],
-        match: { occasion: ['wedding'], vibe: ['romantic', 'glam'], attention: 'clear', metal: 'gold' },
-        config: mkConfig({
-          skin: '#EFCDB6', shape: 'almond', length: 'long', sizes: mkSizes(1, 4, 3, 5, 7),
-          /* lace has to be a shade the eye can find: white thread on an ivory
-             plate disappears at card size and reads as a scratch. Champagne
-             gold over ivory is what a bridal set actually looks like. */
-          def: { c: '#FAF3EE', f: 'gloss', p: ['lace', '#C2A05E', '#E7C3AE', 1] },
-          over: {
-            rightThumb: { c: '#FAF3EE', f: 'gloss', p: ['french', '#FFFFFF', '#F1E7E2', 1] },
-            leftThumb: { c: '#FAF3EE', f: 'gloss', p: ['french', '#FFFFFF', '#F1E7E2', 1] },
-            rightRing: {
-              c: '#F1E7E2', f: 'gloss', p: ['glazed', '#FFFFFF', '#EDE4E9', 1.1],
-              ch: [['ch-pearl', 0.5, 0.28, 0.85, 0], ['ch-round', 0.38, 0.48, 0.7, 0], ['ch-pearl', 0.62, 0.52, 0.6, 0]]
-            },
-            leftRing: {
-              c: '#F1E7E2', f: 'gloss', p: ['glazed', '#FFFFFF', '#EDE4E9', 1.1],
-              ch: [['ch-pearl', 0.5, 0.28, 0.85, 0], ['ch-round', 0.38, 0.48, 0.7, 0], ['ch-pearl', 0.62, 0.52, 0.6, 0]]
-            }
-          }
-        })
-      },
-      {
-        id: 'd-chrome',
-        name: { ar: 'كروم مرآة', en: 'Mirror Chrome' },
-        desc: {
-          ar: 'انعكاس معدني صافٍ يتغيّر مع الضوء من فضي إلى رمادي دافئ، وظفر البنصر بانعكاس ليلكي يكسر برودة الفضة. طقم يلفت النظر من دون أي نقشة زائدة.',
-          en: 'A clean metallic mirror that shifts with the light from silver to warm grey, with a lilac reflection on the ring nails to soften the cool. All the attention, none of the fuss.'
-        },
-        price: 21000, orders: 0, featured: true, active: true,
-        tags: ['chrome', 'party', 'luxe'], image: '',
-        groups: ['g-evening'],
-        match: { occasion: ['party'], vibe: ['bold', 'glam'], attention: 'max', metal: 'silver' },
-        config: mkConfig({
-          skin: '#E3B48F', shape: 'coffin', length: 'long', sizes: mkSizes(1, 4, 3, 5, 7),
-          /* No pattern layer at all: the chrome FINISH repaints the plate as a
-             mirror of the nail's own colour, so anything drawn underneath is
-             invisible — and in the studio the customer would still be charged
-             for it. The lilac ring nail is done the honest way, by giving that
-             nail a lilac colour for the mirror to pick up. */
-          def: { c: '#C8BBB0', f: 'chrome' },
-          over: {
-            rightRing: { c: '#CFC7D6', f: 'chrome' },
-            leftRing: { c: '#CFC7D6', f: 'chrome' }
-          }
-        })
-      },
-      {
-        id: 'd-french',
-        name: { ar: 'فرنش كلاسيك', en: 'Classic French' },
-        desc: {
-          ar: 'الفرنش الذي لا يخيب: قاعدة نيود وردية شفافة وخط أبيض رفيع مرسوم بدقة على الطرف. يناسب الدوام والمناسبات وكل ما بينهما.',
-          en: 'The French that never fails: a sheer rosy nude base and a precise thin white smile line. Right for the office, right for the wedding, right for everything in between.'
-        },
-        price: 15000, orders: 0, featured: true, active: true,
-        tags: ['french', 'classic', 'minimal'], image: '',
-        groups: ['g-wedding', 'g-daily'],
-        match: { occasion: ['wedding', 'daily'], vibe: ['calm', 'romantic'], attention: 'soft', metal: 'none' },
-        config: mkConfig({
-          skin: '#EFCDB6', shape: 'squoval', length: 'medium', sizes: mkSizes(2, 5, 4, 6, 8),
-          def: { c: '#E9C2C0', f: 'gloss', p: ['french', '#FFFFFF', '#E9C2C0', 1] }
-        })
-      },
-      {
-        id: 'd-glazed',
-        name: { ar: 'جليزد دونات', en: 'Glazed Donut' },
-        desc: {
-          ar: 'اللمعة اللؤلؤية الشهيرة فوق قاعدة بورسلين هادئة، مع طرف دافئ على الإبهام. نظيف، عصري، ويليق مع أي لون ملابس.',
-          en: 'That famous pearlescent glaze over a quiet porcelain base, warmed up on the thumbs. Clean, current, and it goes with absolutely everything you own.'
-        },
-        price: 17500, orders: 0, featured: true, active: true,
-        tags: ['pearl', 'minimal', 'summer'], image: '',
-        groups: ['g-engagement', 'g-daily', 'g-summer'],
-        match: { occasion: ['daily', 'wedding'], vibe: ['calm', 'romantic'], attention: 'soft', metal: 'none' },
-        config: mkConfig({
-          skin: '#E3B48F', shape: 'almond', length: 'medium', sizes: mkSizes(2, 5, 4, 6, 8),
-          /* gloss, NOT chrome: the chrome FINISH repaints the whole plate with
-             a mirror and swallows the glazed veil underneath it — the pearl
-             has to be the last thing you see, not the first thing covered. */
-          def: { c: '#F1E7E2', f: 'gloss', p: ['glazed', '#FFFFFF', '#EDE4E9', 1] },
-          over: {
-            rightThumb: { c: '#E7C3AE', f: 'gloss', p: ['glazed', '#FFFFFF', '#F4CBD2', 0.9] },
-            leftThumb: { c: '#E7C3AE', f: 'gloss', p: ['glazed', '#FFFFFF', '#F4CBD2', 0.9] }
-          }
-        })
-      },
-      {
-        id: 'd-ombre-rose',
-        name: { ar: 'أومبريه وردي', en: 'Rose Ombré' },
-        desc: {
-          ar: 'تدرّج وردي يبدأ فاتح من الجذر ويغمق بهدوء عند الطرف، وظفرا البنصر بغليتر خفيف ولمعة. أنثوي وناعم بدون مبالغة.',
-          en: 'A pink gradient that starts pale at the cuticle and deepens gently toward the tip, with a whisper of glitter on the ring nails. Feminine, soft, never loud.'
-        },
-        price: 16500, orders: 0, featured: false, active: true,
-        tags: ['ombre', 'pink', 'romantic'], image: '',
-        groups: ['g-engagement', 'g-summer'],
-        match: { occasion: ['daily', 'party'], vibe: ['romantic'], attention: 'soft', metal: 'none' },
-        config: mkConfig({
-          skin: '#EFCDB6', shape: 'almond', length: 'medium', sizes: mkSizes(2, 5, 4, 6, 8),
-          def: { c: '#F7DDE2', f: 'gloss', p: ['ombre', '#F4CBD2', '#E88AA5', 1] },
-          over: {
-            rightRing: {
-              c: '#F7DDE2', f: 'glitter', p: ['ombre', '#F4CBD2', '#EE5B94', 1.2],
-              ch: [['ch-round', 0.5, 0.3, 0.8, 0]]
-            },
-            leftRing: {
-              c: '#F7DDE2', f: 'glitter', p: ['ombre', '#F4CBD2', '#EE5B94', 1.2],
-              ch: [['ch-round', 0.5, 0.3, 0.8, 0]]
-            }
-          }
-        })
-      },
-      {
-        id: 'd-red',
-        name: { ar: 'أحمر كلاسيك', en: 'Timeless Red' },
-        desc: {
-          ar: 'أحمر كرزي غني بلمعة مرآة، بشكل بيضاوي مريح، مع حجر ألماس صغير على البنصر. اللون الذي لا يخرج من الموضة أبداً.',
-          en: 'A rich cherry red with a mirror gloss on a comfortable oval, finished with one small stone on each ring nail. The shade that has never once gone out of style.'
-        },
-        price: 14500, orders: 0, featured: false, active: true,
-        tags: ['red', 'classic', 'party'], image: '',
-        groups: ['g-evening', 'g-engagement'],
-        match: { occasion: ['party', 'wedding'], vibe: ['bold', 'glam'], attention: 'clear', metal: 'none' },
-        config: mkConfig({
-          skin: '#EFCDB6', shape: 'oval', length: 'medium', sizes: mkSizes(2, 5, 4, 6, 8),
-          def: { c: '#C2192F', f: 'gloss' },
-          over: {
-            rightRing: { c: '#C2192F', f: 'gloss', ch: [['ch-round', 0.5, 0.3, 0.7, 0]] },
-            leftRing: { c: '#C2192F', f: 'gloss', ch: [['ch-round', 0.5, 0.3, 0.7, 0]] }
-          }
-        })
-      },
-      {
-        id: 'd-leopard',
-        name: { ar: 'نمر', en: 'Leopard Luxe' },
-        desc: {
-          ar: 'نقشة نمر مرسومة بيد على قاعدة رملية دافئة، مع أظافر توفي سادة تريح العين بين النقشات. جريء وراقي في نفس الوقت.',
-          en: 'Hand-drawn leopard spots on a warm sand base, broken up by plain toffee nails so the eye gets a rest. Bold and grown-up at the same time.'
-        },
-        price: 19000, orders: 0, featured: false, active: true,
-        tags: ['animal', 'autumn', 'nude'], image: '',
-        groups: ['g-evening'],
-        match: { occasion: ['party', 'daily'], vibe: ['bold'], attention: 'clear', metal: 'none' },
-        config: mkConfig({
-          skin: '#D19A6E', shape: 'coffin', length: 'long', sizes: mkSizes(1, 4, 3, 5, 7),
-          def: { c: '#E8D2B8', f: 'gloss', p: ['leopard', '#3E2A23', '#C08A5E', 1] },
-          over: {
-            rightIndex: { c: '#B98F6F', f: 'gloss' },
-            leftIndex: { c: '#B98F6F', f: 'gloss' },
-            rightPinky: { c: '#B98F6F', f: 'gloss' },
-            leftPinky: { c: '#B98F6F', f: 'gloss' }
-          }
-        })
-      },
-      {
-        id: 'd-mocha',
-        name: { ar: 'موكا', en: 'Mocha Mousse' },
-        desc: {
-          ar: 'بنّي قهوة دافئ بطول قصير عملي، وظفر البنصر بلون اللاتيه بطرف موكا مطفي يكسر اللون. مثالي لليد التي تعمل طوال اليوم.',
-          en: 'A warm coffee brown at a practical short length, with latte ring nails tipped in matte mocha to break it up. Made for hands that work all day.'
-        },
-        price: 15500, orders: 0, featured: false, active: true,
-        tags: ['nude', 'minimal', 'autumn'], image: '',
-        groups: ['g-daily'],
-        match: { occasion: ['daily'], vibe: ['calm'], attention: 'quiet', metal: 'none' },
-        config: mkConfig({
-          skin: '#D19A6E', shape: 'square', length: 'short', sizes: mkSizes(3, 6, 5, 7, 9),
-          def: { c: '#9A6B52', f: 'gloss' },
-          over: {
-            rightIndex: { c: '#B98F6F', f: 'gloss' },
-            leftIndex: { c: '#B98F6F', f: 'gloss' },
-            rightRing: { c: '#D8B49A', f: 'matte', p: ['french', '#9A6B52', '#D8B49A', 1.1] },
-            leftRing: { c: '#D8B49A', f: 'matte', p: ['french', '#9A6B52', '#D8B49A', 1.1] }
-          }
-        })
-      },
-      {
-        id: 'd-cateye',
-        name: { ar: 'كات آي', en: 'Velvet Cat Eye' },
-        desc: {
-          ar: 'خط مغناطيسي لامع يتحرك مع الضوء فوق برقوقي عميق، والإبهام بكحلي مزرق. طقم مسائي يشد الانتباه من مسافة.',
-          en: 'A magnetic ribbon of light travelling across deep plum, with midnight navy thumbs. An evening set that reads from across the room.'
-        },
-        price: 23000, orders: 0, featured: false, active: true,
-        tags: ['party', 'winter', 'luxe'], image: '',
-        groups: ['g-evening'],
-        match: { occasion: ['party'], vibe: ['glam', 'bold'], attention: 'max', metal: 'silver' },
-        config: mkConfig({
-          skin: '#B87A4E', shape: 'stiletto', length: 'xlong', sizes: mkSizes(1, 4, 3, 5, 7),
-          def: { c: '#4A1F3D', f: 'velvet', p: ['catEye', '#C9B6EA', '#7A3FC0', 1] },
-          over: {
-            rightThumb: { c: '#1D2A4A', f: 'velvet', p: ['catEye', '#BBD8F2', '#2F5BEA', 1.1] },
-            leftThumb: { c: '#1D2A4A', f: 'velvet', p: ['catEye', '#BBD8F2', '#2F5BEA', 1.1] }
-          }
-        })
-      },
-      {
-        id: 'd-pearl',
-        name: { ar: 'لؤلؤي', en: 'Pearl Drop' },
-        desc: {
-          ar: 'قاعدة لؤلؤية باردة تدفّئها هالة ناعمة من الداخل، ولمعة صافية تعطيها بريق اللؤلؤ الحقيقي، مع ثلاث حبات لؤلؤ متدرّجة على البنصر. هادئ وفخم في نفس الوقت.',
-          en: 'A cool pearl base warmed from within by a soft halo, under a clear gloss that gives it a real pearl’s light, with three graduated pearls resting on each ring nail. Quiet luxury, exactly.'
-        },
-        price: 20000, orders: 0, featured: false, active: true,
-        tags: ['pearl', 'bridal', 'minimal'], image: '',
-        groups: ['g-wedding', 'g-engagement'],
-        match: { occasion: ['wedding'], vibe: ['romantic', 'calm'], attention: 'soft', metal: 'none' },
-        config: mkConfig({
-          skin: '#EFCDB6', shape: 'oval', length: 'medium', sizes: mkSizes(2, 5, 4, 6, 8),
-          /* A pearl is cool in the body and warm where the light sits — a white
-             halo over a grey one only made it look chalky. Gloss, because a
-             real pearl has a hard little highlight on it. */
-          def: { c: '#EDE4E9', f: 'gloss', p: ['aura', '#FBEAF0', '#D8B49A', 1.05] },
-          over: {
-            rightRing: {
-              c: '#F1E7E2', f: 'gloss',
-              ch: [['ch-pearl', 0.42, 0.3, 0.8, 0], ['ch-pearl', 0.58, 0.42, 0.62, 0], ['ch-pearl', 0.48, 0.55, 0.5, 0]]
-            },
-            leftRing: {
-              c: '#F1E7E2', f: 'gloss',
-              ch: [['ch-pearl', 0.42, 0.3, 0.8, 0], ['ch-pearl', 0.58, 0.42, 0.62, 0], ['ch-pearl', 0.48, 0.55, 0.5, 0]]
-            }
-          }
-        })
-      },
-      {
-        id: 'd-matte-black',
-        name: { ar: 'أسود مطفي', en: 'Matte Noir' },
-        desc: {
-          ar: 'أسود مطفي كامل بشكل كوفن، مع نجوم ذهبية صغيرة على البنصر وأظافر فحمية تكسر السواد. قوي وأنيق ولا يحتاج إلى أكثر من ذلك.',
-          en: 'Full matte black on a coffin shape, with small gold stars on the ring nails and charcoal accents to break the black. Strong, sharp, and it needs nothing else.'
-        },
-        price: 13500, orders: 0, featured: false, active: true,
-        tags: ['matte', 'party', 'winter'], image: '',
-        groups: ['g-evening'],
-        match: { occasion: ['party'], vibe: ['bold'], attention: 'clear', metal: 'none' },
-        config: mkConfig({
-          skin: '#E3B48F', shape: 'coffin', length: 'long', sizes: mkSizes(1, 4, 3, 5, 7),
-          def: { c: '#17131A', f: 'matte' },
-          over: {
-            rightIndex: { c: '#3A3A3E', f: 'matte' },
-            leftIndex: { c: '#3A3A3E', f: 'matte' },
-            rightRing: { c: '#17131A', f: 'matte', p: ['stars', '#C2A05E', '#17131A', 0.9], ch: [['ch-star', 0.5, 0.3, 0.7, 0]] },
-            leftRing: { c: '#17131A', f: 'matte', p: ['stars', '#C2A05E', '#17131A', 0.9], ch: [['ch-star', 0.5, 0.3, 0.7, 0]] }
-          }
-        })
-      },
-      {
-        id: 'd-checkers',
-        name: { ar: 'مربعات باستيل', en: 'Pastel Checkers' },
-        desc: {
-          ar: 'كل ظفر بمربعات بلون باستيل مختلف على قاعدة حليبية: نعناعي، ليلكي، زبدي وخوخي. طول قصير مرح ومريح للاستخدام اليومي.',
-          en: 'Every nail checked in a different pastel over a milky base: mint, lilac, butter and peach. A playful short length you can genuinely live in.'
-        },
-        price: 13000, orders: 0, featured: false, active: true,
-        tags: ['pastel', 'summer', 'fun'], image: '',
-        groups: ['g-daily', 'g-summer'],
-        match: { occasion: ['daily', 'holiday'], vibe: ['bold'], attention: 'clear', metal: 'none' },
-        config: mkConfig({
-          skin: '#EFCDB6', shape: 'square', length: 'short', sizes: mkSizes(3, 6, 5, 7, 9),
-          def: { c: '#FAF3EE', f: 'gloss', p: ['checkers', '#B4E4CE', '#FAF3EE', 1] },
-          over: {
-            rightIndex: { c: '#FAF3EE', f: 'gloss', p: ['checkers', '#C9B6EA', '#FAF3EE', 1] },
-            leftIndex: { c: '#FAF3EE', f: 'gloss', p: ['checkers', '#C9B6EA', '#FAF3EE', 1] },
-            rightRing: { c: '#FAF3EE', f: 'gloss', p: ['checkers', '#F6E6A8', '#FAF3EE', 1] },
-            leftRing: { c: '#FAF3EE', f: 'gloss', p: ['checkers', '#F6E6A8', '#FAF3EE', 1] },
-            rightPinky: { c: '#FAF3EE', f: 'gloss', p: ['checkers', '#FAC7AC', '#FAF3EE', 1] },
-            leftPinky: { c: '#FAF3EE', f: 'gloss', p: ['checkers', '#FAC7AC', '#FAF3EE', 1] }
-          }
-        })
-      }
-    ],
+    /* The owner's own sets, each with a real photograph. The shop shipped
+       with thirteen drawn sample sets; they were removed at his request —
+       the site shows only what he adds from the panel. */
+    designs: [],
 
     /* =====================================================================
        FAQ
@@ -1260,21 +962,21 @@
         id: 'fq-what-you-see', cat: 'general',
         q: { ar: 'هل يأتي الطقم مثل الصورة التي أراها في الموقع؟', en: 'Will the set I receive look like the picture on the site?' },
         a: {
-          ar: 'هذا أهم شيء عندنا. الصورة التي تظهر لك في آخر الاختبار ليست صورة جاهزة لطقم آخر، بل هي رسم مباشر لاختياراتك أنتِ: الشكل نفسه، والطول نفسه، واللون واللمسة والنقشة، ومكان كل زخرفة بالضبط. نصنع الطقم على هذا الأساس، وقبل شحنه نرسل لك صورة الطقم نفسه على واتساب لترَيه وتوافقي عليه. وإذا وصلك شيء مختلف عما اخترتِه نعيد صنعه لك مجانًا. والفرق الوحيد المتوقع هو اختلاف بسيط في درجة اللون بين شاشة وأخرى.',
-          en: 'This matters to us more than anything else. What the quiz shows you at the end is not a stock photo of somebody else’s set — it is a live drawing of your own choices: the same shape, the same length, the same colour, finish and pattern, and the exact position of every charm. We build the set from that, and before it ships we send you a photograph of the real thing on WhatsApp for your approval. If what arrives is not what you chose, we remake it free of charge. The only difference to expect is a small shift in shade from one screen to another.'
+          ar: 'هذا أهم شيء عندنا. صورة الطقم التي تظهر لك في المتجر وفي آخر الاختبار هي صورة حقيقية لطقم من أطقمنا، وليست رسمًا: الشكل نفسه، والطول نفسه، واللون واللمسة والنقشة، ومكان كل زخرفة بالضبط. نصنع طقمك مثلها على مقاسك، وقبل شحنه نرسل لك صورة الطقم نفسه على واتساب لترَيه وتوافقي عليه. وإذا وصلك شيء مختلف عما اخترتِه نعيد صنعه لك مجانًا. والفرق الوحيد المتوقع هو اختلاف بسيط في درجة اللون بين شاشة وأخرى.',
+          en: 'This matters to us more than anything else. The picture of a set you see in the shop and at the end of the quiz is a real photograph of one of our own sets, not a drawing: the same shape, the same length, the same colour, finish and pattern, and the exact position of every charm. We make yours to match it in your size, and before it ships we send you a photograph of the real thing on WhatsApp for your approval. If what arrives is not what you chose, we remake it free of charge. The only difference to expect is a small shift in shade from one screen to another.'
         }
       },
       {
         id: 'fq-where-to-start', cat: 'general',
         q: { ar: 'لا أعرف أي تصميم يناسبني — من أين أبدأ؟', en: 'I have no idea what suits me — where do I start?' },
         a: {
-          ar: 'ابدئي باختبار الستايل في الصفحة الرئيسية: أسئلة سريعة كلها صور، ولا يوجد سؤال يحتاج إلى كتابة، وفي آخره يظهر لك طقم مبني على إجاباتك — تطلبينه مباشرة. وإذا أردتِ طريقًا أقصر، فافتحي «تصاميم جاهزة» واختاري واحدًا يعجبك واطلبيه.',
-          en: 'Start with the style quiz on the home page: a few questions, all pictures, nothing to type — and at the end it builds a set from your answers that you can order as it is. If you want an even shorter route, open Ready Designs and pick one you like.'
+          ar: 'ابدئي باختبار الستايل في الصفحة الرئيسية: أسئلة سريعة بضغطة واحدة، ولا يوجد سؤال يحتاج إلى كتابة، وفي آخره تظهر لك أطقمنا التي تناسب إجاباتك — تطلبين ما يعجبك مباشرة، وإن لم تجدي ما في بالك فراسلينا ونصنعه لك. وإذا أردتِ طريقًا أقصر، فافتحي «تصاميم جاهزة» واختاري واحدًا يعجبك واطلبيه.',
+          en: 'Start with the style quiz on the home page: a few quick taps, nothing to type — and at the end it shows the sets from our collection that fit your answers, ready to order as they are; if none is quite what you have in mind, message us and we will make it. If you want an even shorter route, open Ready Designs and pick one you like.'
         }
       },
       {
         id: 'fq-save-share', cat: 'general',
-        q: { ar: 'هل أستطيع حفظ تصميمي والعودة إليه لاحقًا أو إرساله إلى صديقتي؟', en: 'Can I save my design and come back to it, or send it to a friend?' },
+        q: { ar: 'هل أستطيع حفظ الطقم الذي ظهر لي والعودة إليه لاحقًا أو إرساله إلى صديقتي؟', en: 'Can I save the set the quiz showed me and come back to it, or send it to a friend?' },
         a: {
           ar: 'نعم. في آخر الاختبار زر يحفظ لك صورة الطقم على جهازك، وزر مشاركة ينسخ لك رابط الاختبار لترسليه إلى صديقتك. واحتفظي بالصورة عندك — أرسليها لنا مع طلبك على إنستغرام أو واتساب.',
           en: 'Yes. At the end of the quiz there is a button that saves a picture of the set to your device, and a share button that copies the quiz link to send to a friend. Keep the picture — send it to us on Instagram or WhatsApp with your order.'

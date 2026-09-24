@@ -3,24 +3,23 @@
  *  Contract: SPEC.md sections 4, 6, 9, 10, 11, 12. Attaches exactly one
  *  property: window.SN.Quiz
  *
- *  Seven one-tap questions that read her TASTE rather than her spec — the
- *  occasion, the mood, the colour she keeps coming back to, the season, how
- *  much she wants her hands noticed, gold or silver, the length — and at the
- *  end a real DESIGN_CONFIG (SPEC section 6) with a name, a sentence that
- *  says why it suits her, the set read out nail by nail, and two alternates
- *  (أهدى شوي / أجرأ شوي) so she explores instead of accepting or leaving.
+ *  One-tap questions that read her TASTE — skin tone, occasion, the owner's
+ *  lists, mood, colour, kind of set, season, attention, metal, shape, length,
+ *  budget — and at the end up to three of the OWNER'S OWN sets, each with a
+ *  sentence saying why it suits her. The site never makes a set up: when
+ *  nothing matches, it offers the closest of hers and says so, and with no
+ *  sets at all it invites her to message the shop. A question appears only
+ *  when at least one of her active sets can answer it.
  *
  *  Design notes
  *  ------------
  *  · The whole thing rides inside SN.UI.modal, so focus trapping, ESC, the
  *    backdrop and the scroll lock all come from the shell rather than from a
  *    second implementation of them here.
- *  · Every option tile is drawn in the colours she has already chosen — the
- *    quiz visibly builds her set as she taps.
- *  · Nothing here is random. A tiny FNV hash of her own answers picks between
- *    equally good options (which lace, which charm, which name), so the same
- *    answers always rebuild the same set — a shared link and a retake agree —
- *    while two friends who answered differently get visibly different sets.
+ *  · Option tiles are her photos, colour swatches, icons or plain text —
+ *    never a drawn nail.
+ *  · Nothing here is random: the same answers always give the same sets, so
+ *    a shared link and a retake agree.
  *  · Every store lookup falls back: an owner who deletes half the palette in
  *    admin.html gets a plainer result, never a broken one.
  *  · The result card carries the shop name and handle, because the screenshot
@@ -44,7 +43,7 @@
     iq: {
       quiz: {
         cardTitle: 'خلّي نطلّع لك طقمك أنتِ',
-        cardText: 'أسئلة قليلة، كلها صور وضغطة وحدة — وبالأخير يطلع لك طقم كامل: اسمه، لونه، شكله، وزخرفته ظفر ظفر. اطلبيه مثل ما هو.',
+        cardText: 'أسئلة قليلة، ضغطة وحدة لكل سؤال — وبالأخير تطلع لك أطقمنا اللي تناسب ذوقك. اطلبي اللي يعجبك مثل ما هو.',
         cardCta: 'ابدي الاختبار',
         cardTease: 'ابدي من هنا — ياهو اللون الأقرب لبشرتك؟',
 
@@ -69,15 +68,15 @@
         q6: 'ذهبي لو فضي؟',
 
         q7: 'شنو الطول المريح لك؟',
-        h7: 'الطول أكثر شي يغيّر شكل يدك بالصورة.',
+        h7: 'الطول أكثر شي يغيّر شكل يدك.',
 
-        waitTitle: 'هسة نجمع لك طقمك…',
+        waitTitle: 'هسة ندوّر لك على طقمك…',
 
         variants: {
           calmer: 'أهدى شوية',
           bolder: 'أجرأ شوية'
         },
-        variantsHint: 'قلّبي بين الثلاثة — كلها مبنية على أجوبتك.',
+        variantsHint: 'قلّبي بينها — كلها مختارة من أطقمنا حسب أجوبتك.',
 
         whyOcc: {
           daily: 'طقم يمشي وياك من الدوام لحد آخر اليوم'
@@ -89,7 +88,7 @@
         },
 
         qPattern: 'شنو نوع الطقم اللي تحبينه؟',
-        hPattern: 'كات آي، فرنش، كروم… أو خليها علينا.',
+        hPattern: 'اختاري النوع الأقرب لذوقك… أو خليها علينا.',
         qShape: 'شنو شكل الظفر اللي يعجبك؟',
         hShape: 'الشكل النهائي نتفق عليه بالمحادثة، بس خبرينا شنو يعجبك.',
         anyOf: 'ما يفرق عندي — اختاري إنتي',
@@ -113,7 +112,7 @@
         shareText: 'طلع لي طقم «{name}» من اختبار الستايل مال {brand} 💅 سوّي الاختبار وشوفي طقمك:',
         shareCopied: 'انتسخ الرابط — الصقيه بالستوري مالتك',
 
-        savedNote: 'التصميم صار جاهز — عدّلي بيه اللي تريدينه قبل ما تطلبين.',
+        savedNote: 'هذا الطقم جاهز للطلب — اكتبي بالملاحظات أي تعديل تريدينه.',
         failText: 'جرّبي مرة ثانية، أو اختاري تصميم جاهز من المتجر.'
       }
     },
@@ -122,11 +121,11 @@
       quiz: {
         /* the entry point on the home page */
         cardEyebrow: 'اختبار الستايل',
-        cardTitle: 'دعينا نصمّم لك طقمك أنتِ',
-        cardText: 'أسئلة قليلة، كلها صور وضغطة واحدة — وفي النهاية يظهر لك طقم كامل: اسمه، لونه، شكله، وزخرفته ظفرًا ظفرًا. اطلبيه كما هو.',
+        cardTitle: 'دعينا نجد لك طقمك أنتِ',
+        cardText: 'أسئلة قليلة، ضغطة واحدة لكل سؤال — وفي النهاية تظهر لك أطقمنا التي تناسب ذوقك. اطلبي ما يعجبك كما هو.',
         cardCta: 'ابدئي الاختبار',
         cardNote: 'أقل من دقيقة · بدون كتابة',
-        cardProof: 'لكل فتاة نتيجة مختلفة',
+        cardProof: 'نتيجة على ذوقك أنتِ',
         cardTease: 'ابدئي من هنا — أي لون أقرب لبشرتك؟',
 
         /* the shell */
@@ -149,7 +148,7 @@
 
         /* Q2 — the mood */
         q2: 'ما الإحساس الذي يشبهك؟',
-        h2: 'من هنا نختار شكل الظفر واللمعة.',
+        h2: 'من هنا نعرف الطابع الأقرب إليك.',
         vibe: {
           calm: 'هادئ ونظيف',
           romantic: 'ناعم ورومانسي',
@@ -206,11 +205,11 @@
 
         /* Q7 — length */
         q7: 'ما الطول المريح لك؟',
-        h7: 'الطول أكثر شيء يغيّر شكل يدك في الصورة.',
+        h7: 'الطول أكثر شيء يغيّر شكل يدك.',
 
         /* the anticipation beat */
-        waitTitle: 'نجمع لك طقمك…',
-        waitText: 'نختار اللون والشكل والزخرفة على ذوقك.',
+        waitTitle: 'نبحث لك عن طقمك…',
+        waitText: 'نختار لك من أطقمنا ما يناسب ذوقك.',
 
         /* the reveal */
         doneTitle: 'طقمك جاهز',
@@ -221,50 +220,8 @@
           match: 'المختار لك',
           bolder: 'أجرأ قليلاً'
         },
-        variantsHint: 'قلّبي بين الثلاثة — كلها مبنية على إجاباتك.',
-        variantsLabel: 'ثلاث نسخ من طقمك',
-
-        /* The name is read off the two colours the set is actually wearing —
-           a lilac-grey winter set can never come back called "cool mint" —
-           and the second name in each pair is picked by her other answers. */
-        name: {
-          nude: {
-            calm: ['نيود حرير', 'بيج صباحي', 'كريمة', 'رمل ناعم', 'ساتان نيود', 'بشرة ثانية', 'لؤلؤ بيج', 'كابتشينو فاتح', 'نيود كلاسيك', 'صدَف'],
-            romantic: ['نيود وردي', 'خوخ ناعم', 'بتلة بيج', 'عسل فاتح', 'نيود مخملي', 'وردة رملية', 'شاي بالحليب', 'مشمش هادئ', 'همس نيود', 'باليه بيج'],
-            bold: ['كراميل', 'موكا', 'توفي', 'قهوة بالحليب', 'بندق', 'كاكاو فاتح', 'رمال الصحراء', 'عسل غامق', 'نيود دافئ', 'شوكولا بالحليب'],
-            glam: ['شامبين', 'لؤلؤ نيود', 'ذهب وردي', 'نيود كروم', 'جليزد دونات', 'فانيلا لامعة', 'حليب وذهب', 'نيود لؤلؤي', 'بيج فخم', 'ساتان ذهبي']
-          },
-          pink: {
-            calm: ['وردي بودرة', 'باليه', 'وردي هادئ', 'بتلة', 'وردي مغبّر', 'زهر اللوز', 'وردي حليبي', 'روز ناعم', 'وردي صباحي', 'وردة بيضاء'],
-            romantic: ['فاوانيا', 'قلب وردي', 'وردة الصباح', 'روز رومانسي', 'سكر وردي', 'كرز مزهر', 'وردي حالم', 'حب أول', 'بتلات', 'وردي ناعم'],
-            bold: ['فوشيا', 'وردي فاقع', 'هوت بينك', 'بابل غم', 'وردي باربي', 'ماجنتا', 'وردي كهربائي', 'فراولة', 'وردي جريء', 'روز شوكينغ'],
-            glam: ['وردي كروم', 'روز جولد', 'وردي لؤلؤي', 'فوشيا لامع', 'وردي جليتر', 'بينك شامبين', 'وردي فخم', 'روز ميتاليك', 'وردي ساتان', 'ذهب وردي لامع']
-          },
-          red: {
-            calm: ['مرجان هادئ', 'أحمر توتي', 'وردة حمراء', 'مرجاني ناعم', 'أحمر باهت', 'روبي فاتح', 'كرز فاتح', 'أحمر كلاسيك', 'مرجان الصباح', 'أحمر ناعم'],
-            romantic: ['أحمر الحب', 'وردة قرمزية', 'كرزة', 'فراولة حمراء', 'أحمر رومانسي', 'قلب أحمر', 'عنّاب', 'أحمر الورد', 'روبي رومانسي', 'توت أحمر'],
-            bold: ['أحمر ناري', 'قرمزي', 'أحمر صارخ', 'مرجان ناري', 'أحمر فيراري', 'شفق أحمر', 'أحمر بطل', 'روج أحمر', 'أحمر جريء', 'برتقالي مرجاني'],
-            glam: ['روبي', 'أحمر كروم', 'أحمر لامع', 'ياقوت', 'أحمر فخم', 'أحمر ميتاليك', 'قرمزي لامع', 'أحمر السجادة', 'روبي لامع', 'أحمر شامبين']
-          },
-          dark: {
-            calm: ['كحلي عميق', 'برقوق هادئ', 'رمادي فحمي', 'أخضر زيتوني', 'بني عميق', 'نبيذي هادئ', 'ليل هادئ', 'أزرق ليلي', 'بورغندي ناعم', 'شوكولا داكنة'],
-            romantic: ['نبيذي', 'بورغندي', 'برقوق', 'توت بري', 'عنبي', 'أحمر داكن', 'خمري', 'كرز أسود', 'وردة ليلية', 'بنفسج داكن'],
-            bold: ['أسود', 'أسود مطفي', 'ليل أسود', 'فحم', 'أسود عميق', 'أخضر غابة', 'كحلي ملكي', 'أسود جريء', 'بيتش بلاك', 'ظل أسود'],
-            glam: ['أسود ولؤلؤ', 'أسود كروم', 'ليل فضي', 'أسود جليتر', 'أسود وذهب', 'كات آي', 'أسود لامع', 'بعد منتصف الليل', 'أسود ميتاليك', 'ليل ونجوم']
-          },
-          pastel: {
-            calm: ['باستيل ناعم', 'نعناع هادئ', 'ليلك فاتح', 'سماوي فاتح', 'غيمة', 'رمادي ناعم', 'أزرق بيبي', 'باستيل حليبي', 'نسمة', 'صباح هادئ'],
-            romantic: ['ليلك', 'خوخ باستيل', 'بنفسج فاتح', 'وردي باستيل', 'لافندر', 'خوخ وزبدة', 'مشمش ناعم', 'باستيل حالم', 'زهر الخوخ', 'غيمة ليلكية'],
-            bold: ['نعناع', 'أخضر باستيل', 'أصفر ليموني', 'باستيل حيوي', 'تركواز فاتح', 'أزرق باستيل', 'باستيل مرح', 'ليمون باستيل', 'سماوي', 'باستيل صيفي'],
-            glam: ['باستيل لؤلؤي', 'ليلك لامع', 'باستيل كروم', 'نعناع لؤلؤي', 'باستيل ميتاليك', 'ليلك ساتان', 'باستيل شامبين', 'غيمة لامعة', 'باستيل فخم', 'أوبال']
-          },
-          bright: {
-            calm: ['أزرق سماوي', 'تركواز هادئ', 'أخضر نعناعي', 'بنفسج هادئ', 'أزرق بحري', 'أخضر ناعم', 'ليموني هادئ', 'أزرق ناعم', 'زمردي فاتح', 'بنفسجي ناعم'],
-            romantic: ['بنفسج', 'لافندر عميق', 'بنفسجي رومانسي', 'خزامى', 'أرجواني', 'بنفسج ناعم', 'تركواز حالم', 'أزرق حالم', 'بنفسجي وردي', 'ياسمين بنفسجي'],
-            bold: ['أزرق كهربائي', 'تركواز', 'زمردي', 'برتقالي', 'يوسفي', 'أخضر نيون', 'أصفر شمسي', 'أزرق ملكي', 'بنفسجي ملكي', 'كوبالت'],
-            glam: ['زمرد', 'ياقوت أزرق', 'أزرق كروم', 'بنفسجي ميتاليك', 'تركواز لامع', 'زمردي لامع', 'ذهبي', 'أزرق جليتر', 'أميثيست', 'سفير']
-          }
-        },
+        variantsHint: 'قلّبي بينها — كلها مختارة من أطقمنا حسب إجاباتك.',
+        variantsLabel: 'أطقم مختارة لك',
 
         /* why it suits her — three halves that can never describe a set she
            is not looking at, because each one is read off the built design */
@@ -292,7 +249,7 @@
 
         /* skin */
         qPattern: 'ما نوع الطقم الذي تحبينه؟',
-        hPattern: 'كات آي، فرنش، كروم… أو اتركي الاختيار لنا.',
+        hPattern: 'اختاري النوع الأقرب لذوقك… أو اتركي الاختيار لنا.',
         qShape: 'ما شكل الظفر الذي يعجبك؟',
         hShape: 'الشكل النهائي نتفق عليه في المحادثة، لكن أخبرينا ما يعجبك.',
         anyOf: 'لا فرق عندي — اختاري أنتِ',
@@ -302,6 +259,18 @@
         hGroup: 'اختاري القائمة الأقرب لمناسبتك، أو اتركي الخيار مفتوحًا.',
         groupAny: 'لا أحدد — اعرضي لي كل شيء',
         whyGroup: 'من قائمة {g}',
+        noPhoto: 'الصورة قريبًا',
+        emptyTitle: 'أطقمنا في الطريق',
+        emptyText: 'لم نضع أطقمنا في المتجر بعد. أرسلي لنا ما يعجبك — صورة من بنترست أو فكرة — ونصنعه لكِ على مقاسك.',
+        emptyWa: 'راسلينا على واتساب',
+        emptyIg: 'شاهدي أعمالنا على إنستغرام',
+        emptyMsg: 'مرحبًا، أريد طقم أظافر مركّبة وأحب أن أرسل لكم فكرتي.',
+        closestTitle: 'الأقرب لذوقكِ',
+        closestLead: 'لا يوجد عندنا طقم يطابق كل إجاباتكِ، وهذه أقرب أطقمنا إليها. وإن أردتِ طقمًا كما في بالكِ تمامًا، راسلينا ونصنعه لكِ.',
+        closestOver: 'أطقمنا كلها أعلى من الميزانية التي اخترتِها، وهذه أقربها إلى ذوقكِ. وإن أردتِ، راسلينا ونتفق على ما يناسبكِ.',
+        closestWa: 'اطلبي طقمًا حسب ذوقكِ',
+        closestMsg: 'مرحبًا، أجريت اختبار الستايل وأريد طقمًا حسب ذوقي.',
+        sharedGone: 'الطقم الذي في هذا الرابط لم يعد متوفرًا، وهذه أقرب أطقمنا لنفس الإجابات.',
         qBudget: 'ما ميزانيتك للطقم؟',
         hBudget: 'لا نعرض لك شيئاً فوق ما حدّدتِه. ويمكنكِ ألا تحدّدي.',
         vNear1: 'الأقرب لك',
@@ -355,8 +324,8 @@
           none: 'بدون معدن'
         },
 
-        savedNote: 'أصبح التصميم جاهزاً — عدّلي فيه ما تشائين قبل الطلب.',
-        failTitle: 'لم نتمكن من بناء الطقم',
+        savedNote: 'هذا الطقم جاهز للطلب — اكتبي في الملاحظات أي تعديل تريدينه.',
+        failTitle: 'لم نتمكن من عرض النتيجة',
         failText: 'حاولي مرة أخرى، أو اختاري تصميماً جاهزاً من المتجر.',
         failCta: 'حاولي مرة أخرى'
       }
@@ -365,11 +334,11 @@
     en: {
       quiz: {
         cardEyebrow: 'Style quiz',
-        cardTitle: 'Let us build the set that is yours',
-        cardText: 'A few questions, all pictures, one tap each — and at the end a full set: its name, its colour, its shape and its decoration nail by nail. Order it as it is.',
+        cardTitle: 'Let us find the set that is yours',
+        cardText: 'A few questions, one tap each — and at the end, the sets from our collection that suit your taste. Order the one you like as it is.',
         cardCta: 'Take the quiz',
         cardNote: 'Under a minute · nothing to type',
-        cardProof: 'No two answers give the same set',
+        cardProof: 'Picked to suit your answers',
         cardTease: 'Start here — which is closest to your skin tone?',
 
         title: 'Style quiz',
@@ -389,7 +358,7 @@
         },
 
         q2: 'Which mood feels like you?',
-        h2: 'This picks the shape of the nail and the way it shines.',
+        h2: 'This tells us which mood to look for in our sets.',
         vibe: {
           calm: 'Clean and calm',
           romantic: 'Soft and romantic',
@@ -443,8 +412,8 @@
         q7: 'Which length is comfortable for you?',
         h7: 'Length changes the look of your hand more than anything else.',
 
-        waitTitle: 'Building your set…',
-        waitText: 'Choosing the colour, the shape and the details.',
+        waitTitle: 'Finding your set…',
+        waitText: 'Picking the sets from our collection that suit you.',
 
         doneTitle: 'Your set is ready',
         previewAlt: 'Preview of the “{name}” set',
@@ -454,47 +423,8 @@
           match: 'Your match',
           bolder: 'A little bolder'
         },
-        variantsHint: 'Flip between the three — all of them come from your answers.',
-        variantsLabel: 'Three versions of your set',
-
-        name: {
-          nude: {
-            calm: ['Silk Nude', 'Morning Beige', 'Cream', 'Soft Sand', 'Satin Nude', 'Second Skin', 'Beige Pearl', 'Light Cappuccino', 'Classic Nude', 'Seashell'],
-            romantic: ['Rosy Nude', 'Soft Peach', 'Beige Petal', 'Light Honey', 'Velvet Nude', 'Sand Rose', 'Milk Tea', 'Quiet Apricot', 'Nude Whisper', 'Ballet Beige'],
-            bold: ['Caramel', 'Mocha', 'Toffee', 'Café au Lait', 'Hazelnut', 'Light Cocoa', 'Desert Sand', 'Dark Honey', 'Warm Nude', 'Milk Chocolate'],
-            glam: ['Champagne', 'Nude Pearl', 'Rose Gold', 'Chrome Nude', 'Glazed Donut', 'Glossy Vanilla', 'Milk & Gold', 'Pearly Nude', 'Luxe Beige', 'Golden Satin']
-          },
-          pink: {
-            calm: ['Powder Pink', 'Ballet', 'Quiet Pink', 'Petal', 'Dusty Pink', 'Almond Blossom', 'Milky Pink', 'Soft Rose', 'Morning Pink', 'White Rose'],
-            romantic: ['Peony', 'Pink Heart', 'Morning Rose', 'Romantic Rose', 'Pink Sugar', 'Cherry Blossom', 'Dreamy Pink', 'First Love', 'Petals', 'Soft Pink'],
-            bold: ['Fuchsia', 'Vivid Pink', 'Hot Pink', 'Bubblegum', 'Barbie Pink', 'Magenta', 'Electric Pink', 'Strawberry', 'Bold Pink', 'Shocking Rose'],
-            glam: ['Chrome Pink', 'Rose Gold', 'Pearl Pink', 'Glossy Fuchsia', 'Pink Glitter', 'Pink Champagne', 'Luxe Pink', 'Metallic Rose', 'Satin Pink', 'Glossy Rose Gold']
-          },
-          red: {
-            calm: ['Quiet Coral', 'Berry Red', 'Red Rose', 'Soft Coral', 'Muted Red', 'Light Ruby', 'Light Cherry', 'Classic Red', 'Morning Coral', 'Soft Red'],
-            romantic: ['Love Red', 'Crimson Rose', 'Cherry', 'Red Strawberry', 'Romantic Red', 'Red Heart', 'Jujube', 'Rose Red', 'Romantic Ruby', 'Red Berry'],
-            bold: ['Fire Red', 'Scarlet', 'Loud Red', 'Fiery Coral', 'Ferrari Red', 'Red Dusk', 'Hero Red', 'Rouge', 'Bold Red', 'Coral Orange'],
-            glam: ['Ruby', 'Chrome Red', 'Glossy Red', 'Garnet', 'Luxe Red', 'Metallic Red', 'Glossy Scarlet', 'Red Carpet', 'Glossy Ruby', 'Red Champagne']
-          },
-          dark: {
-            calm: ['Deep Navy', 'Quiet Plum', 'Charcoal', 'Olive Green', 'Deep Brown', 'Quiet Wine', 'Quiet Night', 'Night Blue', 'Soft Burgundy', 'Dark Chocolate'],
-            romantic: ['Wine', 'Burgundy', 'Plum', 'Wild Berry', 'Grape', 'Dark Red', 'Merlot', 'Black Cherry', 'Night Rose', 'Dark Violet'],
-            bold: ['Black', 'Matte Black', 'Black Night', 'Charcoal Black', 'Deep Black', 'Forest Green', 'Royal Navy', 'Bold Black', 'Pitch Black', 'Black Shadow'],
-            glam: ['Black & Pearl', 'Chrome Black', 'Silver Night', 'Black Glitter', 'Black & Gold', 'Cat Eye', 'Glossy Black', 'After Midnight', 'Metallic Black', 'Night & Stars']
-          },
-          pastel: {
-            calm: ['Soft Pastel', 'Quiet Mint', 'Light Lilac', 'Light Sky', 'Cloud', 'Soft Grey', 'Baby Blue', 'Milky Pastel', 'Breeze', 'Quiet Morning'],
-            romantic: ['Lilac', 'Pastel Peach', 'Light Violet', 'Pastel Pink', 'Lavender', 'Peach & Butter', 'Soft Apricot', 'Dreamy Pastel', 'Peach Blossom', 'Lilac Cloud'],
-            bold: ['Mint', 'Pastel Green', 'Lemon Yellow', 'Vivid Pastel', 'Light Turquoise', 'Pastel Blue', 'Playful Pastel', 'Pastel Lemon', 'Sky Blue', 'Summer Pastel'],
-            glam: ['Pearl Pastel', 'Glossy Lilac', 'Chrome Pastel', 'Pearl Mint', 'Metallic Pastel', 'Satin Lilac', 'Pastel Champagne', 'Glossy Cloud', 'Luxe Pastel', 'Opal']
-          },
-          bright: {
-            calm: ['Sky Blue', 'Quiet Turquoise', 'Minty Green', 'Quiet Violet', 'Sea Blue', 'Soft Green', 'Quiet Lemon', 'Soft Blue', 'Light Emerald', 'Soft Purple'],
-            romantic: ['Violet', 'Deep Lavender', 'Romantic Purple', 'Lavender Field', 'Amethyst Purple', 'Soft Violet', 'Dreamy Turquoise', 'Dreamy Blue', 'Pink Violet', 'Purple Jasmine'],
-            bold: ['Electric Blue', 'Turquoise', 'Emerald', 'Orange', 'Tangerine', 'Neon Green', 'Sunny Yellow', 'Royal Blue', 'Vivid Purple', 'Cobalt'],
-            glam: ['Emerald Gem', 'Blue Sapphire', 'Chrome Blue', 'Metallic Purple', 'Glossy Turquoise', 'Glossy Emerald', 'Gold', 'Blue Glitter', 'Amethyst', 'Sapphire']
-          }
-        },
+        variantsHint: 'Flip between them — each one picked from our sets for your answers.',
+        variantsLabel: 'Sets picked for you',
 
         why: '{occ} — {col}, {att}.',
         whyOcc: {
@@ -518,7 +448,7 @@
         plain: 'Plain',
 
         qPattern: 'What kind of set do you like?',
-        hPattern: 'Cat eye, french, chrome… or leave it to us.',
+        hPattern: 'Pick the kind closest to your taste… or leave it to us.',
         qShape: 'Which nail shape do you like?',
         hShape: 'We agree the final shape in chat, but tell us what you like.',
         anyOf: 'No preference — you choose',
@@ -528,6 +458,18 @@
         hGroup: 'Pick the list nearest your occasion, or leave it open.',
         groupAny: 'No preference — show me everything',
         whyGroup: 'from your {g} list',
+        noPhoto: 'Photo coming soon',
+        emptyTitle: 'Our sets are on their way',
+        emptyText: 'Our sets are not in the shop yet. Send us what you like — a Pinterest photo or an idea — and we will make it to your size.',
+        emptyWa: 'Message us on WhatsApp',
+        emptyIg: 'See our work on Instagram',
+        emptyMsg: 'Hi, I would like a press-on set and would love to send you my idea.',
+        closestTitle: 'Closest to your taste',
+        closestLead: 'We do not have a set that matches every answer, so these are our closest. If you want one exactly as you imagine it, message us and we will make it.',
+        closestOver: 'All our sets are above the budget you chose; these are the closest to your taste. Message us if you would like to agree on something that suits you.',
+        closestWa: 'Order one to your taste',
+        closestMsg: 'Hi, I took the style quiz and would like a set to my taste.',
+        sharedGone: 'The set in this link is no longer available — here are our closest sets for the same answers.',
         qBudget: 'What is your budget for a set?',
         hBudget: 'We will not show you anything above it. You can leave it open.',
         vNear1: 'Closest to you',
@@ -553,7 +495,7 @@
         share: 'Share it',
         saveImg: 'Save the picture',
         shareTitle: 'My Shosh Nail set',
-        shareText: 'The style quiz built me the “{name}” set at {brand} 💅 Take it and see yours:',
+        shareText: 'The style quiz picked me the “{name}” set at {brand} 💅 Take it and see yours:',
         shareCopied: 'Link copied — paste it into your story',
         shareFail: 'We could not copy the link',
         savedImg: 'Picture saved',
@@ -579,8 +521,8 @@
           none: 'No metal'
         },
 
-        savedNote: 'Your set is ready — change anything you like before you order.',
-        failTitle: 'We could not build the set',
+        savedNote: 'This set is ready to order — write any change you want in the notes.',
+        failTitle: 'We could not show your result',
         failText: 'Try once more, or pick a ready design from the shop.',
         failCta: 'Try again'
       }
@@ -611,20 +553,6 @@
 
   function t(key, vars) {
     return (SN.I18n && typeof SN.I18n.t === 'function') ? SN.I18n.t(key, vars) : String(key || '');
-  }
-
-  /* a dictionary value that is an array (the name lists) */
-  function tList(key) {
-    var d = SN.I18n && SN.I18n.dict ? SN.I18n.dict : null;
-    var lang = (SN.I18n && SN.I18n.lang) || 'ar';
-    var node = d && d[lang] ? d[lang] : null;
-    var parts = String(key || '').split('.'), i;
-    for (i = 0; i < parts.length && node; i++) node = node[parts[i]];
-    if (Array.isArray(node)) return node;
-    node = DICT[lang] && DICT[lang].quiz ? DICT[lang].quiz : null;
-    parts = String(key || '').replace(/^quiz\./, '').split('.');
-    for (i = 0; i < parts.length && node; i++) node = node[parts[i]];
-    return Array.isArray(node) ? node : [];
   }
 
   function pick(tobj) {
@@ -689,31 +617,13 @@
     if (u && typeof u.toast === 'function') u.toast(text, kind || 'info');
   }
 
-  /* FNV-1a. The only source of "variety" in the whole file, and it is a pure
-     function of her answers — same answers in, same set out, for ever. */
-  function hash(str) {
-    var h = 2166136261, i;
-    str = String(str || '');
-    for (i = 0; i < str.length; i++) {
-      h ^= str.charCodeAt(i);
-      h = (h + ((h << 1) + (h << 4) + (h << 7) + (h << 8) + (h << 24))) >>> 0;
-    }
-    return h >>> 0;
-  }
-
-  /* deterministic pick out of an array */
-  function at(arr, h) {
-    if (!arr || !arr.length) return null;
-    return arr[h % arr.length];
-  }
-
   /* ==================================================================== */
-  /* 2. the recipe                                                         */
+  /* 2. the answers                                                        */
   /*                                                                       */
-  /*    Seven answers in, one DESIGN_CONFIG out. Every id below is looked   */
-  /*    up in the store first and only falls back to a literal when the     */
-  /*    owner has removed it, so the quiz keeps working on an edited        */
-  /*    catalogue.                                                          */
+  /*    What each answer means: its colours, its occasion's defaults. Every */
+  /*    id below is looked up in the store first and only falls back to a   */
+  /*    literal when the owner has removed it, so the quiz keeps working on */
+  /*    an edited catalogue.                                                */
   /* ==================================================================== */
 
   /* what the set is FOR: it decides the accent nail's artwork and the family
@@ -840,17 +750,6 @@
     { id: 'none', hex: '', only: true, charms: ['ch-pearl', 'ch-blossom', 'ch-heart', 'ch-bow'] }
   ];
 
-  /* ring first — it is the accent nail on every hand in the world */
-  var DRESS_ORDER = ['Ring', 'Index', 'Pinky', 'Middle'];
-
-  /* charm placements, in the order they get added to the accent nail */
-  var SPOTS = [
-    { x: 0.5, y: 0.26, s: 0.78, r: 0 },
-    { x: 0.36, y: 0.45, s: 0.56, r: -10 },
-    { x: 0.63, y: 0.48, s: 0.5, r: 8 },
-    { x: 0.5, y: 0.62, s: 0.42, r: 0 }
-  ];
-
   var FALLBACK_ANS = {
     occasion: 'daily', vibe: 'calm', palette: 'nude',
     season: 'spring', attention: 'soft', metal: 'gold', length: 'medium'
@@ -860,12 +759,6 @@
     var i;
     for (i = 0; i < table.length; i++) if (table[i].id === id) return table[i];
     return table[0];
-  }
-
-  function indexOfId(table, id) {
-    var i;
-    for (i = 0; i < table.length; i++) if (table[i].id === id) return i;
-    return 0;
   }
 
   /* a colour hex: the curated id, then anything in the right group, then a
@@ -893,116 +786,9 @@
     };
   }
 
-  /* A silver french on a lavender-grey nail is a beautiful idea and an
-     invisible one. Every accent colour is checked against the nail it will be
-     drawn on and stepped aside for one that can actually be seen. */
-  function lum(hex) {
-    var h = String(hex || '').replace('#', '');
-    var r, g, b;
-    if (h.length === 3) h = h[0] + h[0] + h[1] + h[1] + h[2] + h[2];
-    if (!/^[0-9a-fA-F]{6}$/.test(h)) return 0.5;
-    r = parseInt(h.slice(0, 2), 16) / 255;
-    g = parseInt(h.slice(2, 4), 16) / 255;
-    b = parseInt(h.slice(4, 6), 16) / 255;
-    return 0.2126 * r + 0.7152 * g + 0.0722 * b;
-  }
-
-  var MIN_STEP = 0.16;
-
-  function visibleOn(base, prefer, alt, alt2) {
-    var lb = lum(base);
-    if (prefer && Math.abs(lum(prefer) - lb) >= MIN_STEP) return prefer;
-    if (alt && Math.abs(lum(alt) - lb) >= MIN_STEP) return alt;
-    if (alt2 && Math.abs(lum(alt2) - lb) >= MIN_STEP) return alt2;
-    return lb > 0.5 ? '#4A2B39' : '#FAF3EE';
-  }
-
-  function colorName(hex) {
-    var colors = list('colors'), i;
-    for (i = 0; i < colors.length; i++) {
-      if (colors[i] && String(colors[i].hex).toUpperCase() === String(hex).toUpperCase()) {
-        return pick(colors[i].name);
-      }
-    }
-    return '';
-  }
-
-  function patternName(kind) {
-    var arr = list('patterns'), i;
-    for (i = 0; i < arr.length; i++) {
-      if (arr[i] && arr[i].kind === kind) return pick(arr[i].name);
-    }
-    return '';
-  }
-
-  function finishName(id) {
-    var f = findIn('finishes', id);
-    return f ? pick(f.name) : '';
-  }
-
-  function shapeOk(id) {
-    var arr = (SN.Nail && SN.Nail.SHAPES) ? SN.Nail.SHAPES : [];
-    if (findIn('shapes', id)) return id;
-    if (arr.length && arr.indexOf(id) !== -1) return id;
-    return (list('shapes')[0] || {}).id || 'almond';
-  }
-
-  function finishOk(id) {
-    if (findIn('finishes', id)) return id;
-    return (list('finishes')[0] || {}).id || 'gloss';
-  }
-
-  function lengthOk(id) {
-    if (findIn('lengths', id)) return id;
-    return (list('lengths')[0] || {}).id || 'medium';
-  }
-
-  function patternOk(kind) {
-    var kinds = (SN.Nail && SN.Nail.PATTERN_KINDS) ? SN.Nail.PATTERN_KINDS : null;
-    if (kinds && kinds.indexOf(kind) === -1) return 'none';
-    return kind;
-  }
-
-  /* n distinct charm ids that actually exist in the catalogue */
-  function charmsFrom(pools, h, n) {
-    var out = [], flat = [], i, j, c;
-    for (i = 0; i < pools.length; i++) {
-      for (j = 0; j < pools[i].length; j++) {
-        c = findIn('charms', pools[i][j]);
-        if (c && flat.indexOf(c.id) === -1) flat.push(c.id);
-      }
-    }
-    if (!flat.length) {
-      c = list('charms')[0];
-      if (c) flat.push(c.id);
-    }
-    if (!flat.length) return [];
-    for (i = 0; i < n; i++) out.push(flat[(h + i) % flat.length]);
-    return out;
-  }
-
-  function skinHex(id) {
-    var tone = findIn('skinTones', id);
-    var all = list('skinTones');
-    if (tone && tone.hex) return tone.hex;
-    if (all.length) return all[Math.min(1, all.length - 1)].hex || '#EFCDB6';
-    return '#EFCDB6';
-  }
-
-  function blankDesign() {
-    var d = null;
-    if (SN.Nail && typeof SN.Nail.blank === 'function') {
-      try { d = SN.Nail.blank(); }
-      catch (e) { d = null; }
-    }
-    if (d && d.nails) return d;
-    return null;
-  }
-
-  /* A half-answered set still has to look like something worth tapping: the
-     occasion she has already chosen lends its own taste to everything she has
-     not reached yet, so the very first screen shows four visibly different
-     sets instead of four nudes that differ only in outline. */
+  /* Her answers with every gap filled from the occasion she chose, plus
+     `_raw`: only what she really answered. Matching reads `_raw` alone, so a
+     filled-in default never counts for or against one of the owner's sets. */
   function normAnswers(answers) {
     var a = {}, k, occ;
     occ = rowOf(OCCASIONS, (answers && answers.occasion) || FALLBACK_ANS.occasion);
@@ -1019,309 +805,26 @@
     a.group = (answers && answers.group) ? answers.group : '';
     a.pattern = (answers && answers.pattern) ? answers.pattern : '';
     a.shape = (answers && answers.shape) ? answers.shape : '';
+    /* What she really answered, as opposed to what was filled in above for a
+       question she skipped or was never shown. Only these may count for or
+       against one of the owner's sets. */
+    a._raw = {};
+    if (answers) {
+      for (k in answers) {
+        if (Object.prototype.hasOwnProperty.call(answers, k) && k.charAt(0) !== '_' &&
+            answers[k] && answers[k] !== 'any') a._raw[k] = String(answers[k]);
+      }
+    }
     return a;
   }
 
-  function fingerOf(key) {
-    var side = String(key).indexOf('left') === 0 ? 'left' : 'right';
-    return String(key).slice(side.length);
-  }
-
-  /* ---- the build: seven answers in, one DESIGN_CONFIG out -------------- */
-
-  function build(answers) {
-    var a = normAnswers(answers);
-    var d = blankDesign();
-    var occ, vibe, pal, sea, att, met, sh, seed;
-    var keys, i, key, fng, slot;
-    var baseFinish, accentPattern, filler, metalHex, artColor, soloColor, charms, askedKind;
-
-    if (!d) return null;
-
-    /* a list may lend its own character to the set we build */
-    occ = rowOf(OCCASIONS, groupSeed(a) || a.occasion);
-    vibe = rowOf(VIBES, a.vibe);
-    pal = rowOf(PALETTES, a.palette);
-    sea = rowOf(SEASONS, a.season);
-    att = rowOf(ATTENTION, a.attention);
-    met = rowOf(METALS, a.metal);
-    sh = shades(pal, sea.id);
-
-    /* Several small seeds rather than one: each question then changes only what
-       it is asking about. Tapping through "gold or silver" must not reshape
-       the nail under her thumb — that reads as a glitch, not as a choice. */
-    seed = function (parts) { return hash(parts.join('|')); };
-    metalHex = met.hex || sh.accent;
-    artColor = visibleOn(sh.base, metalHex, sh.accent, sh.third);
-    soloColor = visibleOn(sh.base, sh.accent, sh.third, metalHex);
-    baseFinish = finishOk(vibe.finish);
-    accentPattern = patternOk(at(occ.accents, seed([occ.id, vibe.id, sea.id])));
-    filler = patternOk(at(vibe.fillers, seed([vibe.id, pal.id])));
-    charms = charmsFrom(
-      met.only ? [met.charms] : [occ.charms, met.charms],
-      seed([occ.id, met.id, att.id]),
-      Math.max(0, att.charms)
-    );
-
-    d.skin = skinHex(a.skin || (list('skinTones')[1] || {}).id);
-    d.hand = 'both';
-    d.shape = (a.shape && a.shape !== 'any')
-      ? shapeOk(a.shape)
-      : shapeOk(at(vibe.shapes, seed([vibe.id, pal.id, sea.id, a.length])));
-    d.length = lengthOk(a.length);
-    d.qty = 1;
-    d.express = false;
-    d.giftWrap = false;
-    d.notes = '';
-
-    keys = (SN.Nail && SN.Nail.KEYS && SN.Nail.KEYS.length) ? SN.Nail.KEYS : [];
-
-    /* every nail starts as a clean solid in her colour */
-    for (i = 0; i < keys.length; i++) {
-      key = keys[i];
-      if (!d.nails[key]) continue;
-      d.nails[key].color = sh.base;
-      d.nails[key].finish = baseFinish;
-      d.nails[key].pattern = { kind: 'none', color: sh.accent, color2: sh.base, scale: 1 };
-      d.nails[key].charms = [];
-    }
-
-    /* then the decoration spreads, ring nail first, mirrored on both hands */
-    for (i = 0; i < keys.length; i++) {
-      key = keys[i];
-      if (!d.nails[key]) continue;
-      fng = fingerOf(key);
-      slot = DRESS_ORDER.indexOf(fng);
-
-      /* "quietly": nothing printed at all — the accent nail is set apart by
-         its finish instead, which is the most expensive-looking thing a bare
-         set can do and still costs her almost nothing */
-      if (att.nails === 0) {
-        if (fng === 'Ring') d.nails[key].finish = finishOk(vibe.alt);
-        continue;
-      }
-      if (slot === -1 || slot >= att.nails) continue;
-
-      if (fng === 'Ring') {
-        d.nails[key].pattern = {
-          kind: accentPattern, color: artColor, color2: sh.base, scale: 1
-        };
-      } else if (fng === 'Index') {
-        /* one nail simply in the other colour — the most worn accent there is */
-        d.nails[key].color = soloColor;
-        d.nails[key].pattern = { kind: 'none', color: sh.base, color2: soloColor, scale: 1 };
-      } else if (fng === 'Pinky') {
-        d.nails[key].pattern = {
-          kind: patternOk(sea.motif), color: artColor, color2: sh.base, scale: 0.9
-        };
-      } else {
-        d.nails[key].pattern = {
-          kind: filler, color: visibleOn(sh.base, sh.third, sh.accent, metalHex), color2: sh.base, scale: 1
-        };
-      }
-    }
-
-    /* She asked for a kind of set by name. That is the set's identity, not a
-       flourish on one nail — a cat-eye set is cat eye on all ten — so it
-       overrides the spread above. Charms below still land on the ring. */
-    if (a.pattern && a.pattern !== 'any') {
-      askedKind = patternKindOf(a.pattern);
-      if (askedKind) {
-        for (i = 0; i < keys.length; i++) {
-          key = keys[i];
-          if (!d.nails[key]) continue;
-          d.nails[key].color = sh.base;
-          d.nails[key].pattern = (askedKind === 'none')
-            ? { kind: 'none', color: sh.accent, color2: sh.base, scale: 1 }
-            : { kind: patternOk(askedKind), color: artColor, color2: sh.base, scale: 1 };
-        }
-      }
-    }
-
-    /* charms land on the accent nail only — a charm on all ten reads
-       cluttered and prices the set out of her reach for no gain */
-    if (charms.length && att.nails > 0) {
-      for (i = 0; i < keys.length; i++) {
-        key = keys[i];
-        if (!d.nails[key] || fingerOf(key) !== 'Ring') continue;
-        d.nails[key].charms = charms.slice(0, SPOTS.length).map(function (id, j) {
-          return { id: id, x: SPOTS[j].x, y: SPOTS[j].y, s: SPOTS[j].s, r: SPOTS[j].r };
-        });
-      }
-    }
-
-    return d;
+  function asked(a, key) {
+    return !!(a && a._raw && a._raw[key]);
   }
 
   /* ---- the two alternates --------------------------------------------- */
 
-  var SOFTER = { glam: 'romantic', bold: 'romantic', romantic: 'calm', calm: 'calm' };
-  var SHARPER = { calm: 'bold', romantic: 'bold', bold: 'glam', glam: 'glam' };
-
-  function lengthIds() {
-    var arr = list('lengths'), out = [], i;
-    for (i = 0; i < arr.length; i++) if (arr[i] && arr[i].id) out.push(arr[i].id);
-    return out.length ? out : ['short', 'medium', 'long', 'xlong'];
-  }
-
-  function shiftAnswers(answers, dir) {
-    var a = normAnswers(answers);
-    var ids = lengthIds();
-    var li = ids.indexOf(a.length);
-    var ai = indexOfId(ATTENTION, a.attention);
-
-    if (li < 0) li = Math.min(1, ids.length - 1);
-    if (dir < 0) {
-      a.attention = ATTENTION[Math.max(0, ai - 1)].id;
-      a.length = ids[Math.max(0, li - 1)];
-      a.vibe = SOFTER[a.vibe] || a.vibe;
-      a.tag = 'calmer';
-    } else {
-      a.attention = ATTENTION[Math.min(ATTENTION.length - 1, ai + 1)].id;
-      a.length = ids[Math.min(ids.length - 1, li + 1)];
-      a.vibe = SHARPER[a.vibe] || a.vibe;
-      a.tag = 'bolder';
-    }
-    return a;
-  }
-
   /* ---- the words that go with a built set ------------------------------ */
-
-  /* The three alternates share her palette and her season, so they share the
-     name too — what tells them apart is printed on the tab above the card. */
-  /* The set's name comes from its colour family and its FEEL — a glam wedding
-     set and a quiet everyday one in the same pink must not share a name. Ten
-     curated names per cell; season, occasion, decoration, metal and length
-     decide which of the ten, so the same answers always give the same name
-     and neighbouring answers give different ones. */
-  function nameFor(ans) {
-    var a = normAnswers(ans);
-    var pal = rowOf(PALETTES, a.palette).id;
-    var vibe = rowOf(VIBES, a.vibe).id;
-    var names = tList('quiz.name.' + pal + '.' + vibe);
-    if (!names.length) return t('quiz.doneTitle');
-    return String(at(names, hash([a.season, a.occasion, a.attention, a.metal, a.length].join('|'))) || names[0]);
-  }
-
-  function whyFor(ans, design) {
-    var a = normAnswers(ans);
-    var cName = design ? colorName(design.nails.rightThumb.color) : '';
-    var sName = t('quiz.seasonOf.' + rowOf(SEASONS, a.season).id);
-    var col = cName
-      ? t('quiz.whyCol', { c: cName, s: sName })
-      : t('quiz.whyColPlain', { c: t('quiz.palette.' + rowOf(PALETTES, a.palette).id) });
-    return t('quiz.why', {
-      occ: t('quiz.whyOcc.' + rowOf(OCCASIONS, a.occasion).id),
-      col: col,
-      att: t('quiz.whyAtt.' + rowOf(ATTENTION, a.attention).id)
-    });
-  }
-
-  function subFor(ans, design) {
-    var a = normAnswers(ans);
-    var len = findIn('lengths', design ? design.length : a.length);
-    return t('quiz.subLine', {
-      occ: t('quiz.chipOccasion.' + rowOf(OCCASIONS, a.occasion).id),
-      season: t('quiz.season.' + rowOf(SEASONS, a.season).id),
-      len: len ? pick(len.name) : ''
-    });
-  }
-
-  function chipsFor(ans, design) {
-    var a = normAnswers(ans);
-    var shape = design ? findIn('shapes', design.shape) : null;
-    var out = [], cName = design ? colorName(design.nails.rightThumb.color) : '';
-
-    if (shape) out.push(pick(shape.name));
-    if (cName) out.push(cName);
-    out.push(t('quiz.chipAttention.' + rowOf(ATTENTION, a.attention).id));
-    if (a.metal !== 'none' && rowOf(ATTENTION, a.attention).charms > 0) {
-      out.push(t('quiz.chipMetal.' + rowOf(METALS, a.metal).id));
-    }
-    return out;
-  }
-
-  /* the set read out nail by nail, in the language she is reading */
-  function recipeOf(design) {
-    var fingers = (SN.Nail && SN.Nail.FINGERS) ? SN.Nail.FINGERS : [];
-    var out = [], i, f, key, n, bits, pn;
-
-    for (i = 0; i < fingers.length; i++) {
-      f = fingers[i];
-      key = 'right' + f.key.charAt(0).toUpperCase() + f.key.slice(1);
-      n = design && design.nails ? design.nails[key] : null;
-      if (!n) continue;
-      bits = [];
-      if (colorName(n.color)) bits.push(colorName(n.color));
-      if (finishName(n.finish)) bits.push(finishName(n.finish));
-      pn = (n.pattern && n.pattern.kind !== 'none') ? patternName(n.pattern.kind) : '';
-      if (pn) bits.push(pn);
-      else if (bits.length < 2) bits.push(t('quiz.plain'));
-      if (n.charms && n.charms.length) {
-        bits.push(t('quiz.charmsN', { n: num(n.charms.length) }));
-      }
-      out.push({ key: key, label: pick(f.name), text: bits.join(' · '), nail: n });
-    }
-    return out;
-  }
-
-  function priceOf(design) {
-    var p = null;
-    if (SN.Checkout && typeof SN.Checkout.priceCustom === 'function') {
-      try { p = SN.Checkout.priceCustom(design); }
-      catch (e) { p = null; }
-    }
-    return (p && isFinite(p.subtotal)) ? p.subtotal : null;
-  }
-
-  /* The budget answer is a ceiling, not a hint. A generated set that lands
-     over it is trimmed the way she would trim it herself — charms first,
-     then the small patterns, then the accent nail, then the finish — and
-     only what the owner's base price forces stays. Rejected: quietly
-     showing a set priced over the number she just tapped. */
-  function fitBudget(d, ans) {
-    var a = normAnswers(ans);
-    var cap, keys, i, key, p;
-    var over = function () { var x = priceOf(d); return x !== null && x > cap; };
-    var bare = function (k) {
-      p = d.nails[k].pattern || {};
-      d.nails[k].pattern = { kind: 'none', color: p.color, color2: p.color2, scale: 1 };
-    };
-
-    if (!d || !a.budget || a.budget === 'any') return d;
-    cap = budgetMax(a.budget);
-    if (!(cap > 0) || !over()) return d;
-    keys = (SN.Nail && SN.Nail.KEYS && SN.Nail.KEYS.length) ? SN.Nail.KEYS : [];
-
-    for (i = 0; i < keys.length; i++) { key = keys[i]; if (d.nails[key]) d.nails[key].charms = []; }
-    if (!over()) return d;
-    for (i = 0; i < keys.length; i++) {
-      key = keys[i];
-      if (d.nails[key] && fingerOf(key) !== 'Ring') bare(key);
-    }
-    if (!over()) return d;
-    for (i = 0; i < keys.length; i++) { key = keys[i]; if (d.nails[key]) bare(key); }
-    if (!over()) return d;
-    for (i = 0; i < keys.length; i++) { key = keys[i]; if (d.nails[key]) d.nails[key].finish = finishOk('gloss'); }
-    return d;
-  }
-
-  /* one complete answer to "what did the quiz make for me?" */
-  function makeVariant(id, ans) {
-    var design = fitBudget(build(ans), ans);
-    if (!design) return null;
-    return {
-      id: id,
-      ans: ans,
-      design: design,
-      name: nameFor(ans),
-      sub: subFor(ans, design),
-      why: whyFor(ans, design),
-      chips: chipsFor(ans, design),
-      note: t('quiz.chipAttention.' + rowOf(ATTENTION, normAnswers(ans).attention).id),
-      price: priceOf(design)
-    };
-  }
 
   function readyPrice(it) {
     var p = null;
@@ -1375,9 +878,23 @@
     return t('quiz.whyLead') + ' ' + parts.join('، ') + '.';
   }
 
-  function realVariant(hit, a) {
+  /* the set in its own words: the lists it is in, then the shape and length
+     the owner gave it — nothing that was not said about this set */
+  function realSub(it) {
+    var parts = [], ids = Array.isArray(it && it.groups) ? it.groups : [], i, g, r;
+    for (i = 0; i < ids.length && parts.length < 2; i++) {
+      g = groupRow(ids[i]);
+      if (g && g.active !== false && pick(g.name)) parts.push(pick(g.name));
+    }
+    r = findIn('shapes', shapeOf(it));
+    if (r && pick(r.name)) parts.push(pick(r.name));
+    r = findIn('lengths', lengthOf(it));
+    if (r && pick(r.name)) parts.push(pick(r.name));
+    return parts.join(' · ');
+  }
+
+  function realVariant(hit, a, tier) {
     var it = hit.it;
-    var cfg = (it.config && typeof it.config === 'object') ? it.config : null;
     var chips = [], i, m = it.match || {}, occs;
     var axis = function (key, id) {
       var arr = list('matchAxes.' + key), j;
@@ -1402,13 +919,15 @@
 
     return {
       id: 'real-' + String(it.id || ''),
+      tier: tier || 'match',
+      over: !!hit.over,
       ans: a,
+      raw: (a && a._raw) || {},
       real: it,
       image: String(it.image || ''),
-      design: cfg,
       label: t('quiz.vNear' + Math.min(3, (hit.rank || 0) + 1)),
       name: pick(it.name) || '',
-      sub: subFor(a, cfg || build(a)),
+      sub: realSub(it),
       why: whyReal(hit, it, a) || pick(it.desc) || '',
       chips: chips,
       note: '',
@@ -1416,38 +935,28 @@
     };
   }
 
-  /* Her results: the owner's own sets that answer her, best first, topped up
-     with sets the quiz builds so the row is never thin. When she has tagged
-     nothing yet — a brand new shop — this falls all the way back to the
-     invented trio, which is exactly what it used to be. */
+  /* Her results — only ever the owner's own sets. The ones that answer her,
+     best first; if none does, the closest of them, said plainly; if the shop
+     has no set at all yet, nothing, and the screen invites her to message the
+     shop instead. The site never makes a set up. */
   function variantsFor(ans) {
     var a = normAnswers(ans);
-    var main = makeVariant('match', a);
-    var hits = matchDesigns(a);
-    var out = [], calmer, bolder, seen, i;
+    var out = [], hits, i;
 
+    if (!activeSets().length) return out;
+
+    hits = matchDesigns(a);
     for (i = 0; i < hits.length && out.length < 3; i++) {
       hits[i].rank = i;
-      out.push(realVariant(hits[i], a));
+      out.push(realVariant(hits[i], a, 'match'));
     }
-    if (out.length >= 3) return out;
-
-    /* A set the quiz invents is drawn, and the owner's own sets are
-       photographed. Mixing the two in one row makes the drawing look like a
-       product she can order and the photographs look inconsistent beside it,
-       so once a real set has answered her we stop there. The invented sets
-       remain for the shop that has nothing to answer with yet — an empty
-       result is worse than a drawing. */
     if (out.length) return out;
 
-    if (!main) return out;
-    seen = JSON.stringify(main.design);
-    calmer = makeVariant('calmer', shiftAnswers(ans, -1));
-    bolder = makeVariant('bolder', shiftAnswers(ans, 1));
-
-    if (!out.length && calmer && JSON.stringify(calmer.design) !== seen) out.push(calmer);
-    out.push(main);
-    if (out.length < 3 && bolder && JSON.stringify(bolder.design) !== seen) out.push(bolder);
+    hits = closestDesigns(a);
+    for (i = 0; i < hits.length && out.length < 3; i++) {
+      hits[i].rank = i;
+      out.push(realVariant(hits[i], a, 'closest'));
+    }
     return out;
   }
 
@@ -1494,15 +1003,60 @@
     return out;
   }
 
+  /* Which answers to a question the owner's own sets can actually meet.
+     A question none of her sets can answer is only a longer wait for the
+     customer, so it is not asked; an answer none of them carries leads
+     nowhere, so it is not offered. `all` means every answer is meaningful
+     (colour family and season: any set with colours can be judged on them). */
+  function carried(key) {
+    var sets = activeSets(), ids = {}, any = false, i, j, it, m, v, arr, cheapest = Infinity, p;
+    for (i = 0; i < sets.length; i++) {
+      it = sets[i];
+      m = it.match || {};
+      if (key === 'group') {
+        arr = Array.isArray(it.groups) ? it.groups : [];
+        for (j = 0; j < arr.length; j++) ids[arr[j]] = true;
+      } else if (key === 'pattern') {
+        v = patternIdOf(it); if (v) ids[v] = true;
+      } else if (key === 'shape') {
+        v = shapeOf(it); if (v) ids[v] = true;
+      } else if (key === 'length') {
+        v = lengthOf(it); if (v) ids[v] = true;
+      } else if (key === 'occasion') {
+        arr = occasionsOf(it);
+        for (j = 0; j < arr.length; j++) ids[arr[j]] = true;
+      } else if (key === 'vibe') {
+        arr = Array.isArray(m.vibe) ? m.vibe : [];
+        for (j = 0; j < arr.length; j++) ids[arr[j]] = true;
+      } else if (key === 'attention') {
+        if (m.attention) ids[m.attention] = true;
+      } else if (key === 'metal') {
+        if (m.metal) ids[m.metal] = true;
+      } else if (key === 'palette') {
+        if (paletteOf(it)) any = true;
+      } else if (key === 'season') {
+        if (seasonOf(it)) any = true;
+      } else if (key === 'budget') {
+        p = Number(readyPrice(it));
+        if (isFinite(p) && p < cheapest) cheapest = p;
+      }
+    }
+    return { ids: ids, all: any, cheapest: cheapest };
+  }
+
+  /* skin is always asked: it opens the quiz on the home page, and a set's
+     colours are judged against it */
   function steps() {
-    var on = {
-      group: activeGroups().length > 0,
-      pattern: offered('patterns').length > 0,
-      shape: offered('shapes').length > 0
-    }, out = [], i, k;
+    var out = [], i, k, opts, j, real;
     for (i = 0; i < STEPS.length; i++) {
       k = STEPS[i].key;
-      if (Object.prototype.hasOwnProperty.call(on, k) && !on[k]) continue;
+      if (k !== 'skin') {
+        opts = optionsFor(k);
+        real = 0;
+        for (j = 0; j < opts.length; j++) if (opts[j].id !== 'any') real++;
+        /* a budget question with a single real tier cannot narrow anything */
+        if (!real || (k === 'budget' && real < 2)) continue;
+      }
       out.push(STEPS[i]);
     }
     return out;
@@ -1524,53 +1078,23 @@
      lists she filed it under already say: a set in «أعراس» is for a wedding,
      because that is the character she gave that list. So filing a set is
      enough to make the occasion question work on it too. */
-  /* How long this set is. She chooses it once, in the set's look, and the
-     quiz's length question reads it from there — a separate matching field
-     would mean typing the same answer twice and forgetting one of them. An
-     explicit match.length still wins, so an older set keeps its own answer. */
-  function patternKindOf(id) {
-    var arr = list('patterns'), i;
-    if (!id || id === 'any') return '';
-    for (i = 0; i < arr.length; i++) if (arr[i] && String(arr[i].id) === String(id)) return String(arr[i].kind || '');
-    return '';
-  }
-
-  /* Which of the owner's patterns this set is. She may have said so in the
-     set's look; otherwise the drawing says it — the kind most of its nails
-     wear, not the ring nail, which is often the odd one out. */
+  /* Which of the owner's patterns this set is — only what she said about
+     her own set. The panel used to give every
+     new set a placeholder drawing (almond, medium, plain), and reading that
+     here made a photographed set claim a shape and a length nobody chose. */
   function patternIdOf(it) {
-    var look = (it && it.look) || {}, cfg, tally = {}, best = '', bestN = 0, arr, i, k, n, kind;
-    if (look.pattern) return String(look.pattern);
-    cfg = it && it.config;
-    if (!cfg || !cfg.nails) return '';
-    for (k in cfg.nails) {
-      if (!Object.prototype.hasOwnProperty.call(cfg.nails, k)) continue;
-      n = cfg.nails[k];
-      kind = (n && n.pattern) ? String(n.pattern.kind || '') : '';
-      if (!kind) continue;
-      tally[kind] = (tally[kind] || 0) + 1;
-      if (tally[kind] > bestN) { bestN = tally[kind]; best = kind; }
-    }
-    if (!best) return '';
-    arr = list('patterns');
-    for (i = 0; i < arr.length; i++) if (arr[i] && String(arr[i].kind) === best) return String(arr[i].id);
-    return '';
+    var look = (it && it.look) || {}, m = (it && it.match) || {};
+    return String(look.pattern || m.pattern || '');
   }
 
   function shapeOf(it) {
-    var m = (it && it.match) || {};
-    if (m.shape) return String(m.shape);
-    if (it && it.look && it.look.shape) return String(it.look.shape);
-    if (it && it.config && it.config.shape) return String(it.config.shape);
-    return '';
+    var m = (it && it.match) || {}, look = (it && it.look) || {};
+    return String(m.shape || look.shape || '');
   }
 
   function lengthOf(it) {
-    var m = (it && it.match) || {};
-    if (m.length) return String(m.length);
-    if (it && it.look && it.look.length) return String(it.look.length);
-    if (it && it.config && it.config.length) return String(it.config.length);
-    return '';
+    var m = (it && it.match) || {}, look = (it && it.look) || {};
+    return String(m.length || look.length || '');
   }
 
   function occasionsOf(it) {
@@ -1589,11 +1113,6 @@
     return Array.isArray(it && it.groups) && it.groups.indexOf(a.group) !== -1;
   }
 
-  function groupSeed(a) {
-    var r = groupRow(a && a.group);
-    return (r && r.seed) ? String(r.seed) : '';
-  }
-
   function tableFor(key) {
     if (key === 'occasion') return OCCASIONS;
     if (key === 'vibe') return VIBES;
@@ -1607,15 +1126,8 @@
   /* the options for a step, as {id, label} — the length step reads straight
      from the store so an owner edit shows up in the quiz too */
   function optionsFor(key) {
-    var out = [], arr, i;
+    var out = [], arr, i, c;
 
-    if (key === 'budget') {
-      arr = list('matchAxes.budget');
-      for (i = 0; i < arr.length; i++) {
-        if (arr[i] && arr[i].id) out.push({ id: arr[i].id, label: pick(arr[i].name), row: arr[i] });
-      }
-      return out;
-    }
     if (key === 'skin') {
       arr = list('skinTones');
       for (i = 0; i < arr.length; i++) {
@@ -1623,48 +1135,91 @@
       }
       return out;
     }
+
+    c = carried(key);
+
+    /* only the ceilings at or above her cheapest set: a tier below every
+       price the shop has would lead her nowhere */
+    if (key === 'budget') {
+      arr = list('matchAxes.budget');
+      for (i = 0; i < arr.length; i++) {
+        if (!arr[i] || !arr[i].id) continue;
+        if (Number(arr[i].max) > 0 && Number(arr[i].max) < c.cheapest) continue;
+        out.push({ id: arr[i].id, label: pick(arr[i].name), row: arr[i] });
+      }
+      return out;
+    }
     /* her own lists, in her own order, labelled from the row itself — the
        dictionary fallback below would print the literal quiz.group.g-xxx */
     if (key === 'group') {
       arr = activeGroups();
-      for (i = 0; i < arr.length; i++) out.push({ id: arr[i].id, label: pick(arr[i].name) || arr[i].id, row: arr[i] });
-      out.push({ id: 'any', label: t('quiz.groupAny'), row: null });
+      for (i = 0; i < arr.length; i++) {
+        if (c.ids[arr[i].id]) out.push({ id: arr[i].id, label: pick(arr[i].name) || arr[i].id, row: arr[i] });
+      }
+      if (out.length) out.push({ id: 'any', label: t('quiz.groupAny'), row: null });
       return out;
     }
-    /* the kind of set, and the shape of the nail — both are hers to answer */
+    /* the kind of set and the shape of the nail: the ones the owner offers
+       in the quiz AND has at least one set of */
     if (key === 'pattern' || key === 'shape') {
       arr = offered(key === 'pattern' ? 'patterns' : 'shapes');
-      for (i = 0; i < arr.length; i++) out.push({ id: arr[i].id, label: pick(arr[i].name) || arr[i].id, row: arr[i] });
-      out.push({ id: 'any', label: t('quiz.anyOf'), row: null });
+      for (i = 0; i < arr.length; i++) {
+        if (c.ids[arr[i].id]) out.push({ id: arr[i].id, label: pick(arr[i].name) || arr[i].id, row: arr[i] });
+      }
+      if (out.length) out.push({ id: 'any', label: t('quiz.anyOf'), row: null });
       return out;
     }
     if (key === 'length') {
       arr = list('lengths');
-      for (i = 0; i < arr.length && i < 4; i++) {
-        if (arr[i] && arr[i].id) out.push({ id: arr[i].id, label: pick(arr[i].name) });
+      for (i = 0; i < arr.length; i++) {
+        if (arr[i] && arr[i].id && c.ids[arr[i].id]) out.push({ id: arr[i].id, label: pick(arr[i].name), row: arr[i] });
       }
       return out;
     }
     arr = tableFor(key) || [];
     for (i = 0; i < arr.length; i++) {
+      if (!c.all && !c.ids[arr[i].id]) continue;
       out.push({ id: arr[i].id, label: t('quiz.' + key + '.' + arr[i].id), row: arr[i] });
     }
     return out;
   }
 
-  /* the artwork inside one tile: the set she would actually get if she tapped
-     it, in the colours she has already chosen. Every branch falls back to a
-     plain colour block, so a half-loaded render engine still leaves her
-     something to tap that says what it means. */
+  /* The picture on one answer tile. The site draws no nail and invents no
+     set: a tile shows the owner's own photograph of a set that carries this
+     answer, or a plain swatch, icon or nothing at all. `null` means the tile
+     is words only. */
+  function icoSpan(name) {
+    return el('span', {
+      'class': 'quiz-ico',
+      html: (SN.UI && typeof SN.UI.icon === 'function') ? SN.UI.icon(String(name || 'sparkle'), 26) : ''
+    });
+  }
+
+  /* the owner's own photo for this answer: the answer row's own picture if
+     it has one, else the first of her sets that carries this answer */
+  function answerPhoto(key, opt) {
+    var sets, i, it;
+    if (!opt || opt.id === 'any') return '';
+    if (opt.row && opt.row.image) return String(opt.row.image);
+    sets = activeSets();
+    for (i = 0; i < sets.length; i++) {
+      it = sets[i];
+      if (!it.image) continue;
+      if (key === 'pattern' && patternIdOf(it) === opt.id) return String(it.image);
+      if (key === 'shape' && shapeOf(it) === opt.id) return String(it.image);
+      if (key === 'length' && lengthOf(it) === opt.id) return String(it.image);
+      if (key === 'group' && Array.isArray(it.groups) && it.groups.indexOf(opt.id) !== -1) return String(it.image);
+    }
+    return '';
+  }
+
   function tileArt(step, opt, answers) {
     var box = el('span', { 'class': 'quiz-art', 'aria-hidden': 'true' });
-    var probe = {}, k, d, node = null, sh, pal, i;
+    var sh, pal, hex, photo;
 
-    /* the budget tiles carry their amount in the label; drawing it again
-       above the label only says the same number twice */
-    if (step.art === 'budget') return null;
+    if (step.key === 'budget') return null;
 
-    if (step.art === 'skin') {
+    if (step.key === 'skin') {
       box.appendChild(el('span', {
         'class': 'quiz-skin',
         style: { backgroundColor: (opt.row && opt.row.hex) || '#EFCDB6' }
@@ -1672,74 +1227,66 @@
       return box;
     }
 
-    /* a list tile shows her own photo if she uploaded one, else its icon.
-       «any» has no row, so it falls through and draws the set she would get. */
-    if (step.art === 'group' && opt.row) {
-      if (opt.row.image) {
-        box.appendChild(el('img', { src: String(opt.row.image), alt: '', loading: 'lazy' }));
-        return box;
-      }
-      box.appendChild(el('span', {
-        'class': 'quiz-ico',
-        html: (SN.UI && typeof SN.UI.icon === 'function') ? SN.UI.icon(String(opt.row.ico || 'sparkle'), 26) : ''
-      }));
-      return box;
-    }
-
-    if (step.art === 'strip') {
-      pal = rowOf(PALETTES, opt.id);
-      sh = shades(pal, (answers && answers.season) || 'spring');
+    /* colour answers are shown as the colours themselves — swatches, not a set */
+    if (step.key === 'palette' || step.key === 'season') {
+      pal = step.key === 'palette'
+        ? rowOf(PALETTES, opt.id)
+        : rowOf(PALETTES, (answers && answers.palette) || 'nude');
+      sh = shades(pal, step.key === 'season' ? opt.id : ((answers && answers.season) || 'spring'));
       box.setAttribute('class', 'quiz-art quiz-art-strip');
-      [sh.base, sh.accent, sh.third].forEach(function (hex) {
-        box.appendChild(el('span', { 'class': 'quiz-sw', style: { backgroundColor: hex } }));
+      [sh.base, sh.accent, sh.third].forEach(function (h) {
+        box.appendChild(el('span', { 'class': 'quiz-sw', style: { backgroundColor: h } }));
       });
       return box;
     }
 
-    for (k in answers) {
-      if (Object.prototype.hasOwnProperty.call(answers, k)) probe[k] = answers[k];
-    }
-    probe[step.key] = opt.id;
-
-    /* a tile for "how much decoration" or "gold or silver" has to be showing
-       decoration at all, whatever she answered before it */
-    if (step.key === 'metal' && !probe.attention) probe.attention = 'clear';
-    if (step.key === 'attention' && !probe.occasion) probe.occasion = 'party';
-    /* the kind-of-set tiles are asked before she has said how much decoration
-       she wants, and a bare nail would show no pattern at all */
-    if (step.key === 'pattern') probe.attention = 'clear';
-
-    d = build(probe);
-
-    /* on the kind-of-set tiles the charms are noise: every tile would wear the
-       same gold dot and the same pearl, and the question is about the pattern
-       under them */
-    if (step.key === 'pattern' && d && d.nails) {
-      for (k in d.nails) if (Object.prototype.hasOwnProperty.call(d.nails, k)) d.nails[k].charms = [];
+    if (step.key === 'metal') {
+      hex = opt.row && opt.row.hex;
+      box.appendChild(el('span', {
+        'class': 'quiz-skin' + (hex ? '' : ' quiz-skin-none'),
+        style: hex ? { backgroundColor: hex } : {}
+      }));
+      return box;
     }
 
-    if (d && SN.Nail) {
-      try {
-        if (step.art === 'len' && typeof SN.Nail.single === 'function') {
-          node = SN.Nail.single(d.nails.rightRing, d, {
-            w: 96, natural: true, length: d.length, bg: false, key: 'ql-' + opt.id
-          });
-        } else if (step.art === 'nail' && typeof SN.Nail.single === 'function') {
-          node = SN.Nail.single(d.nails.rightRing, d, {
-            w: 92, natural: true, length: d.length, bg: false, key: 'qn-' + step.key + '-' + opt.id
-          });
-        } else if (typeof SN.Nail.thumb === 'function') {
-          node = SN.Nail.thumb(d, 128);
-        }
-      } catch (e) { node = null; }
+    if (step.key === 'occasion') {
+      box.appendChild(icoSpan((opt.row && opt.row.ico) || 'sparkle'));
+      return box;
     }
 
-    if (node) box.appendChild(node);
-    else {
-      i = d ? d.nails.rightRing.color : '#E9C2C0';
-      box.appendChild(el('span', { 'class': 'quiz-skin', style: { backgroundColor: i } }));
+    photo = answerPhoto(step.key, opt);
+    if (photo) {
+      box.appendChild(el('img', { src: photo, alt: '', loading: 'lazy' }));
+      return box;
     }
-    return box;
+    if (step.key === 'group') {
+      box.appendChild(icoSpan(opt.row ? (opt.row.ico || 'sparkle') : 'grid'));
+      return box;
+    }
+    return null;
+  }
+
+  /* One question's tiles. Pictures only when every real answer has one, so a
+     grid never mixes photographs with empty boxes; «any» then gets an icon. */
+  function stepArts(step, opts, answers) {
+    var arts = [], i, all = true, real = 0;
+    for (i = 0; i < opts.length; i++) {
+      arts.push(tileArt(step, opts[i], answers));
+      if (opts[i].id !== 'any') {
+        real++;
+        if (!arts[i]) all = false;
+      }
+    }
+    if (!real || !all) {
+      for (i = 0; i < arts.length; i++) arts[i] = null;
+      return arts;
+    }
+    for (i = 0; i < opts.length; i++) {
+      if (opts[i].id === 'any' && !arts[i]) {
+        arts[i] = el('span', { 'class': 'quiz-art', 'aria-hidden': 'true' }, [icoSpan('grid')]);
+      }
+    }
+    return arts;
   }
 
   /* ==================================================================== */
@@ -1776,25 +1323,15 @@
      a gold dot on one nail must not weigh the same as the base on eight */
   var C_WEIGHT = [3, 2, 1, 1];
 
+  /* The set's colours, from the four swatches on its row. The owner's photo
+     upload fills them in; a set drawn by the site used to answer from its
+     drawing instead, and the site no longer draws sets. */
   function designColors(it) {
-    var out = [], i, c, k, cols;
+    var out = [], i, c, k;
     for (i = 0; i < 4; i++) {
       k = 'c' + (i + 1);
       c = hsl(it && it[k]);
       if (c) out.push({ c: c, hex: it[k], w: C_WEIGHT[i] });
-    }
-    if (out.length) return out;
-
-    /* Nothing typed in the four swatches — but a set drawn in the studio
-       already says what colour it is, nail by nail. Reading it here is what
-       lets the palette, season and skin questions do any work at all on the
-       owner's own sets; without it only her lists and the skin tone could
-       ever score, and seven of the ten questions were decided nothing. */
-    cols = (SN.Nail && typeof SN.Nail.configColours === 'function')
-      ? SN.Nail.configColours(it && it.config) : [];
-    for (i = 0; i < cols.length && i < 4; i++) {
-      c = hsl(cols[i].hex);
-      if (c) out.push({ c: c, hex: cols[i].hex, w: C_WEIGHT[i] });
     }
     return out;
   }
@@ -1922,102 +1459,152 @@
     return 0;
   }
 
-  function scoreDesign(it, a) {
+  function activeSets() {
+    var arr = list('designs'), out = [], i;
+    for (i = 0; i < arr.length; i++) if (arr[i] && arr[i].id && arr[i].active !== false) out.push(arr[i]);
+    return out;
+  }
+
+  /* Does this set say anything about her skin? Either the owner ticked the
+     skin tones it suits, or it has colours to compare with hers. */
+  function skinDeclared(it) {
     var m = (it && it.match) || {};
-    var score = 0, max = 0, hit, cap, why = [];
+    return (Array.isArray(m.skin) && m.skin.length > 0) || designColors(it).length > 0;
+  }
 
-    if (it && it.active === false) return null;
+  /* How well one of the owner's sets answers her.
 
-    /* She asked for a list by name. A set that belongs to lists and not to
-       hers is the wrong shelf; a set she never filed anywhere is still fair
-       game, exactly like every other axis the owner left blank.
+     Only questions she actually answered count, and only on the axes the set
+     actually declares — what the owner never said about a set neither helps
+     nor hurts it. `relaxed` turns the gates (her list, her skin, her colour
+     family, the kind of set) from rejections into misses; it is used only to
+     find the closest sets when nothing passes them. */
+  function scoreDesign(it, a, opts) {
+    var o = opts || {};
+    var m = (it && it.match) || {};
+    var score = 0, max = 0, told = 0, hit, cap, why = [], w;
 
-       Being IN her list also scores, and scores heavily: she named it
-       herself, which is a stronger signal than anything we infer. It is also
-       what lets the shortest possible set — a name, a price, a photo and one
-       list — be recommended at all, instead of being held back for want of a
-       colour swatch the owner never filled in. */
-    if (a.group && a.group !== 'any') {
-      hit = Array.isArray(it.groups) ? it.groups : [];
-      if (hit.length) {
-        if (hit.indexOf(a.group) === -1) return null;
-        max += W_GROUP;
-        score += W_GROUP;
-        why.push('group');
-      }
+    if (!it || it.active === false) return null;
+
+    function axis(weight, got, tag) {
+      max += weight;
+      if (tag !== 'skin') told += weight;
+      score += got;
+      if (got >= weight && tag) why.push(tag);
     }
 
-    /* Over her ceiling is not a near miss, it is the wrong shelf. */
-    if (a.budget && a.budget !== 'any') {
+    /* Over her ceiling is the wrong shelf. The closest-sets pass filters the
+       budget itself, so it can say so plainly instead of silently. */
+    if (!o.ignoreBudget && asked(a, 'budget')) {
       cap = budgetMax(a.budget);
       if (cap > 0 && (Number(readyPrice(it)) || 0) > cap) return null;
     }
 
+    /* She named a list herself — the strongest signal there is. A set filed
+       only under other lists is the wrong shelf. */
+    if (asked(a, 'group')) {
+      hit = Array.isArray(it.groups) ? it.groups : [];
+      if (hit.length) {
+        if (hit.indexOf(a.group) === -1) { if (!o.relaxed) return null; axis(W_GROUP, 0, ''); }
+        else axis(W_GROUP, W_GROUP, 'group');
+      }
+    }
+
     /* Wrong for her skin is a rejection too: a nude mixed for another depth
        does not become right because the occasion matches. */
-    hit = skinFit(it, a);
-    if (hit === null) return null;
-    max += W_SKIN;
-    score += W_SKIN * hit;
-    if (hit === 1) why.push('skin');
-
-    /* The colour family is a gate. Tested: without it a red set scored 0.50
-       against a "nude" answer on occasion and season alone and was
-       recommended — the one mistake that would cost a sale outright. */
-    hit = paletteOf(it);
-    if (hit) {
-      max += W_PALETTE;
-      if (hit === a.palette) { score += W_PALETTE; why.push('palette'); }
-      else if ((PAL_NEAR[a.palette] || []).indexOf(hit) !== -1) score += W_PALETTE * 0.45;
-      else return null;
+    if (asked(a, 'skin') && skinDeclared(it)) {
+      hit = skinFit(it, a);
+      if (hit === null) { if (!o.relaxed) return null; axis(W_SKIN, 0, ''); }
+      else axis(W_SKIN, W_SKIN * hit, hit === 1 ? 'skin' : '');
     }
 
-    hit = hasIn(occasionsOf(it), a.occasion);
-    if (hit !== null) { max += W_OCCASION; if (hit) { score += W_OCCASION; why.push('occasion'); } }
-
-    hit = hasIn(m.vibe, a.vibe);
-    if (hit !== null) { max += W_VIBE; if (hit) { score += W_VIBE; why.push('vibe'); } }
-
-    hit = seasonOf(it);
-    if (hit) { max += W_SEASON; if (hit === a.season) { score += W_SEASON; why.push('season'); } }
-
-    if (m.attention) { max += W_ATTENTION; if (m.attention === a.attention) { score += W_ATTENTION; why.push('attention'); } }
-    if (m.metal) { max += W_METAL; if (m.metal === a.metal) { score += W_METAL; why.push('metal'); } }
-    hit = lengthOf(it);
-    if (hit) { max += W_LENGTH; if (hit === a.length) { score += W_LENGTH; why.push('length'); } }
-
-    /* She named the kind of set, or the shape, herself. These only weigh when
-       she answered them — the questions are the owner's to switch off. */
-    if (a.pattern && a.pattern !== 'any') {
-      hit = patternIdOf(it);
-      if (hit) { max += W_PATTERN; if (hit === a.pattern) { score += W_PATTERN; why.push('pattern'); } }
-    }
-    if (a.shape && a.shape !== 'any') {
-      hit = shapeOf(it);
-      if (hit) { max += W_SHAPE; if (hit === a.shape) { score += W_SHAPE; why.push('shape'); } }
+    /* The colour family is a gate: a red set is not an answer for someone who
+       asked for nude, however well the rest matches. */
+    if (asked(a, 'palette')) {
+      hit = paletteOf(it);
+      if (hit) {
+        if (hit === a.palette) axis(W_PALETTE, W_PALETTE, 'palette');
+        else if ((PAL_NEAR[a.palette] || []).indexOf(hit) !== -1) axis(W_PALETTE, W_PALETTE * 0.45, '');
+        else { if (!o.relaxed) return null; axis(W_PALETTE, 0, ''); }
+      }
     }
 
-    /* only the skin axis scored — the owner has told us nothing else about
-       this design, so it cannot be recommended on merit. Her own list counts
-       as telling us something, so a set filed under it clears this bar. */
-    if (max <= W_SKIN) return null;
-    return { fit: score / max, max: max, score: score, why: why };
+    if (asked(a, 'occasion')) {
+      hit = hasIn(occasionsOf(it), a.occasion);
+      if (hit !== null) axis(W_OCCASION, hit ? W_OCCASION : 0, 'occasion');
+    }
+    if (asked(a, 'vibe')) {
+      hit = hasIn(m.vibe, a.vibe);
+      if (hit !== null) axis(W_VIBE, hit ? W_VIBE : 0, 'vibe');
+    }
+    if (asked(a, 'season')) {
+      hit = seasonOf(it);
+      if (hit) axis(W_SEASON, hit === a.season ? W_SEASON : 0, 'season');
+    }
+    if (asked(a, 'attention') && m.attention) axis(W_ATTENTION, m.attention === a.attention ? W_ATTENTION : 0, 'attention');
+    if (asked(a, 'metal') && m.metal) axis(W_METAL, m.metal === a.metal ? W_METAL : 0, 'metal');
+    if (asked(a, 'length')) {
+      w = lengthOf(it);
+      if (w) axis(W_LENGTH, w === a.length ? W_LENGTH : 0, 'length');
+    }
+    /* The kind she named is a gate too: a cat eye is not an answer for
+       someone who asked for French. The question only offers kinds her
+       shop actually carries, so there is always a set of that kind. */
+    if (asked(a, 'pattern')) {
+      w = patternIdOf(it);
+      if (w) {
+        if (w === a.pattern) axis(W_PATTERN, W_PATTERN, 'pattern');
+        else { if (!o.relaxed) return null; axis(W_PATTERN, 0, ''); }
+      }
+    }
+    if (asked(a, 'shape')) {
+      w = shapeOf(it);
+      if (w) axis(W_SHAPE, w === a.shape ? W_SHAPE : 0, 'shape');
+    }
+
+    return { fit: max ? score / max : 0, max: max, score: score, told: told, why: why };
   }
 
-  /* the designs worth showing her, best first. `floor` keeps a set that
-     matches almost nothing out of her results — a bad recommendation costs
-     more than one fewer option. */
+  /* the sets worth showing her, best first. A set must answer at least one
+     thing she asked besides her skin, and clear the floor — a bad
+     recommendation costs more than one fewer option. */
   var FIT_FLOOR = 0.45;
 
   function matchDesigns(a) {
-    var arr = list('designs'), out = [], i, r;
+    var arr = activeSets(), out = [], i, r;
     for (i = 0; i < arr.length; i++) {
       r = scoreDesign(arr[i], a);
-      if (!r || r.fit < FIT_FLOOR) continue;
-      out.push({ it: arr[i], fit: r.fit, max: r.max, why: r.why });
+      if (!r || r.told <= 0 || r.fit < FIT_FLOOR) continue;
+      out.push({ it: arr[i], fit: r.fit, max: r.max, score: r.score, why: r.why });
     }
-    /* better fit first; on a tie the design the owner described more fully */
+    /* better fit first; on a tie the set the owner described more fully */
     out.sort(function (x, y) { return (y.fit - x.fit) || (y.max - x.max); });
+    return out;
+  }
+
+  /* When none of her sets passes, the closest ones — still only hers, never a
+     set the site makes up. Gates become misses, ranking is by how much of
+     what she asked each set answers, and her budget still decides the pool
+     unless nothing fits it at all, which the result then says out loud. */
+  function closestDesigns(a) {
+    var arr = activeSets(), within = [], pool, out = [], i, r, cap = 0, over;
+    if (asked(a, 'budget')) cap = budgetMax(a.budget);
+    for (i = 0; i < arr.length; i++) {
+      if (cap > 0 && (Number(readyPrice(arr[i])) || 0) > cap) continue;
+      within.push(arr[i]);
+    }
+    over = !within.length;
+    pool = over ? arr : within;
+    for (i = 0; i < pool.length; i++) {
+      r = scoreDesign(pool[i], a, { relaxed: true, ignoreBudget: true }) || { fit: 0, max: 0, score: 0, why: [] };
+      out.push({ it: pool[i], fit: r.fit, max: r.max, score: r.score, why: r.why, over: over });
+    }
+    out.sort(function (x, y) {
+      return (y.score - x.score) ||
+        ((y.it.featured ? 1 : 0) - (x.it.featured ? 1 : 0)) ||
+        ((Number(y.it.orders) || 0) - (Number(x.it.orders) || 0)) ||
+        ((Number(readyPrice(x.it)) || 0) - (Number(readyPrice(y.it)) || 0));
+    });
     return out;
   }
 
@@ -2038,7 +1625,10 @@
     lit: false,          /* the sparkle burst is a first-reveal thing only */
     timer: 0,
     busy: false,
-    hashLock: false
+    hashLock: false,
+    empty: false,        /* the shop has no set to recommend yet */
+    pin: '',             /* a set a shared link asked to show first */
+    notice: ''
   };
 
   function clearTimer() {
@@ -2105,14 +1695,14 @@
 
   /* ---- a question screen --------------------------------------------- */
 
-  function optionTile(step, opt, grid) {
+  function optionTile(step, opt, grid, art) {
     var on = st.ans[step.key] === opt.id;
     var btn = el('button', {
       type: 'button',
       'class': 'quiz-opt sn-pickable',
       'aria-pressed': on ? 'true' : 'false'
     }, [
-      tileArt(step, opt, st.ans),
+      art || null,
       el('span', { 'class': 'quiz-opt-t', text: opt.label })
     ]);
     btn.addEventListener('click', function () {
@@ -2132,20 +1722,22 @@
   function questionScreen() {
     var step = steps()[st.step];
     var opts = optionsFor(step.key);
-    var grid = el('div', {
-      'class': 'quiz-opts quiz-cols-' + step.cols +
-        (step.art === 'budget' ? ' quiz-opts-txt' : '') +
+    var arts = stepArts(step, opts, st.ans);
+    var words = true, i, grid;
+    for (i = 0; i < arts.length; i++) if (arts[i]) words = false;
+    grid = el('div', {
+      'class': 'quiz-opts quiz-cols-' + (words ? 2 : step.cols) +
+        (words ? ' quiz-opts-txt' : '') +
         (reducedMotion() ? '' : ' sn-stagger sn-stagger-sm'),
       role: 'group',
       'aria-label': t(step.q)
     });
-    var i;
 
     if (!opts.length) {
       /* the owner emptied this collection — skip rather than show a dead end */
       window.setTimeout(function () { answer(step.key, null); }, 0);
     }
-    for (i = 0; i < opts.length; i++) grid.appendChild(optionTile(step, opts[i], grid));
+    for (i = 0; i < opts.length; i++) grid.appendChild(optionTile(step, opts[i], grid, arts[i]));
 
     return el('div', { 'class': 'quiz-screen' + (reducedMotion() ? '' : ' sn-in') }, [
       el('p', {
@@ -2182,16 +1774,41 @@
     return b;
   }
 
-  function failScreen() {
+  /* the shop's own WhatsApp, with a message already written */
+  function waLink(msg) {
+    var d = String(cfg('settings.whatsapp', '') || '').replace(/[^0-9]/g, '');
+    return d ? 'https://wa.me/' + d + '?text=' + encodeURIComponent(String(msg || '')) : '';
+  }
+
+  function igLink() {
+    var h = String(cfg('settings.instagram', '') || '').replace(/^@/, '').trim();
+    return h ? 'https://instagram.com/' + encodeURIComponent(h) : '';
+  }
+
+  /* No set in the shop yet (or none left): nothing is invented to fill the
+     gap. She is invited to message the shop instead. */
+  function emptyScreen() {
+    var wa = waLink(t('quiz.emptyMsg'));
+    var ig = igLink();
     return el('div', { 'class': 'quiz-screen quiz-done' }, [
-      el('p', { 'class': 'empty-t', text: t('quiz.failTitle') }),
-      el('p', { 'class': 'quiz-hint', text: t('quiz.failText') }),
+      el('p', { 'class': 'empty-t', text: t('quiz.emptyTitle') }),
+      el('p', { 'class': 'quiz-hint', text: t('quiz.emptyText') }),
       el('div', { 'class': 'btns quiz-actions' }, [
-        el('button', {
-          type: 'button', 'class': 'btn btn-pri btn-lg', text: t('quiz.failCta'),
-          on: { click: restart }
-        })
+        wa ? el('a', { 'class': 'btn btn-pri btn-lg', href: wa, target: '_blank', rel: 'noopener', text: t('quiz.emptyWa') }) : null,
+        ig ? el('a', { 'class': 'btn btn-line', href: ig, target: '_blank', rel: 'noopener', text: t('quiz.emptyIg') }) : null
       ])
+    ]);
+  }
+
+  /* shown under the result when none of her sets answered everything she
+     asked — kept outside the card so the shared picture never says it */
+  function closestNote(v) {
+    var wa;
+    if (!v || v.tier !== 'closest') return null;
+    wa = waLink(t('quiz.closestMsg'));
+    return el('div', { 'class': 'quiz-closest' }, [
+      el('p', { 'class': 'quiz-hint', text: t(v.over ? 'quiz.closestOver' : 'quiz.closestLead') }),
+      wa ? el('a', { 'class': 'btn btn-line btn-sm', href: wa, target: '_blank', rel: 'noopener', text: t('quiz.closestWa') }) : null
     ]);
   }
 
@@ -2199,58 +1816,55 @@
     return st.vars.length ? st.vars[Math.min(st.vi, st.vars.length - 1)] : null;
   }
 
-  /* the design as it will be ordered. The skin tone is her first answer now,
-     so build() has already put it on the design and there is nothing to lay
-     on top; this stays as the one accessor every caller already goes through. */
-  function shown(v) {
-    return v ? v.design : null;
-  }
-
-  /* The set itself, the way press-ons actually arrive: the five plates laid
-     out on their card, shortest to longest. `natural: true` gives each finger
-     its true shape and length, so a thumb reads as a thumb — the variety the
-     hand used to carry is all still here. A placeholder until the owner has
-     photographs of the real sets to put in its place. */
-  /* Her result. A real set shows the owner's photograph; anything else shows
-     the five plates on a backdrop of HER OWN skin tone, so she sees the set
-     on her colour instead of on nothing. Either way it must be ONE <svg>
-     with a viewBox, because the share card nests this and scales it by that
-     box — an <img> or a <div> here silently breaks "save the picture". */
+  /* Her result is the owner's own photograph, shown whole — a portrait phone
+     photo is not cropped to fit — on a quiet backdrop. A set without a photo
+     yet gets a plain placeholder, never a drawing. It must stay ONE <svg>
+     with a viewBox: the share card nests it and scales it by that box. */
   function previewNode(v) {
     var NS = 'http://www.w3.org/2000/svg';
-    var img, strip;
+    var svg = document.createElementNS(NS, 'svg');
+    var n, brand;
+
+    svg.setAttribute('xmlns', NS);
+    svg.setAttribute('class', 'quiz-set quiz-photo');
+    svg.setAttribute('viewBox', '0 0 100 75');
+    svg.setAttribute('role', 'img');
+    svg.setAttribute('aria-label', t('quiz.previewAlt', { name: (v && v.name) || '' }));
+
+    n = document.createElementNS(NS, 'rect');
+    n.setAttribute('x', '0'); n.setAttribute('y', '0');
+    n.setAttribute('width', '100'); n.setAttribute('height', '75');
+    n.setAttribute('fill', '#F6EEEA');
+    svg.appendChild(n);
 
     if (v && v.image) {
-      img = document.createElementNS(NS, 'svg');
-      img.setAttribute('xmlns', NS);
-      img.setAttribute('class', 'quiz-set quiz-photo');
-      img.setAttribute('viewBox', '0 0 100 75');
-      img.setAttribute('role', 'img');
-      img.setAttribute('aria-label', t('quiz.previewAlt', { name: v.name }));
-      img.appendChild((function () {
-        var n = document.createElementNS(NS, 'image');
-        n.setAttribute('x', '0'); n.setAttribute('y', '0');
-        n.setAttribute('width', '100'); n.setAttribute('height', '75');
-        n.setAttribute('preserveAspectRatio', 'xMidYMid slice');
-        n.setAttributeNS('http://www.w3.org/1999/xlink', 'href', v.image);
-        n.setAttribute('href', v.image);
-        return n;
-      })());
-      return img;
+      n = document.createElementNS(NS, 'image');
+      n.setAttribute('x', '0'); n.setAttribute('y', '0');
+      n.setAttribute('width', '100'); n.setAttribute('height', '75');
+      n.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+      n.setAttributeNS('http://www.w3.org/1999/xlink', 'href', v.image);
+      n.setAttribute('href', v.image);
+      svg.appendChild(n);
+      return svg;
     }
 
-    if (!SN.Nail || typeof SN.Nail.setStrip !== 'function') return null;
-    try {
-      strip = SN.Nail.setStrip(shown(v), {
-        key: v.id,
-        bg: skinHex((v.ans && v.ans.skin) || ''),
-        ariaLabel: t('quiz.previewAlt', { name: v.name })
-      });
-      /* the page styles it by this class — setStrip ships its own, and
-         without ours the strip renders at its intrinsic width, not the box's */
-      if (strip) strip.setAttribute('class', 'sn-svg sn-setstrip quiz-set');
-      return strip;
-    } catch (e) { return null; }
+    brand = pick(cfg('settings.brand', null)) || '';
+    n = document.createElementNS(NS, 'text');
+    n.setAttribute('x', '50'); n.setAttribute('y', '36');
+    n.setAttribute('text-anchor', 'middle');
+    n.setAttribute('font-size', '7');
+    n.setAttribute('font-weight', '700');
+    n.setAttribute('fill', '#A0798A');
+    n.textContent = brand;
+    svg.appendChild(n);
+    n = document.createElementNS(NS, 'text');
+    n.setAttribute('x', '50'); n.setAttribute('y', '46');
+    n.setAttribute('text-anchor', 'middle');
+    n.setAttribute('font-size', '4.4');
+    n.setAttribute('fill', '#A0798A');
+    n.textContent = t('quiz.noPhoto');
+    svg.appendChild(n);
+    return svg;
   }
 
   /* the three versions, as one row of taps */
@@ -2297,41 +1911,6 @@
     return el('p', { 'class': 'quiz-brand' }, kids);
   }
 
-  /* the set read out nail by nail, each row carrying the real nail */
-  function recipeBlock(v) {
-    var rows;
-    if (v && v.real) return null;
-    rows = recipeOf(shown(v));
-    var host = el('ul', { 'class': 'quiz-recipe-list' });
-    var i, r, art;
-
-    if (!rows.length) return null;
-    for (i = 0; i < rows.length; i++) {
-      r = rows[i];
-      art = null;
-      if (SN.Nail && typeof SN.Nail.single === 'function') {
-        try {
-          art = SN.Nail.single(r.nail, shown(v), {
-            w: 40, natural: true, bg: false, key: 'qr-' + v.id + '-' + r.key
-          });
-        } catch (e) { art = null; }
-      }
-      host.appendChild(el('li', { 'class': 'quiz-recipe-row' }, [
-        el('span', { 'class': 'quiz-recipe-art', 'aria-hidden': 'true' }, art ? [art] : []),
-        el('span', { 'class': 'quiz-recipe-txt' }, [
-          el('span', { 'class': 'quiz-recipe-n', text: r.label }),
-          el('span', { 'class': 'quiz-recipe-x', text: r.text })
-        ])
-      ]));
-    }
-
-    return el('section', { 'class': 'quiz-recipe' }, [
-      el('h4', { 'class': 'quiz-recipe-t', text: t('quiz.recipeTitle') }),
-      host,
-      el('p', { 'class': 'tiny muted', text: t('quiz.recipeNote') })
-    ]);
-  }
-
   /* ---- sharing --------------------------------------------------------- */
 
   function quizURL(hash) {
@@ -2343,16 +1922,19 @@
     } catch (e) { return 'index.html' + (hash || '#quiz'); }
   }
 
-  /* The answers, in the order the questions are asked, joined by dots — short
-     enough to survive a WhatsApp message intact. The set is rebuilt from them
-     rather than carried in the link: the build is a pure function of the
-     answers, so the same nine ids give the same set every time. */
-  function answersCode(ans) {
-    var a = normAnswers(ans), out = [], i, k;
+  /* Her answers — only the ones she really gave — in the order the questions
+     are asked, joined by dots and short enough to survive a WhatsApp message,
+     followed by the set she was shown. A friend who opens the link sees that
+     same set first; if the owner has since taken it down, she is told so and
+     shown the closest ones instead. */
+  function answersCode(ans, setId) {
+    var out = [], i, k, v;
     for (i = 0; i < STEPS.length; i++) {
       k = STEPS[i].key;
-      out.push(encodeURIComponent(String(a[k] || '')));
+      v = ans && ans[k] && ans[k] !== 'any' ? ans[k] : '';
+      out.push(encodeURIComponent(String(v)));
     }
+    out.push(encodeURIComponent(String(setId || '')));
     return out.join('.');
   }
 
@@ -2362,12 +1944,12 @@
     for (i = 0; i < STEPS.length && i < parts.length; i++) {
       if (parts[i]) out[STEPS[i].key] = decodeURIComponent(parts[i]);
     }
-    return out;
+    return { ans: out, setId: parts.length > STEPS.length ? decodeURIComponent(parts[STEPS.length] || '') : '' };
   }
 
   /* the link to HER result */
   function resultURL(v) {
-    var code = answersCode((v && v.ans) || st.ans);
+    var code = answersCode((v && v.raw) || st.ans, v && v.real ? v.real.id : '');
     return code ? quizURL('#r=' + code) : quizURL();
   }
 
@@ -2506,6 +2088,12 @@
     return svg;
   }
 
+  /* the picture export can only carry a photo stored in the site itself —
+     a typed web address would come out as an empty frame */
+  function canSave(v) {
+    return !!(v && /^data:image\//.test(String(v.image || '')));
+  }
+
   function saveImage(v) {
     var card = shareCard(v);
     var u = ui();
@@ -2531,9 +2119,7 @@
     if (!v) return;
     if (SN.Checkout && typeof SN.Checkout.open === 'function') {
       try {
-        if (v.real) SN.Checkout.open({ kind: 'ready', item: v.real, qty: 1, link: resultURL(v) });
-        else SN.Checkout.open({ kind: 'custom', design: shown(v), link: resultURL(v) });
-        return;
+        if (v.real) { SN.Checkout.open({ kind: 'ready', item: v.real, qty: 1, link: resultURL(v) }); return; }
       } catch (e) { console.warn('[SN.Quiz] checkout failed to open', e); }
     }
     toast(t('common.error'), 'err');
@@ -2564,7 +2150,7 @@
     var svg = v ? previewNode(v) : null;
     var chips = [], i;
 
-    if (!v) return failScreen();
+    if (!v) return emptyScreen();
     if (svg) art.appendChild(svg);
 
     for (i = 0; i < v.chips.length; i++) {
@@ -2574,6 +2160,7 @@
     return el('div', { 'class': 'quiz-screen quiz-done' }, [
       (first && !reducedMotion()) ? burst() : null,
 
+      st.notice ? el('p', { 'class': 'quiz-hint quiz-notice', role: 'status', text: st.notice }) : null,
       variantRow(),
       st.vars.length > 1
         ? el('p', { 'class': 'tiny muted center', text: t('quiz.variantsHint') })
@@ -2581,9 +2168,9 @@
 
       /* everything inside .quiz-card is what a screenshot carries */
       el('div', { 'class': 'quiz-card' + (reducedMotion() ? '' : ' sn-in') }, [
-        el('p', { 'class': 'eyebrow quiz-eyebrow', text: t('quiz.doneTitle') }),
+        el('p', { 'class': 'eyebrow quiz-eyebrow', text: t(v.tier === 'closest' ? 'quiz.closestTitle' : 'quiz.doneTitle') }),
         el('h3', { 'class': 'quiz-name display', text: v.name }),
-        el('p', { 'class': 'quiz-sub', text: v.sub }),
+        v.sub ? el('p', { 'class': 'quiz-sub', text: v.sub }) : null,
         art,
         el('p', { 'class': 'quiz-hint quiz-blurb', text: v.why }),
         chips.length
@@ -2591,6 +2178,8 @@
           : null,
         brandStrip()
       ]),
+
+      closestNote(v),
 
       v.price === null ? null : el('p', {
         'class': 'quiz-price price', text: t('quiz.priceFrom', { p: money(v.price) })
@@ -2613,7 +2202,6 @@
       el('p', { 'class': 'hint quiz-note center', text: t('quiz.editHint') }),
       el('p', { 'class': 'hint quiz-note center', text: t('quiz.sizeHint') }),
 
-      recipeBlock(v),
 
       el('div', { 'class': 'btns quiz-more' }, [
         el('button', {
@@ -2622,12 +2210,12 @@
           el('span', { html: icon('share', 15), 'aria-hidden': 'true' }),
           el('span', { text: t('quiz.share') })
         ]),
-        el('button', {
+        canSave(v) ? el('button', {
           type: 'button', 'class': 'btn btn-ghost btn-sm', on: { click: function () { saveImage(current()); } }
         }, [
           el('span', { html: icon('download', 15), 'aria-hidden': 'true' }),
           el('span', { text: t('quiz.saveImg') })
-        ]),
+        ]) : null,
         el('button', {
           type: 'button', 'class': 'btn btn-ghost btn-sm', text: t('quiz.again'),
           on: { click: restart }
@@ -2654,7 +2242,8 @@
 
   function paint() {
     if (!st.stage) return;
-    if (st.step < total()) fill(st.stage, [topBar(), questionScreen()]);
+    if (st.empty) fill(st.stage, [emptyScreen()]);
+    else if (st.step < total()) fill(st.stage, [topBar(), questionScreen()]);
     else if (st.step === total()) fill(st.stage, [topBar(), waitScreen()]);
     else {
       fill(st.stage, [doneScreen(!st.lit)]);
@@ -2683,20 +2272,29 @@
     return total();
   }
 
+  /* Her results, with a shared set pinned first when she opened a friend's
+     link — or a plain note when that set is no longer in the shop. */
+  function resultsFor(ans) {
+    var vars = variantsFor(ans), it = null, sets, i, pinned;
+    st.notice = '';
+    if (!st.pin) return vars;
+    sets = activeSets();
+    for (i = 0; i < sets.length; i++) if (String(sets[i].id) === String(st.pin)) it = sets[i];
+    if (!it) { st.notice = t('quiz.sharedGone'); return vars; }
+    pinned = realVariant({ it: it, why: [], rank: 0 }, normAnswers(ans), 'match');
+    for (i = vars.length - 1; i >= 0; i--) if (vars[i].real && String(vars[i].real.id) === String(it.id)) vars.splice(i, 1);
+    vars.unshift(pinned);
+    for (i = 0; i < vars.length; i++) vars[i].label = t('quiz.vNear' + Math.min(3, i + 1));
+    return vars.slice(0, 3);
+  }
+
   function reveal() {
-    var i;
     st.lit = false;
-    st.vars = variantsFor(st.ans);
-    /* Show her the best answer first. variantsFor() puts the owner's own
-       best-matching set at the front, so that is what opens; only when there
-       is no real match does the invented middle option ('match') lead. */
+    st.vars = resultsFor(st.ans);
     st.vi = 0;
-    if (!st.vars.length || !st.vars[0].real) {
-      for (i = 0; i < st.vars.length; i++) if (st.vars[i].id === 'match') st.vi = i;
-    }
     st.step = total() + 1;
     paint();
-    say(t('quiz.doneTitle'));
+    say(t(st.vars.length && st.vars[0].tier === 'closest' ? 'quiz.closestTitle' : 'quiz.doneTitle'));
   }
 
   function answer(key, id) {
@@ -2728,6 +2326,8 @@
     clearTimer();
     st.ans = {};
     st.vars = [];
+    st.pin = '';
+    st.notice = '';
     st.vi = 0;
     st.lit = false;
     st.step = 0;
@@ -2764,6 +2364,11 @@
     st.vars = [];
     st.vi = 0;
     st.busy = false;
+    st.pin = '';
+    st.notice = '';
+    /* nothing to recommend yet: say so at once instead of asking questions
+       that can only end in an empty result */
+    st.empty = !activeSets().length;
     if (o.seed) {
       for (k in o.seed) {
         if (Object.prototype.hasOwnProperty.call(o.seed, k)) st.ans[k] = o.seed[k];
@@ -2791,7 +2396,8 @@
       }
     });
 
-    if (st.step >= total()) reveal();
+    if (st.empty) paint();
+    else if (st.step >= total()) reveal();
     else paint();
     if (o.hash !== false) setHash(true);
   }
@@ -2811,13 +2417,14 @@
   }
 
   /* someone opened a friend's set: show that set, not question one */
-  function openResult(ans) {
-    var k;
+  function openResult(shared) {
+    var k, ans = (shared && shared.ans) || {};
     if (st.open) return;
     open();
-    if (!st.open) return;
+    if (!st.open || st.empty) return;
     st.ans = {};
     for (k in ans) if (Object.prototype.hasOwnProperty.call(ans, k)) st.ans[k] = ans[k];
+    st.pin = (shared && shared.setId) || '';
     reveal();
   }
 
@@ -2827,7 +2434,7 @@
     if (SN.I18n && typeof SN.I18n.onChange === 'function') {
       SN.I18n.onChange(function () {
         if (!st.open) return;
-        if (st.step > total()) { st.vars = variantsFor(st.ans); }
+        if (!st.empty && st.step > total()) { st.vars = resultsFor(st.ans); }
         paint();
       });
     }
@@ -2864,9 +2471,9 @@
     open: open,
     close: close,
     isOpen: function () { return st.open; },
-    build: build,
     variants: variantsFor,
-    name: nameFor,
+    /* the questions the owner's current sets let the quiz ask */
+    steps: function () { return steps().map(function (x) { return x.key; }); },
     total: STEPS.length,   /* every question the quiz can ask */
 
     /* the first question, rendered on the home page so the quiz starts

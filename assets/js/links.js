@@ -11,7 +11,7 @@
     iq: {
       links: {
         lead: 'أظافر مركّبة نسوّيها بالطلب على مقاسك. اختاري من وين تبدين:',
-        quizS: 'أسئلة سريعة بالصور، وبعدها يطلع لك طقمك',
+        quizS: 'أسئلة سريعة، وبعدها تطلع لك الأطقم اللي تناسبك',
         shopS: 'كل طقم بسعره المكتوب — ماكو سعر بالخاص',
         sizeS: 'صورة إيدك ويّا مسطرة تكفي',
         waS: 'نرد عليك بأقل من ساعة',
@@ -25,7 +25,7 @@
         loading: 'لحظة…',
         lead: 'أظافر مركّبة تُصنع بالطلب على مقاسك. اختاري من أين تبدئين:',
         quiz: 'اختبار الستايل',
-        quizS: 'أسئلة سريعة بالصور، ويظهر لك طقمك',
+        quizS: 'أسئلة سريعة، وتظهر لك الأطقم التي تناسبك',
         shop: 'الأطقم والأسعار',
         shopS: 'كل طقم بسعره المكتوب — لا سعر بالخاص',
         size: 'كيف أعرف مقاسي؟',
@@ -44,7 +44,7 @@
         loading: 'One moment…',
         lead: 'Press-on nails made to order, to your size. Pick where to start:',
         quiz: 'Style quiz',
-        quizS: 'A few picture questions, and your set appears',
+        quizS: 'A few quick questions, and the sets that suit you appear',
         shop: 'Sets and prices',
         shopS: 'Every set with its price — no “price in DM”',
         size: 'How do I find my size?',

@@ -29,7 +29,7 @@
        falls through iq -> ar -> en. Single-noun labels and tags stay in `ar`. */
     iq: {
       shop: {
-        lead: 'مجموعة مختارة من أطقم شوش نيل، كل طقم مرسوم ظفر بظفر. اطلبيه مثل ما هو بمقاسك، أو سوّي اختبار الستايل إذا تريدين طقم مبني على ذوقك.',
+        lead: 'مجموعة مختارة من أطقم شوش نيل، كل طقم مسوّي باليد. اطلبيه مثل ما هو بمقاسك، أو سوّي اختبار الستايل وإحنا نرشّح لك الأطقم اللي تناسب ذوقك.',
 
         /* hero pills */
         quizCta: 'ما تعرفين شنو يناسبك؟ سوّي اختبار الستايل',
@@ -52,7 +52,7 @@
         /* empty states */
         emptyTitle: 'ماكو تصميم بهالمواصفات',
         emptyText: 'جرّبي كلمة بحث ثانية، أو وسّعي نطاق السعر، أو امسحي الفلاتر وابدي من جديد.',
-        emptyAll: 'ماكو تصاميم جاهزة معروضة هسة — بس تقدرين تسوّين اختبار الستايل ونختار لك طقمك.',
+        emptyAll: 'ماكو تصاميم جاهزة معروضة هسة — بس خبّرينا شنو يعجبك ونسوّي لك طقمك.',
         emptyAllCta: 'ابدي اختبار الستايل',
         notFound: 'التصميم اللي تدوّرين عليه ما بقى متوفر.',
 
@@ -68,7 +68,7 @@
       shop: {
         eyebrow: 'جاهزة للطلب',
         title: 'التصاميم الجاهزة',
-        lead: 'مجموعة مختارة من أطقم شوش نيل، كل طقم مرسوم ظفر بظفر. اطلبيه كما هو بمقاسك، أو أجري اختبار الستايل إن أردتِ طقمًا مبنيًا على ذوقك.',
+        lead: 'مجموعة مختارة من أطقم شوش نيل، كل طقم مصنوع يدويًا. اطلبيه كما هو بمقاسك، أو أجري اختبار الستايل لنرشّح لك الأطقم التي تناسب ذوقك.',
 
         /* hero pills */
         countN: '{n} تصميم معروض',
@@ -121,7 +121,7 @@
         /* empty states */
         emptyTitle: 'لم نجد تصميماً بهذه المواصفات',
         emptyText: 'جرّبي كلمة بحث ثانية، أو وسّعي نطاق السعر، أو امسحي الفلاتر وابدئي من جديد.',
-        emptyAll: 'لا توجد تصاميم جاهزة معروضة حالياً — لكن يمكنك إجراء اختبار الستايل ونختار لك طقمك.',
+        emptyAll: 'لا توجد تصاميم جاهزة معروضة حالياً — لكن أخبرينا بما يعجبك ونصنع لك طقمك.',
         emptyAllCta: 'ابدئي اختبار الستايل',
         notFound: 'التصميم الذي تبحثين عنه لم يعد متوفراً.',
 
@@ -148,6 +148,8 @@
         incCharms2: 'زخرفتين مركّبتين باليد',
         incCharms: '{n} زخرفة مركّبة واحدة واحدة',
         incPlain: 'لون سادة على كل الأظافر',
+        incKind: 'النوع: {name}',
+        photoSoon: 'الصورة قريبًا',
 
         /* tags */
         tag: {
@@ -179,7 +181,7 @@
       shop: {
         eyebrow: 'Ready to order',
         title: 'Ready-Made Designs',
-        lead: 'A hand-picked shelf of Shosh Nail sets, every one painted nail by nail. Order it exactly as it is in your own size, or take the style quiz for a set built around your taste.',
+        lead: 'A hand-picked shelf of Shosh Nail sets, every one handmade. Order it exactly as it is in your own size, or take the style quiz and we will point you to the sets that suit your taste.',
 
         countN: '{n} designs on show',
         fromPrice: 'Prices from {p}',
@@ -227,7 +229,7 @@
 
         emptyTitle: 'Nothing matches that yet',
         emptyText: 'Try another word, widen the price range, or clear the filters and start again.',
-        emptyAll: 'No ready-made sets are on show right now — but you can always take the style quiz and we will pick your set.',
+        emptyAll: 'No ready-made sets are on show right now — but tell us what you like and we will make your set.',
         emptyAllCta: 'Take the style quiz',
         notFound: 'That design is no longer available.',
 
@@ -252,6 +254,8 @@
         incCharms2: 'Two charms placed by hand',
         incCharms: '{n} charms placed one by one',
         incPlain: 'One solid colour across every nail',
+        incKind: 'Kind: {name}',
+        photoSoon: 'Photo coming soon',
 
         tag: {
           bridal: 'Bridal',
@@ -505,21 +509,13 @@
   }
 
   function familyOf(it) {
-    var m = (it && it.match) || {}, best = '', bestW = 0, tally = {}, W = [3, 2, 1, 1], i, k, fam, cols;
+    var m = (it && it.match) || {}, best = '', bestW = 0, tally = {}, W = [3, 2, 1, 1], i, k, fam;
     if (m.palette) return m.palette;
     if (!SN.Nail || typeof SN.Nail.colourFamily !== 'function') return '';
     for (i = 0; i < 4; i++) {
       k = 'c' + (i + 1);
       fam = it && it[k] ? SN.Nail.colourFamily(it[k]) : '';
       if (fam) tally[fam] = (tally[fam] || 0) + W[i];
-    }
-    /* same fallback as the quiz: a drawn set states its own colours */
-    if (!Object.keys(tally).length && typeof SN.Nail.configColours === 'function') {
-      cols = SN.Nail.configColours(it && it.config);
-      for (i = 0; i < cols.length && i < 4; i++) {
-        fam = SN.Nail.colourFamily(cols[i].hex);
-        if (fam) tally[fam] = (tally[fam] || 0) + W[i];
-      }
     }
     for (fam in tally) {
       if (Object.prototype.hasOwnProperty.call(tally, fam) && tally[fam] > bestW) { bestW = tally[fam]; best = fam; }
@@ -837,10 +833,10 @@
     } catch (e2) { return null; }
   }
 
-  /* A design thumb is a full SVG nail render; building 40 of them up front
-     would stutter on a phone, so each one waits until it is nearly on screen. */
+  /* A design thumb is her photograph; decoding 40 of them up front would
+     stutter on a phone, so each one waits until it is nearly on screen. */
   function fillMedia(node) {
-    var id, item, px, kid = null, img;
+    var id, item, kid = null, img;
     if (!node || node.getAttribute('data-done') === '1') return;
     node.setAttribute('data-done', '1');
 
@@ -848,21 +844,21 @@
     item = findDesign(id);
     if (!item) return;
 
-    px = numOf(node.getAttribute('data-px'), 0);
     img = String(item.image || '');
 
-    if (img) {
-      kid = el('img', {
-        src: img,
-        alt: pick(item.name),
-        loading: 'lazy',
-        decoding: 'async'
-      });
-    } else if (SN.Nail && typeof SN.Nail.thumb === 'function') {
-      try { kid = SN.Nail.thumb(item.config, px); }
-      catch (e) { kid = null; }
-    }
-    if (kid) fill(node, kid);
+    /* the owner's photograph, or a plain «photo soon» — the site never draws
+       a set in its place */
+    kid = img
+      ? el('img', { src: img, alt: pick(item.name), loading: 'lazy', decoding: 'async' })
+      : photoSoon();
+    fill(node, kid);
+  }
+
+  function photoSoon() {
+    return el('span', { 'class': 'photo-soon' }, [
+      el('span', { html: icon('image', 26), 'aria-hidden': 'true' }),
+      el('span', { text: t('shop.photoSoon') })
+    ]);
   }
 
   function wireMedia(root) {
@@ -1059,23 +1055,12 @@
   function previewArt(item) {
     var box = el('div', { 'class': 'shop-qv-art' });
     var img = String(item.image || '');
-    var svg = null;
 
     if (img) {
       box.appendChild(el('img', { src: img, alt: pick(item.name), decoding: 'async' }));
       return box;
     }
-    /* the set itself, not a hand — the same strip the quiz result shows */
-    if (SN.Nail && typeof SN.Nail.setStrip === 'function') {
-      try {
-        svg = SN.Nail.setStrip(item.config, {
-          key: 'qv-' + String(item.id || ''),
-          ariaLabel: t('shop.qvPreviewAlt', { name: pick(item.name) })
-        });
-      } catch (e) { svg = null; }
-    }
-    if (svg) box.appendChild(svg);
-    else box.appendChild(el('span', { 'class': 'muted small', text: t('common.empty') }));
+    box.appendChild(photoSoon());
     return box;
   }
 
@@ -1095,42 +1080,20 @@
     return it ? pick(it.name) : (fb || '');
   }
 
+  /* Only what the owner said about this set. It used to read the set's
+     drawing, and every set she added from the panel carried a placeholder
+     drawing — so a photographed set claimed a shape, a length and a finish
+     nobody had chosen. */
   function includesOf(item) {
-    var cfg = (item && typeof item.config === 'object' && item.config) ? item.config : null;
-    var keys = (SN.Nail && SN.Nail.KEYS) ? SN.Nail.KEYS : [];
-    var nails = cfg && cfg.nails ? cfg.nails : null;
-    var out = [], i, key, n, patterned = 0, charms = 0, seenFinish = [], side;
-    var hand = cfg && (cfg.hand === 'right' || cfg.hand === 'left') ? cfg.hand : 'both';
-    var count = 0;
+    var look = (item && item.look) || {}, m = (item && item.match) || {};
+    var keys = (SN.Nail && SN.Nail.KEYS && SN.Nail.KEYS.length) ? SN.Nail.KEYS.length : 10;
+    var out = [], shape = m.shape || look.shape, len = m.length || look.length;
 
-    if (!cfg) return out;
-
-    for (i = 0; i < keys.length; i++) {
-      key = keys[i];
-      side = key.indexOf('left') === 0 ? 'left' : 'right';
-      if (hand !== 'both' && side !== hand) continue;
-      count++;
-      n = nails ? nails[key] : null;
-      if (!n) continue;
-      if (n.pattern && n.pattern.kind && n.pattern.kind !== 'none') patterned++;
-      if (Array.isArray(n.charms)) charms += n.charms.length;
-      if (n.finish && seenFinish.indexOf(n.finish) === -1) seenFinish.push(n.finish);
-    }
-
-    if (count > 0) out.push({ ico: 'hand', text: countedText('shop.incNails', count) });
-    if (cfg.shape) {
-      out.push({ ico: 'gem', text: t('shop.incShape', { name: nameOfItem('shapes', cfg.shape, cfg.shape) }) });
-    }
-    if (cfg.length) {
-      out.push({ ico: 'ruler', text: t('shop.incLength', { name: nameOfItem('lengths', cfg.length, cfg.length) }) });
-    }
-    if (seenFinish.length === 1) {
-      out.push({ ico: 'sparkle', text: t('shop.incFinish', { name: nameOfItem('finishes', seenFinish[0], seenFinish[0]) }) });
-    }
-    if (patterned > 0) out.push({ ico: 'brush', text: countedText('shop.incPattern', patterned) });
-    else out.push({ ico: 'brush', text: t('shop.incPlain') });
-    if (charms > 0) out.push({ ico: 'gem', text: countedText('shop.incCharms', charms) });
-
+    out.push({ ico: 'hand', text: countedText('shop.incNails', keys) });
+    if (shape) out.push({ ico: 'gem', text: t('shop.incShape', { name: nameOfItem('shapes', shape, shape) }) });
+    if (len) out.push({ ico: 'ruler', text: t('shop.incLength', { name: nameOfItem('lengths', len, len) }) });
+    if (look.finish) out.push({ ico: 'sparkle', text: t('shop.incFinish', { name: nameOfItem('finishes', look.finish, look.finish) }) });
+    if (look.pattern) out.push({ ico: 'brush', text: t('shop.incKind', { name: nameOfItem('patterns', look.pattern, look.pattern) }) });
     return out;
   }
 

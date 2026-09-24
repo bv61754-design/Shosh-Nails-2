@@ -279,7 +279,7 @@
           heroSub: 'النص التعريفي',
           heroCta: 'نص زر البداية',
           heroImage: 'صورة الواجهة',
-          heroImageX: 'اختياري. إذا تركتيها فاضية نعرض رسمة اليد المتحركة بدلها.',
+          heroImageX: 'اختياري. تُحفظ هنا، لكنها لا تظهر في الصفحة الرئيسية حاليًا.',
           features: 'المميزات',
           featuresX: 'ثلاث إلى أربع بطاقات تشرح لماذا شوش نيل.',
           steps: 'خطوات الطلب',
@@ -360,9 +360,9 @@
           mPalX: 'اتركيه «احسبه من الألوان» والموقع يحدده من الألوان التي في الأعلى. غيّريه فقط إذا ظهر خطأ.',
           ref: 'رابط مرجع (لك أنت فقط)',
           refX: 'الصقي هنا رابط الصورة التي استوحيتِ منها — بينترست أو غيره. يبقى محفوظاً معك للرجوع، ولا يظهر للعميلة أبداً ولا يُرسل مع الطلب. الصورة نفسها لا تُرفع: نفّذي الطقم بيدك وصوّريه واستعملي صورتك.',
-          qHidden: '⚠ ما يظهر في الاختبار',
+          qHidden: '⚠ يظهر في الاختبار كبديل فقط',
           qThin: 'ناقص تفاصيل',
-          qHiddenN: '{n} تصميم لن يظهر في اختبار الستايل — ليس عليه أي وسم.',
+          qHiddenN: '{n} تصميم لا يظهر في اختبار الستايل إلا كأقرب بديل — ليس عليه لون ولا قائمة ولا أي وصف.',
           qThinN: '{n} تصميم ناقص لونه أو مناسبته، فحظه بالترشيح ضعيف.',
           qAllIn: 'كل التصاميم موسومة وتدخل اختبار الستايل.',
           mSkin: 'يليق على أي درجات بشرة؟',
@@ -375,10 +375,10 @@
           groups: 'ضمن أي قوائم؟',
           lkNone: '— بدون تحديد —',
           qAsk: 'اعرضيه كخيار في الاختبار',
-          qAskShapeX: 'الأشكال المفعّلة هنا تظهر كسؤال في اختبار الستايل تختار منه الزبونة شكل ظفرها. لو أطفأتِها كلها اختفى السؤال ورجع الاختبار يختار الشكل بنفسه.',
+          qAskShapeX: 'الأشكال المفعّلة هنا تظهر كسؤال في اختبار الستايل تختار منه الزبونة شكل ظفرها. لو أطفأتِها كلها اختفى السؤال ورشّح الاختبار أطقمك بأي شكل كانت.',
           qAskPatternX: 'النقشات المفعّلة هنا تظهر كسؤال في اختبار الستايل تختار منه الزبونة نوع طقمها (كات آي، فرنش، كروم…). اختاري القليل والمشهور — كثرتها تتعب الزبونة. ولو أطفأتِها كلها اختفى السؤال.',
           lkPattern: 'نوع النقشة',
-          lkPatternX: 'اختاري نوع الطقم — فرنش، كات آي، كروم، نمر، أومبريه… وما تختارينه هنا يُرسم فعلاً في بطاقة الطقم بألوانه. اتركيه بدون تحديد إذا الطقم لون واحد بلا نقشة.',
+          lkPatternX: 'اختاري نوع الطقم — فرنش، كات آي، كروم، نمر، أومبريه… هذا وصف للطقم يطابقه اختبار الستايل مع إجابات الزبونة، ولا يغيّر صورته. اتركيه بدون تحديد إذا الطقم لون واحد بلا نقشة.',
           lkFinish: 'اللمسة النهائية',
           lkShape: 'شكل الظفر',
           lkLength: 'الطول',
@@ -395,7 +395,7 @@
           intro: 'قوائمك أنتِ: «أعراس»، «صيف»، أي تقسيم يناسب شغلك. الطقم الواحد يجوز أن يكون في أكثر من قائمة. كل قائمة تظهر كفلتر في صفحة الأطقم، وإذا فعّلتِ «تظهر في اختبار الستايل» يُضاف سؤال جديد إلى الاختبار تختار فيه الزبونة قائمتها.',
           seed: 'الطابع المرجعي',
           seedNone: '— بدون طابع —',
-          seedX: 'أي المناسبات الأربع يشبه طابع هذه القائمة؟ يستعمله اختبار الستايل لتوجيه الطقم الذي يبنيه لمن تختار هذه القائمة. اتركيه بدون طابع إذا لم تكن القائمة مرتبطة بمناسبة.',
+          seedX: 'أي المناسبات الأربع يشبه طابع هذه القائمة؟ يستعمله اختبار الستايل كمناسبة لأطقم هذه القائمة التي لم تحدّدي لها مناسبة. اتركيه بدون طابع إذا لم تكن القائمة مرتبطة بمناسبة.',
           inQuiz: 'تظهر في اختبار الستايل',
           inQuizX: 'عند تفعيلها في قائمة واحدة على الأقل، يُضاف سؤال جديد إلى الاختبار تختار فيه الزبونة القائمة الأقرب لها، فنعرض لها أطقم تلك القائمة.',
           inShop: 'تظهر في فلاتر المتجر',
@@ -410,8 +410,8 @@
           tookColours: 'أخذنا ألوان الطقم من الصورة — عدّليها من خانات الألوان تحت إذا لم تكن دقيقة.',
           upload: 'رفع صورة من الهاتف',
           replace: 'تغيير الصورة',
-          clear: 'حذف الصورة والرجوع للرسمة',
-          none: 'ما فيه صورة — نعرض الرسمة المرسومة',
+          clear: 'حذف الصورة',
+          none: 'ما فيه صورة بعد',
           meta: '{n} كيلوبايت · {w}×{h}',
           ok: 'تم رفع الصورة ({n} كيلوبايت)',
           err: 'ما قدرنا نقرأ الصورة، جرّبي صورة ثانية.',
@@ -427,13 +427,13 @@
           finishX: 'صورة تبيّن لمعة أو مطفأة اللمسة على ظفر حقيقي.',
           patternX: 'صورة لظفر منفّذ بهذه النقشة فعلياً.',
           charmX: 'صورة للزخرفة الحقيقية على خلفية فاتحة. الصورة تغلب على الرسمة والإيموجي.',
-          designX: 'صورة الطقم كامل. إذا ما فيه صورة نرسم التصميم من إعداداته.'
+          designX: 'صورة الطقم كامل. إذا ما فيه صورة يظهر مكانها «الصورة قريبًا».'
         },
 
         /* ---- مكتبة الرسومات (SN.Art) ---- */
         art: {
           lbl: 'رسمة من المكتبة',
-          x: 'رسومات متجهية مرسومة داخل الموقع — تظهر على الظفر مباشرة بدون صورة.',
+          x: 'رسومات متجهية مرسومة داخل الموقع — تمثّل الزخرفة مباشرة بدون صورة.',
           pick: 'اختاري رسمة',
           change: 'تغيير الرسمة',
           none: 'بدون رسمة',
@@ -469,7 +469,7 @@
           needName: 'اكتبي اسم الزخرفة بالعربي على الأقل.',
           create: 'إضافة الزخرفة',
           created: 'تمت إضافة الزخرفة',
-          intro: 'كل زخرفة يستطيع اختبار الستايل أن يضعها في الطقم. تستطيعين اختيار رسمة لها من المكتبة، أو رفع صورة الزخرفة الحقيقية حتى ترى العميلة ما سيصلها بالضبط.'
+          intro: 'الزخارف التي تستعملينها في أطقمك. تستطيعين اختيار رسمة لها من المكتبة، أو رفع صورة الزخرفة الحقيقية حتى ترى العميلة ما سيصلها بالضبط.'
         },
 
         /* ---- orders tab ---- */
@@ -618,7 +618,7 @@
           storeOk: 'المساحة مريحة.',
           storeCap: 'الحد الآمن في هذا المتصفح: {n} كيلوبايت تقريباً.',
           storeImgs: 'الصور المرفوعة: {c} صورة تشغل {n} كيلوبايت.',
-          storeImgsNone: 'ما فيه صور مرفوعة — كل شيء مرسوم داخل الموقع.',
+          storeImgsNone: 'ما فيه صور مرفوعة بعد — الصور لا تشغل أي مساحة.',
           storeBar: 'مؤشر امتلاء المساحة',
           storeFullWarn: 'المساحة ممتلئة تقريباً. احذفي صوراً أو نزّلي نسخة احتياطية وأعيدي الضبط.',
           notifyHead: 'إشعار الطلبات على الإيميل',
@@ -884,7 +884,7 @@
           heroSub: 'Intro paragraph',
           heroCta: 'Button label',
           heroImage: 'Hero image',
-          heroImageX: 'Optional. Leave it empty and we draw the animated hand illustration instead.',
+          heroImageX: 'Optional. It is saved here, but the home page does not show it at the moment.',
           features: 'Features',
           featuresX: 'Three or four cards explaining why Shosh Nail.',
           steps: 'How to order',
@@ -962,9 +962,9 @@
           mPalX: 'Leave it on “work it out from the colours” and the site decides from the colours above. Change it only if it comes out wrong.',
           ref: 'Reference link (yours only)',
           refX: 'Paste the link you took the idea from — Pinterest or anywhere else. It stays here for you, is never shown to a customer and never goes out with an order. The image itself is not uploaded: make the set yourself, photograph it, and use your own photo.',
-          qHidden: '⚠ not in the quiz',
+          qHidden: '⚠ quiz alternative only',
           qThin: 'missing details',
-          qHiddenN: '{n} design(s) will never appear in the style quiz — nothing is tagged.',
+          qHiddenN: '{n} design(s) appear in the style quiz only as a closest alternative — no colour, no list, nothing described.',
           qThinN: '{n} design(s) have no colour or no occasion, so they rarely win a match.',
           qAllIn: 'Every design is tagged and reaches the style quiz.',
           mSkin: 'Which skin tones does it suit?',
@@ -977,10 +977,10 @@
           groups: 'Which lists is it in?',
           lkNone: '— not set —',
           qAsk: 'Offer it as a quiz answer',
-          qAskShapeX: 'Shapes turned on here become a question in the style quiz where she picks her nail shape. Turn them all off and the question disappears and the quiz picks a shape itself.',
+          qAskShapeX: 'Shapes turned on here become a question in the style quiz where she picks her nail shape. Turn them all off and the question disappears and the quiz recommends your sets whatever their shape.',
           qAskPatternX: 'Patterns turned on here become a question where she picks the kind of set she wants (cat eye, french, chrome…). Offer a few popular ones — a long list tires her out. Turn them all off and the question disappears.',
           lkPattern: 'Pattern',
-          lkPatternX: 'Pick the kind of set — french, cat eye, chrome, leopard, ombre… and what you pick here is actually drawn on the set\u2019s card in its own colours. Leave it unset for a plain one-colour set.',
+          lkPatternX: 'Pick the kind of set — french, cat eye, chrome, leopard, ombre… It describes the set so the style quiz can match it to her answers; it does not change its photo. Leave it unset for a plain one-colour set.',
           lkFinish: 'Finish',
           lkShape: 'Nail shape',
           lkLength: 'Length',
@@ -997,7 +997,7 @@
           intro: 'Your own groupings: Weddings, Summer, whatever suits your work. A set can sit in several at once. Every list becomes a filter in the shop, and if you turn on “Show in the style quiz” the quiz gains a question where the customer picks her list.',
           seed: 'Borrowed character',
           seedNone: '— no character —',
-          seedX: 'Which of the four occasions does this list feel like? The style quiz uses it to steer the set it builds for someone who picks this list. Leave it empty if the list is not about an occasion.',
+          seedX: 'Which of the four occasions does this list feel like? The style quiz treats it as the occasion of any set in this list that has no occasion of its own. Leave it empty if the list is not about an occasion.',
           inQuiz: 'Show in the style quiz',
           inQuizX: 'With at least one list turned on, the quiz gains a question where she picks the list closest to her, and we show her sets from it.',
           inShop: 'Show in the shop filters',
@@ -1011,8 +1011,8 @@
           tookColours: 'We read the set\u2019s colours from the photo — change them in the colour boxes below if they are off.',
           upload: 'Upload a photo',
           replace: 'Replace photo',
-          clear: 'Remove photo, use the drawing',
-          none: 'No photo — the drawn version is used',
+          clear: 'Remove photo',
+          none: 'No photo yet',
           meta: '{n} KB · {w}×{h}',
           ok: 'Photo uploaded ({n} KB)',
           err: 'We could not read that image — please try another one.',
@@ -1028,12 +1028,12 @@
           finishX: 'A photo showing how glossy or matte this finish looks on a real nail.',
           patternX: 'A photo of a nail actually painted with this pattern.',
           charmX: 'A photo of the real charm on a light background. The photo wins over the drawing and the emoji.',
-          designX: 'A photo of the finished set. With no photo we render the design from its configuration.'
+          designX: 'A photo of the finished set. With no photo a neutral “Photo coming soon” placeholder shows instead.'
         },
 
         art: {
           lbl: 'Drawing from the library',
-          x: 'Vector artwork drawn by the site itself — it appears on the nail with no photo at all.',
+          x: 'Vector artwork drawn by the site itself — it stands for the charm with no photo at all.',
           pick: 'Pick a drawing',
           change: 'Change the drawing',
           none: 'No drawing',
@@ -1068,7 +1068,7 @@
           needName: 'Give the decoration an Arabic name at least.',
           create: 'Add the decoration',
           created: 'Decoration added',
-          intro: 'Every decoration can be placed on a set by the style quiz. Give it a drawing from the library, or upload a photo of the real charm so she sees exactly what will arrive.'
+          intro: 'The decorations you use on your sets. Give each one a drawing from the library, or upload a photo of the real charm so she sees exactly what will arrive.'
         },
 
         o: {
@@ -1214,7 +1214,7 @@
           storeOk: 'Plenty of room left.',
           storeCap: 'Safe limit in this browser: about {n} KB.',
           storeImgs: 'Uploaded photos: {c} photo(s) taking {n} KB.',
-          storeImgsNone: 'No photos uploaded — everything is drawn by the site.',
+          storeImgsNone: 'No photos uploaded yet — photos take up no space.',
           storeBar: 'Storage usage',
           storeFullWarn: 'Storage is almost full. Remove photos, or download a backup and reset.',
           notifyHead: 'Order notifications by email',
@@ -1327,48 +1327,6 @@
       }
       return out;
     };
-  }
-
-  function rowById(key, id) {
-    var arr = sList(key), i;
-    if (!id) return null;
-    for (i = 0; i < arr.length; i++) if (arr[i] && String(arr[i].id) === String(id)) return arr[i];
-    return null;
-  }
-
-  /* Draw the set she described.
-
-     A set she adds has no drawing of its own, only a photograph — and a
-     photograph is not always ready on the day. Choosing the pattern, the
-     finish, the shape and the length is enough for the site to draw it for
-     real: the colours come from her swatches (which the photo filled in), and
-     every nail carries the same recipe, which is what a press-on set is. */
-  function applyLook(it) {
-    var look = (it && it.look) || {}, cfg, k, n, pat, fin, c1, c2, c3;
-    if (!look.pattern && !look.finish && !look.shape && !look.length) return false;
-    if (!SN.Nail || typeof SN.Nail.blank !== 'function') return false;
-    try { cfg = SN.Nail.blank(); } catch (e) { return false; }
-    if (!cfg || !cfg.nails) return false;
-
-    pat = rowById('patterns', look.pattern);
-    fin = rowById('finishes', look.finish);
-    c1 = trim(str(it.c1));
-    c2 = trim(str(it.c2)) || '#FFFFFF';
-    c3 = trim(str(it.c3)) || c1 || '#FFFFFF';
-
-    if (look.shape) cfg.shape = look.shape;
-    if (look.length) cfg.length = look.length;
-
-    for (k in cfg.nails) {
-      if (!Object.prototype.hasOwnProperty.call(cfg.nails, k)) continue;
-      n = cfg.nails[k];
-      if (c1) n.color = c1;
-      if (fin && fin.kind) n.finish = fin.kind;
-      n.pattern = { kind: (pat && pat.kind) || 'none', color: c2, color2: c3, scale: 1 };
-    }
-    delete cfg.auto;                 /* this is a real description now */
-    SN.Store.update('designs', it.id, { config: cfg });
-    return true;
   }
 
   function listOpts(key, bare) {
@@ -3686,17 +3644,12 @@
 
   function designThumb(it) {
     var box = el('span', { 'class': 'adm-dthumb' });
-    var svg;
     if (str(it.image)) {
       box.appendChild(el('img', { src: str(it.image), alt: '', loading: 'lazy' }));
       return box;
     }
-    if (SN.Nail && typeof SN.Nail.thumb === 'function') {
-      try {
-        svg = SN.Nail.thumb(it.config, 72);
-        if (svg) box.appendChild(svg);
-      } catch (e) { /* ignore */ }
-    }
+    /* no photo yet: a plain image icon, never a drawing of the set */
+    box.appendChild(el('span', { 'class': 'adm-dthumb-none', html: icon('image', 22), 'aria-hidden': 'true' }));
     return box;
   }
 
@@ -3710,10 +3663,11 @@
      itself and is dropped; and colour is the axis it weighs heaviest, so a
      set with no colour competes with one hand tied.
 
-       hidden — nothing tagged at all: it can never be recommended
+       hidden — nothing tagged at all: only ever the closest alternative
        thin   — it can be, but without a colour or without an occasion   */
   function quizGap(it) {
     var m = (it && it.match) || {};
+    var lk = (it && it.look) || {};
     var hasCol = !!(it.c1 || it.c2 || it.c3 || it.c4) || !!m.palette;
     /* a list with a character stands in for an occasion, exactly as the quiz
        reads it, so a set filed under «أعراس» is not missing its occasion */
@@ -3728,7 +3682,8 @@
     var hasGrp = gids.length > 0;
     var hasAny = hasCol || hasOcc || hasGrp ||
       (Array.isArray(m.vibe) && m.vibe.length > 0) ||
-      !!m.attention || !!m.metal || !!m.length || !!m.season;
+      !!m.attention || !!m.metal || !!m.length || !!m.season ||
+      !!m.shape || !!m.pattern || !!lk.pattern || !!lk.shape || !!lk.length;
     if (!hasAny) return 'hidden';
     if (!hasCol || !hasOcc) return 'thin';
     return '';
@@ -3794,12 +3749,9 @@
         F('match.season', 'select', 'admin.d.mSeason', { hint: 'admin.d.mSeasonX', opts: axisOpts('season', 'auto') })
       ],
       blank: function () {
+        /* no placeholder drawing: a set without a photo shows «الصورة قريبًا»,
+           and what the set is comes only from what the owner fills in */
         var cfg = null;
-        if (SN.Nail && typeof SN.Nail.blank === 'function') {
-          /* a placeholder so the card has something to show — marked `auto`
-             so nothing downstream mistakes it for a description of her set */
-          try { cfg = SN.Nail.blank(); if (cfg) cfg.auto = true; } catch (e) { cfg = null; }
-        }
         return {
           id: '', name: { ar: '', en: '' }, desc: { ar: '', en: '' },
           price: numOf(sGet('pricing.base', 120), 120), orders: 0,
@@ -3813,12 +3765,6 @@
         };
       },
       preview: designThumb,
-      onField: function (it, path) {
-        /* the drawing follows the look and the colours it is made of */
-        if (/^look\./.test(path) || /^c[1-4]$/.test(path)) {
-          if (applyLook(it)) { /* the row repaints itself through ctx.after */ }
-        }
-      },
       sub: function (it) {
         var bits = [money(numOf(it.price, 0)), t('admin.d.orders') + ': ' + numOf(it.orders, 0)], gap;
         if (it.featured) bits.push(t('admin.d.featured'));
@@ -3883,7 +3829,6 @@
       if (o.kind === 'ready') {
         ref = (isObj(o.item) && o.item.id) ? SN.Store.find('designs', o.item.id) : null;
         if (ref && str(ref.image)) node = el('img', { src: str(ref.image), alt: '' });
-        else if (ref && SN.Nail && SN.Nail.thumb) node = SN.Nail.thumb(ref.config, 180);
       } else if (isObj(o.design) && SN.Nail && SN.Nail.preview) {
         node = SN.Nail.preview(o.design, { w: 300 });
       }

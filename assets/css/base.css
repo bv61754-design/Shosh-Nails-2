@@ -1548,6 +1548,25 @@ a.card,.card a.card-link{ text-decoration:none; color:inherit; }
   opacity:.55;
 }
 .empty-t{ font-size:1.05rem; font-weight:700; color:var(--ink-2); }
+
+/* A set the owner has not photographed yet. The site never draws a set in
+   its place, so this says, plainly, that the picture is coming. */
+.photo-soon{
+  display:grid;
+  place-items:center;
+  align-content:center;
+  gap:6px;
+  inline-size:100%;
+  block-size:100%;
+  min-block-size:120px;
+  padding:12px;
+  text-align:center;
+  font-size:.82rem;
+  font-weight:700;
+  color:var(--ink-3);
+  background:linear-gradient(160deg,var(--bg-3),var(--bg-4));
+}
+.photo-soon .ico{ opacity:.7; }
 .empty-x{ font-size:.9rem; max-inline-size:44ch; line-height:1.7; }
 
 .spinner{

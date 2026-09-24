@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>التصاميم الجاهزة — شوش نيل | Ready-Made Sets · Shosh Nail</title>
-<meta name="description" content="تصفّحي تصاميم شوش نيل الجاهزة: عروس، فرنش، كروم، أومبريه وغيرها — بحث وتصفية بالسعر والوسم، وتقدرين تطلبين الطقم زي ما هو أو تاخذينه أساس وتعدّلين عليه. Browse Shosh Nail ready-made press-on sets, filter by tag and price, order as-is or customise.">
+<meta name="description" content="تصفّحي تصاميم شوش نيل الجاهزة، كل طقم مصنوع باليد — بحث وتصفية بالسعر والوسم، وتقدرين تطلبين الطقم زي ما هو أو تاخذينه أساس وتعدّلين عليه. Browse Shosh Nail ready-made press-on sets, each one handmade, filter by tag and price, order as-is or customise.">
 <meta name="theme-color" content="#C97B92">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Cpath%20d='M12%202.6c3.1%200%204.9%201.9%204.9%204.7%200%202.6-.6%204.9-1%207.1-.5%202.8-1%205.3-3.9%205.3s-3.4-2.5-3.9-5.3c-.4-2.2-1-4.5-1-7.1%200-2.8%201.8-4.7%204.9-4.7Z'%20fill='%23C97B92'/%3E%3Cpath%20d='M9.6%206.7c1.3-1.1%203.5-1.1%204.8%200'%20stroke='%23FCF7F5'%20stroke-width='1.2'%20stroke-linecap='round'%20fill='none'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -317,6 +317,9 @@
 .shop-qv-art > img{
   inline-size:100%;
   block-size:auto;
+  /* a tall phone photo must not push the order button off the sheet */
+  max-block-size:62vh;
+  object-fit:contain;
   border-radius:var(--r-sm);
   display:block;
 }
