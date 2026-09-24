@@ -4441,6 +4441,10 @@
      full weight; a pattern's own colours count as accents. */
   function configColours(cfg) {
     var nails = (cfg && cfg.nails) || {}, tally = {}, out = [], k, n;
+    /* A set the owner created from the panel carries a placeholder drawing,
+       not a description of her real set — reading colours off it would tell
+       the quiz that every new set is nude. Only a real drawing speaks. */
+    if (cfg && cfg.auto) return [];
     function add(hex, w) {
       if (!hex || !toHSL(hex)) return;
       var key = String(hex).toUpperCase();

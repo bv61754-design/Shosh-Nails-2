@@ -1331,7 +1331,7 @@
   function realVariant(hit, a) {
     var it = hit.it;
     var cfg = (it.config && typeof it.config === 'object') ? it.config : null;
-    var chips = [], i, m = it.match || {};
+    var chips = [], i, m = it.match || {}, occs;
     var axis = function (key, id) {
       var arr = list('matchAxes.' + key), j;
       if (!Array.isArray(arr)) return '';
@@ -1339,10 +1339,9 @@
       return '';
     };
 
-    if (Array.isArray(m.occasion)) {
-      for (i = 0; i < m.occasion.length && chips.length < 2; i++) {
-        if (axis('occasion', m.occasion[i])) chips.push(axis('occasion', m.occasion[i]));
-      }
+    occs = occasionsOf(it);
+    for (i = 0; i < occs.length && chips.length < 2; i++) {
+      if (axis('occasion', occs[i])) chips.push(axis('occasion', occs[i]));
     }
     /* the list she asked for leads, because it is the word she chose herself */
     if (inChosenGroup(it, a)) {
@@ -1445,6 +1444,21 @@
     arr = list('groups');
     for (i = 0; i < arr.length; i++) if (arr[i] && String(arr[i].id) === String(id)) return arr[i];
     return null;
+  }
+
+  /* What a set is for. If the owner never picked an occasion for it, the
+     lists she filed it under already say: a set in «أعراس» is for a wedding,
+     because that is the character she gave that list. So filing a set is
+     enough to make the occasion question work on it too. */
+  function occasionsOf(it) {
+    var m = (it && it.match) || {}, ids, out = [], i, g;
+    if (Array.isArray(m.occasion) && m.occasion.length) return m.occasion;
+    ids = Array.isArray(it && it.groups) ? it.groups : [];
+    for (i = 0; i < ids.length; i++) {
+      g = groupRow(ids[i]);
+      if (g && g.seed && out.indexOf(String(g.seed)) === -1) out.push(String(g.seed));
+    }
+    return out;
   }
 
   function inChosenGroup(it, a) {
@@ -1817,7 +1831,7 @@
       else return null;
     }
 
-    hit = hasIn(m.occasion, a.occasion);
+    hit = hasIn(occasionsOf(it), a.occasion);
     if (hit !== null) { max += W_OCCASION; if (hit) { score += W_OCCASION; why.push('occasion'); } }
 
     hit = hasIn(m.vibe, a.vibe);

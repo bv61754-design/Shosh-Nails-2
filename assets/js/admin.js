@@ -398,6 +398,7 @@
         /* ---- الصور الحقيقية (مشترك بين كل التبويبات) ---- */
         img: {
           head: 'الصورة الحقيقية',
+          tookColours: 'أخذنا ألوان الطقم من الصورة — عدّليها من خانات الألوان تحت إذا لم تكن دقيقة.',
           upload: 'رفع صورة من الهاتف',
           replace: 'تغيير الصورة',
           clear: 'حذف الصورة والرجوع للرسمة',
@@ -989,6 +990,7 @@
 
         img: {
           head: 'Real photo',
+          tookColours: 'We read the set\u2019s colours from the photo — change them in the colour boxes below if they are off.',
           upload: 'Upload a photo',
           replace: 'Replace photo',
           clear: 'Remove photo, use the drawing',
@@ -1868,6 +1870,24 @@
      a thumbnail, its real weight in KB, an upload, a paste-a-link box, and a
      clear button that always returns to the drawn/rendered default.
      `f.maxPx` decides how hard it is shrunk. */
+  /* A photograph of a set is the only thing the quiz can read it from, so when
+     the owner uploads one and has not chosen the colours herself, take them
+     from the picture. Never overwrite a colour she typed. */
+  function fillColoursFromPhoto(f, ctx, colours) {
+    var i, wrote = 0;
+    if (str(f && f.p) !== 'image') return false;
+    if (!colours || !colours.length) return false;
+    if (typeof ctx.get !== 'function' || typeof ctx.set !== 'function') return false;
+    if (ctx.get('c1') === undefined) return false;          /* not a design row */
+    if (str(ctx.get('c1')) || str(ctx.get('c2')) || str(ctx.get('c3')) || str(ctx.get('c4'))) return false;
+    for (i = 0; i < colours.length && i < 3; i++) {
+      ctx.set('c' + (i + 1), colours[i]);
+      wrote++;
+    }
+    if (wrote && typeof ctx.after === 'function') ctx.after('c1', colours[0]);
+    return wrote > 0;
+  }
+
   function imageField(f, ctx) {
     var maxPx = numOf(f.maxPx, MAX_DESIGN);
     var pv = el('div', { 'class': 'adm-imgpv' });
@@ -1927,8 +1947,10 @@
       if (!/^image\//.test(str(fl.type))) { toast(t('admin.img.type'), 'err'); return; }
       meta.textContent = t('admin.img.working');
       downscale(fl, maxPx).then(function (res) {
-        if (put(res.url, true)) toast(t('admin.img.ok', { n: Math.max(1, kbOf(res.chars)) }), 'ok');
-        else paint();
+        if (put(res.url, true)) {
+          toast(t('admin.img.ok', { n: Math.max(1, kbOf(res.chars)) }), 'ok');
+          if (fillColoursFromPhoto(f, ctx, res.colours)) toast(t('admin.img.tookColours'), 'ok');
+        } else paint();
       }).catch(function () {
         toast(t('admin.img.err'), 'err');
         paint();
@@ -2120,6 +2142,59 @@
     return false;
   }
 
+  /* The colours a photograph is actually of.
+
+     A set the owner photographs has no drawing behind it, so without this the
+     quiz knows nothing about its colour and can only match it on the lists she
+     filed it under. Counting colours in the middle of the frame and taking the
+     surround away cancels whatever she shot the set against — a cloth, a desk,
+     a wall — and leaves the set itself. It is a guess, not a measurement, so
+     the panel says where the colours came from and she can change them. */
+  function hex2(n) { n = Math.max(0, Math.min(255, Math.round(n))); return (n < 16 ? '0' : '') + n.toString(16); }
+  function rgbHex(r, g, b) { return ('#' + hex2(r) + hex2(g) + hex2(b)).toUpperCase(); }
+  function hexFar(a, b) {
+    var pa = /^#(..)(..)(..)$/.exec(a), pb = /^#(..)(..)(..)$/.exec(b), i, d = 0, x, y;
+    if (!pa || !pb) return true;
+    for (i = 1; i <= 3; i++) { x = parseInt(pa[i], 16); y = parseInt(pb[i], 16); d += (x - y) * (x - y); }
+    return d > 3600;                       /* ~60 apart in RGB */
+  }
+
+  function photoColours(cx, w, h) {
+    var img, d, mid = {}, rim = {}, list = [], out = [], x, y, i, r, g, b, k, c, edge, fresh, j;
+    var x0 = w * 0.2, x1 = w * 0.8, y0 = h * 0.2, y1 = h * 0.8;
+    if (!cx || w < 8 || h < 8) return [];
+    try { img = cx.getImageData(0, 0, w, h); } catch (e) { return []; }
+    d = img.data;
+    function bump(tab, key, r, g, b) {
+      var e = tab[key] || (tab[key] = { n: 0, r: 0, g: 0, b: 0 });
+      e.n++; e.r += r; e.g += g; e.b += b;
+    }
+    for (y = 0; y < h; y++) {
+      for (x = 0; x < w; x++) {
+        i = (y * w + x) * 4;
+        if (d[i + 3] < 200) continue;                 /* transparent */
+        r = d[i]; g = d[i + 1]; b = d[i + 2];
+        k = (r >> 4) * 256 + (g >> 4) * 16 + (b >> 4);  /* 16 levels per channel */
+        if (x > x0 && x < x1 && y > y0 && y < y1) bump(mid, k, r, g, b);
+        else bump(rim, k, r, g, b);
+      }
+    }
+    for (k in mid) {
+      if (!Object.prototype.hasOwnProperty.call(mid, k)) continue;
+      c = mid[k];
+      edge = rim[k] ? rim[k].n : 0;
+      list.push({ score: c.n - edge * 1.4, hex: rgbHex(c.r / c.n, c.g / c.n, c.b / c.n) });
+    }
+    list.sort(function (a, b) { return b.score - a.score; });
+    for (j = 0; j < list.length && out.length < 3; j++) {
+      if (list[j].score <= 0) break;
+      fresh = true;
+      for (i = 0; i < out.length; i++) if (!hexFar(out[i], list[j].hex)) fresh = false;
+      if (fresh) out.push(list[j].hex);
+    }
+    return out;
+  }
+
   function downscale(file, maxPx) {
     return new Promise(function (resolve, reject) {
       var fr;
@@ -2159,7 +2234,7 @@
             }
             url = cv.toDataURL(png ? 'image/png' : 'image/jpeg', JPEG_Q);
             if (!isDataImage(url)) { reject(new Error('encode')); return; }
-            resolve({ url: url, chars: url.length, w: cw, h: ch, png: png });
+            resolve({ url: url, chars: url.length, w: cw, h: ch, png: png, colours: photoColours(cx, cw, ch) });
           } catch (e) { reject(e); }
         };
         img.src = String(fr.result);
@@ -3563,10 +3638,17 @@
   function quizGap(it) {
     var m = (it && it.match) || {};
     var hasCol = !!(it.c1 || it.c2 || it.c3 || it.c4) || !!m.palette;
-    var hasOcc = Array.isArray(m.occasion) && m.occasion.length > 0;
-    /* a set filed in one of her lists is reachable through the list question,
-       so it is thin rather than invisible */
-    var hasGrp = Array.isArray(it.groups) && it.groups.length > 0;
+    /* a list with a character stands in for an occasion, exactly as the quiz
+       reads it, so a set filed under «أعراس» is not missing its occasion */
+    var gids = Array.isArray(it.groups) ? it.groups : [];
+    var rows = sList('groups'), gi, ri, seeded = false;
+    for (gi = 0; gi < gids.length; gi++) {
+      for (ri = 0; ri < rows.length; ri++) {
+        if (rows[ri] && rows[ri].id === gids[gi] && rows[ri].seed) seeded = true;
+      }
+    }
+    var hasOcc = (Array.isArray(m.occasion) && m.occasion.length > 0) || seeded;
+    var hasGrp = gids.length > 0;
     var hasAny = hasCol || hasOcc || hasGrp ||
       (Array.isArray(m.vibe) && m.vibe.length > 0) ||
       !!m.attention || !!m.metal || !!m.length || !!m.season;
@@ -3633,7 +3715,9 @@
       blank: function () {
         var cfg = null;
         if (SN.Nail && typeof SN.Nail.blank === 'function') {
-          try { cfg = SN.Nail.blank(); } catch (e) { cfg = null; }
+          /* a placeholder so the card has something to show — marked `auto`
+             so nothing downstream mistakes it for a description of her set */
+          try { cfg = SN.Nail.blank(); if (cfg) cfg.auto = true; } catch (e) { cfg = null; }
         }
         return {
           id: '', name: { ar: '', en: '' }, desc: { ar: '', en: '' },
