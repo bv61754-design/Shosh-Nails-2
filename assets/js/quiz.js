@@ -1623,11 +1623,24 @@
   var C_WEIGHT = [3, 2, 1, 1];
 
   function designColors(it) {
-    var out = [], i, c, k;
+    var out = [], i, c, k, cols;
     for (i = 0; i < 4; i++) {
       k = 'c' + (i + 1);
       c = hsl(it && it[k]);
       if (c) out.push({ c: c, hex: it[k], w: C_WEIGHT[i] });
+    }
+    if (out.length) return out;
+
+    /* Nothing typed in the four swatches — but a set drawn in the studio
+       already says what colour it is, nail by nail. Reading it here is what
+       lets the palette, season and skin questions do any work at all on the
+       owner's own sets; without it only her lists and the skin tone could
+       ever score, and seven of the ten questions were decided nothing. */
+    cols = (SN.Nail && typeof SN.Nail.configColours === 'function')
+      ? SN.Nail.configColours(it && it.config) : [];
+    for (i = 0; i < cols.length && i < 4; i++) {
+      c = hsl(cols[i].hex);
+      if (c) out.push({ c: c, hex: cols[i].hex, w: C_WEIGHT[i] });
     }
     return out;
   }
@@ -1743,7 +1756,7 @@
   /* How well one design answers her. Every axis is optional on the design:
      left blank it neither helps nor hurts, so a half-filled design still
      competes on what the owner did fill in. */
-  var W_PALETTE = 34, W_GROUP = 30, W_OCCASION = 22, W_VIBE = 16, W_SKIN = 14,
+  var W_PALETTE = 34, W_GROUP = 24, W_OCCASION = 22, W_VIBE = 16, W_SKIN = 14,
       W_SEASON = 12, W_ATTENTION = 10, W_METAL = 8, W_LENGTH = 8;
 
   function budgetMax(id) {

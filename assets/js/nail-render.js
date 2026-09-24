@@ -4434,6 +4434,30 @@
     return 'bright';
   }
 
+  /* The colours a saved set is actually made of, most prominent first.
+     A design already carries its recipe nail by nail, so the quiz and the
+     shop can read its palette straight off the drawing instead of asking the
+     owner to retype four hex codes she has already chosen. Base colours carry
+     full weight; a pattern's own colours count as accents. */
+  function configColours(cfg) {
+    var nails = (cfg && cfg.nails) || {}, tally = {}, out = [], k, n;
+    function add(hex, w) {
+      if (!hex || !toHSL(hex)) return;
+      var key = String(hex).toUpperCase();
+      tally[key] = (tally[key] || 0) + w;
+    }
+    for (k in nails) {
+      if (!Object.prototype.hasOwnProperty.call(nails, k)) continue;
+      n = nails[k];
+      if (!n) continue;
+      add(n.color, 1);
+      if (n.pattern && n.pattern.kind) { add(n.pattern.color, 0.45); add(n.pattern.color2, 0.25); }
+    }
+    for (k in tally) if (Object.prototype.hasOwnProperty.call(tally, k)) out.push({ hex: k, w: tally[k] });
+    out.sort(function (a, b) { return b.w - a.w; });
+    return out.slice(0, 4);
+  }
+
   /* Relative nail-bed widths across a hand. A real set is graded — the thumb
      plate is over half again the pinky's — and single() draws every finger at
      one size, so without this five plain nails come out identical and the row
@@ -6076,6 +6100,7 @@
     single: single,
     setStrip: setStrip,
     colourFamily: colourFamily,
+    configColours: configColours,
     thumb: thumb,
     pointToNorm: pointToNorm,
     toPNG: toPNG,

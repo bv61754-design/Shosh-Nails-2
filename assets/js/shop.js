@@ -505,13 +505,21 @@
   }
 
   function familyOf(it) {
-    var m = (it && it.match) || {}, best = '', bestW = 0, tally = {}, W = [3, 2, 1, 1], i, k, fam;
+    var m = (it && it.match) || {}, best = '', bestW = 0, tally = {}, W = [3, 2, 1, 1], i, k, fam, cols;
     if (m.palette) return m.palette;
     if (!SN.Nail || typeof SN.Nail.colourFamily !== 'function') return '';
     for (i = 0; i < 4; i++) {
       k = 'c' + (i + 1);
       fam = it && it[k] ? SN.Nail.colourFamily(it[k]) : '';
       if (fam) tally[fam] = (tally[fam] || 0) + W[i];
+    }
+    /* same fallback as the quiz: a drawn set states its own colours */
+    if (!Object.keys(tally).length && typeof SN.Nail.configColours === 'function') {
+      cols = SN.Nail.configColours(it && it.config);
+      for (i = 0; i < cols.length && i < 4; i++) {
+        fam = SN.Nail.colourFamily(cols[i].hex);
+        if (fam) tally[fam] = (tally[fam] || 0) + W[i];
+      }
     }
     for (fam in tally) {
       if (Object.prototype.hasOwnProperty.call(tally, fam) && tally[fam] > bestW) { bestW = tally[fam]; best = fam; }

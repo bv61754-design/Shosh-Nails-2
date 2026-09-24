@@ -407,6 +407,15 @@
   block-size:clamp(58px,15vw,74px);
 }
 @media (min-width:860px){ .home-qtile-art{ block-size:96px; } }
+/* The teaser reuses the quiz's own tile artwork, and .quiz-art carries its own
+   taller height — dropped into the smaller home tile it spilled over the label
+   underneath it, so the skin name sat on the swatch. Let it fill the box it is
+   given instead, and leave the swatch room to breathe inside it. */
+.home-qtile-art > .quiz-art{ block-size:100%; }
+.home-qtile-art .quiz-skin{
+  inline-size:clamp(40px,11vw,52px);
+  block-size:clamp(40px,11vw,52px);
+}
 /* SN.Nail sizes its own <svg> with a style attribute, so the box it has to
    live inside has to say so louder */
 .home-qtile-art > svg,

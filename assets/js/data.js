@@ -791,6 +791,7 @@
         price: 24000, orders: 0, featured: true, active: true,
         tags: ['luxe', 'party', 'winter'], image: '',
         groups: ['g-evening'],
+        match: { occasion: ['party'], vibe: ['glam', 'bold'], attention: 'max', metal: 'silver' },
         config: mkConfig({
           skin: '#E3B48F', shape: 'almond', length: 'long', sizes: mkSizes(1, 4, 3, 5, 7),
           def: { c: '#17131A', f: 'gloss', p: ['glitterCatEye', '#E6E6E9', '#17131A', 1.15] }
@@ -806,6 +807,7 @@
         price: 26000, orders: 0, featured: true, active: true,
         tags: ['bridal', 'luxe', 'pearl'], image: '',
         groups: ['g-wedding', 'g-engagement'],
+        match: { occasion: ['wedding'], vibe: ['romantic', 'glam'], attention: 'clear', metal: 'gold' },
         config: mkConfig({
           skin: '#EFCDB6', shape: 'almond', length: 'long', sizes: mkSizes(1, 4, 3, 5, 7),
           /* lace has to be a shade the eye can find: white thread on an ivory
@@ -836,6 +838,7 @@
         price: 21000, orders: 0, featured: true, active: true,
         tags: ['chrome', 'party', 'luxe'], image: '',
         groups: ['g-evening'],
+        match: { occasion: ['party'], vibe: ['bold', 'glam'], attention: 'max', metal: 'silver' },
         config: mkConfig({
           skin: '#E3B48F', shape: 'coffin', length: 'long', sizes: mkSizes(1, 4, 3, 5, 7),
           /* No pattern layer at all: the chrome FINISH repaints the plate as a
@@ -860,6 +863,7 @@
         price: 15000, orders: 0, featured: true, active: true,
         tags: ['french', 'classic', 'minimal'], image: '',
         groups: ['g-wedding', 'g-daily'],
+        match: { occasion: ['wedding', 'daily'], vibe: ['calm', 'romantic'], attention: 'soft', metal: 'none' },
         config: mkConfig({
           skin: '#EFCDB6', shape: 'squoval', length: 'medium', sizes: mkSizes(2, 5, 4, 6, 8),
           def: { c: '#E9C2C0', f: 'gloss', p: ['french', '#FFFFFF', '#E9C2C0', 1] }
@@ -875,6 +879,7 @@
         price: 17500, orders: 0, featured: true, active: true,
         tags: ['pearl', 'minimal', 'summer'], image: '',
         groups: ['g-engagement', 'g-daily', 'g-summer'],
+        match: { occasion: ['daily', 'wedding'], vibe: ['calm', 'romantic'], attention: 'soft', metal: 'none' },
         config: mkConfig({
           skin: '#E3B48F', shape: 'almond', length: 'medium', sizes: mkSizes(2, 5, 4, 6, 8),
           /* gloss, NOT chrome: the chrome FINISH repaints the whole plate with
@@ -897,6 +902,7 @@
         price: 16500, orders: 0, featured: false, active: true,
         tags: ['ombre', 'pink', 'romantic'], image: '',
         groups: ['g-engagement', 'g-summer'],
+        match: { occasion: ['daily', 'party'], vibe: ['romantic'], attention: 'soft', metal: 'none' },
         config: mkConfig({
           skin: '#EFCDB6', shape: 'almond', length: 'medium', sizes: mkSizes(2, 5, 4, 6, 8),
           def: { c: '#F7DDE2', f: 'gloss', p: ['ombre', '#F4CBD2', '#E88AA5', 1] },
@@ -922,6 +928,7 @@
         price: 14500, orders: 0, featured: false, active: true,
         tags: ['red', 'classic', 'party'], image: '',
         groups: ['g-evening', 'g-engagement'],
+        match: { occasion: ['party', 'wedding'], vibe: ['bold', 'glam'], attention: 'clear', metal: 'none' },
         config: mkConfig({
           skin: '#EFCDB6', shape: 'oval', length: 'medium', sizes: mkSizes(2, 5, 4, 6, 8),
           def: { c: '#C2192F', f: 'gloss' },
@@ -941,6 +948,7 @@
         price: 19000, orders: 0, featured: false, active: true,
         tags: ['animal', 'autumn', 'nude'], image: '',
         groups: ['g-evening'],
+        match: { occasion: ['party', 'daily'], vibe: ['bold'], attention: 'clear', metal: 'none' },
         config: mkConfig({
           skin: '#D19A6E', shape: 'coffin', length: 'long', sizes: mkSizes(1, 4, 3, 5, 7),
           def: { c: '#E8D2B8', f: 'gloss', p: ['leopard', '#3E2A23', '#C08A5E', 1] },
@@ -962,6 +970,7 @@
         price: 15500, orders: 0, featured: false, active: true,
         tags: ['nude', 'minimal', 'autumn'], image: '',
         groups: ['g-daily'],
+        match: { occasion: ['daily'], vibe: ['calm'], attention: 'quiet', metal: 'none' },
         config: mkConfig({
           skin: '#D19A6E', shape: 'square', length: 'short', sizes: mkSizes(3, 6, 5, 7, 9),
           def: { c: '#9A6B52', f: 'gloss' },
@@ -983,6 +992,7 @@
         price: 23000, orders: 0, featured: false, active: true,
         tags: ['party', 'winter', 'luxe'], image: '',
         groups: ['g-evening'],
+        match: { occasion: ['party'], vibe: ['glam', 'bold'], attention: 'max', metal: 'silver' },
         config: mkConfig({
           skin: '#B87A4E', shape: 'stiletto', length: 'xlong', sizes: mkSizes(1, 4, 3, 5, 7),
           def: { c: '#4A1F3D', f: 'velvet', p: ['catEye', '#C9B6EA', '#7A3FC0', 1] },
@@ -1002,6 +1012,7 @@
         price: 20000, orders: 0, featured: false, active: true,
         tags: ['pearl', 'bridal', 'minimal'], image: '',
         groups: ['g-wedding', 'g-engagement'],
+        match: { occasion: ['wedding'], vibe: ['romantic', 'calm'], attention: 'soft', metal: 'none' },
         config: mkConfig({
           skin: '#EFCDB6', shape: 'oval', length: 'medium', sizes: mkSizes(2, 5, 4, 6, 8),
           /* A pearl is cool in the body and warm where the light sits — a white
@@ -1030,6 +1041,7 @@
         price: 13500, orders: 0, featured: false, active: true,
         tags: ['matte', 'party', 'winter'], image: '',
         groups: ['g-evening'],
+        match: { occasion: ['party'], vibe: ['bold'], attention: 'clear', metal: 'none' },
         config: mkConfig({
           skin: '#E3B48F', shape: 'coffin', length: 'long', sizes: mkSizes(1, 4, 3, 5, 7),
           def: { c: '#17131A', f: 'matte' },
@@ -1051,6 +1063,7 @@
         price: 13000, orders: 0, featured: false, active: true,
         tags: ['pastel', 'summer', 'fun'], image: '',
         groups: ['g-daily', 'g-summer'],
+        match: { occasion: ['daily', 'holiday'], vibe: ['bold'], attention: 'clear', metal: 'none' },
         config: mkConfig({
           skin: '#EFCDB6', shape: 'square', length: 'short', sizes: mkSizes(3, 6, 5, 7, 9),
           def: { c: '#FAF3EE', f: 'gloss', p: ['checkers', '#B4E4CE', '#FAF3EE', 1] },
