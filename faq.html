@@ -65,6 +65,21 @@
 }
 .faq-jump .chip{ text-decoration:none; }
 
+/* On a phone the hero was 434px: eyebrow, title, a four-line lead, the
+   search and the quick links. The category tabs, the filter row of this
+   page, started 588px down, under the first screen. As on the shop page,
+   the eyebrow and the lead leave the phone; the title, the search and the
+   quick links stay, and everything comes back on a wider screen. */
+@media (max-width:560px){
+  .faq-hero{ padding-block:14px 10px; }
+  .faq-hero .eyebrow,
+  .faq-hero .lead{ display:none; }
+  .faq-hero .h1{ font-size:1.6rem; max-inline-size:none; }
+  .faq-searchbox{ margin-block-start:10px; }
+  .faq-jump{ margin-block-start:10px; }
+  #faq-questions{ padding-block-start:14px; }
+}
+
 /* ── question list ──────────────────────────────────────────────────── */
 .faq-bar{
   display:flex;
