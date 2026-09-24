@@ -557,10 +557,12 @@
     /* --ar / --w let the CSS narrow a tall picture (or a small one) instead
        of framing it in empty bands — see .faq-fig in faq.html */
     setAttr(img, 'style', w && h ? '--ar:' + (Math.round(w / h * 10000) / 10000) + ';--w:' + w + 'px' : '');
-    img.setAttribute('alt', cap || t('faq.picAlt', { q: stripQ(qText), n: numf(n) }));
+    /* a caption already names the picture: the figure is read by its
+       caption, so the alt stays empty rather than saying it twice */
+    img.setAttribute('alt', cap ? '' : t('faq.picAlt', { q: stripQ(qText), n: numf(n) }));
     return el('figure', { 'class': 'faq-fig' }, [
       img,
-      cap ? el('figcaption', { html: hl(cap, q) }) : null
+      cap ? el('figcaption', { html: hl(cap, q), dir: 'auto' }) : null
     ]);
   }
 
