@@ -77,14 +77,16 @@
   /* The business is run from home: there is no shop, so the footer never
      prints an address and the hours line is about when messages get an
      answer, not when a door opens. 'footer' is a CORE namespace (SPEC 10),
-     and this file is CORE — i18n.js itself is never edited from here. */
+     and this file is CORE — i18n.js itself is never edited from here.
+     nav.faqShort is the FAQ tab on a phone, where the three tabs share one
+     row and the full nav.faq label does not fit beside the other two. */
   (function extendDict(){
     var I = SN.I18n;
     if (!I || typeof I.extend !== 'function') return;
     try {
       I.extend({
-        ar: { footer: { replyHours: 'أوقات الرد' } },
-        en: { footer: { replyHours: 'When we reply' } }
+        ar: { footer: { replyHours: 'أوقات الرد' }, nav: { faqShort: 'الأسئلة' } },
+        en: { footer: { replyHours: 'When we reply' }, nav: { faqShort: 'FAQ' } }
       });
     } catch (e){ /* the shell must render even without i18n */ }
   }());
@@ -464,36 +466,24 @@
 
   function headerEl(){ return doc() ? doc().getElementById('sn-header') : null; }
 
-  function menuOpen(){
-    var h = headerEl();
-    return !!(h && h.classList && h.classList.contains('nav-open'));
-  }
-
-  function setMenu(open, focusBtn){
-    var h = headerEl();
-    var b = doc() ? doc().getElementById('btn-menu') : null;
-    if (!h || !h.classList) return;
-    if (open) h.classList.add('nav-open');
-    else h.classList.remove('nav-open');
-    if (b){
-      b.setAttribute('aria-expanded', open ? 'true' : 'false');
-      b.innerHTML = icon(open ? 'close' : 'menu', 22);
-      b.setAttribute('aria-label', t(open ? 'nav.closeMenu' : 'nav.menu'));
-      if (!open && focusBtn){
-        try { b.focus(); }
-        catch (e){ /* ignore */ }
-      }
-    }
-  }
-
+  /* There is no menu button any more. Up to 900px the same three links sit
+     in their own row under the brand, always on screen (base.css section 05).
+     The FAQ link carries two labels and CSS shows one: the full one on a
+     wide screen, the short one in the phone row. The hidden one is
+     display:none, so it is not part of the link's accessible name. The two
+     spans carry the data-i18n, not the <a>: I18n.apply sets textContent,
+     which would wipe them. */
   function navLink(page, active){
+    var kids = page === 'faq' ? [
+      el('span', { 'class': 'nav-l', 'data-i18n': 'nav.faq', text: t('nav.faq') }),
+      el('span', { 'class': 'nav-s', 'data-i18n': 'nav.faqShort', text: t('nav.faqShort') })
+    ] : t('nav.' + page);
     var a = el('a', {
       'class': 'nav-a' + (active ? ' is-active' : ''),
       href: PAGE_HREF[page],
-      'data-i18n': 'nav.' + page,
-      'data-page-link': page,
-      on: { click: function(){ setMenu(false); } }
-    }, t('nav.' + page));
+      'data-i18n': page === 'faq' ? null : 'nav.' + page,
+      'data-page-link': page
+    }, kids);
     if (active) a.setAttribute('aria-current', 'page');
     return a;
   }
@@ -541,21 +531,8 @@
       }),
 
       el('a', {
-        'class': 'btn btn-pri hdr-cta', href: QUIZ_HREF, 'data-i18n': 'nav.cta',
-        on: { click: function(){ setMenu(false); } }
-      }, t('nav.cta')),
-
-      el('button', {
-        'class': 'icon-btn only-mob', id: 'btn-menu', type: 'button',
-        'aria-expanded': 'false', 'aria-controls': 'sn-nav',
-        'aria-label': t('nav.menu'),
-        html: icon('menu', 22),
-        on: { click: function(ev){
-          ev.preventDefault();
-          ev.stopPropagation();
-          setMenu(!menuOpen());
-        } }
-      })
+        'class': 'btn btn-pri hdr-cta', href: QUIZ_HREF, 'data-i18n': 'nav.cta'
+      }, t('nav.cta'))
     ]);
 
     inner = el('div', { 'class': 'hdr-inner wrap' }, [brand, nav, actions]);
@@ -563,7 +540,6 @@
     h.innerHTML = '';
     h.appendChild(inner);
     h.setAttribute('data-page', page);
-    setMenu(false);
     applyI18n(h);
     wireDocument();
     return h;
@@ -1228,14 +1204,7 @@
 
   var docWired = false;
 
-  function onDocClick(ev){
-    var h;
-    if (!menuOpen()) return;
-    h = headerEl();
-    if (h && ev.target && h.contains(ev.target)) return;
-    setMenu(false);
-  }
-
+  /* Escape closes the top-most modal or sheet. */
   function onDocKey(ev){
     var k = ev.key || '';
     var top;
@@ -1246,22 +1215,14 @@
         ev.stopPropagation();
         top.close();
       }
-      return;
     }
-    if (menuOpen()) setMenu(false, true);
   }
-
-  var onResize = debounce(function(){
-    if (menuOpen() && (window.innerWidth || 0) > 900) setMenu(false);
-  }, 150);
 
   function wireDocument(){
     var d = doc();
     if (docWired || !d) return;
     docWired = true;
-    d.addEventListener('click', onDocClick, false);
     d.addEventListener('keydown', onDocKey, false);
-    if (window.addEventListener) window.addEventListener('resize', onResize, false);
   }
 
   /* ==================================================================== */
@@ -1272,7 +1233,7 @@
 
   function remount(){
     var d = doc(), active = d ? d.activeElement : null;
-    var keepId = active && active.id && /^btn-(lang|theme|menu)$/.test(active.id) ? active.id : null;
+    var keepId = active && active.id && /^btn-(lang|theme)$/.test(active.id) ? active.id : null;
     var btn;
     /* the owner can change the default theme in admin — respect it while the
        visitor has not picked one for themselves */
@@ -1308,7 +1269,13 @@
     var d = doc();
     var p = page;
     if (!d) return;
-    if (!has(PAGE_HREF, p)){
+    /* 404.html boots as 'home' (its body says data-page="home" so home.js
+       runs it), but a missing page is not the home page: no tab may claim
+       aria-current there. This has to happen before the fallback below,
+       which would otherwise turn it straight back into 'home'. */
+    if (d.body && d.body.getAttribute('data-view') === '404'){
+      p = '404';
+    } else if (!has(PAGE_HREF, p)){
       p = (d.body && d.body.getAttribute('data-page')) || p || 'home';
     }
     currentPage = p;

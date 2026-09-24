@@ -82,6 +82,14 @@
   --glow-2:rgba(194,160,94,.16);        /* gold companion glow               */
   --thumb:#FFFFFF;                      /* switch / range knob               */
   --focus:var(--rose);
+  /* the header's brand row. --hdr (spec block) is what stays PINNED at the
+     top and is what sticky things offset by; on a wide screen the two are
+     the same row, up to 900px they are not (section 05) */
+  --hdr-row:66px;
+  /* the current page's tab in the phone tab row: a raised pill with a rose
+     edge, so it reads as chosen in both themes, not only by its text colour */
+  --tab-on:#FFFFFF;
+  --tab-on-line:#C97B92;
 
   /* ---- motion tokens — the whole site's timing lives here (see section 20)
      Three durations, three easings, one stagger step. Nothing anywhere else
@@ -110,6 +118,10 @@
   --glow:rgba(226,155,176,.16);
   --glow-2:rgba(217,188,126,.10);
   --thumb:#F6EDF0;
+  /* the spec's dark --rose-soft is 1.07:1 against the tab track (--bg-3):
+     invisible as a fill. This one is lifted, and the edge carries the rest */
+  --tab-on:#3F2A35;
+  --tab-on-line:rgba(226,155,176,.62);
   --ok-ink:#7FD3AE; --warn-ink:#E7BE72; --err-ink:#F0938D;
   --halo:rgba(226,155,176,.26);
   --halo-2:rgba(217,188,126,.28);
@@ -477,7 +489,7 @@ body.is-scrolled #sn-header{ box-shadow:var(--sh-1); }
   display:flex;
   align-items:center;
   gap:clamp(8px,1.6vw,18px);
-  min-block-size:var(--hdr);
+  min-block-size:var(--hdr-row);
 }
 
 .brand{
@@ -552,52 +564,78 @@ body.is-scrolled #sn-header{ box-shadow:var(--sh-1); }
 .nav ~ .hdr-actions{ margin-inline-start:clamp(6px,1.4vw,14px); }
 .hdr-cta{ white-space:nowrap; }
 .lang-txt{ font-size:.8rem; font-weight:800; letter-spacing:.02em; }
+/* the FAQ link carries a full and a short label (ui.js navLink); wide
+   screens show the full one */
+.nav-s{ display:none; }
 
-/* ---- mobile: the nav becomes a slide-down panel under the header -------- */
+/* ---- up to 900px: the three links are a row of tabs under the brand -----
+   The owner's ask: the moment a customer arrives, the home page, the ready
+   designs and the questions are right in front of her, with no menu button
+   to press.
+   They do not fit beside the brand and the two buttons on a phone (measured
+   at 360px, with the menu button gone: 153px free, the three labels alone
+   need 260), so they get a row of their own, drawn from the same
+   <nav id="sn-nav">.
+   Only that row stays pinned: the header sticks at minus the brand row's
+   height, so the brand row scrolls away with the page. --hdr becomes the
+   height of what stays pinned (the tab row plus the header's 1px bottom
+   line), and everything that sticks under the header (the shop toolbar, the
+   admin top bar, anchor offsets) reads --hdr, so it sits right under it. */
 @media (max-width:900px){
+  :root{ --hdr-row:50px; --hdr-tabs:50px; --hdr:51px; }
+  #sn-header{ inset-block-start:calc(-1 * var(--hdr-row)); }
+  .hdr-inner{
+    display:grid;
+    grid-template-columns:auto minmax(0,1fr);
+    grid-template-rows:var(--hdr-row) var(--hdr-tabs);
+    grid-template-areas:"brand acts" "nav nav";
+    align-items:center;
+    gap:0 8px;
+    min-block-size:0;
+  }
+  .brand{ grid-area:brand; justify-self:start; }
+  .hdr-actions,
+  .nav ~ .hdr-actions{ grid-area:acts; justify-self:end; margin-inline-start:0; }
+
+  /* the track: one soft pill holding the three tabs */
   .nav{
-    position:absolute;
-    inset-inline:0;
-    inset-block-start:100%;
-    z-index:-1;
-    flex-direction:column;
-    align-items:stretch;
+    grid-area:nav;
+    justify-self:center;
+    inline-size:100%;
+    max-inline-size:560px;
+    margin:0;                        /* the wide-screen rule pushes it with auto */
+    padding:2px;
     gap:2px;
-    margin-inline-start:0;
-    padding-inline:clamp(16px,4vw,28px);
-    padding-block:0;
-    background:var(--bg-2);
-    border-block-end:1px solid var(--line);
-    box-shadow:var(--sh-2);
-    max-block-size:0;
-    opacity:0;
-    overflow:hidden;
-    visibility:hidden;
-    transition:max-block-size var(--dur-2) var(--ease-out),
-               opacity var(--dur-2) var(--ease),
-               padding-block var(--dur-2) var(--ease-out),
-               visibility 0s linear var(--dur-2);
+    border-radius:var(--r-full);
+    background:var(--bg-3);
+    box-shadow:inset 0 0 0 1px var(--line);
   }
-  #sn-header.nav-open .nav{
-    max-block-size:min(70vh,460px);
-    opacity:1;
-    visibility:visible;
-    overflow-y:auto;
-    padding-block:10px 14px;
-    transition:max-block-size var(--dur-2) var(--ease-out),
-               opacity var(--dur-2) var(--ease),
-               padding-block var(--dur-2) var(--ease-out),
-               visibility 0s linear 0s;
-  }
+  /* each tab is 40px tall (a thumb-sized target) and as wide as its label
+     plus an equal share of what is left */
   .nav-a{
-    padding-block:13px;
-    padding-inline:14px;
-    border-radius:var(--r-sm);
-    font-size:1rem;
+    flex:1 1 auto;
+    min-inline-size:0;
+    justify-content:center;
+    block-size:40px;
+    padding-block:0;
+    padding-inline:8px;
+    font-size:.92rem;
   }
-  .nav-a.is-active{ background:var(--rose-soft); }
-  .nav-a.is-active::after{ inset-inline:auto; inset-inline-start:14px; inline-size:16px; inset-block-end:9px; }
-  .nav ~ .hdr-actions{ margin-inline-start:auto; }
+  .nav-a:hover{ color:var(--ink); background:var(--bg-4); }
+  .nav-a.is-active,
+  .nav-a.is-active:hover{
+    color:var(--rose-2);
+    background:var(--tab-on);
+    box-shadow:inset 0 0 0 1px var(--tab-on-line), var(--sh-1);
+  }
+  .nav-a.is-active::after{ inset-inline:calc(50% - 9px); inset-block-end:5px; }
+  .nav-l{ display:none; }
+  .nav-s{ display:inline; }
+}
+/* a tablet's brand row also holds the style-quiz button (44px tall); give it
+   the breathing room a phone's two 40px icon buttons do not need */
+@media (min-width:431px) and (max-width:900px){
+  :root{ --hdr-row:56px; }
 }
 @media (max-width:430px){
   /* the descendant selector is required: plain `.hdr-cta` ties with `.btn`
@@ -2559,15 +2597,6 @@ a.card:active,.card:has(> .card-link:active){ transform:translateY(-1px) scale(.
 .ft-a:hover{ padding-inline-start:0; }
 [dir="ltr"] .ft-a:hover{ transform:translateX(4px); }
 [dir="rtl"] .ft-a:hover{ transform:translateX(-4px); }
-
-/* the mobile menu falls open, it does not merely un-hide */
-@media (max-width:900px){
-  #sn-header.nav-open .nav > .nav-a{ animation:sn-rise var(--dur-2) var(--ease-out) both; }
-  #sn-header.nav-open .nav > .nav-a:nth-child(1){ animation-delay:30ms; }
-  #sn-header.nav-open .nav > .nav-a:nth-child(2){ animation-delay:calc(30ms + var(--stagger)); }
-  #sn-header.nav-open .nav > .nav-a:nth-child(3){ animation-delay:calc(30ms + var(--stagger) * 2); }
-  #sn-header.nav-open .nav > .nav-a:nth-child(4){ animation-delay:calc(30ms + var(--stagger) * 3); }
-}
 
 /* the empty state and the spinner should arrive, not blink into place */
 .empty{ animation:sn-rise var(--dur-3) var(--ease-out) both; }
