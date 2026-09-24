@@ -1057,10 +1057,12 @@
   .adm-pic-act .icon-btn{ inline-size:40px; block-size:40px; }
   .adm-pic-pv{ inline-size:72px; block-size:72px; }
   .adm-row-a{ gap:0; }
-  /* «إضافة جديد» stays in reach even 50 rows down the list */
+  /* «إضافة جديد» stays in reach even 50 rows down the list — stuck just
+     under the site's tab row and the panel bar, not behind them
+     (--adm-top-h is the panel bar's measured height, set by admin.js) */
   .adm-crud-h{
     position:sticky;
-    inset-block-start:0;
+    inset-block-start:calc(var(--hdr) + var(--adm-top-h, 0px));
     z-index:2;
     padding-block:8px;
     background:var(--bg-2);

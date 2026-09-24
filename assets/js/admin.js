@@ -441,6 +441,10 @@
           no: 'صورة {n}',
           cap: 'وصف قصير تحت الصورة (اختياري)',
           capPh: 'مثال: هكذا يبدو الظفر بعد البرد',
+          capPhEn: 'e.g. This is how the nail looks after buffing',
+          upN: 'تحريك الصورة {n} للأعلى',
+          downN: 'تحريك الصورة {n} للأسفل',
+          delN: 'حذف الصورة {n}',
           delAsk: 'حذف الصورة {n} من هذا السؤال؟',
           shrink: 'تُصغَّر كل صورة إلى {n} بكسل. لقطة الشاشة تبقى PNG ما دام حجمها صغيرًا، لتبقى الكتابة فيها واضحة.',
           n1: 'صورة واحدة',
@@ -1060,7 +1064,11 @@
           max: 'That is the limit: {m} pictures per question. Remove one to add another.',
           no: 'Picture {n}',
           cap: 'Short caption under the picture (optional)',
-          capPh: 'e.g. This is how the nail looks after buffing',
+          capPh: 'مثال: هكذا يبدو الظفر بعد البرد',
+          capPhEn: 'e.g. This is how the nail looks after buffing',
+          upN: 'Move picture {n} up',
+          downN: 'Move picture {n} down',
+          delN: 'Remove picture {n}',
           delAsk: 'Remove picture {n} from this question?',
           shrink: 'Every picture is resized to {n}px. A screenshot stays PNG while it is small, so its text stays sharp.',
           n1: '1 picture',
@@ -2166,6 +2174,19 @@
       tmp = next[a]; next[a] = next[b]; next[b] = tmp;
       commit(next);
       paint();
+      /* the rows were rebuilt: keep focus on the picture she moved, on the
+         same arrow unless it is now at the end of the list */
+      focusIn(b, b < a ? ['.adm-pic-up', '.adm-pic-down'] : ['.adm-pic-down', '.adm-pic-up']);
+    }
+
+    function focusIn(idx, sels) {
+      var row = host.querySelector('.adm-pic[data-n="' + (idx + 1) + '"]'), i, b;
+      for (i = 0; row && i < sels.length; i++) {
+        b = row.querySelector(sels[i]);
+        if (b && !b.disabled) { try { b.focus(); } catch (e) { /* ignore */ } return; }
+      }
+      b = host.querySelector('.adm-pics-add');
+      if (b && !b.disabled) { try { b.focus(); } catch (e2) { /* ignore */ } }
     }
 
     function rowNode(arr, idx) {
@@ -2178,6 +2199,7 @@
       });
       var en = el('input', {
         'class': 'input', type: 'text', dir: 'ltr', maxlength: '160',
+        placeholder: t('admin.pics.capPhEn'),
         'aria-label': t('admin.pics.cap') + ' (EN)', autocomplete: 'off', value: str(cap.en)
       });
       var up, down, meta, deb;
@@ -2205,8 +2227,8 @@
         h: numOf(p.h, 0) || '?'
       });
 
-      up = iconBtn('arrow', t('admin.up'), function () { swap(idx, idx - 1); }, 'adm-mini adm-pic-up');
-      down = iconBtn('arrow', t('admin.down'), function () { swap(idx, idx + 1); }, 'adm-mini adm-pic-down');
+      up = iconBtn('arrow', t('admin.pics.upN', { n: idx + 1 }), function () { swap(idx, idx - 1); }, 'adm-mini adm-pic-up');
+      down = iconBtn('arrow', t('admin.pics.downN', { n: idx + 1 }), function () { swap(idx, idx + 1); }, 'adm-mini adm-pic-down');
       up.disabled = idx <= 0;
       down.disabled = idx >= arr.length - 1;
 
@@ -2226,7 +2248,7 @@
               ]),
               up,
               down,
-              iconBtn('trash', t('common.delete'), function () {
+              iconBtn('trash', t('admin.pics.delN', { n: idx + 1 }), function () {
                 confirmBox(t('admin.pics.delAsk', { n: idx + 1 })).then(function (yes) {
                   var next;
                   if (!yes) return;
@@ -2234,9 +2256,12 @@
                   next.splice(idx, 1);
                   commit(next);
                   paint();
+                  /* focus the picture that took its place, else the one
+                     before it, else «إضافة صورة» */
+                  focusIn(idx < next.length ? idx : idx - 1, ['.adm-danger']);
                   toast(t('common.deleted'), 'ok');
                 });
-              }, 'adm-mini adm-danger')
+              }, 'adm-mini adm-danger adm-pic-del')
             ])
           ])
         ]),
@@ -2840,6 +2865,19 @@
     }
     return max;
   }
+  /* The panel bar sticks under the site header; a list's own sticky head on
+     a phone («إضافة جديد») has to stick under both, so the CSS needs the
+     bar's real height — it wraps, and changes with the language. */
+  var topHBound = false;
+  function syncTopH() {
+    var bar = D.querySelector('.adm-top');
+    try { D.documentElement.style.setProperty('--adm-top-h', (bar ? bar.offsetHeight : 0) + 'px'); }
+    catch (e) { /* ignore */ }
+    if (!topHBound) {
+      topHBound = true;
+      window.addEventListener('resize', SN.UI.debounce(syncTopH, 150), false);
+    }
+  }
   function reducedMotion() {
     try { return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches); }
     catch (e) { return false; }
@@ -3083,9 +3121,13 @@
           F('pics', 'pics', 'admin.f.pics', { wide: true, hint: 'admin.h.pics' })
         ],
         blank: function () {
-          var cats = sList('faqCats');
+          var cats = sList('faqCats'), cat = cats.length ? str(cats[0].id) : 'general', i;
+          /* a new question starts under «أسئلة عامة» when it exists: filed
+             under the first section (installation) it would sit inside the
+             installation guide until she noticed and moved it */
+          for (i = 0; i < cats.length; i++) if (cats[i] && str(cats[i].id) === 'general') cat = 'general';
           return {
-            id: '', cat: cats.length ? str(cats[0].id) : 'general',
+            id: '', cat: cat,
             q: { ar: '', en: '' }, a: { ar: '', en: '' }, pics: []
           };
         },
@@ -5848,6 +5890,7 @@
 
     setNav(false);
     renderBody();
+    syncTopH();
 
     if (focusIn && refs.title) {
       try { refs.title.focus({ preventScroll: true }); }
