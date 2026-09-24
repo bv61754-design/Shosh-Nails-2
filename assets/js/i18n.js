@@ -12,9 +12,12 @@
   var LANG_KEY = 'shosh-lang';
   /* the Arabic variant she last used, so the EN toggle brings her back to it */
   var ARV_KEY  = 'shosh-arv';
-  /* 'iq' is Iraqi Arabic — the default — and falls back to 'ar' (standard
-     Arabic) for any string it does not carry, then to English */
-  var LANGS    = ['iq', 'ar', 'en'];
+  /* set once, the day the shop moved from Iraqi to standard Arabic */
+  var MIG_KEY  = 'shosh2-fusha';
+  /* 'ar' (standard Arabic, فصحى) is the default the shop speaks. 'iq' is
+     Iraqi Arabic, kept as a switch in the footer; it falls back to 'ar' for
+     any string it does not carry, then to English */
+  var LANGS    = ['ar', 'iq', 'en'];
   var CHAIN    = { iq: ['iq', 'ar', 'en'], ar: ['ar', 'iq', 'en'], en: ['en', 'ar', 'iq'] };
 
   /* ==================================================================== */
@@ -141,7 +144,7 @@
         saveChanges: 'حفظ التعديلات',
         cancel: 'إلغاء',
         'delete': 'حذف',
-        deleteConfirm: 'متأكدة من الحذف؟ ما راح نقدر نرجّعه.',
+        deleteConfirm: 'هل أنتِ متأكدة من الحذف؟ لا يمكن التراجع عنه.',
         remove: 'إزالة',
         add: 'إضافة',
         edit: 'تعديل',
@@ -183,7 +186,7 @@
         selected: 'محدد',
         selectedN: '{n} محدد',
         loading: 'جاري التحميل…',
-        empty: 'ما فيه شيء هنا حالياً',
+        empty: 'لا يوجد شيء هنا حالياً',
         emptyHint: 'جرّبي تغيير البحث أو التصفية',
         required: 'مطلوب',
         invalid: 'قيمة غير صحيحة',
@@ -201,7 +204,7 @@
         more: 'عرض المزيد',
         less: 'عرض أقل',
         success: 'تم بنجاح',
-        error: 'صار خطأ، جرّبي مرة ثانية',
+        error: 'حدث خطأ، حاولي مرة أخرى',
         saved: 'تم الحفظ',
         deleted: 'تم الحذف',
         added: 'تمت الإضافة',
@@ -211,7 +214,7 @@
         instagram: 'انستقرام',
         snapchat: 'سناب شات',
         tiktok: 'تيك توك',
-        phone: 'رقم الجوال',
+        phone: 'رقم الهاتف',
         call: 'اتصال',
         email: 'البريد الإلكتروني',
         hours: 'أوقات العمل',
@@ -219,7 +222,7 @@
         address: 'العنوان',
         name: 'الاسم',
         note: 'ملاحظات',
-        notePh: 'أي تفاصيل تحبين نعرفها؟',
+        notePh: 'أي تفاصيل تودّين أن نعرفها؟',
         status: 'الحالة',
         date: 'التاريخ',
         image: 'الصورة',
@@ -306,41 +309,41 @@
         ready: 'تصميم جاهز',
         submit: 'تأكيد الطلب',
         sending: 'جاري الإرسال…',
-        sent: 'باقي خطوة وحدة',
-        thanks: 'طلبك يوصلنا لمن تضغطين إرسال في واتساب أو إنستغرام. إذا ما انفتح التطبيق، انسخي الطلب من الزر تحت وأرسليه لنا بنفسك.',
+        sent: 'بقيت خطوة واحدة',
+        thanks: 'يصلنا طلبك عندما تضغطين إرسال في واتساب أو إنستغرام. إذا لم ينفتح التطبيق، فانسخي الطلب من الزر في الأسفل وأرسليه لنا بنفسك.',
         copySummary: 'نسخ الملخص',
         openWa: 'فتح واتساب',
         openIg: 'إرسال على إنستغرام',
         igCopied: 'نسخنا طلبك — الصقيه في المحادثة',
-        igCopyFail: 'ما قدرنا ننسخ الطلب. انسخيه من زر «نسخ الطلب» فوق.',
+        igCopyFail: 'لم نتمكن من نسخ الطلب. انسخيه من زر «نسخ الطلب» في الأعلى.',
         downloadImg: 'تحميل صورة التصميم',
         newDesign: 'تصميم جديد',
         terms: 'بضغطك «تأكيد الطلب» توافقين على شروط الطلب والاستبدال.',
         termsLink: 'اقرئي الشروط',
-        termsErr: 'لازم توافقين على الشروط قبل التأكيد',
+        termsErr: 'يجب الموافقة على الشروط قبل التأكيد',
         nameErr: 'اكتبي اسمك (حرفين على الأقل)',
         phoneErr: 'تأكدي من رقم الهاتف',
         govErr: 'اختاري محافظتك حتى نحسب لك أجرة التوصيل',
         govFee: 'التوصيل إلى {g}: {f} · يوصلك خلال {d}',
         sizeLine: 'المقاس: نتفق عليه بالمحادثة بعد الطلب',
-        sizeNote: 'ما تعرفين مقاسك؟ عادي — بعد ما تدزين طلبك نرسل لك طريقة القياس مع صورة، أو تختارين S / M / L.',
-        stepsTitle: 'شنو يصير بعد ما تدزين؟',
+        sizeNote: 'لا تعرفين مقاسك؟ لا مشكلة — بعد إرسال طلبك نرسل لك طريقة القياس مع صورة، أو تختارين S / M / L.',
+        stepsTitle: 'ماذا يحدث بعد الإرسال؟',
         depositNote: 'يُدفع مقدّمًا وينخصم من المبلغ',
-        editHint: 'تحبين تغيّرين شي بهالطقم (لون، طول، شكل)؟ اكتبيه في الملاحظات ونضبطه لك.',
+        editHint: 'تودّين تغيير شيء في هذا الطقم (لون، طول، شكل)؟ اكتبيه في الملاحظات ونضبطه لك.',
         foundingLine: 'زبونة تأسيس ✨ (عرض أول {n} زبونة)',
         foundingConfirm: 'عرض التأسيس: مهما كان سعر طلبك، يُضاف لطلبك طقم مجاني بقيمة {g}. وعندما يصلك، نفرح بصورة الطقم على يدك ورأيك.',
-        sendTitle: 'دزّي طلبك',
-        sendLead: 'طلبك يوصلنا لمن تدزين الرسالة. اختاري وين تدزينها:',
-        sendWa: 'دزّي على واتساب',
-        sendIg: 'دزّي على إنستغرام',
+        sendTitle: 'أرسلي طلبك',
+        sendLead: 'يصلنا طلبك عند إرسال الرسالة. اختاري أين ترسلينها:',
+        sendWa: 'أرسلي عبر واتساب',
+        sendIg: 'أرسلي عبر إنستغرام',
         igHow: 'ننسخ لك رسالة الطلب، وتلصقينها في محادثة إنستغرام.',
         copyFull: 'نسخ كل التفاصيل',
         codeLbl: 'رمز طلبك',
         guideTitle: 'طريقة القياس',
-        guideText: 'صوّري يدك من فوق ومسطرة ملاصقة للأظافر، ودزي الصورة لنا بالمحادثة. أو قيسي عرض كل ظفر بالمليمتر عند أوسع نقطة. وإذا طلع بين رقمين، الأوسع دائمًا.',
+        guideText: 'صوّري يدك من الأعلى ومسطرة ملاصقة للأظافر، وأرسلي الصورة لنا في المحادثة. أو قيسي عرض كل ظفر بالمليمتر عند أوسع نقطة. وإذا جاء القياس بين رقمين، فاختاري الأوسع دائمًا.',
         guideSave: 'احفظي صورة الشرح',
         guideWidest: 'قيسي أوسع نقطة في الظفر',
-        msgHi: 'هلا شوش 💅',
+        msgHi: 'مرحباً شوش 💅',
         msgNew: 'طلب جديد',
         msgSet: 'الطقم',
         msgQuiz: 'طقم من اختبار الستايل',
@@ -350,8 +353,8 @@
         msgDeposit: 'عربون {d} مقدّمًا',
         msgGov: 'المحافظة',
         msgLink: 'رابط النتيجة',
-        notifyErr: 'ما قدرنا نرسل الإشعار، بس طلبك محفوظ عندنا.',
-        empty: 'ما فيه طلبات حالياً',
+        notifyErr: 'لم نتمكن من إرسال الإشعار، لكن طلبك محفوظ عندنا.',
+        empty: 'لا توجد طلبات حالياً',
         status: {
           'new': 'جديد',
           confirmed: 'مؤكد',
@@ -367,14 +370,14 @@
         details: 'تفاصيل الدفع',
         note: 'ملاحظة',
         bank: 'تحويل بنكي',
-        card: 'بطاقة مدى أو فيزا',
+        card: 'بطاقة ماستركارد أو فيزا',
         wallet: 'محفظة إلكترونية',
         cod: 'الدفع عند الاستلام',
         applepay: 'Apple Pay',
         copyIban: 'نسخ رقم الآيبان',
         ibanCopied: 'تم نسخ رقم الآيبان',
         after: 'بعد التحويل أرسلي صورة الإيصال على الواتساب',
-        secure: 'معلوماتك محفوظة، وما نطلب أي بيانات بطاقة داخل الموقع'
+        secure: 'معلوماتك محفوظة، ولا نطلب أي بيانات بطاقة داخل الموقع'
       }
     },
 
@@ -645,7 +648,7 @@
         details: 'Payment details',
         note: 'Note',
         bank: 'Bank transfer',
-        card: 'Mada or Visa card',
+        card: 'Mastercard or Visa card',
         wallet: 'Digital wallet',
         cod: 'Cash on delivery',
         applepay: 'Apple Pay',
@@ -717,11 +720,11 @@
   var subs = [];
   var fmtCache = {};
 
-  function chain(l){ return CHAIN[l] || CHAIN.iq; }
+  function chain(l){ return CHAIN[l] || CHAIN.ar; }
   function normalize(l){
     var s = String(l);
     if (s === 'en' || s === 'ar' || s === 'iq') return s;
-    return 'iq';
+    return 'ar';
   }
   function isArabic(l){ return l !== 'en'; }
 
@@ -732,12 +735,25 @@
     return (v === 'ar' || v === 'en' || v === 'iq') ? v : null;
   }
 
-  /* the Arabic she last read: Iraqi unless she chose standard Arabic */
+  /* the Arabic she last read: standard Arabic unless she chose Iraqi */
   function storedVariant(){
     var v = null;
     try { v = window.localStorage.getItem(ARV_KEY); }
     catch (e){ v = null; }
-    return v === 'ar' ? 'ar' : 'iq';
+    return v === 'iq' ? 'iq' : 'ar';
+  }
+
+  /* The shop used to open in Iraqi and now opens in standard Arabic. Anyone
+     who browsed before this change carries 'iq' in storage and would keep
+     reading Iraqi forever, so move them across once — and only once, so that
+     choosing Iraqi again afterwards sticks. */
+  function migrateVariant(){
+    try {
+      if (window.localStorage.getItem(MIG_KEY)) return;
+      if (window.localStorage.getItem(LANG_KEY) === 'iq') window.localStorage.setItem(LANG_KEY, 'ar');
+      if (window.localStorage.getItem(ARV_KEY)  === 'iq') window.localStorage.setItem(ARV_KEY,  'ar');
+      window.localStorage.setItem(MIG_KEY, '1');
+    } catch (e){ /* private mode — nothing stored, nothing to migrate */ }
   }
 
   function persist(l){
@@ -925,7 +941,7 @@
   /* the footer switch: Iraqi <-> standard Arabic (no-op while in English) */
   function variant(v){
     if (v === undefined) return isArabic(lang) ? lang : storedVariant();
-    return set(v === 'ar' ? 'ar' : 'iq');
+    return set(v === 'iq' ? 'iq' : 'ar');
   }
 
   function onChange(fn){
@@ -938,7 +954,8 @@
   }
 
   /* ============================================================== boot */
-  lang = storedLang() || 'iq';
+  migrateVariant();
+  lang = storedLang() || 'ar';
   dir  = isArabic(lang) ? 'rtl' : 'ltr';
   markDoc();                       /* lang + dir as early as possible */
 

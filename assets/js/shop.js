@@ -68,24 +68,24 @@
       shop: {
         eyebrow: 'جاهزة للطلب',
         title: 'التصاميم الجاهزة',
-        lead: 'مجموعة مختارة من أطقم شوش نيل، كل طقم مرسوم ظفر بظفر. اطلبيه زي ما هو بمقاسك، أو سوّي اختبار الستايل لو تبين طقمًا مبنيًا على ذوقك.',
+        lead: 'مجموعة مختارة من أطقم شوش نيل، كل طقم مرسوم ظفر بظفر. اطلبيه كما هو بمقاسك، أو أجري اختبار الستايل إن أردتِ طقمًا مبنيًا على ذوقك.',
 
         /* hero pills */
         countN: '{n} تصميم معروض',
         fromPrice: 'الأسعار تبدأ من {p}',
         topOne: 'الأكثر طلباً: {name} · {n} طلب',
-        quizCta: 'ما تدرين وش يناسبك؟ سوّي اختبار الستايل',
+        quizCta: 'لا تعرفين ما يناسبك؟ أجري اختبار الستايل',
 
         /* rail */
         topEyebrow: 'اختيارات العميلات',
         topTitle: 'الأكثر طلباً',
-        topSub: 'التصاميم اللي ما تهدأ الطلبات عليها. اضغطي على أي طقم وتشوفينه بالتفصيل.',
+        topSub: 'التصاميم التي لا تهدأ الطلبات عليها. اضغطي على أي طقم لتشاهديه بالتفصيل.',
         rankN: '#{n}',
         rankAria: 'المركز {n} في الأكثر طلباً',
 
         /* catalogue */
         allTitle: 'كل التصاميم',
-        allSub: 'دوّري بالاسم أو الوسم، رتّبي بالسعر، وحدّدي ميزانيتك — والنتائج تتحدث لحظة بلحظة.',
+        allSub: 'ابحثي بالاسم أو الوسم، رتّبي بالسعر، وحدّدي ميزانيتك — والنتائج تتحدث لحظة بلحظة.',
         searchLabel: 'البحث في التصاميم',
         searchPh: 'ابحثي باسم التصميم أو وصفه أو وسمه…',
         clearSearch: 'مسح كلمة البحث',
@@ -99,15 +99,15 @@
         priceBtn: 'نطاق السعر',
         priceFrom: 'من',
         priceTo: 'إلى',
-        priceNote: 'حرّكي المؤشرين عشان تحددين ميزانيتك، والنتائج تتصفّى مباشرة.',
+        priceNote: 'حرّكي المؤشرين لتحديد ميزانيتك، والنتائج تتصفّى مباشرة.',
         tagsLabel: 'التصفية بالوسوم',
         tagAll: 'الكل',
         fav: 'المفضلة',
         favAdd: 'أضيفي «{name}» للمفضلة',
-        favRemove: 'شيلي «{name}» من المفضلة',
-        favOn: 'انحفظ في المفضلة',
-        favOff: 'انشال من المفضلة',
-        favEmpty: 'ما عندك تصاميم محفوظة بعد — اضغطي على القلب في أي تصميم يعجبك ويرجع لك هنا.',
+        favRemove: 'أزيلي «{name}» من المفضلة',
+        favOn: 'تم الحفظ في المفضلة',
+        favOff: 'تمت الإزالة من المفضلة',
+        favEmpty: 'ليس لديك تصاميم محفوظة بعد — اضغطي على القلب في أي تصميم يعجبك ليعود لك هنا.',
         clearFilters: 'مسح الفلاتر',
         resultsN: 'عرض {n} من {total} تصميم',
 
@@ -119,23 +119,23 @@
         openDetails: 'افتحي تفاصيل «{name}»',
 
         /* empty states */
-        emptyTitle: 'ما لقينا تصميم بهالمواصفات',
+        emptyTitle: 'لم نجد تصميماً بهذه المواصفات',
         emptyText: 'جرّبي كلمة بحث ثانية، أو وسّعي نطاق السعر، أو امسحي الفلاتر وابدئي من جديد.',
-        emptyAll: 'ما فيه تصاميم جاهزة معروضة حالياً — بس تقدرين تسوّين اختبار الستايل ونختار لك طقمك.',
+        emptyAll: 'لا توجد تصاميم جاهزة معروضة حالياً — لكن يمكنك إجراء اختبار الستايل ونختار لك طقمك.',
         emptyAllCta: 'ابدئي اختبار الستايل',
-        notFound: 'التصميم اللي تدوّرين عليه ما عاد متوفر.',
+        notFound: 'التصميم الذي تبحثين عنه لم يعد متوفراً.',
 
         /* quick view */
         qvTags: 'الوسوم',
         qvOptions: 'خيارات الطلب',
         qvTotal: 'الإجمالي',
-        qvNote: 'السعر مكتوب قدامك — أجرة التوصيل تنضاف حسب محافظتك عند الطلب.',
-        qvEdit: 'تحبين تغيّرين شي بهالطقم؟ لون، طول، شكل — اكتبيه في الملاحظات عند الطلب ونضبطه لك.',
-        qvSize: 'المقاس نتفق عليه بالمحادثة بعد الطلب — ما تحتاجين تعرفينه الآن.',
+        qvNote: 'السعر مكتوب أمامك — أجرة التوصيل تُضاف حسب محافظتك عند الطلب.',
+        qvEdit: 'تودّين تغيير شيء في هذا الطقم؟ لون، طول، شكل — اكتبيه في الملاحظات عند الطلب ونضبطه لك.',
+        qvSize: 'المقاس نتفق عليه بالمحادثة بعد الطلب — لا تحتاجين إلى معرفته الآن.',
         qvPreviewAlt: 'معاينة تصميم «{name}»',
 
         /* what she actually gets — every line read off the design itself */
-        qvIncludes: 'وش يجيك في هذا الطقم؟',
+        qvIncludes: 'ماذا يصلك في هذا الطقم؟',
         incNails: '{n} أظافر مجهّزة بمقاسك',
         incShape: 'شكل {name}',
         incLength: 'طول {name}',
@@ -144,9 +144,9 @@
         incPattern1: 'نقشة مرسومة يدويًا على ظفر واحد',
         incPattern2: 'نقشة مرسومة يدويًا على ظفرين',
         incPattern: 'نقشة مرسومة يدويًا على {n} أظافر',
-        incCharms1: 'زخرفة وحدة مركّبة باليد',
+        incCharms1: 'زخرفة واحدة مركّبة باليد',
         incCharms2: 'زخرفتين مركّبتين باليد',
-        incCharms: '{n} زخرفة مركّبة وحدة وحدة',
+        incCharms: '{n} زخرفة مركّبة واحدة واحدة',
         incPlain: 'لون سادة على كل الأظافر',
 
         /* tags */
@@ -533,14 +533,48 @@
     return out;
   }
 
+  /* the owner's own lists, in the order she arranged them, minus the ones
+     she hid from the shop */
+  function shopGroups() {
+    var arr = list('groups'), out = [], i, g;
+    for (i = 0; i < arr.length; i++) {
+      g = arr[i];
+      if (g && g.id && g.active !== false && g.inShop !== false) out.push(g);
+    }
+    return out;
+  }
+
+  function groupRow(id) {
+    var arr = list('groups'), i;
+    for (i = 0; i < arr.length; i++) if (arr[i] && String(arr[i].id) === String(id)) return arr[i];
+    return null;
+  }
+
+  /* a set's lists, as tags, so they filter and count exactly like every other
+     chip. A list she hid from the shop contributes nothing. */
+  function groupTags(it) {
+    var ids = Array.isArray(it && it.groups) ? it.groups : [], out = [], i, g;
+    for (i = 0; i < ids.length; i++) {
+      g = groupRow(ids[i]);
+      if (g && g.active !== false && g.inShop !== false) out.push('group:' + g.id);
+    }
+    return out;
+  }
+
   function tagsOf(it) {
     var own = Array.isArray(it && it.tags) ? it.tags : [];
-    return own.concat(axisTags(it));
+    return own.concat(groupTags(it), axisTags(it));
   }
 
   function tagLabel(tag) {
-    var raw = String(tag || ''), at = raw.indexOf(':'), s;
+    var raw = String(tag || ''), at = raw.indexOf(':'), s, g;
     if (at > 0) {
+      /* a list is the owner's own row, not one of the quiz axes, so it has to
+         be resolved before axisLabel — which knows nothing about it */
+      if (raw.slice(0, at) === 'group') {
+        g = groupRow(raw.slice(at + 1));
+        return g ? (pick(g.name) || raw.slice(at + 1)) : raw.slice(at + 1);
+      }
       s = axisLabel(raw.slice(0, at), raw.slice(at + 1));
       if (s) return s;
     }
@@ -550,12 +584,20 @@
 
   function haystack(item) {
     var parts = [], tags = Array.isArray(item.tags) ? item.tags : [], i;
+    var gs = Array.isArray(item.groups) ? item.groups : [], g;
     parts.push(item.name && item.name.ar, item.name && item.name.en);
     parts.push(item.desc && item.desc.ar, item.desc && item.desc.en);
     parts.push(item.id);
     for (i = 0; i < tags.length; i++) {
       parts.push(tags[i]);
       parts.push(tagLabel(tags[i]));
+    }
+    /* searching «أعراس» should find the sets she put in that list, in both
+       languages, whether or not the word appears in the set's own name */
+    for (i = 0; i < gs.length; i++) {
+      g = groupRow(gs[i]);
+      if (!g) continue;
+      parts.push(g.id, g.name && g.name.ar, g.name && g.name.en);
     }
     return norm(parts.join(' '));
   }
@@ -1515,7 +1557,26 @@
       commit();
     }));
 
+    /* her own lists come first and in her own order — allTags sorts by count,
+       which would scatter them among the automatic chips */
+    (function () {
+      var gs = shopGroups(), k, tag;
+      for (k = 0; k < gs.length; k++) {
+        tag = 'group:' + gs[k].id;
+        if (!tags.counts[tag]) continue;
+        kids.push((function (tg) {
+          return chip('tag:' + tg, tagLabel(tg), st.tags.indexOf(tg) !== -1, tags.counts[tg], function () {
+            var at = st.tags.indexOf(tg);
+            if (at === -1) st.tags.push(tg);
+            else st.tags.splice(at, 1);
+            commit();
+          });
+        })(tag));
+      }
+    }());
+
     for (i = 0; i < tags.order.length; i++) {
+      if (String(tags.order[i]).indexOf('group:') === 0) continue;   /* already above */
       kids.push((function (tag) {
         return chip('tag:' + tag, tagLabel(tag), st.tags.indexOf(tag) !== -1, tags.counts[tag], function () {
           var at = st.tags.indexOf(tag);

@@ -233,19 +233,19 @@
     },
     skinTones: [], shapes: [], lengths: [], finishes: [], colors: [], patterns: [],
     charms: [], sizeGuide: [], sizeSets: [], measureMethods: [], paymentMethods: [],
-    governorates: [], designs: [], faqCats: [], faq: [], orders: []
+    governorates: [], groups: [], designs: [], faqCats: [], faq: [], orders: []
   };
 
   /* Collections we recognise — used by importFile() validation and shape repair. */
   var COLLECTIONS = ['skinTones','shapes','lengths','finishes','colors','patterns','charms',
-    'sizeGuide','sizeSets','measureMethods','paymentMethods','governorates','designs','faqCats','faq','orders'];
+    'sizeGuide','sizeSets','measureMethods','paymentMethods','governorates','groups','designs','faqCats','faq','orders'];
 
   /* Collections that live one level down, under `home`. */
   var HOME_LISTS = ['features','steps','testimonials','stats'];
 
   var PREFIX = {
     colors: 'c', charms: 'ch', patterns: 'p', shapes: 'sh', finishes: 'f', lengths: 'l',
-    skinTones: 'sk', designs: 'd', faq: 'q', faqCats: 'fc', orders: 'o',
+    skinTones: 'sk', designs: 'd', faq: 'q', faqCats: 'fc', orders: 'o', groups: 'g',
     sizeGuide: 's', sizeSets: 'ss', measureMethods: 'mm', paymentMethods: 'pm', governorates: 'gv'
   };
   function prefixFor(key){

@@ -577,6 +577,15 @@
   border-radius:50%;
   box-shadow:inset 0 -7px 15px rgba(74,43,57,.18), var(--sh-1);
 }
+/* a list tile can carry the owner's own photo instead of an icon, and a tall
+   upload must not push the tile out of shape */
+.quiz-art img{
+  inline-size:100%;
+  block-size:100%;
+  object-fit:cover;
+  border-radius:var(--r);
+  display:block;
+}
 .quiz-ico{
   display:grid;
   place-items:center;

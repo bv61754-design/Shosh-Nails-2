@@ -44,7 +44,7 @@
     iq: {
       quiz: {
         cardTitle: 'خلّي نطلّع لك طقمك أنتِ',
-        cardText: 'تسع أسئلة، كلها صور وضغطة وحدة — وبالأخير يطلع لك طقم كامل: اسمه، لونه، شكله، وزخرفته ظفر ظفر. اطلبيه مثل ما هو.',
+        cardText: 'أسئلة قليلة، كلها صور وضغطة وحدة — وبالأخير يطلع لك طقم كامل: اسمه، لونه، شكله، وزخرفته ظفر ظفر. اطلبيه مثل ما هو.',
         cardCta: 'ابدي الاختبار',
         cardTease: 'ابدي من هنا — ياهو اللون الأقرب لبشرتك؟',
 
@@ -88,6 +88,10 @@
           max: 'ومزيّن على طول اليد، لأنك مو جاية تمرّين مرور الكرام'
         },
 
+        qGroup: 'أي قائمة من قوائمنا أقرب إلك؟',
+        hGroup: 'اختاري القائمة الأقرب لمناسبتك، أو خليها مفتوحة.',
+        groupAny: 'ما أحدد — عرضيلي كلشي',
+        whyGroup: 'من قائمة {g}',
         qBudget: 'شكد ميزانيتك للطقم؟',
         hBudget: 'ماكو شي نعرضه لك فوق اللي حددتيه. وتقدرين ما تحددين.',
         qSkin: 'شنو لون بشرتك؟',
@@ -111,11 +115,11 @@
       quiz: {
         /* the entry point on the home page */
         cardEyebrow: 'اختبار الستايل',
-        cardTitle: 'خلّينا نطلع لك طقمك أنتِ',
-        cardText: 'تسع أسئلة، كلها صور وضغطة وحدة — وفي الآخر يطلع لك طقم كامل: اسمه، لونه، شكله، وزخرفته ظفر ظفر. اطلبيه زي ما هو.',
+        cardTitle: 'دعينا نصمّم لك طقمك أنتِ',
+        cardText: 'أسئلة قليلة، كلها صور وضغطة واحدة — وفي النهاية يظهر لك طقم كامل: اسمه، لونه، شكله، وزخرفته ظفرًا ظفرًا. اطلبيه كما هو.',
         cardCta: 'ابدئي الاختبار',
         cardNote: 'أقل من دقيقة · بدون كتابة',
-        cardProof: 'كل بنت تطلع لها نتيجة غير',
+        cardProof: 'لكل فتاة نتيجة مختلفة',
         cardTease: 'ابدئي من هنا — أي لون أقرب لبشرتك؟',
 
         /* the shell */
@@ -124,20 +128,20 @@
         progress: 'تقدّمك في الاختبار',
         back: 'رجوع',
         close: 'إغلاق الاختبار',
-        picked: 'اخترتي: {name}',
+        picked: 'اخترتِ: {name}',
 
         /* Q1 — occasion */
         q1: 'الطقم لأي مناسبة؟',
-        h1: 'أول شي نعرفه: وين بتلبسينه؟',
+        h1: 'أول ما نعرفه: أين سترتدينه؟',
         occasion: {
           wedding: 'عرس أو خطوبة',
           daily: 'دوام ويوميات',
-          party: 'سهرة وطلعة',
+          party: 'سهرة ونزهة',
           holiday: 'سفر وإجازة'
         },
 
         /* Q2 — the mood */
-        q2: 'وش الإحساس اللي يشبهك؟',
+        q2: 'ما الإحساس الذي يشبهك؟',
         h2: 'من هنا نختار شكل الظفر واللمعة.',
         vibe: {
           calm: 'هادئ ونظيف',
@@ -147,8 +151,8 @@
         },
 
         /* Q3 — the colour she keeps coming back to */
-        q3: 'وش اللون اللي دايمًا ترجعين له؟',
-        h3: 'اللي تلقين نفسك مختارته كل مرة، من غير ما تفكرين.',
+        q3: 'ما اللون الذي ترجعين إليه دائماً؟',
+        h3: 'الذي تجدين نفسك تختارينه كل مرة، من دون تفكير.',
         palette: {
           nude: 'نيود وبيج',
           pink: 'وردي',
@@ -159,8 +163,8 @@
         },
 
         /* Q4 — season */
-        q4: 'الجو اللي تحبين طقمك يشبهه؟',
-        h4: 'كل فصل له درجات تليق فيه — وهذي درجاتك أنتِ.',
+        q4: 'ما الجو الذي تودّين أن يشبهه طقمك؟',
+        h4: 'كل فصل له درجات تليق به — وهذه درجاتك أنتِ.',
         season: {
           spring: 'ربيع',
           summer: 'صيف',
@@ -175,18 +179,18 @@
         },
 
         /* Q5 — how much attention */
-        q5: 'كم تحبين يدك تلفت النظر؟',
-        h5: 'من هدوء واثق، لين يد ما أحد يعديها.',
+        q5: 'إلى أي مدى تودّين أن تلفت يدك النظر؟',
+        h5: 'من هدوء واثق، إلى يد لا يمكن تجاهلها.',
         attention: {
           quiet: 'بهدوء',
           soft: 'لفتة خفيفة',
           clear: 'واضحة',
-          max: 'ما أحد يعديها'
+          max: 'لا تخطئها عين'
         },
 
         /* Q6 — gold or silver */
-        q6: 'ذهبي وإلا فضي؟',
-        h6: 'نفس السؤال اللي تسألينه لنفسك قبل ما تختارين إكسسوارك.',
+        q6: 'ذهبي أم فضي؟',
+        h6: 'نفس السؤال الذي تسألينه لنفسك قبل أن تختاري إكسسوارك.',
         metal: {
           gold: 'ذهبي',
           silver: 'فضي',
@@ -194,8 +198,8 @@
         },
 
         /* Q7 — length */
-        q7: 'وش الطول المريح لك؟',
-        h7: 'الطول أكثر شي يغيّر شكل يدك في الصورة.',
+        q7: 'ما الطول المريح لك؟',
+        h7: 'الطول أكثر شيء يغيّر شكل يدك في الصورة.',
 
         /* the anticipation beat */
         waitTitle: 'نجمع لك طقمك…',
@@ -206,9 +210,9 @@
         previewAlt: 'معاينة طقم «{name}»',
         subLine: '{occ} · {season} · {len}',
         variants: {
-          calmer: 'أهدى شوي',
+          calmer: 'أهدأ قليلاً',
           match: 'المختار لك',
-          bolder: 'أجرأ شوي'
+          bolder: 'أجرأ قليلاً'
         },
         variantsHint: 'قلّبي بين الثلاثة — كلها مبنية على إجاباتك.',
         variantsLabel: 'ثلاث نسخ من طقمك',
@@ -260,17 +264,17 @@
         why: '{occ} — {col}، {att}.',
         whyOcc: {
           wedding: 'طقم مضبوط لعرس أو خطوبة',
-          daily: 'طقم يمشي معك من الدوام لين آخر اليوم',
-          party: 'طقم للسهرة واللي بعدها',
+          daily: 'طقم يرافقك من الدوام حتى آخر اليوم',
+          party: 'طقم للسهرة وما بعدها',
           holiday: 'طقم خفيف للسفر والصور'
         },
         whyCol: 'بدرجة {c} تليق بجو {s}',
         whyColPlain: 'بدرجة {c}',
         whyAtt: {
           quiet: 'ونظيف بدون زخرفة، هدوء واثق',
-          soft: 'وظفر واحد مميّز يكفي عشان اللفتة',
-          clear: 'وزخرفة على ظفرين، واضحة من غير مبالغة',
-          max: 'ومزيّن على طول اليد، لأنك ما جيتي تمرّين مرور الكرام'
+          soft: 'وظفر واحد مميّز يكفي للفت النظر',
+          clear: 'وزخرفة على ظفرين، واضحة من دون مبالغة',
+          max: 'ومزيّن على طول اليد، لأنكِ لم تأتِ لتمرّي مرور الكرام'
         },
 
         /* nail by nail */
@@ -280,36 +284,40 @@
         plain: 'سادة',
 
         /* skin */
-        qBudget: 'وش ميزانيتك للطقم؟',
-        hBudget: 'ما نعرض لك شي فوق اللي حددتيه. تقدرين ما تحددين.',
+        qGroup: 'أي قائمة من قوائمنا أقرب إليك؟',
+        hGroup: 'اختاري القائمة الأقرب لمناسبتك، أو اتركي الخيار مفتوحًا.',
+        groupAny: 'لا أحدد — اعرضي لي كل شيء',
+        whyGroup: 'من قائمة {g}',
+        qBudget: 'ما ميزانيتك للطقم؟',
+        hBudget: 'لا نعرض لك شيئاً فوق ما حدّدتِه. ويمكنكِ ألا تحدّدي.',
         vNear1: 'الأقرب لك',
         vNear2: 'قريب منك',
         vNear3: 'خيار ثالث',
         whyLead: 'اخترناه لك لأنه',
-        whyPalette: 'بعائلة الألوان اللي اخترتيها',
+        whyPalette: 'بعائلة الألوان التي اخترتِها',
         whySeason: 'يليق بجو {s}',
         whyOccasion: 'يصلح لـ{o}',
         whyVibe: 'وطابعه {v}',
         whySkin: 'ويليق على درجة بشرتك',
-        qSkin: 'وش لون بشرتك؟',
-        hSkin: 'عشان نختار لك درجة تليق عليك، ونعرف مقاسك وقت التجهيز.',
+        qSkin: 'ما لون بشرتك؟',
+        hSkin: 'لنختار لك درجة تليق بكِ، ونعرف مقاسك وقت التجهيز.',
 
         /* price + actions */
         priceFrom: 'يبدأ من {p}',
         priceNote: 'السعر بدون التوصيل — أجرة التوصيل تُضاف حسب محافظتك عند الطلب.',
         order: 'اطلبيه الآن',
         again: 'أعيدي الاختبار',
-        editHint: 'تحبين تغيّرين شي بهالطقم؟ لون، طول، شكل — اكتبيه في الملاحظات عند الطلب ونضبطه لك.',
-        sizeHint: 'المقاس نتفق عليه بالمحادثة بعد الطلب — ما تحتاجين تعرفينه الآن.',
+        editHint: 'تودّين تغيير شيء في هذا الطقم؟ لون، طول، شكل — اكتبيه في الملاحظات عند الطلب ونضبطه لك.',
+        sizeHint: 'المقاس نتفق عليه بالمحادثة بعد الطلب — لا تحتاجين إلى معرفته الآن.',
         founding: 'عرض أول {n} زبونة: مهما كان سعر طلبك، يُضاف لطلبك طقم مجاني بقيمة {g}.',
         share: 'شاركيه',
         saveImg: 'احفظي الصورة',
         shareTitle: 'طقمي من شوش نيل',
-        shareText: 'طلع لي طقم «{name}» من اختبار الستايل في {brand} 💅 سوّي الاختبار وشوفي طقمك:',
-        shareCopied: 'انتسخ الرابط — الصقيه في ستوريتك',
-        shareFail: 'ما قدرنا ننسخ الرابط',
-        savedImg: 'انحفظت الصورة',
-        saveFail: 'ما قدرنا نحفظ الصورة',
+        shareText: 'ظهر لي طقم «{name}» من اختبار الستايل في {brand} 💅 جرّبي الاختبار وشاهدي طقمك:',
+        shareCopied: 'تم نسخ الرابط — الصقيه في ستوريتك',
+        shareFail: 'لم نتمكن من نسخ الرابط',
+        savedImg: 'تم حفظ الصورة',
+        saveFail: 'لم نتمكن من حفظ الصورة',
         savingImg: 'نجهّز الصورة…',
         yourPicks: 'اختياراتك',
 
@@ -332,10 +340,10 @@
           none: 'بدون معدن'
         },
 
-        savedNote: 'التصميم صار جاهز — عدّلي فيه اللي تبينه قبل ما تطلبين.',
-        failTitle: 'ما قدرنا نبني الطقم',
-        failText: 'جرّبي مرة ثانية، أو اختاري تصميمًا جاهزًا من المتجر.',
-        failCta: 'جرّبي مرة ثانية'
+        savedNote: 'أصبح التصميم جاهزاً — عدّلي فيه ما تشائين قبل الطلب.',
+        failTitle: 'لم نتمكن من بناء الطقم',
+        failText: 'حاولي مرة أخرى، أو اختاري تصميماً جاهزاً من المتجر.',
+        failCta: 'حاولي مرة أخرى'
       }
     },
 
@@ -343,7 +351,7 @@
       quiz: {
         cardEyebrow: 'Style quiz',
         cardTitle: 'Let us build the set that is yours',
-        cardText: 'Nine questions, all pictures, one tap each — and at the end a full set: its name, its colour, its shape and its decoration nail by nail. Order it as it is.',
+        cardText: 'A few questions, all pictures, one tap each — and at the end a full set: its name, its colour, its shape and its decoration nail by nail. Order it as it is.',
         cardCta: 'Take the quiz',
         cardNote: 'Under a minute · nothing to type',
         cardProof: 'No two answers give the same set',
@@ -494,6 +502,10 @@
         charmsN: '{n} charms',
         plain: 'Plain',
 
+        qGroup: 'Which of our lists is closest to you?',
+        hGroup: 'Pick the list nearest your occasion, or leave it open.',
+        groupAny: 'No preference — show me everything',
+        whyGroup: 'from your {g} list',
         qBudget: 'What is your budget for a set?',
         hBudget: 'We will not show you anything above it. You can leave it open.',
         vNear1: 'Closest to you',
@@ -981,6 +993,7 @@
     a.skin = (answers && answers.skin) ? answers.skin : '';
     a.budget = (answers && answers.budget) ? answers.budget : '';
     a.tag = (answers && answers.tag) ? answers.tag : '';
+    a.group = (answers && answers.group) ? answers.group : '';
     return a;
   }
 
@@ -1000,7 +1013,8 @@
 
     if (!d) return null;
 
-    occ = rowOf(OCCASIONS, a.occasion);
+    /* a list may lend its own character to the set we build */
+    occ = rowOf(OCCASIONS, groupSeed(a) || a.occasion);
     vibe = rowOf(VIBES, a.vibe);
     pal = rowOf(PALETTES, a.palette);
     sea = rowOf(SEASONS, a.season);
@@ -1289,7 +1303,7 @@
       for (j = 0; j < arr.length; j++) if (arr[j] && arr[j].id === id) return pick(arr[j].name);
       return '';
     };
-    var m = it.match || {}, occ = '';
+    var m = it.match || {}, occ = '', gr = null;
 
     if (w.indexOf('palette') !== -1) parts.push(t('quiz.whyPalette'));
     if (w.indexOf('season') !== -1 && axis('season', a.season)) {
@@ -1303,6 +1317,12 @@
       parts.push(t('quiz.whyVibe', { v: axis('vibe', m.vibe[0]) }));
     }
     if (w.indexOf('skin') !== -1) parts.push(t('quiz.whySkin'));
+
+    /* the gate adds nothing to hit.why, so this is tested directly */
+    if (inChosenGroup(it, a)) {
+      gr = groupRow(a.group);
+      if (gr && pick(gr.name)) parts.unshift(t('quiz.whyGroup', { g: pick(gr.name) }));
+    }
 
     if (!parts.length) return '';
     return t('quiz.whyLead') + ' ' + parts.join('، ') + '.';
@@ -1323,6 +1343,11 @@
       for (i = 0; i < m.occasion.length && chips.length < 2; i++) {
         if (axis('occasion', m.occasion[i])) chips.push(axis('occasion', m.occasion[i]));
       }
+    }
+    /* the list she asked for leads, because it is the word she chose herself */
+    if (inChosenGroup(it, a)) {
+      var gr = groupRow(a.group);
+      if (gr && pick(gr.name)) chips.unshift(pick(gr.name));
     }
     if (Array.isArray(m.vibe) && m.vibe.length) {
       if (axis('vibe', m.vibe[0])) chips.push(axis('vibe', m.vibe[0]));
@@ -1379,6 +1404,7 @@
   var STEPS = [
     { key: 'skin', q: 'quiz.qSkin', hint: 'quiz.hSkin', art: 'skin', cols: 3 },
     { key: 'occasion', q: 'quiz.q1', hint: 'quiz.h1', art: 'thumb', cols: 2 },
+    { key: 'group', q: 'quiz.qGroup', hint: 'quiz.hGroup', art: 'group', cols: 2 },
     { key: 'vibe', q: 'quiz.q2', hint: 'quiz.h2', art: 'thumb', cols: 2 },
     { key: 'palette', q: 'quiz.q3', hint: 'quiz.h3', art: 'strip', cols: 3 },
     { key: 'season', q: 'quiz.q4', hint: 'quiz.h4', art: 'thumb', cols: 2 },
@@ -1388,7 +1414,48 @@
     { key: 'budget', q: 'quiz.qBudget', hint: 'quiz.hBudget', art: 'budget', cols: 2 }
   ];
 
-  var TOTAL = STEPS.length;
+  /* The list question only exists while the owner has at least one list she
+     wants in the quiz, so the number of questions is not a constant. STEPS
+     itself stays whole and in a fixed order — the shareable result code is
+     positional and would decode into the wrong keys if the array shrank. */
+  function activeGroups() {
+    var arr = list('groups'), out = [], i, g;
+    for (i = 0; i < arr.length; i++) {
+      g = arr[i];
+      if (g && g.id && g.active !== false && g.inQuiz !== false) out.push(g);
+    }
+    return out;
+  }
+
+  function steps() {
+    var on = activeGroups().length > 0, out = [], i;
+    for (i = 0; i < STEPS.length; i++) {
+      if (STEPS[i].key !== 'group' || on) out.push(STEPS[i]);
+    }
+    return out;
+  }
+
+  function total() { return steps().length; }
+
+  /* Unlike rowOf, this returns null rather than the first row: "she picked no
+     list" and "she picked the first list" are different answers. */
+  function groupRow(id) {
+    var arr, i;
+    if (!id || id === 'any') return null;
+    arr = list('groups');
+    for (i = 0; i < arr.length; i++) if (arr[i] && String(arr[i].id) === String(id)) return arr[i];
+    return null;
+  }
+
+  function inChosenGroup(it, a) {
+    if (!a || !a.group || a.group === 'any') return false;
+    return Array.isArray(it && it.groups) && it.groups.indexOf(a.group) !== -1;
+  }
+
+  function groupSeed(a) {
+    var r = groupRow(a && a.group);
+    return (r && r.seed) ? String(r.seed) : '';
+  }
 
   function tableFor(key) {
     if (key === 'occasion') return OCCASIONS;
@@ -1417,6 +1484,14 @@
       for (i = 0; i < arr.length; i++) {
         if (arr[i] && arr[i].id) out.push({ id: arr[i].id, label: pick(arr[i].name), row: arr[i] });
       }
+      return out;
+    }
+    /* her own lists, in her own order, labelled from the row itself — the
+       dictionary fallback below would print the literal quiz.group.g-xxx */
+    if (key === 'group') {
+      arr = activeGroups();
+      for (i = 0; i < arr.length; i++) out.push({ id: arr[i].id, label: pick(arr[i].name) || arr[i].id, row: arr[i] });
+      out.push({ id: 'any', label: t('quiz.groupAny'), row: null });
       return out;
     }
     if (key === 'length') {
@@ -1449,6 +1524,20 @@
       box.appendChild(el('span', {
         'class': 'quiz-skin',
         style: { backgroundColor: (opt.row && opt.row.hex) || '#EFCDB6' }
+      }));
+      return box;
+    }
+
+    /* a list tile shows her own photo if she uploaded one, else its icon.
+       «any» has no row, so it falls through and draws the set she would get. */
+    if (step.art === 'group' && opt.row) {
+      if (opt.row.image) {
+        box.appendChild(el('img', { src: String(opt.row.image), alt: '', loading: 'lazy' }));
+        return box;
+      }
+      box.appendChild(el('span', {
+        'class': 'quiz-ico',
+        html: (SN.UI && typeof SN.UI.icon === 'function') ? SN.UI.icon(String(opt.row.ico || 'sparkle'), 26) : ''
       }));
       return box;
     }
@@ -1654,8 +1743,8 @@
   /* How well one design answers her. Every axis is optional on the design:
      left blank it neither helps nor hurts, so a half-filled design still
      competes on what the owner did fill in. */
-  var W_PALETTE = 34, W_OCCASION = 22, W_VIBE = 16, W_SKIN = 14, W_SEASON = 12,
-      W_ATTENTION = 10, W_METAL = 8, W_LENGTH = 8;
+  var W_PALETTE = 34, W_GROUP = 30, W_OCCASION = 22, W_VIBE = 16, W_SKIN = 14,
+      W_SEASON = 12, W_ATTENTION = 10, W_METAL = 8, W_LENGTH = 8;
 
   function budgetMax(id) {
     var arr = list('matchAxes.budget'), i;
@@ -1670,6 +1759,25 @@
     var score = 0, max = 0, hit, cap, why = [];
 
     if (it && it.active === false) return null;
+
+    /* She asked for a list by name. A set that belongs to lists and not to
+       hers is the wrong shelf; a set she never filed anywhere is still fair
+       game, exactly like every other axis the owner left blank.
+
+       Being IN her list also scores, and scores heavily: she named it
+       herself, which is a stronger signal than anything we infer. It is also
+       what lets the shortest possible set — a name, a price, a photo and one
+       list — be recommended at all, instead of being held back for want of a
+       colour swatch the owner never filled in. */
+    if (a.group && a.group !== 'any') {
+      hit = Array.isArray(it.groups) ? it.groups : [];
+      if (hit.length) {
+        if (hit.indexOf(a.group) === -1) return null;
+        max += W_GROUP;
+        score += W_GROUP;
+        why.push('group');
+      }
+    }
 
     /* Over her ceiling is not a near miss, it is the wrong shelf. */
     if (a.budget && a.budget !== 'any') {
@@ -1710,7 +1818,8 @@
     if (m.length) { max += W_LENGTH; if (m.length === a.length) { score += W_LENGTH; why.push('length'); } }
 
     /* only the skin axis scored — the owner has told us nothing else about
-       this design, so it cannot be recommended on merit */
+       this design, so it cannot be recommended on merit. Her own list counts
+       as telling us something, so a set filed under it clears this bar. */
     if (max <= W_SKIN) return null;
     return { fit: score / max, max: max, score: score, why: why };
   }
@@ -1738,7 +1847,7 @@
 
   var st = {
     open: false,
-    step: 0,          /* 0..TOTAL-1 = a question, TOTAL = wait, TOTAL+1 = reveal */
+    step: 0,          /* 0..total()-1 = a question, total() = wait, total()+1 = reveal */
     ans: {},
     m: null,
     root: null,
@@ -1782,11 +1891,11 @@
       role: 'progressbar',
       'aria-label': t('quiz.progress'),
       'aria-valuemin': '1',
-      'aria-valuemax': String(TOTAL),
-      'aria-valuenow': String(Math.min(TOTAL, st.step + 1))
+      'aria-valuemax': String(total()),
+      'aria-valuenow': String(Math.min(total(), st.step + 1))
     });
     var i, cls;
-    for (i = 0; i < TOTAL; i++) {
+    for (i = 0; i < total(); i++) {
       cls = 'quiz-dot';
       if (i < st.step) cls += ' is-done';
       else if (i === st.step) cls += ' is-on';
@@ -1796,7 +1905,7 @@
   }
 
   function topBar() {
-    var showBack = st.step > 0 && st.step < TOTAL;
+    var showBack = st.step > 0 && st.step < total();
     return el('div', { 'class': 'quiz-top' }, [
       el('button', {
         type: 'button',
@@ -1841,7 +1950,7 @@
   }
 
   function questionScreen() {
-    var step = STEPS[st.step];
+    var step = steps()[st.step];
     var opts = optionsFor(step.key);
     var grid = el('div', {
       'class': 'quiz-opts quiz-cols-' + step.cols +
@@ -1861,7 +1970,7 @@
     return el('div', { 'class': 'quiz-screen' + (reducedMotion() ? '' : ' sn-in') }, [
       el('p', {
         'class': 'eyebrow quiz-eyebrow',
-        text: t('quiz.stepN', { n: num(st.step + 1), total: num(TOTAL) })
+        text: t('quiz.stepN', { n: num(st.step + 1), total: num(total()) })
       }),
       el('h3', { 'class': 'quiz-q display', text: t(step.q) }),
       el('p', { 'class': 'quiz-hint', text: t(step.hint) }),
@@ -2365,8 +2474,8 @@
 
   function paint() {
     if (!st.stage) return;
-    if (st.step < TOTAL) fill(st.stage, [topBar(), questionScreen()]);
-    else if (st.step === TOTAL) fill(st.stage, [topBar(), waitScreen()]);
+    if (st.step < total()) fill(st.stage, [topBar(), questionScreen()]);
+    else if (st.step === total()) fill(st.stage, [topBar(), waitScreen()]);
     else {
       fill(st.stage, [doneScreen(!st.lit)]);
       st.lit = true;
@@ -2388,10 +2497,10 @@
 
   function firstUnanswered() {
     var i;
-    for (i = 0; i < TOTAL; i++) {
-      if (!st.ans[STEPS[i].key]) return i;
+    for (i = 0; i < total(); i++) {
+      if (!st.ans[steps()[i].key]) return i;
     }
-    return TOTAL;
+    return total();
   }
 
   function reveal() {
@@ -2405,20 +2514,20 @@
     if (!st.vars.length || !st.vars[0].real) {
       for (i = 0; i < st.vars.length; i++) if (st.vars[i].id === 'match') st.vi = i;
     }
-    st.step = TOTAL + 1;
+    st.step = total() + 1;
     paint();
     say(t('quiz.doneTitle'));
   }
 
   function answer(key, id) {
     if (id) st.ans[key] = id;
-    if (st.step < TOTAL - 1) {
+    if (st.step < total() - 1) {
       st.step += 1;
       paint();
       return;
     }
     /* last answer in: hold one beat, then reveal */
-    st.step = TOTAL;
+    st.step = total();
     paint();
     clearTimer();
     st.timer = window.setTimeout(function () {
@@ -2502,7 +2611,7 @@
       }
     });
 
-    if (st.step >= TOTAL) reveal();
+    if (st.step >= total()) reveal();
     else paint();
     if (o.hash !== false) setHash(true);
   }
@@ -2538,7 +2647,7 @@
     if (SN.I18n && typeof SN.I18n.onChange === 'function') {
       SN.I18n.onChange(function () {
         if (!st.open) return;
-        if (st.step > TOTAL) { st.vars = variantsFor(st.ans); }
+        if (st.step > total()) { st.vars = variantsFor(st.ans); }
         paint();
       });
     }
@@ -2578,7 +2687,7 @@
     build: build,
     variants: variantsFor,
     name: nameFor,
-    total: TOTAL,
+    total: STEPS.length,   /* every question the quiz can ask */
 
     /* the first question, rendered on the home page so the quiz starts
        before the modal ever opens */

@@ -101,7 +101,7 @@
         en: 'Press-on nails, made to your taste and your fit'
       },
       about: {
-        ar: 'شوش نيل مشغل بيتي صغير، كل طقم فيه مشتغل باليد لزبونة وحدة. تختارين الشكل والطول واللون والنقشة، وإحنا نجهّز الطقم على مقاسك أنتِ — ظفر ظفر — بخامة مرنة مريحة ولمعة تبقى. ماكو عدنا محل ولا صالون: تطلبين من الموقع أو من الواتساب، والعلبة توصلك لباب البيت كاملة مع اللاصقات وعدّة التركيب، وتلبسينها بأقل من عشر دقايق.',
+        ar: 'شوش نيل مشغل منزلي صغير، كل طقم فيه مصنوع يدويًا لزبونة واحدة. تختارين الشكل والطول واللون والنقشة، ونحن نجهّز الطقم على مقاسك أنتِ — ظفرًا ظفرًا — بخامة مرنة مريحة ولمعة تدوم. ليس لدينا محل ولا صالون: تطلبين من الموقع أو من واتساب، والعلبة تصلك إلى باب البيت كاملة مع اللاصقات وعدّة التركيب، وتلبسينها في أقل من عشر دقائق.',
         en: 'Shosh Nail is a small home workshop: every set is handmade for one customer at a time. You choose the shape, length, colour and pattern, and we build the set to your own measurements — nail by nail — in a flexible, comfortable material with a lasting shine. There is no shop and no salon: you order here or on WhatsApp, and the box is delivered to your door complete with adhesives and a prep kit, ready to wear in under ten minutes.'
       },
       phone: '+9647700000000',
@@ -117,25 +117,25 @@
       address: { ar: '', en: '' },
       /* Not shop opening times — the hours the owner answers messages. */
       hours: {
-        ar: 'نرد على الرسائل كل يوم من 11 الصبح إلى 10 بالليل · والطلب من الموقع مفتوح 24 ساعة',
+        ar: 'نرد على الرسائل كل يوم من 11 صباحًا إلى 10 مساءً · والطلب من الموقع مفتوح 24 ساعة',
         en: 'We answer messages daily, 11am – 10pm · ordering on the site is open 24/7'
       },
       currency: { ar: 'د.ع', en: 'IQD' },
       adminPass: 'shosh1234',
       /* مستودع الموقع على GitHub — تستخدمه لوحة التحكم لفتح صفحة تعديل
-         ملف كلمة المرور (password.js) مباشرة من الجوال بضغطة واحدة.
+         ملف كلمة المرور (password.js) مباشرة من الهاتف بضغطة واحدة.
          The GitHub repo + branch this site is published from; the admin panel
          uses them to build a one-tap "edit password.js" link. */
       /* the reassurance shown right where she hesitates, above the order
          button. Edited from the general settings. */
       afterOrder: {
-        ar: 'نرد عليك بأقل من ساعة · نتفق على المقاس والدفع بالخاص · نصوّر لك الطقم وإحنا نشتغل عليه وقبل ما ندزّه',
+        ar: 'نرد عليك في أقل من ساعة · نتفق على المقاس والدفع بالخاص · نصوّر لك الطقم أثناء العمل عليه وقبل إرساله',
         en: 'We reply within the hour · size and payment agreed in chat · photos of your set while we make it and before it ships'
       },
       /* "and then what?" as four steps, shown above the confirm button and on
          the receipt. Steps are separated with | so the panel edits one box. */
       afterSteps: {
-        ar: 'نرد عليك بأقل من ساعة|نتفق على المقاس وطريقة الدفع بالخاص|نصوّر لك الطقم وإحنا نشتغل عليه وقبل ما ندزّه|يوصلك الطقم وتدفعين الباقي للمندوب',
+        ar: 'نرد عليك في أقل من ساعة|نتفق على المقاس وطريقة الدفع بالخاص|نصوّر لك الطقم أثناء العمل عليه وقبل إرساله|يصلك الطقم وتدفعين الباقي للمندوب',
         en: 'We reply within the hour|Size and payment agreed in chat|Photos of your set while we make it and before it ships|It arrives and you pay the courier the rest'
       },
       /* the launch offer: the first N customers get a free set worth `gift`
@@ -193,10 +193,10 @@
         en: 'Nails that look like you — from the very first touch'
       },
       heroSub: {
-        ar: 'جاوبي على تسع أسئلة كلها صور، وإحنا نبني لك طقم كامل على ذوقك — اللون والشكل والطول والنقشة والزخارف. نجهّزه على مقاسك ويوصلك جاهز تلبسينه بدقايق.',
+        ar: 'أجيبي عن أسئلة سريعة كلها صور، ونحن نبني لك طقمًا كاملًا على ذوقك — اللون والشكل والطول والنقشة والزخارف. نجهّزه على مقاسك ويصلك جاهزًا تلبسينه في دقائق.',
         en: 'Answer nine picture questions and we build you a whole set in your taste — colour, shape, length, pattern and charms. We craft it to your size and send it ready to wear in minutes.'
       },
-      heroCta: { ar: 'سوّي اختبار الستايل', en: 'Take the style quiz' },
+      heroCta: { ar: 'ابدئي اختبار الستايل', en: 'Take the style quiz' },
       heroImage: '',
       features: [
         {
@@ -204,8 +204,8 @@
           icon: 'brush',
           title: { ar: 'طقم مبني على ذوقك', en: 'Built around your taste' },
           text: {
-            ar: 'تسع أسئلة كلها صور، وبآخرها يطلع لك طقم كامل: اللون واللمسة والنقشة والزخارف، كله مبني على إجاباتك أنتِ.',
-            en: 'Nine picture questions, and at the end a whole set — colour, finish, pattern and charms — built from your own answers.'
+            ar: 'أسئلة سريعة كلها صور، وفي آخرها يظهر لك طقم كامل: اللون واللمسة والنقشة والزخارف، كله مبني على إجاباتك أنتِ.',
+            en: 'A few picture questions, and at the end a whole set — colour, finish, pattern and charms — built from your own answers.'
           }
         },
         {
@@ -213,7 +213,7 @@
           icon: 'ruler',
           title: { ar: 'مقاسك مضبوط', en: 'Measured to your hands' },
           text: {
-            ar: 'نتفق على مقاسك بالخاص قبل ما نبدي الشغل: صورة إيدك ويّا مسطرة، أو عرض كل ظفر بالمليمتر، أو مقاس جاهز. ونصوّر لك الطقم قبل ما ندزّه.',
+            ar: 'نتفق على مقاسك بالخاص قبل أن نبدأ العمل: صورة يدك مع مسطرة، أو عرض كل ظفر بالمليمتر، أو مقاس جاهز. ونصوّر لك الطقم قبل إرساله.',
             en: 'We agree your size in chat before we make it: a photo of your hand with a ruler, each nail in millimetres, or a preset. And you get a photo of the set before it ships.'
           }
         },
@@ -222,7 +222,7 @@
           icon: 'gem',
           title: { ar: 'خامة تدوم وتريح', en: 'Comfort that lasts' },
           text: {
-            ar: 'أكريليك مرن وخفيف على ظفرك الطبيعي، بحواف مصقولة ولمعة تبقى من أسبوع إلى ثلاث أسابيع.',
+            ar: 'أكريليك مرن وخفيف على ظفرك الطبيعي، بحواف مصقولة ولمعة تدوم من أسبوع إلى ثلاثة أسابيع.',
             en: 'A flexible, lightweight acrylic that is kind to your natural nail, with polished edges and a shine that holds for one to three weeks.'
           }
         },
@@ -231,7 +231,7 @@
           icon: 'truck',
           title: { ar: 'توصيل لكل العراق', en: 'Delivered anywhere in Iraq' },
           text: {
-            ar: 'نجهّز طقمك بـ 3–5 أيام، وندزّه لكل محافظات العراق والدفع عند الاستلام. وأكو خيار مستعجل إذا مناسبتك قريبة.',
+            ar: 'نجهّز طقمك خلال 3–5 أيام، ونرسله إلى كل محافظات العراق والدفع عند الاستلام. وهناك خيار مستعجل إذا كانت مناسبتك قريبة.',
             en: 'Your set is crafted in 3–5 days and delivered to every governorate in Iraq, cash on delivery — with a rush option when the date is close.'
           }
         }
@@ -239,9 +239,9 @@
       steps: [
         {
           id: 'st-1',
-          title: { ar: 'سوّي الاختبار أو اختاري', en: 'Take the quiz or pick one' },
+          title: { ar: 'ابدئي الاختبار أو اختاري', en: 'Take the quiz or pick one' },
           text: {
-            ar: 'سوّي اختبار الستايل وإحنا نبني لك طقمك من إجاباتك، أو اختاري تصميم جاهز من المتجر على طول.',
+            ar: 'ابدئي اختبار الستايل ونحن نبني لك طقمك من إجاباتك، أو اختاري تصميمًا جاهزًا من المتجر مباشرة.',
             en: 'Take the style quiz and we build your set from your answers, or pick a ready-made design from the shop.'
           }
         },
@@ -249,23 +249,23 @@
           id: 'st-2',
           title: { ar: 'نتفق على مقاسك', en: 'We agree your size' },
           text: {
-            ar: 'بعد ما تدزين طلبك ندزّ لك بالخاص طريقة القياس مع صورة: إيدك ويّا مسطرة، أو كل ظفر بالمليمتر، أو مقاس جاهز (S / M / L).',
+            ar: 'بعد أن ترسلي طلبك نرسل لك بالخاص طريقة القياس مع صورة: يدك مع مسطرة، أو كل ظفر بالمليمتر، أو مقاس جاهز (S / M / L).',
             en: 'Once your order lands we send you the measuring method in chat, with a picture: your hand with a ruler, each nail in millimetres, or a preset (S / M / L).'
           }
         },
         {
           id: 'st-3',
-          title: { ar: 'دزّي الطلب', en: 'Send your order' },
+          title: { ar: 'أرسلي الطلب', en: 'Send your order' },
           text: {
-            ar: 'راجعي التفاصيل والسعر واختاري طريقة الدفع، وبعدين دزّي رسالة الطلب على واتساب أو إنستغرام. نرد عليك بأقل من ساعة.',
+            ar: 'راجعي التفاصيل والسعر واختاري طريقة الدفع، ثم أرسلي رسالة الطلب على واتساب أو إنستغرام. نرد عليك في أقل من ساعة.',
             en: 'Review the details and the price, pick a payment method, then send the order message on WhatsApp or Instagram. We reply within the hour.'
           }
         },
         {
           id: 'st-4',
-          title: { ar: 'البسيها بدقايق', en: 'Wear them in minutes' },
+          title: { ar: 'البسيها في دقائق', en: 'Wear them in minutes' },
           text: {
-            ar: 'العلبة توصلك وبيها كل شي: اللاصقات، المبرد، عود الجلد ومنديل التنظيف — وكرت شرح خطوة بخطوة.',
+            ar: 'العلبة تصلك وفيها كل شيء: اللاصقات، المبرد، عود الجلد ومنديل التنظيف — وبطاقة شرح خطوة بخطوة.',
             en: 'The box arrives with everything: adhesive tabs, a file, a cuticle stick, a prep wipe and a step-by-step card.'
           }
         }
@@ -301,7 +301,7 @@
       occasion: [
         { id: 'wedding', name: { ar: 'عرس أو خطوبة', en: 'Wedding or engagement' } },
         { id: 'daily', name: { ar: 'دوام ويوميات', en: 'Work and everyday' } },
-        { id: 'party', name: { ar: 'سهرة وطلعة', en: 'A night out' } },
+        { id: 'party', name: { ar: 'سهرة ونزهة', en: 'A night out' } },
         { id: 'holiday', name: { ar: 'سفر وإجازة', en: 'Travel and holiday' } }
       ],
       vibe: [
@@ -328,7 +328,7 @@
         { id: 'quiet', name: { ar: 'بهدوء', en: 'Quietly' } },
         { id: 'soft', name: { ar: 'لفتة خفيفة', en: 'A light touch' } },
         { id: 'clear', name: { ar: 'واضحة', en: 'Clearly' } },
-        { id: 'max', name: { ar: 'ما أحد يعديها', en: 'Impossible to miss' } }
+        { id: 'max', name: { ar: 'لا تخطئها عين', en: 'Impossible to miss' } }
       ],
       metal: [
         { id: 'gold', name: { ar: 'ذهبي', en: 'Gold' } },
@@ -341,10 +341,10 @@
          spend more. `max: 0` means no ceiling at all. Edit the numbers to
          match your prices. */
       budget: [
-        { id: 'b1', max: 20000, name: { ar: 'لحد ٢٠ ألف', en: 'Up to 20,000' } },
-        { id: 'b2', max: 30000, name: { ar: 'لحد ٣٠ ألف', en: 'Up to 30,000' } },
-        { id: 'b3', max: 45000, name: { ar: 'لحد ٤٥ ألف', en: 'Up to 45,000' } },
-        { id: 'any', max: 0, name: { ar: 'ما أحدد ميزانية', en: 'No budget limit' } }
+        { id: 'b1', max: 20000, name: { ar: 'حتى ٢٠ ألفاً', en: 'Up to 20,000' } },
+        { id: 'b2', max: 30000, name: { ar: 'حتى ٣٠ ألفاً', en: 'Up to 30,000' } },
+        { id: 'b3', max: 45000, name: { ar: 'حتى ٤٥ ألفاً', en: 'Up to 45,000' } },
+        { id: 'any', max: 0, name: { ar: 'لا أحدد ميزانية', en: 'No budget limit' } }
       ]
     },
 
@@ -579,13 +579,13 @@
       /* --- shapes, metal work and finishes ------------------------------ */
       { id: 'ch-bow', art: 'sh-bow', glyph: '', image: '', price: 700, group: 'misc', name: { ar: 'فيونكة بارزة', en: '3D Bow' } },
       { id: 'ch-butterfly', art: 'sh-butterfly', glyph: '', image: '', price: 700, group: 'misc', name: { ar: 'فراشة', en: 'Butterfly' } },
-      { id: 'ch-bear', art: 'sh-bear', glyph: '', image: '', price: 600, group: 'misc', name: { ar: 'دبدوب صغير', en: 'Tiny Bear' } },
+      { id: 'ch-bear', art: 'sh-bear', glyph: '', image: '', price: 600, group: 'misc', name: { ar: 'دبّ صغير', en: 'Tiny Bear' } },
       { id: 'ch-crown', art: 'sh-crown', glyph: '', image: '', price: 600, group: 'misc', name: { ar: 'تاج ذهبي', en: 'Gold Crown' } },
       { id: 'ch-cherry', art: 'sh-cherry', glyph: '', image: '', price: 500, group: 'misc', name: { ar: 'حبتا كرز', en: 'Cherry Pair' } },
       { id: 'ch-evil-eye', art: 'sh-evil-eye', glyph: '', image: '', price: 500, group: 'misc', name: { ar: 'عين زرقاء', en: 'Evil Eye Bead' } },
       { id: 'ch-cross', art: 'sh-cross', glyph: '', image: '', price: 500, group: 'misc', name: { ar: 'صليب', en: 'Cross' } },
       { id: 'ch-bolt', art: 'sh-bolt', glyph: '', image: '', price: 500, group: 'misc', name: { ar: 'برق', en: 'Lightning Bolt' } },
-      { id: 'ch-dangle', art: 'mt-charm-dangle', glyph: '', image: '', price: 900, group: 'misc', name: { ar: 'دلاية متحرّكة', en: 'Dangling Charm' } },
+      { id: 'ch-dangle', art: 'mt-charm-dangle', glyph: '', image: '', price: 900, group: 'misc', name: { ar: 'حلية متدلّية', en: 'Dangling Charm' } },
       { id: 'ch-chain', art: 'mt-chain', glyph: '', image: '', price: 700, group: 'misc', name: { ar: 'سلسلة ذهب', en: 'Gold Chain' } },
       { id: 'ch-frame', art: 'mt-frame', glyph: '', image: '', price: 500, group: 'misc', name: { ar: 'حلقة ذهبية', en: 'Gold Ring Frame' } },
       { id: 'ch-foil-gold', art: 'mt-foil-gold', glyph: '', image: '', price: 300, group: 'misc', name: { ar: 'رقاقة ذهب', en: 'Gold Foil Flake' } },
@@ -620,7 +620,7 @@
        ===================================================================== */
     sizeSets: [
       { id: 'S', name: { ar: 'صغير S', en: 'Small S' }, sizes: { thumb: 3, index: 6, middle: 5, ring: 7, pinky: 9 } },
-      { id: 'M', name: { ar: 'وسط M', en: 'Medium M' }, sizes: { thumb: 2, index: 5, middle: 4, ring: 6, pinky: 8 } },
+      { id: 'M', name: { ar: 'متوسط M', en: 'Medium M' }, sizes: { thumb: 2, index: 5, middle: 4, ring: 6, pinky: 8 } },
       { id: 'L', name: { ar: 'كبير L', en: 'Large L' }, sizes: { thumb: 1, index: 4, middle: 3, ring: 5, pinky: 7 } }
     ],
 
@@ -632,13 +632,13 @@
         id: 'preset',
         name: { ar: 'مقاس جاهز', en: 'Ready preset' },
         text: {
-          ar: 'أسرع طريقة: اختاري S أو M أو L وإحنا نوزّع المقاسات على أصابعك حسب المتوسط المعتمد عندنا. تناسب أغلب العميلات، وتقدرين تعدّلين أي إصبع لحاله بعدها لو حسّيتي إنه أضيق أو أوسع.',
+          ar: 'أسرع طريقة: اختاري S أو M أو L ونحن نوزّع المقاسات على أصابعك حسب المتوسط المعتمد عندنا. تناسب أغلب العميلات، ويمكنك تعديل أي إصبع على حدة بعدها إذا شعرتِ أنه أضيق أو أوسع.',
           en: 'The quickest route: pick S, M or L and we spread our standard sizes across your fingers. It works for most hands, and you can still fine-tune any single finger afterwards.'
         },
         steps: [
-          { ar: 'اختاري المقاس اللي يقارب حجم يدك: S لليد الصغيرة، M للمتوسطة، L للكبيرة.', en: 'Pick the preset closest to your hand: S for small, M for medium, L for large.' },
+          { ar: 'اختاري المقاس الأقرب إلى حجم يدك: S لليد الصغيرة، M للمتوسطة، L للكبيرة.', en: 'Pick the preset closest to your hand: S for small, M for medium, L for large.' },
           { ar: 'راجعي رقم المقاس المقترح لكل إصبع في الجدول.', en: 'Check the suggested size number for each finger in the table.' },
-          { ar: 'عدّلي أي إصبع لحاله إذا كنتِ متأكدة إنه يحتاج أوسع أو أضيق.', en: 'Adjust any individual finger if you know it needs to be wider or narrower.' },
+          { ar: 'عدّلي أي إصبع على حدة إذا كنتِ متأكدة أنه يحتاج إلى مقاس أوسع أو أضيق.', en: 'Adjust any individual finger if you know it needs to be wider or narrower.' },
           { ar: 'إذا كنتِ بين مقاسين، اختاري الأوسع — الأوسع يلتصق أفضل من الأضيق.', en: 'If you fall between two sizes, always take the wider one — it adheres far better than a tight fit.' }
         ]
       },
@@ -646,28 +646,28 @@
         id: 'ruler',
         name: { ar: 'قياس بالمسطرة', en: 'Measure with a ruler' },
         text: {
-          ar: 'الطريقة الأدق وما تاخذ منك أكثر من خمس دقائق. تحتاجين مسطرة بالمليمتر أو شريط قياس خياطة، وتقيسين عرض كل ظفر من الحافة لحافة عند أوسع نقطة، ثم تدخلين الرقم في الموقع وإحنا نحوّله لمقاس.',
+          ar: 'الطريقة الأدق ولا تستغرق منك أكثر من خمس دقائق. تحتاجين مسطرة بالمليمتر أو شريط قياس خياطة، وتقيسين عرض كل ظفر من حافة إلى حافة عند أوسع نقطة، ثم تدخلين الرقم في الموقع ونحن نحوّله إلى مقاس.',
           en: 'The most accurate method and it takes about five minutes. You need a millimetre ruler or a tailor’s tape: measure each nail across its widest point, enter the number here and we convert it to a size.'
         },
         steps: [
-          { ar: 'حطّي المسطرة أفقيًا فوق الظفر عند أوسع نقطة فيه، وليس عند الجلد.', en: 'Lay the ruler flat across the nail at its widest point, not over the cuticle skin.' },
-          { ar: 'اقرأي العرض بالمليمتر من الحافة اليمنى للحافة اليسرى، وقرّبيه لأقرب نصف مليمتر.', en: 'Read the width in millimetres from edge to edge and round to the nearest half millimetre.' },
+          { ar: 'ضعي المسطرة أفقيًا فوق الظفر عند أوسع نقطة فيه، وليس عند الجلد.', en: 'Lay the ruler flat across the nail at its widest point, not over the cuticle skin.' },
+          { ar: 'اقرئي العرض بالمليمتر من الحافة اليمنى إلى الحافة اليسرى، وقرّبيه إلى أقرب نصف مليمتر.', en: 'Read the width in millimetres from edge to edge and round to the nearest half millimetre.' },
           { ar: 'كرّري القياس لكل إصبع في اليدين — الأصابع غالبًا ما تكون متطابقة بين اليدين.', en: 'Repeat for every finger on both hands — the two hands are rarely identical.' },
-          { ar: 'أدخلي الأرقام في محدّد المليمتر داخل الموقع، وبيظهر لك رقم المقاس تلقائيًا.', en: 'Enter the numbers into the millimetre slider on the site and the matching size appears automatically.' },
-          { ar: 'لو طلع القياس بين رقمين، اختاري الأوسع دائمًا.', en: 'If a measurement lands between two numbers, always choose the wider size.' }
+          { ar: 'أدخلي الأرقام في محدّد المليمتر داخل الموقع، ويظهر لك رقم المقاس تلقائيًا.', en: 'Enter the numbers into the millimetre slider on the site and the matching size appears automatically.' },
+          { ar: 'إذا جاء القياس بين رقمين، فاختاري الأوسع دائمًا.', en: 'If a measurement lands between two numbers, always choose the wider size.' }
         ]
       },
       {
         id: 'kit',
         name: { ar: 'عدّة القياس', en: 'Sizing kit' },
         text: {
-          ar: 'إذا ما تريدين المجازفة بالقياس، نرسل لك عدّة قياس فيها كل المقاسات الاثني عشر تجرّبينها على أظافرك مثل الخواتم. تحتفظين بأرقامك للطلبات الجاية، وقيمة العدّة تُخصم من طلبك الأول.',
+          ar: 'إذا كنتِ لا تريدين المجازفة بالقياس، نرسل لك عدّة قياس فيها كل المقاسات الاثني عشر تجرّبينها على أظافرك مثل الخواتم. تحتفظين بأرقامك للطلبات القادمة، وقيمة العدّة تُخصم من طلبك الأول.',
           en: 'If you would rather not guess, we post you a sizing kit with all twelve sizes to try on like rings. You keep your numbers for every future order, and the kit price is deducted from your first set.'
         },
         steps: [
           { ar: 'اطلبي عدّة القياس عبر الواتساب واذكري عنوانك.', en: 'Request the sizing kit on WhatsApp and share your address.' },
-          { ar: 'جرّبي المقاسات على كل ظفر بدون لاصق، والمقاس الصحيح هو اللي يغطي الظفر من حافة لحافة بدون ما يضغط الجلد.', en: 'Try the sizes on each nail without adhesive — the right one covers the nail edge to edge without pressing on the skin.' },
-          { ar: 'دوّني رقم كل إصبع في الكرت المرفق.', en: 'Write each finger’s number on the card included in the kit.' },
+          { ar: 'جرّبي المقاسات على كل ظفر بدون لاصق، والمقاس الصحيح هو الذي يغطي الظفر من حافة إلى حافة دون أن يضغط على الجلد.', en: 'Try the sizes on each nail without adhesive — the right one covers the nail edge to edge without pressing on the skin.' },
+          { ar: 'دوّني رقم كل إصبع في البطاقة المرفقة.', en: 'Write each finger’s number on the card included in the kit.' },
           { ar: 'أرسلي لنا الأرقام على الإنستغرام أو الواتساب مع طلبك.', en: 'Send us the numbers on Instagram or WhatsApp with your order.' }
         ]
       }
@@ -684,38 +684,38 @@
         id: 'pm-cod', icon: 'cod', enabled: true, deposit: true,
         name: { ar: 'الدفع عند الاستلام', en: 'Cash on delivery' },
         note: {
-          ar: 'تدفعين للمندوب لمن يوصلك الطقم، وأكو عربون بسيط مقدّم ينخصم من المبلغ.',
+          ar: 'تدفعين للمندوب عندما يصلكِ الطقم، وهناك عربون بسيط مقدّم يُخصم من المبلغ.',
           en: 'Pay the courier when the set arrives, after a small deposit that comes off the total.'
         },
         details: {
-          ar: 'الدفع عند الاستلام موجود لكل المحافظات. حتى ما يروح شغل الطقم لو ما انستلم، نطلب عربون بسيط مقدّم ينخصم من المبلغ، والباقي تدفعينه للمندوب. العربون يوصلنا بأي طريقة تناسبك: زين كاش، أو رصيد سيم كارت (آسياسيل أو زين أو أثير)، أو ماستركارد. نتفق على التفاصيل بالخاص بعد ما يوصلنا طلبك.',
+          ar: 'الدفع عند الاستلام متاح في كل المحافظات. حتى لا يضيع عمل الطقم إذا لم يُستلم، نطلب عربوناً بسيطاً مقدّماً يُخصم من المبلغ، والباقي تدفعينه للمندوب. يصلنا العربون بأي طريقة تناسبكِ: زين كاش، أو رصيد سيم كارت (آسياسيل أو زين أو أثير)، أو ماستركارد. نتفق على التفاصيل في الخاص بعد وصول طلبكِ.',
           en: 'Cash on delivery works in every governorate. So that a set is never made for a parcel nobody collects, we ask for a small deposit up front, which comes off the total; you pay the courier the rest. The deposit reaches us however suits you: Zain Cash, phone credit (Asiacell, Zain or Athir), or Mastercard. We settle the details in chat once your order lands.'
         }
       },
       {
         id: 'pm-zaincash', icon: 'wallet', enabled: true,
         name: { ar: 'زين كاش', en: 'Zain Cash' },
-        note: { ar: 'تحوّلين على محفظة زين كاش — المبلغ كامل أو العربون.', en: 'A transfer to our Zain Cash wallet — the full amount or the deposit.' },
+        note: { ar: 'تحوّلين إلى محفظة زين كاش — المبلغ كاملاً أو العربون.', en: 'A transfer to our Zain Cash wallet — the full amount or the deposit.' },
         details: {
-          ar: 'رقم محفظة زين كاش: 07XXXXXXXXX\nالاسم: شوش نيل\n\nبعد ما تحوّلين دزّي لنا سكرين شوت بالخاص ويّا رمز الطلب حتى نأكّد لك وصول المبلغ.',
+          ar: 'رقم محفظة زين كاش: 07XXXXXXXXX\nالاسم: شوش نيل\n\nبعد التحويل أرسلي لنا لقطة شاشة في الخاص مع رمز الطلب حتى نؤكّد لكِ وصول المبلغ.',
           en: 'Zain Cash wallet: 07XXXXXXXXX\nName: Shosh Nail\n\nAfter sending, share a screenshot in chat with your order code so we can confirm it arrived.'
         }
       },
       {
         id: 'pm-mastercard', icon: 'card', enabled: true,
         name: { ar: 'ماستركارد', en: 'Mastercard' },
-        note: { ar: 'ندزّ لك تفاصيل الدفع بالبطاقة بالخاص.', en: 'We send you the card payment details in chat.' },
+        note: { ar: 'نرسل لكِ تفاصيل الدفع بالبطاقة في الخاص.', en: 'We send you the card payment details in chat.' },
         details: {
-          ar: 'اختاري ماستركارد وندزّ لك تفاصيل الدفع بالخاص بعد ما يوصلنا طلبك. ما نطلب منك أي معلومات بطاقة داخل الموقع.',
+          ar: 'اختاري ماستركارد ونرسل لكِ تفاصيل الدفع في الخاص بعد وصول طلبكِ. لا نطلب منكِ أي معلومات عن البطاقة داخل الموقع.',
           en: 'Choose Mastercard and we send you the payment details in chat once your order lands. We never ask for card details on the site.'
         }
       },
       {
         id: 'pm-credit', icon: 'phone', enabled: true,
         name: { ar: 'رصيد سيم كارت (آسياسيل / زين / أثير)', en: 'Phone credit (Asiacell / Zain / Athir)' },
-        note: { ar: 'للعربون بس: تحوّلين رصيد بقيمة العربون على رقمنا.', en: 'For the deposit only: send phone credit worth the deposit to our number.' },
+        note: { ar: 'للعربون فقط: تحوّلين رصيداً بقيمة العربون إلى رقمنا.', en: 'For the deposit only: send phone credit worth the deposit to our number.' },
         details: {
-          ar: 'إذا ماكو عندك كي كارد ولا محفظة، تقدرين تدفعين العربون برصيد سيم كارت من آسياسيل أو زين أو أثير على الرقم: 07XXXXXXXXX. دزّي لنا سكرين شوت بالخاص ويّا رمز الطلب، والباقي تدفعينه للمندوب لمن يوصلك.',
+          ar: 'إذا لم يكن لديكِ كي كارد ولا محفظة، يمكنكِ دفع العربون برصيد سيم كارت من آسياسيل أو زين أو أثير على الرقم: 07XXXXXXXXX. أرسلي لنا لقطة شاشة في الخاص مع رمز الطلب، والباقي تدفعينه للمندوب عند وصوله إليكِ.',
           en: 'No Key Card or wallet? Send the deposit as phone credit from Asiacell, Zain or Athir to: 07XXXXXXXXX. Share a screenshot in chat with your order code, and pay the courier the rest on delivery.'
         }
       }
@@ -727,28 +727,54 @@
        edits both; the checkout uses the row the customer picks.
        ===================================================================== */
     governorates: [
-      { id: 'gv-najaf', name: { ar: 'النجف', en: 'Najaf' }, fee: 3000, days: { ar: 'من يوم ليومين', en: '1–2 days' } },
-      { id: 'gv-baghdad', name: { ar: 'بغداد', en: 'Baghdad' }, fee: 5000, days: { ar: 'من يومين لثلاث أيام', en: '2–3 days' } },
-      { id: 'gv-karbala', name: { ar: 'كربلاء', en: 'Karbala' }, fee: 5000, days: { ar: 'من يوم ليومين', en: '1–2 days' } },
-      { id: 'gv-babil', name: { ar: 'بابل', en: 'Babil' }, fee: 5000, days: { ar: 'من يوم ليومين', en: '1–2 days' } },
-      { id: 'gv-diwaniya', name: { ar: 'القادسية (الديوانية)', en: 'Al-Qadisiyah (Diwaniyah)' }, fee: 5000, days: { ar: 'من يومين لثلاث أيام', en: '2–3 days' } },
-      { id: 'gv-muthanna', name: { ar: 'المثنى (السماوة)', en: 'Al-Muthanna (Samawah)' }, fee: 5000, days: { ar: 'من يومين لثلاث أيام', en: '2–3 days' } },
-      { id: 'gv-basra', name: { ar: 'البصرة', en: 'Basra' }, fee: 5000, days: { ar: 'من يومين لأربع أيام', en: '2–4 days' } },
-      { id: 'gv-dhiqar', name: { ar: 'ذي قار (الناصرية)', en: 'Dhi Qar (Nasiriyah)' }, fee: 5000, days: { ar: 'من يومين لثلاث أيام', en: '2–3 days' } },
-      { id: 'gv-maysan', name: { ar: 'ميسان (العمارة)', en: 'Maysan (Amarah)' }, fee: 5000, days: { ar: 'من يومين لأربع أيام', en: '2–4 days' } },
-      { id: 'gv-wasit', name: { ar: 'واسط (الكوت)', en: 'Wasit (Kut)' }, fee: 5000, days: { ar: 'من يومين لثلاث أيام', en: '2–3 days' } },
-      { id: 'gv-diyala', name: { ar: 'ديالى', en: 'Diyala' }, fee: 5000, days: { ar: 'من يومين لأربع أيام', en: '2–4 days' } },
-      { id: 'gv-anbar', name: { ar: 'الأنبار', en: 'Anbar' }, fee: 5000, days: { ar: 'من يومين لأربع أيام', en: '2–4 days' } },
-      { id: 'gv-salahaddin', name: { ar: 'صلاح الدين', en: 'Salah al-Din' }, fee: 5000, days: { ar: 'من يومين لأربع أيام', en: '2–4 days' } },
-      { id: 'gv-kirkuk', name: { ar: 'كركوك', en: 'Kirkuk' }, fee: 5000, days: { ar: 'من يومين لأربع أيام', en: '2–4 days' } },
-      { id: 'gv-nineveh', name: { ar: 'نينوى (الموصل)', en: 'Nineveh (Mosul)' }, fee: 5000, days: { ar: 'من ثلاث لأربع أيام', en: '3–4 days' } },
-      { id: 'gv-erbil', name: { ar: 'أربيل', en: 'Erbil' }, fee: 5000, days: { ar: 'من ثلاث لأربع أيام', en: '3–4 days' } },
-      { id: 'gv-sulaymaniyah', name: { ar: 'السليمانية', en: 'Sulaymaniyah' }, fee: 5000, days: { ar: 'من ثلاث لأربع أيام', en: '3–4 days' } },
-      { id: 'gv-duhok', name: { ar: 'دهوك', en: 'Duhok' }, fee: 5000, days: { ar: 'من ثلاث لأربع أيام', en: '3–4 days' } }
+      { id: 'gv-najaf', name: { ar: 'النجف', en: 'Najaf' }, fee: 3000, days: { ar: 'من يوم إلى يومين', en: '1–2 days' } },
+      { id: 'gv-baghdad', name: { ar: 'بغداد', en: 'Baghdad' }, fee: 5000, days: { ar: 'من يومين إلى ثلاثة أيام', en: '2–3 days' } },
+      { id: 'gv-karbala', name: { ar: 'كربلاء', en: 'Karbala' }, fee: 5000, days: { ar: 'من يوم إلى يومين', en: '1–2 days' } },
+      { id: 'gv-babil', name: { ar: 'بابل', en: 'Babil' }, fee: 5000, days: { ar: 'من يوم إلى يومين', en: '1–2 days' } },
+      { id: 'gv-diwaniya', name: { ar: 'القادسية (الديوانية)', en: 'Al-Qadisiyah (Diwaniyah)' }, fee: 5000, days: { ar: 'من يومين إلى ثلاثة أيام', en: '2–3 days' } },
+      { id: 'gv-muthanna', name: { ar: 'المثنى (السماوة)', en: 'Al-Muthanna (Samawah)' }, fee: 5000, days: { ar: 'من يومين إلى ثلاثة أيام', en: '2–3 days' } },
+      { id: 'gv-basra', name: { ar: 'البصرة', en: 'Basra' }, fee: 5000, days: { ar: 'من يومين إلى أربعة أيام', en: '2–4 days' } },
+      { id: 'gv-dhiqar', name: { ar: 'ذي قار (الناصرية)', en: 'Dhi Qar (Nasiriyah)' }, fee: 5000, days: { ar: 'من يومين إلى ثلاثة أيام', en: '2–3 days' } },
+      { id: 'gv-maysan', name: { ar: 'ميسان (العمارة)', en: 'Maysan (Amarah)' }, fee: 5000, days: { ar: 'من يومين إلى أربعة أيام', en: '2–4 days' } },
+      { id: 'gv-wasit', name: { ar: 'واسط (الكوت)', en: 'Wasit (Kut)' }, fee: 5000, days: { ar: 'من يومين إلى ثلاثة أيام', en: '2–3 days' } },
+      { id: 'gv-diyala', name: { ar: 'ديالى', en: 'Diyala' }, fee: 5000, days: { ar: 'من يومين إلى أربعة أيام', en: '2–4 days' } },
+      { id: 'gv-anbar', name: { ar: 'الأنبار', en: 'Anbar' }, fee: 5000, days: { ar: 'من يومين إلى أربعة أيام', en: '2–4 days' } },
+      { id: 'gv-salahaddin', name: { ar: 'صلاح الدين', en: 'Salah al-Din' }, fee: 5000, days: { ar: 'من يومين إلى أربعة أيام', en: '2–4 days' } },
+      { id: 'gv-kirkuk', name: { ar: 'كركوك', en: 'Kirkuk' }, fee: 5000, days: { ar: 'من يومين إلى أربعة أيام', en: '2–4 days' } },
+      { id: 'gv-nineveh', name: { ar: 'نينوى (الموصل)', en: 'Nineveh (Mosul)' }, fee: 5000, days: { ar: 'من ثلاثة إلى أربعة أيام', en: '3–4 days' } },
+      { id: 'gv-erbil', name: { ar: 'أربيل', en: 'Erbil' }, fee: 5000, days: { ar: 'من ثلاثة إلى أربعة أيام', en: '3–4 days' } },
+      { id: 'gv-sulaymaniyah', name: { ar: 'السليمانية', en: 'Sulaymaniyah' }, fee: 5000, days: { ar: 'من ثلاثة إلى أربعة أيام', en: '3–4 days' } },
+      { id: 'gv-duhok', name: { ar: 'دهوك', en: 'Duhok' }, fee: 5000, days: { ar: 'من ثلاثة إلى أربعة أيام', en: '3–4 days' } }
     ],
 
     /* =====================================================================
-       READY-MADE DESIGNS — 12 items, each with a complete DESIGN_CONFIG.
+       LISTS — the owner's own groupings of sets: «أعراس», «صيف», anything she
+       likes. A set may sit in several at once. Every list with `inQuiz` on
+       becomes a tile in an extra style-quiz question, and `seed` tells the
+       quiz which of the four built-in occasion characters (wedding / daily /
+       party / holiday) the generated set should borrow when a customer picks
+       this list. `inShop` puts the list in the shop's filter row.
+       ===================================================================== */
+    groups: [
+      { id: 'g-wedding',    name: { ar: 'أعراس', en: 'Weddings' },
+        desc: { ar: 'أطقم العروس والعرس: لؤلؤ وأبيض ولمعة هادئة.', en: 'Bridal and wedding sets: pearl, white and a quiet shine.' },
+        ico: 'gem', seed: 'wedding', image: '', inQuiz: true, inShop: true, active: true },
+      { id: 'g-engagement', name: { ar: 'خطوبة ومناسبات', en: 'Engagements and occasions' },
+        desc: { ar: 'ناعمة وأنيقة، تصلح للخطوبة والحفلات العائلية.', en: 'Soft and elegant, for an engagement or a family party.' },
+        ico: 'heart', seed: 'wedding', image: '', inQuiz: true, inShop: true, active: true },
+      { id: 'g-daily',      name: { ar: 'دوام ويوميات', en: 'Work and everyday' },
+        desc: { ar: 'أطوال قصيرة وألوان هادئة تناسب كل يوم.', en: 'Shorter lengths and quiet colours for every day.' },
+        ico: 'clock', seed: 'daily', image: '', inQuiz: true, inShop: true, active: true },
+      { id: 'g-evening',    name: { ar: 'سهرات', en: 'Evenings' },
+        desc: { ar: 'ألوان جريئة ولمعة واضحة للنزهات والسهرات.', en: 'Bold colours and a clear shine for a night out.' },
+        ico: 'star', seed: 'party', image: '', inQuiz: true, inShop: true, active: true },
+      { id: 'g-summer',     name: { ar: 'صيف', en: 'Summer' },
+        desc: { ar: 'ألوان فاتحة ومنعشة لأيام الحر والسفر.', en: 'Light, fresh colours for hot days and travel.' },
+        ico: 'sparkle', seed: 'holiday', image: '', inQuiz: true, inShop: true, active: true }
+    ],
+
+    /* =====================================================================
+       READY-MADE DESIGNS — 13 items, each with a complete DESIGN_CONFIG.
        ===================================================================== */
     designs: [
       /* THE flagship — the set @shosh_nail actually makes and sells, and the
@@ -764,6 +790,7 @@
         },
         price: 24000, orders: 0, featured: true, active: true,
         tags: ['luxe', 'party', 'winter'], image: '',
+        groups: ['g-evening'],
         config: mkConfig({
           skin: '#E3B48F', shape: 'almond', length: 'long', sizes: mkSizes(1, 4, 3, 5, 7),
           def: { c: '#17131A', f: 'gloss', p: ['glitterCatEye', '#E6E6E9', '#17131A', 1.15] }
@@ -778,6 +805,7 @@
         },
         price: 26000, orders: 0, featured: true, active: true,
         tags: ['bridal', 'luxe', 'pearl'], image: '',
+        groups: ['g-wedding', 'g-engagement'],
         config: mkConfig({
           skin: '#EFCDB6', shape: 'almond', length: 'long', sizes: mkSizes(1, 4, 3, 5, 7),
           /* lace has to be a shade the eye can find: white thread on an ivory
@@ -807,6 +835,7 @@
         },
         price: 21000, orders: 0, featured: true, active: true,
         tags: ['chrome', 'party', 'luxe'], image: '',
+        groups: ['g-evening'],
         config: mkConfig({
           skin: '#E3B48F', shape: 'coffin', length: 'long', sizes: mkSizes(1, 4, 3, 5, 7),
           /* No pattern layer at all: the chrome FINISH repaints the plate as a
@@ -825,11 +854,12 @@
         id: 'd-french',
         name: { ar: 'فرنش كلاسيك', en: 'Classic French' },
         desc: {
-          ar: 'الفرنش اللي ما يخيب: قاعدة نيود وردية شفافة وخط أبيض رفيع مرسوم بدقة على الطرف. يناسب الدوام والمناسبات وكل ما بينهما.',
+          ar: 'الفرنش الذي لا يخيب: قاعدة نيود وردية شفافة وخط أبيض رفيع مرسوم بدقة على الطرف. يناسب الدوام والمناسبات وكل ما بينهما.',
           en: 'The French that never fails: a sheer rosy nude base and a precise thin white smile line. Right for the office, right for the wedding, right for everything in between.'
         },
         price: 15000, orders: 0, featured: true, active: true,
         tags: ['french', 'classic', 'minimal'], image: '',
+        groups: ['g-wedding', 'g-daily'],
         config: mkConfig({
           skin: '#EFCDB6', shape: 'squoval', length: 'medium', sizes: mkSizes(2, 5, 4, 6, 8),
           def: { c: '#E9C2C0', f: 'gloss', p: ['french', '#FFFFFF', '#E9C2C0', 1] }
@@ -844,6 +874,7 @@
         },
         price: 17500, orders: 0, featured: true, active: true,
         tags: ['pearl', 'minimal', 'summer'], image: '',
+        groups: ['g-engagement', 'g-daily', 'g-summer'],
         config: mkConfig({
           skin: '#E3B48F', shape: 'almond', length: 'medium', sizes: mkSizes(2, 5, 4, 6, 8),
           /* gloss, NOT chrome: the chrome FINISH repaints the whole plate with
@@ -865,6 +896,7 @@
         },
         price: 16500, orders: 0, featured: false, active: true,
         tags: ['ombre', 'pink', 'romantic'], image: '',
+        groups: ['g-engagement', 'g-summer'],
         config: mkConfig({
           skin: '#EFCDB6', shape: 'almond', length: 'medium', sizes: mkSizes(2, 5, 4, 6, 8),
           def: { c: '#F7DDE2', f: 'gloss', p: ['ombre', '#F4CBD2', '#E88AA5', 1] },
@@ -884,11 +916,12 @@
         id: 'd-red',
         name: { ar: 'أحمر كلاسيك', en: 'Timeless Red' },
         desc: {
-          ar: 'أحمر كرزي غني بلمعة مرآة، بشكل بيضاوي مريح، مع حجر ألماس صغير على البنصر. اللون اللي ما يخرج من الموضة أبداً.',
+          ar: 'أحمر كرزي غني بلمعة مرآة، بشكل بيضاوي مريح، مع حجر ألماس صغير على البنصر. اللون الذي لا يخرج من الموضة أبداً.',
           en: 'A rich cherry red with a mirror gloss on a comfortable oval, finished with one small stone on each ring nail. The shade that has never once gone out of style.'
         },
         price: 14500, orders: 0, featured: false, active: true,
         tags: ['red', 'classic', 'party'], image: '',
+        groups: ['g-evening', 'g-engagement'],
         config: mkConfig({
           skin: '#EFCDB6', shape: 'oval', length: 'medium', sizes: mkSizes(2, 5, 4, 6, 8),
           def: { c: '#C2192F', f: 'gloss' },
@@ -907,6 +940,7 @@
         },
         price: 19000, orders: 0, featured: false, active: true,
         tags: ['animal', 'autumn', 'nude'], image: '',
+        groups: ['g-evening'],
         config: mkConfig({
           skin: '#D19A6E', shape: 'coffin', length: 'long', sizes: mkSizes(1, 4, 3, 5, 7),
           def: { c: '#E8D2B8', f: 'gloss', p: ['leopard', '#3E2A23', '#C08A5E', 1] },
@@ -922,11 +956,12 @@
         id: 'd-mocha',
         name: { ar: 'موكا', en: 'Mocha Mousse' },
         desc: {
-          ar: 'بنّي قهوة دافئ بطول قصير عملي، وظفر البنصر بلون اللاتيه بطرف موكا مطفي يكسر اللون. مثالي لليد اللي تشتغل طول اليوم.',
+          ar: 'بنّي قهوة دافئ بطول قصير عملي، وظفر البنصر بلون اللاتيه بطرف موكا مطفي يكسر اللون. مثالي لليد التي تعمل طوال اليوم.',
           en: 'A warm coffee brown at a practical short length, with latte ring nails tipped in matte mocha to break it up. Made for hands that work all day.'
         },
         price: 15500, orders: 0, featured: false, active: true,
         tags: ['nude', 'minimal', 'autumn'], image: '',
+        groups: ['g-daily'],
         config: mkConfig({
           skin: '#D19A6E', shape: 'square', length: 'short', sizes: mkSizes(3, 6, 5, 7, 9),
           def: { c: '#9A6B52', f: 'gloss' },
@@ -947,6 +982,7 @@
         },
         price: 23000, orders: 0, featured: false, active: true,
         tags: ['party', 'winter', 'luxe'], image: '',
+        groups: ['g-evening'],
         config: mkConfig({
           skin: '#B87A4E', shape: 'stiletto', length: 'xlong', sizes: mkSizes(1, 4, 3, 5, 7),
           def: { c: '#4A1F3D', f: 'velvet', p: ['catEye', '#C9B6EA', '#7A3FC0', 1] },
@@ -965,6 +1001,7 @@
         },
         price: 20000, orders: 0, featured: false, active: true,
         tags: ['pearl', 'bridal', 'minimal'], image: '',
+        groups: ['g-wedding', 'g-engagement'],
         config: mkConfig({
           skin: '#EFCDB6', shape: 'oval', length: 'medium', sizes: mkSizes(2, 5, 4, 6, 8),
           /* A pearl is cool in the body and warm where the light sits — a white
@@ -987,11 +1024,12 @@
         id: 'd-matte-black',
         name: { ar: 'أسود مطفي', en: 'Matte Noir' },
         desc: {
-          ar: 'أسود مطفي كامل بشكل كوفن، مع نجوم ذهبية صغيرة على البنصر وأظافر فحمية تكسر السواد. قوي وأنيق وما يحتاج أكثر.',
+          ar: 'أسود مطفي كامل بشكل كوفن، مع نجوم ذهبية صغيرة على البنصر وأظافر فحمية تكسر السواد. قوي وأنيق ولا يحتاج إلى أكثر من ذلك.',
           en: 'Full matte black on a coffin shape, with small gold stars on the ring nails and charcoal accents to break the black. Strong, sharp, and it needs nothing else.'
         },
         price: 13500, orders: 0, featured: false, active: true,
         tags: ['matte', 'party', 'winter'], image: '',
+        groups: ['g-evening'],
         config: mkConfig({
           skin: '#E3B48F', shape: 'coffin', length: 'long', sizes: mkSizes(1, 4, 3, 5, 7),
           def: { c: '#17131A', f: 'matte' },
@@ -1012,6 +1050,7 @@
         },
         price: 13000, orders: 0, featured: false, active: true,
         tags: ['pastel', 'summer', 'fun'], image: '',
+        groups: ['g-daily', 'g-summer'],
         config: mkConfig({
           skin: '#EFCDB6', shape: 'square', length: 'short', sizes: mkSizes(3, 6, 5, 7, 9),
           def: { c: '#FAF3EE', f: 'gloss', p: ['checkers', '#B4E4CE', '#FAF3EE', 1] },
@@ -1042,229 +1081,229 @@
       /* ---------------- install ---------------- */
       {
         id: 'fq-apply-steps', cat: 'install',
-        q: { ar: 'شلون أركّب الطقم خطوة بخطوة؟', en: 'How do I apply the set, step by step?' },
+        q: { ar: 'كيف أركّب الطقم خطوة بخطوة؟', en: 'How do I apply the set, step by step?' },
         a: {
-          ar: 'خذي راحتك، الشغلة كلها ما تاخذ أكثر من عشر دقايق:\n1) اغسلي إيدك بالماي والصابون ونشّفيها زين، وتأكدي إن الظفر ماكو عليه أي كريم أو زيت.\n2) ادفعي الجلد الزايد لورا بهدوء بعود الجلد اللي بالعلبة.\n3) ابردي سطح الظفر برد خفيف لحد ما تروح اللمعة — هاي الخطوة هي سر الثبات الطويل.\n4) امسحي كل ظفر بمنديل الكحول اللي بالعلبة وخلّيه ينشف نص دقيقة.\n5) رتّبي الأظافر العشرة قدامك من الإبهام للخنصر وجرّبيها بدون لاصق قبل ما تبدين.\n6) الصقي اللاصقة على ظهر الظفر المركّب واضغطي عليها زين، أو حطي نقطة جل لاصق بحجم حبة العدس.\n7) ركّبي الظفر من عند الجلد بزاوية 45 درجة وبعدين نزّليه لقدام، واضغطي 15–20 ثانية بقوة ثابتة.\n8) ابعدي عن الماي أول ساعة حتى يتماسك اللاصق تمام.',
+          ar: 'خذي راحتك، الأمر كله لا يستغرق أكثر من عشر دقائق:\n1) اغسلي يديك بالماء والصابون وجفّفيهما جيدًا، وتأكدي من أن الظفر خالٍ من أي كريم أو زيت.\n2) ادفعي الجلد الزائد إلى الخلف بهدوء بعود الجلد الموجود في العلبة.\n3) ابردي سطح الظفر بردًا خفيفًا حتى تزول اللمعة — هذه الخطوة هي سر الثبات الطويل.\n4) امسحي كل ظفر بمنديل الكحول الموجود في العلبة واتركيه يجف نصف دقيقة.\n5) رتّبي الأظافر العشرة أمامك من الإبهام إلى الخنصر وجرّبيها بدون لاصق قبل أن تبدئي.\n6) الصقي اللاصقة على ظهر الظفر المركّب واضغطي عليها جيدًا، أو ضعي نقطة جل لاصق بحجم حبة العدس.\n7) ركّبي الظفر من عند الجلد بزاوية 45 درجة ثم أنزليه إلى الأمام، واضغطي 15–20 ثانية بقوة ثابتة.\n8) ابتعدي عن الماء في الساعة الأولى حتى يتماسك اللاصق تمامًا.',
           en: 'Take your time — the whole thing takes under ten minutes:\n1) Wash and dry your hands well, and make sure the nail is free of any cream or oil.\n2) Gently push the cuticle back with the wooden stick in the box.\n3) Lightly buff the nail surface until the shine is gone — this single step is the secret to a long hold.\n4) Wipe each nail with the alcohol pad provided and let it dry for thirty seconds.\n5) Lay all ten nails out from thumb to pinky and dry-fit them before you glue anything.\n6) Press an adhesive tab onto the back of the press-on, or add a lentil-sized drop of nail glue.\n7) Place the nail at the cuticle at a 45 degree angle, roll it down flat, and press firmly for 15–20 seconds.\n8) Keep your hands out of water for the first hour so the adhesive can fully set.'
         }
       },
       {
         id: 'fq-box-contents', cat: 'install',
-        q: { ar: 'شنو أكو داخل العلبة؟', en: 'What comes inside the box?' },
+        q: { ar: 'ماذا يوجد داخل العلبة؟', en: 'What comes inside the box?' },
         a: {
-          ar: 'كل طلب يوصلك بيه: الأظافر العشرة مرتبة على كرت بأرقام الأصابع، شريط لاصقات بمقاسات مختلفة، أنبوب جل لاصق، مبرد صغير، عود جلد خشبي، ومنديل كحول للتنظيف — وويّاهم كرت شرح مصوّر بالعربي والإنجليزي.',
+          ar: 'كل طلب يصلك ومعه: الأظافر العشرة مرتبة على بطاقة بأرقام الأصابع، شريط لاصقات بمقاسات مختلفة، أنبوب جل لاصق، مبرد صغير، عود جلد خشبي، ومنديل كحول للتنظيف — ومعه بطاقة شرح مصوّرة بالعربية والإنجليزية.',
           en: 'Every order arrives with: your ten nails laid out on a labelled card, a strip of adhesive tabs in assorted sizes, a tube of nail glue, a mini file, a wooden cuticle stick and an alcohol prep pad — plus an illustrated instruction card in Arabic and English.'
         }
       },
       {
         id: 'fq-tabs-or-glue', cat: 'install',
-        q: { ar: 'أستعمل اللاصقات لو الجل؟', en: 'Should I use the adhesive tabs or the glue?' },
+        q: { ar: 'هل أستعمل اللاصقات أم الجل؟', en: 'Should I use the adhesive tabs or the glue?' },
         a: {
-          ar: 'اللاصقات زينة للاستعمال القصير من يوم إلى ثلاث أيام، وميزتها إنك تشيلينها بسهولة وترجعين تستعملين الطقم مرة ثانية. الجل اللاصق يثبّت لك من أسبوع إلى ثلاث أسابيع بس يحتاج نقع بماي دافي لمن تشيلينه. إذا هاي أول مرة تجربين، ابدي باللاصقات.',
+          ar: 'اللاصقات مناسبة للاستعمال القصير من يوم إلى ثلاثة أيام، وميزتها أنك تزيلينها بسهولة وتعيدين استعمال الطقم مرة أخرى. الجل اللاصق يثبّت الطقم من أسبوع إلى ثلاثة أسابيع لكنه يحتاج إلى نقع بماء دافئ عند إزالته. إذا كانت هذه أول مرة تجرّبين فيها، فابدئي باللاصقات.',
           en: 'Adhesive tabs are for shorter wear of one to three days; they peel off easily and let you reuse the set. Nail glue gives you one to three weeks of hold but needs a warm-water soak to remove. If this is your first time, start with the tabs.'
         }
       },
       {
         id: 'fq-how-long', cat: 'install',
-        q: { ar: 'شكد يثبت الطقم بعد التركيب؟', en: 'How long will the set stay on?' },
+        q: { ar: 'كم يدوم الطقم بعد التركيب؟', en: 'How long will the set stay on?' },
         a: {
-          ar: 'باللاصقات: من يوم إلى ثلاث أيام. بالجل اللاصق: من أسبوع إلى ثلاث أسابيع حسب طبيعة أظافرك وشلون يومك. أكثر شي يقصّر عمره هو إنك تفوّتين خطوة تنظيف الظفر بالكحول أو تركّبينه على ظفر بيه بقايا كريم.',
+          ar: 'باللاصقات: من يوم إلى ثلاثة أيام. بالجل اللاصق: من أسبوع إلى ثلاثة أسابيع حسب طبيعة أظافرك وطبيعة يومك. أكثر ما يقصّر عمره هو تخطّي خطوة تنظيف الظفر بالكحول أو تركيبه على ظفر عليه بقايا كريم.',
           en: 'With tabs, one to three days. With glue, one to three weeks depending on your nails and how hands-on your day is. The biggest cause of early lifting is skipping the alcohol wipe or applying over leftover hand cream.'
         }
       },
       {
         id: 'fq-fix-crooked', cat: 'install',
-        q: { ar: 'ركّبت ظفر مايل أو ما التصق زين — شسوّي؟', en: 'A nail went on crooked or is not sticking — what now?' },
+        q: { ar: 'ركّبت ظفرًا مائلًا أو لم يلتصق جيدًا — ماذا أفعل؟', en: 'A nail went on crooked or is not sticking — what now?' },
         a: {
-          ar: 'لا تشدّينه أبد. إذا اللاصق بعده طري، ارفعيه بهدوء بعود الجلد من الطرف ورجّعي ركّبيه على طول. إذا نشف، انقعي الإصبع بماي دافي ويّا قطرات صابون خمس دقايق ويرتخي لحاله. نظّفي بقايا اللاصق عن الظفر المركّب بالكحول قبل ما ترجعين تستعملينه.',
+          ar: 'لا تشدّيه أبدًا. إذا كان اللاصق ما يزال طريًا، فارفعيه بهدوء بعود الجلد من الطرف وأعيدي تركيبه فورًا. وإذا جفّ، فانقعي الإصبع بماء دافئ مع قطرات صابون خمس دقائق ويرتخي من تلقاء نفسه. نظّفي بقايا اللاصق عن الظفر المركّب بالكحول قبل أن تعيدي استعماله.',
           en: 'Never pull it off. If the adhesive is still soft, lift the edge gently with the cuticle stick and reposition straight away. If it has set, soak that finger in warm soapy water for five minutes and it will release on its own. Clean any adhesive residue off the press-on with alcohol before reusing it.'
         }
       },
       {
         id: 'fq-pick-right-nail', cat: 'install',
-        q: { ar: 'شلون أتأكد إن كل ظفر على إصبعه الصح؟', en: 'How do I make sure each nail goes on the right finger?' },
+        q: { ar: 'كيف أتأكد أن كل ظفر على إصبعه الصحيح؟', en: 'How do I make sure each nail goes on the right finger?' },
         a: {
-          ar: 'كل طقم يوصلك مرتب على كرت مكتوب عليه اسم الإصبع ورقم المقاس، والأظافر مرقّمة من ورا. قبل ما تبدين بالتركيب، حطي كل ظفر فوق إصبعه بدون لاصق: المقاس الصح يغطي الظفر من حافة لحافة وما يضغط على الجلد من الجوانب.',
+          ar: 'كل طقم يصلك مرتبًا على بطاقة مكتوب عليها اسم الإصبع ورقم المقاس، والأظافر مرقّمة من الخلف. قبل أن تبدئي بالتركيب، ضعي كل ظفر فوق إصبعه بدون لاصق: المقاس الصحيح يغطي الظفر من حافة إلى حافة ولا يضغط على الجلد من الجوانب.',
           en: 'Your set arrives on a card marked with the finger name and size number, and each nail is numbered on the back. Before gluing anything, place every nail on its finger dry: the correct size covers the nail edge to edge without pressing into the side skin.'
         }
       },
       /* ---------------- care & removal ---------------- */
       {
         id: 'fq-care-daily', cat: 'care',
-        q: { ar: 'شلون أعتني بيها حتى تدوم أكثر؟', en: 'How do I care for them so they last?' },
+        q: { ar: 'كيف أعتني بها حتى تدوم أكثر؟', en: 'How do I care for them so they last?' },
         a: {
-          ar: 'استعملي بطن أصابعك بدل أطرافها لمن تفتحين علب أو تكتبين، والبسي قفازات لمن تنظّفين بمواد كيميائية، ومرّري زيت الجلد حول الظفر كل يوم. وإذا حسّيتي بحافة بدت ترتفع، ثبّتيها بنقطة جل صغيرة على طول قبل ما يدخل الماي جوّاها.',
+          ar: 'استعملي بطن أصابعك بدل أطرافها عند فتح العلب أو الكتابة، والبسي قفازات عند التنظيف بالمواد الكيميائية، ومرّري زيت الجلد حول الظفر كل يوم. وإذا شعرتِ بحافة بدأت ترتفع، فثبّتيها بنقطة جل صغيرة فورًا قبل أن يدخل الماء تحتها.',
           en: 'Use the pads of your fingers rather than the tips when opening things or typing, wear gloves for chemical cleaning, and massage cuticle oil around the nail daily. If you feel an edge starting to lift, seal it with a tiny dot of glue right away before water gets underneath.'
         }
       },
       {
         id: 'fq-water', cat: 'care',
-        q: { ar: 'أقدر أغسل الصحون أو أسبح وآني لابستها؟', en: 'Can I wash dishes or swim while wearing them?' },
+        q: { ar: 'هل أستطيع غسل الصحون أو السباحة وأنا ألبسها؟', en: 'Can I wash dishes or swim while wearing them?' },
         a: {
-          ar: 'إي، بس بحذر. الماي العادي ما يضر بعد أول ساعة، لكن الماي الحار هواي والنقع الطويل يرخّي اللاصق. للغسيل والتنظيف الأحسن تلبسين قفازات، وبعد السباحة نشّفي إيدك زين وشوفي الحواف.',
+          ar: 'نعم، لكن بحذر. الماء العادي لا يضر بعد الساعة الأولى، لكن الماء الشديد الحرارة والنقع الطويل يُرخيان اللاصق. للغسيل والتنظيف الأفضل أن تلبسي قفازات، وبعد السباحة جفّفي يديك جيدًا وتفقّدي الحواف.',
           en: 'Yes, but carefully. Normal water is fine after the first hour, though very hot water and long soaks will soften the adhesive. Wear gloves for dishes and cleaning, and after swimming dry your hands well and check the edges.'
         }
       },
       {
         id: 'fq-removal', cat: 'care',
-        q: { ar: 'شلون أشيلها بدون ما أأذي أظافري؟', en: 'How do I remove them without damaging my nails?' },
+        q: { ar: 'كيف أزيلها دون أن أؤذي أظافري؟', en: 'How do I remove them without damaging my nails?' },
         a: {
-          ar: 'انقعي إيدك بوعاء ماي دافي ويّا قطرات صابون أو شوية زيت لمدة 10–15 دقيقة. بعدين استعملي عود الجلد الخشبي وارفعي الظفر من الطرف بحركة هادية وبالتدريج. إذا حسّيتي بأي شد أو مقاومة، رجعي انقعي أكثر. الشد بالقوة هو تقريبًا السبب الوحيد لتقشّر الظفر الطبيعي.',
+          ar: 'انقعي يديك في وعاء ماء دافئ مع قطرات صابون أو قليل من الزيت لمدة 10–15 دقيقة. ثم استعملي عود الجلد الخشبي وارفعي الظفر من الطرف بحركة هادئة وبالتدريج. وإذا شعرتِ بأي شدّ أو مقاومة، فأعيدي النقع مدة أطول. الشدّ بالقوة هو تقريبًا السبب الوحيد لتقشّر الظفر الطبيعي.',
           en: 'Soak your hands in warm water with a few drops of soap or oil for 10 to 15 minutes. Then use the wooden stick to ease each nail up from the free edge in slow, gradual movements. If you feel any pulling, soak longer. Forcing them off is almost the only way people damage their natural nail.'
         }
       },
       {
         id: 'fq-natural-nails', cat: 'care',
-        q: { ar: 'تأذي أظافري الطبيعية؟', en: 'Will they damage my natural nails?' },
+        q: { ar: 'هل تضرّ بأظافري الطبيعية؟', en: 'Will they damage my natural nails?' },
         a: {
-          ar: 'لا، إذا تركّبت وانشالت صح. إحنا ما نستعمل أي مادة تحتاج حفر أو مبرد كهربائي، والبرد الخفيف اللي نطلبه سطحي هواي. ننصح تخلّين أظافرك ترتاح يومين بين كل طقم وطقم، وويّا مرطب جلد يومي راح تلاحظين إن حالتها أحسن من قبل.',
+          ar: 'لا، إذا رُكّبت وأُزيلت بطريقة صحيحة. نحن لا نستعمل أي مادة تحتاج إلى حفر أو مبرد كهربائي، والبرد الخفيف الذي نطلبه سطحي جدًا. وننصحك بأن تريحي أظافرك يومين بين كل طقم وآخر، ومع مرطب جلد يومي ستلاحظين أن حالتها أفضل من قبل.',
           en: 'No, provided they are applied and removed properly. Nothing in our kit requires drilling or an e-file, and the light buffing we ask for is very superficial. We do recommend giving your nails a two-day break between sets, and with daily cuticle oil most customers find their nails end up in better shape than before.'
         }
       },
       {
         id: 'fq-reuse', cat: 'care',
-        q: { ar: 'أقدر أرجع أستعمل نفس الطقم؟', en: 'Can I reuse the same set?' },
+        q: { ar: 'هل أستطيع إعادة استعمال الطقم نفسه؟', en: 'Can I reuse the same set?' },
         a: {
-          ar: 'أكيد. الطقم الواحد يتحمّل من خمس إلى عشر مرات إذا شلتيه بالنقع. بعد كل استعمال نظّفي بقايا اللاصق من داخل الظفر بعود خشبي وشوية كحول، وخلّيه ينشف قبل ما ترجّعينه للعلبة. بس اللاصقات هي اللي تخلص، وتقدرين تطلبين شريط بديل منها.',
+          ar: 'بالتأكيد. الطقم الواحد يتحمّل من خمس إلى عشر مرات إذا أزلتِه بالنقع. بعد كل استعمال نظّفي بقايا اللاصق من داخل الظفر بعود خشبي وقليل من الكحول، واتركيه يجف قبل أن تعيديه إلى العلبة. اللاصقات وحدها هي التي تنفد، ويمكنك طلب شريط بديل منها.',
           en: 'Absolutely. One set will take five to ten wears if you always soak it off. After each wear, scrape the adhesive residue from the inside with a wooden stick and a little alcohol, then let it dry before returning it to the box. Only the adhesive tabs get used up, and you can order replacement strips from us.'
         }
       },
       {
         id: 'fq-storage', cat: 'care',
-        q: { ar: 'شلون أحفظها بين كل استعمال واستعمال؟', en: 'How should I store them between wears?' },
+        q: { ar: 'كيف أحفظها بين استعمال وآخر؟', en: 'How should I store them between wears?' },
         a: {
-          ar: 'رجّعيها لنفس العلبة على الكرت المرقّم حتى ما تختلط المقاسات، وخلّيها بعيد عن الشمس المباشرة والحرارة العالية مثل داخل السيارة، لأن الحرارة تقدر تلوي الظفر وتغيّر انحناءه.',
+          ar: 'أعيديها إلى العلبة نفسها على البطاقة المرقّمة حتى لا تختلط المقاسات، واحفظيها بعيدًا عن الشمس المباشرة والحرارة العالية مثل داخل السيارة، لأن الحرارة قد تلوي الظفر وتغيّر انحناءه.',
           en: 'Put them back on the numbered card in their box so the sizes do not get mixed up, and keep them out of direct sun and high heat such as a parked car — heat can warp the curve of the nail.'
         }
       },
       {
         id: 'fq-file-shorter', cat: 'care',
-        q: { ar: 'أقدر أقصّر الطول أو أغيّر الشكل؟', en: 'Can I file them shorter or reshape them?' },
+        q: { ar: 'هل أستطيع تقصير الطول أو تغيير الشكل؟', en: 'Can I file them shorter or reshape them?' },
         a: {
-          ar: 'تقدرين تبردين الطول وتخفّفينه بالمبرد اللي بالعلبة، والأحسن يكون هذا قبل التركيب وبحركة باتجاه واحد. تغيير الشكل بالكامل (مثلاً من كوفن إلى لوز) ممكن بس يقصّر الظفر هواي، فإذا مو متأكدة من الشكل اطلبيه أقصر من البداية.',
+          ar: 'يمكنك برد الطول وتخفيفه بالمبرد الموجود في العلبة، والأفضل أن يكون ذلك قبل التركيب وبحركة باتجاه واحد. وتغيير الشكل بالكامل (مثلًا من كوفن إلى لوز) ممكن لكنه يقصّر الظفر كثيرًا، فإذا لم تكوني متأكدة من الشكل فاطلبيه أقصر من البداية.',
           en: 'You can file the length down with the file provided — do it before applying and always in one direction. Changing the shape completely, say coffin to almond, is possible but costs a lot of length, so if you are unsure it is better to order shorter from the start.'
         }
       },
       {
         id: 'fq-lost-one', cat: 'care',
-        q: { ar: 'وقع ظفر واحد بس — أقدر أبدّله؟', en: 'I lost a single nail — can I replace it?' },
+        q: { ar: 'سقط ظفر واحد فقط — هل أستطيع استبداله؟', en: 'I lost a single nail — can I replace it?' },
         a: {
-          ar: 'إي. دزّي لنا رمز طلبك واسم الإصبع بالخاص ونجهّز لك ظفر بديل بنفس التصميم. الظفر الواحد البديل بـ 2,000 د.ع مع أجرة التوصيل.',
+          ar: 'نعم. أرسلي لنا رمز طلبك واسم الإصبع بالخاص ونجهّز لك ظفرًا بديلًا بالتصميم نفسه. الظفر البديل الواحد بـ 2,000 د.ع مع أجرة التوصيل.',
           en: 'Yes. Send us your order code and the finger in chat and we will make a replacement in the same design. A single replacement nail is 2,000 IQD plus delivery.'
         }
       },
       /* ---------------- shipping ---------------- */
       {
         id: 'fq-lead-time', cat: 'shipping',
-        q: { ar: 'شكد ياخذ تجهيز الطلب وتوصيله؟', en: 'How long does the order take?' },
+        q: { ar: 'كم يستغرق تجهيز الطلب وتوصيله؟', en: 'How long does the order take?' },
         a: {
-          ar: 'التجهيز اليدوي ياخذ من 3 إلى 5 أيام حسب تفاصيل التصميم، والتوصيل بعدها من يوم ليومين داخل النجف ومن يومين لأربع أيام لباقي المحافظات. إذا مناسبتك قريبة اختاري «التجهيز المستعجل» لمن تطلبين ونخلّصه خلال 48 ساعة.',
+          ar: 'التجهيز اليدوي يستغرق من 3 إلى 5 أيام حسب تفاصيل التصميم، والتوصيل بعدها من يوم إلى يومين داخل النجف ومن يومين إلى أربعة أيام لباقي المحافظات. وإذا كانت مناسبتك قريبة فاختاري «التجهيز المستعجل» عند الطلب وننجزه خلال 48 ساعة.',
           en: 'Handcrafting takes 3 to 5 days depending on the detail in your design; delivery is then 1–2 days inside Najaf and 2–4 days to the other governorates. If your date is close, add the rush option at checkout and we finish within 48 hours.'
         }
       },
       {
         id: 'fq-shipping-areas', cat: 'shipping',
-        q: { ar: 'وين توصلون وشكد أجرة التوصيل؟', en: 'Where do you deliver and how much is shipping?' },
+        q: { ar: 'إلى أين توصلون وكم أجرة التوصيل؟', en: 'Where do you deliver and how much is shipping?' },
         a: {
-          ar: 'نوصّل لكل محافظات العراق عن طريق شركات التوصيل. أجرة التوصيل 5,000 د.ع لكل المحافظات، و3,000 د.ع داخل النجف، وتطلع لك بالضبط لمن تختارين محافظتك وقت الطلب. كل الطلبات توصل لباب البيت — ماكو عندنا محل ولا استلام باليد.',
+          ar: 'نوصّل إلى كل محافظات العراق عن طريق شركات التوصيل. أجرة التوصيل 5,000 د.ع لكل المحافظات، و3,000 د.ع داخل النجف، وتظهر لك بالضبط عند اختيار محافظتك وقت الطلب. كل الطلبات تصل إلى باب البيت — ليس لدينا محل ولا استلام باليد.',
           en: 'We deliver to every governorate in Iraq through courier companies. Delivery is 5,000 IQD everywhere and 3,000 IQD inside Najaf, and the exact fee shows the moment you pick your governorate at checkout. Everything comes to your door — there is no shop and no collection in person.'
         }
       },
       {
         id: 'fq-tracking', cat: 'shipping',
-        q: { ar: 'شلون أتابع طلبي؟', en: 'How do I follow my order?' },
+        q: { ar: 'كيف أتابع طلبي؟', en: 'How do I follow my order?' },
         a: {
-          ar: 'نخبرك بالخاص بكل خطوة: لمن نبدأ التجهيز، ولمن نصوّر لك الطقم أثناء الشغل وقبل الشحن، ولمن يطلع ويّا المندوب. المندوب يتصل بيك قبل ما يوصل، فخلّي رقمك مفتوح ذاك اليوم.',
+          ar: 'نخبرك بالخاص بكل خطوة: عندما نبدأ التجهيز، وعندما نصوّر لك الطقم أثناء العمل وقبل الشحن، وعندما يخرج مع المندوب. والمندوب يتصل بك قبل وصوله، فاتركي هاتفك مفتوحًا ذلك اليوم.',
           en: 'We tell you in chat at every step: when we start, when we photograph the set while making it and before it ships, and when it leaves with the courier. The courier calls before arriving, so keep your phone on that day.'
         }
       },
       /* ---------------- payment ---------------- */
       {
         id: 'fq-pay-methods', cat: 'payment',
-        q: { ar: 'شنو طرق الدفع الموجودة؟', en: 'What payment methods do you accept?' },
+        q: { ar: 'ما طرق الدفع المتاحة؟', en: 'What payment methods do you accept?' },
         a: {
-          ar: 'الأساس عندنا الدفع عند الاستلام لكل المحافظات، ويّا عربون بسيط مقدّم ينخصم من المبلغ حتى ما يضيع شغل الطقم إذا ما انستلم. العربون أو المبلغ كامل يوصلنا بزين كاش أو ماستركارد، وإذا ماكو عندك كي كارد تقدرين تدفعين العربون برصيد سيم كارت (آسياسيل أو زين أو أثير).',
+          ar: 'الأساس عندنا الدفع عند الاستلام لكل المحافظات، مع عربون بسيط مقدّم يُخصم من المبلغ حتى لا يضيع العمل على الطقم إذا لم يُستلم. العربون أو المبلغ كاملًا يصلنا عبر زين كاش أو ماستركارد، وإذا لم يكن لديك كي كارد فيمكنك دفع العربون برصيد شريحة الهاتف (آسياسيل أو زين أو أثير).',
           en: 'Cash on delivery in every governorate is the default, with a small deposit up front that comes off the total, so a set is never made for a parcel nobody collects. The deposit or the full amount reaches us by Zain Cash or Mastercard, and if you have no Key Card you can send the deposit as phone credit (Asiacell, Zain or Athir).'
         }
       },
       {
         id: 'fq-confirm-order', cat: 'payment',
-        q: { ar: 'شوكت يتأكد طلبي؟', en: 'When is my order confirmed?' },
+        q: { ar: 'متى يتأكد طلبي؟', en: 'When is my order confirmed?' },
         a: {
-          ar: 'بعد ما تدزين رسالة الطلب نرد عليك بأقل من ساعة بأوقات الرد، نتفق على المقاس وطريقة الدفع، وأول ما يوصل العربون نبدأ التجهيز. رمز طلبك اللي بالرسالة هو مرجعك بأي استفسار.',
+          ar: 'بعد أن ترسلي رسالة الطلب نرد عليك في أقل من ساعة خلال أوقات الرد، ونتفق على المقاس وطريقة الدفع، وما إن يصل العربون حتى نبدأ التجهيز. ورمز طلبك الموجود في الرسالة هو مرجعك في أي استفسار.',
           en: 'Once you send the order message we reply within the hour during reply hours, agree the size and payment, and start crafting the moment the deposit lands. The order code in your message is your reference for anything after that.'
         }
       },
       {
         id: 'fq-price-includes', cat: 'payment',
-        q: { ar: 'السعر شامل كل شي؟', en: 'Is the price all-inclusive?' },
+        q: { ar: 'هل السعر شامل كل شيء؟', en: 'Is the price all-inclusive?' },
         a: {
-          ar: 'السعر اللي يطلع لك بالمراجعة شامل الطقم كامل بعشرة أظافر ويّا عدّة التركيب والتغليف. أجرة التوصيل تطلع بسطر لحاله حسب محافظتك، والخيارات الإضافية مثل التجهيز المستعجل أو التغليف كهدية تطلع بسطور واضحة قبل التأكيد — ماكو أي رسوم مخفية، ولا «سعر بالخاص».',
+          ar: 'السعر الذي يظهر لك في المراجعة يشمل الطقم كاملًا بعشرة أظافر مع عدّة التركيب والتغليف. وأجرة التوصيل تظهر في سطر مستقل حسب محافظتك، والخيارات الإضافية مثل التجهيز المستعجل أو التغليف كهدية تظهر في سطور واضحة قبل التأكيد — لا توجد أي رسوم مخفية، ولا «سعر بالخاص».',
           en: 'The price you see at review covers the full ten-nail set with the application kit and packaging. Delivery appears as its own line according to your governorate, and extras like rush crafting or gift wrapping are listed separately before you confirm — no hidden fees, and no "price in DM".'
         }
       },
       /* ---------------- general ---------------- */
       {
         id: 'fq-what-you-see', cat: 'general',
-        q: { ar: 'الطقم اللي يوصلني يطلع مثل الصورة اللي أشوفها بالموقع؟', en: 'Will the set I receive look like the picture on the site?' },
+        q: { ar: 'هل يأتي الطقم مثل الصورة التي أراها في الموقع؟', en: 'Will the set I receive look like the picture on the site?' },
         a: {
-          ar: 'هذا أهم شي عندنا. الصورة اللي تطلع لك بآخر الاختبار مو صورة جاهزة لطقم ثاني، هي رسم مباشر لاختياراتك إنتِ: نفس الشكل، نفس الطول، نفس اللون واللمسة والنقشة، ومكان كل زخرفة بالضبط. نسوّي الطقم على هذا الأساس، وقبل ما نشحنه ندزّ لك صورة الطقم نفسه على الواتساب تشوفينه وتوافقين عليه. وإذا وصلك شي مختلف عن اللي اخترتيه نرجع نسوّيه لك مجانًا. الفرق الوحيد المتوقع هو اختلاف بسيط بدرجة اللون بين شاشة وشاشة.',
+          ar: 'هذا أهم شيء عندنا. الصورة التي تظهر لك في آخر الاختبار ليست صورة جاهزة لطقم آخر، بل هي رسم مباشر لاختياراتك أنتِ: الشكل نفسه، والطول نفسه، واللون واللمسة والنقشة، ومكان كل زخرفة بالضبط. نصنع الطقم على هذا الأساس، وقبل شحنه نرسل لك صورة الطقم نفسه على واتساب لترَيه وتوافقي عليه. وإذا وصلك شيء مختلف عما اخترتِه نعيد صنعه لك مجانًا. والفرق الوحيد المتوقع هو اختلاف بسيط في درجة اللون بين شاشة وأخرى.',
           en: 'This matters to us more than anything else. What the quiz shows you at the end is not a stock photo of somebody else’s set — it is a live drawing of your own choices: the same shape, the same length, the same colour, finish and pattern, and the exact position of every charm. We build the set from that, and before it ships we send you a photograph of the real thing on WhatsApp for your approval. If what arrives is not what you chose, we remake it free of charge. The only difference to expect is a small shift in shade from one screen to another.'
         }
       },
       {
         id: 'fq-where-to-start', cat: 'general',
-        q: { ar: 'ما أعرف أي تصميم يناسبني — من وين أبدي؟', en: 'I have no idea what suits me — where do I start?' },
+        q: { ar: 'لا أعرف أي تصميم يناسبني — من أين أبدأ؟', en: 'I have no idea what suits me — where do I start?' },
         a: {
-          ar: 'ابدي باختبار الستايل بالصفحة الرئيسية: تسع أسئلة كلها صور، وماكو سؤال يحتاج كتابة، وبآخره يطلع لك طقم مبني على إجاباتك — تطلبينه على طول. وإذا حبيتي تختصرين أكثر، افتحي «تصاميم جاهزة» واختاري واحد يعجبك واطلبيه.',
-          en: 'Start with the style quiz on the home page: nine questions, all pictures, nothing to type — and at the end it builds a set from your answers that you can order as it is. If you want an even shorter route, open Ready Designs and pick one you like.'
+          ar: 'ابدئي باختبار الستايل في الصفحة الرئيسية: أسئلة سريعة كلها صور، ولا يوجد سؤال يحتاج إلى كتابة، وفي آخره يظهر لك طقم مبني على إجاباتك — تطلبينه مباشرة. وإذا أردتِ طريقًا أقصر، فافتحي «تصاميم جاهزة» واختاري واحدًا يعجبك واطلبيه.',
+          en: 'Start with the style quiz on the home page: a few questions, all pictures, nothing to type — and at the end it builds a set from your answers that you can order as it is. If you want an even shorter route, open Ready Designs and pick one you like.'
         }
       },
       {
         id: 'fq-save-share', cat: 'general',
-        q: { ar: 'أقدر أحفظ تصميمي وأرجع له بعدين أو أدزّه لصديقتي؟', en: 'Can I save my design and come back to it, or send it to a friend?' },
+        q: { ar: 'هل أستطيع حفظ تصميمي والعودة إليه لاحقًا أو إرساله إلى صديقتي؟', en: 'Can I save my design and come back to it, or send it to a friend?' },
         a: {
-          ar: 'إي. بآخر الاختبار أكو زر يحفظ لك صورة الطقم على جهازك، وزر مشاركة ينسخ لك رابط الاختبار تدزينه لصديقتك. وخلّي الصورة عندك — دزّيها لنا ويّا طلبك على الإنستغرام أو الواتساب.',
+          ar: 'نعم. في آخر الاختبار زر يحفظ لك صورة الطقم على جهازك، وزر مشاركة ينسخ لك رابط الاختبار لترسليه إلى صديقتك. واحتفظي بالصورة عندك — أرسليها لنا مع طلبك على إنستغرام أو واتساب.',
           en: 'Yes. At the end of the quiz there is a button that saves a picture of the set to your device, and a share button that copies the quiz link to send to a friend. Keep the picture — send it to us on Instagram or WhatsApp with your order.'
         }
       },
       {
         id: 'fq-know-size', cat: 'general',
-        q: { ar: 'شلون أعرف مقاس أظافري؟', en: 'How do I find my nail size?' },
+        q: { ar: 'كيف أعرف مقاس أظافري؟', en: 'How do I find my nail size?' },
         a: {
-          ar: 'ما تحتاجين تعرفينه قبل الطلب. بعد ما تدزين طلبك ندزّ لك بالخاص طريقة القياس ويّا صورة توضّح: تصوّرين إيدك من فوق ويّا مسطرة ملاصقة للأظافر، أو تقيسين عرض كل ظفر بالمليمتر عند أوسع نقطة، أو تختارين مقاس جاهز S أو M أو L. نتفق على المقاس قبل ما نجهّز الطقم، وإذا طلع قياسك بين رقمين نختار الأوسع دائمًا.',
+          ar: 'لا تحتاجين إلى معرفته قبل الطلب. بعد أن ترسلي طلبك نرسل لك بالخاص طريقة القياس مع صورة توضّح: تصوّرين يدك من فوق مع مسطرة ملاصقة للأظافر، أو تقيسين عرض كل ظفر بالمليمتر عند أوسع نقطة، أو تختارين مقاسًا جاهزًا S أو M أو L. نتفق على المقاس قبل أن نجهّز الطقم، وإذا جاء قياسك بين رقمين نختار الأوسع دائمًا.',
           en: 'You do not need to know it before ordering. Once your order lands we send you the measuring method in chat, with a picture: photograph your hand from above with a ruler against the nails, measure each nail in millimetres at its widest point, or pick a preset (S, M or L). We agree the size before we make the set, and whenever you land between two numbers we take the wider one.'
         }
       },
       {
         id: 'fq-sizing-kit', cat: 'general',
-        q: { ar: 'أكو عندكم عدّة قياس؟', en: 'Do you have a sizing kit?' },
+        q: { ar: 'هل لديكم عدّة قياس؟', en: 'Do you have a sizing kit?' },
         a: {
-          ar: 'هسة نعتمد صورة الإيد ويّا المسطرة أو القياس بالمليمتر، وهي كافية لمقاس مضبوط. إذا حبيتي عدّة قياس تجرّبينها مثل الخواتم، اسألينا بالخاص ونخبرك إذا متوفرة.',
+          ar: 'حاليًا نعتمد صورة اليد مع المسطرة أو القياس بالمليمتر، وهي كافية لمقاس مضبوط. وإذا أردتِ عدّة قياس تجرّبينها مثل الخواتم، فاسألينا بالخاص ونخبرك إن كانت متوفرة.',
           en: 'For now we work from the hand-with-ruler photo or millimetre measurements, which is enough for an exact fit. If you would rather try a kit on like rings, ask us in chat and we will tell you if one is available.'
         }
       },
       {
         id: 'fq-change-cancel', cat: 'general',
-        q: { ar: 'أقدر أعدّل طلبي أو ألغيه؟', en: 'Can I change or cancel my order?' },
+        q: { ar: 'هل أستطيع تعديل طلبي أو إلغاءه؟', en: 'Can I change or cancel my order?' },
         a: {
-          ar: 'تقدرين تعدّلين أو تلغين مجانًا خلال 12 ساعة من تأكيد الطلب، لأن التجهيز يبدأ بعدها على طول. بعد ما نبدأ بالشغل صعب نلغي لأن الطقم مفصّل بمقاسك إنتِ وما ينباع لغيرك، بس راسلينا ونشوف شلون نقدر نساعدك.',
+          ar: 'يمكنك التعديل أو الإلغاء مجانًا خلال 12 ساعة من تأكيد الطلب، لأن التجهيز يبدأ بعدها مباشرة. وبعد أن نبدأ العمل يصعب الإلغاء لأن الطقم مفصّل على مقاسك أنتِ ولا يُباع لغيرك، لكن راسلينا ونرى كيف نستطيع مساعدتك.',
           en: 'You can change or cancel free of charge within 12 hours of confirming, since crafting starts right after that. Once we have begun we usually cannot cancel, because the set is cut to your own measurements and cannot be sold to anyone else — but message us and we will see what we can do.'
         }
       },
       {
         id: 'fq-from-photo', cat: 'general',
-        q: { ar: 'أقدر أطلب تصميم من صورة عندي؟', en: 'Can I order a design from a photo I have?' },
+        q: { ar: 'هل أستطيع طلب تصميم من صورة لديّ؟', en: 'Can I order a design from a photo I have?' },
         a: {
-          ar: 'أكيد. دزّي الصورة بالخاص — من بنترست أو إنستغرام أو تصوير — ويّا الطول اللي تريدينه، ونرد عليك بالسعر ومدة التنفيذ خلال ساعات. وتقدرين هم تعدّلين على أي طقم تشوفينه بالموقع: لون، طول، شكل، أو زخرفة. بعض التصاميم المرسومة باليد تحتاج وقت أطول شوية، ونوضّح لك هذا قبل التأكيد.',
+          ar: 'بالتأكيد. أرسلي الصورة بالخاص — من بنترست أو إنستغرام أو من تصويرك — مع الطول الذي تريدينه، ونرد عليك بالسعر ومدة التنفيذ خلال ساعات. ويمكنك أيضًا التعديل على أي طقم ترينه في الموقع: لون، أو طول، أو شكل، أو زخرفة. بعض التصاميم المرسومة باليد تحتاج إلى وقت أطول قليلًا، ونوضّح لك ذلك قبل التأكيد.',
           en: 'Of course. Send the picture in chat — from Pinterest, Instagram or your camera — with the length you want, and we come back with a price and a timeline within hours. You can also change any set you see on the site: colour, length, shape or charms. Some hand-painted designs need a little longer, and we tell you before you confirm.'
         }
       },
       {
         id: 'fq-returns', cat: 'general',
-        q: { ar: 'أكو استرجاع أو استبدال؟', en: 'Do you accept returns or exchanges?' },
+        q: { ar: 'هل يوجد استرجاع أو استبدال؟', en: 'Do you accept returns or exchanges?' },
         a: {
-          ar: 'الأطقم مفصّلة حسب الطلب فما نقدر نستقبل استرجاع بعد الاستعمال لأسباب صحية. بس إذا وصلك الطلب بعيب بالتصنيع أو بمقاس غير اللي طلبتيه، دزّي لنا صورة خلال 48 ساعة من الاستلام ونرجع نجهّزه لك مجانًا ويّا شحن مجاني للطقم البديل.',
+          ar: 'الأطقم مفصّلة حسب الطلب، لذلك لا نستطيع قبول الاسترجاع بعد الاستعمال لأسباب صحية. لكن إذا وصلك الطلب بعيب في التصنيع أو بمقاس غير الذي طلبتِه، فأرسلي لنا صورة خلال 48 ساعة من الاستلام ونعيد تجهيزه لك مجانًا مع شحن مجاني للطقم البديل.',
           en: 'Sets are made to order, so for hygiene reasons we cannot take returns after wear. However, if your order arrives with a manufacturing fault or in a size other than the one you chose, send us a photo within 48 hours of delivery and we will remake it free of charge with free shipping on the replacement.'
         }
       }
