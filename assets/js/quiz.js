@@ -88,6 +88,13 @@
           max: 'ومزيّن على طول اليد، لأنك مو جاية تمرّين مرور الكرام'
         },
 
+        qPattern: 'شنو نوع الطقم اللي تحبينه؟',
+        hPattern: 'كات آي، فرنش، كروم… أو خليها علينا.',
+        qShape: 'شنو شكل الظفر اللي يعجبك؟',
+        hShape: 'الشكل النهائي نتفق عليه بالمحادثة، بس خبرينا شنو يعجبك.',
+        anyOf: 'ما يفرق عندي — اختاري إنتي',
+        whyPattern: 'بالنوع اللي طلبتيه',
+        whyShape: 'وبالشكل اللي يعجبك',
         qGroup: 'أي قائمة من قوائمنا أقرب إلك؟',
         hGroup: 'اختاري القائمة الأقرب لمناسبتك، أو خليها مفتوحة.',
         groupAny: 'ما أحدد — عرضيلي كلشي',
@@ -284,6 +291,13 @@
         plain: 'سادة',
 
         /* skin */
+        qPattern: 'ما نوع الطقم الذي تحبينه؟',
+        hPattern: 'كات آي، فرنش، كروم… أو اتركي الاختيار لنا.',
+        qShape: 'ما شكل الظفر الذي يعجبك؟',
+        hShape: 'الشكل النهائي نتفق عليه في المحادثة، لكن أخبرينا ما يعجبك.',
+        anyOf: 'لا فرق عندي — اختاري أنتِ',
+        whyPattern: 'بالنوع الذي طلبتِه',
+        whyShape: 'وبالشكل الذي يعجبك',
         qGroup: 'أي قائمة من قوائمنا أقرب إليك؟',
         hGroup: 'اختاري القائمة الأقرب لمناسبتك، أو اتركي الخيار مفتوحًا.',
         groupAny: 'لا أحدد — اعرضي لي كل شيء',
@@ -503,6 +517,13 @@
         charmsN: '{n} charms',
         plain: 'Plain',
 
+        qPattern: 'What kind of set do you like?',
+        hPattern: 'Cat eye, french, chrome… or leave it to us.',
+        qShape: 'Which nail shape do you like?',
+        hShape: 'We agree the final shape in chat, but tell us what you like.',
+        anyOf: 'No preference — you choose',
+        whyPattern: 'the kind you asked for',
+        whyShape: 'and the shape you like',
         qGroup: 'Which of our lists is closest to you?',
         hGroup: 'Pick the list nearest your occasion, or leave it open.',
         groupAny: 'No preference — show me everything',
@@ -996,6 +1017,8 @@
     a.budget = (answers && answers.budget) ? answers.budget : '';
     a.tag = (answers && answers.tag) ? answers.tag : '';
     a.group = (answers && answers.group) ? answers.group : '';
+    a.pattern = (answers && answers.pattern) ? answers.pattern : '';
+    a.shape = (answers && answers.shape) ? answers.shape : '';
     return a;
   }
 
@@ -1011,7 +1034,7 @@
     var d = blankDesign();
     var occ, vibe, pal, sea, att, met, sh, seed;
     var keys, i, key, fng, slot;
-    var baseFinish, accentPattern, filler, metalHex, artColor, soloColor, charms;
+    var baseFinish, accentPattern, filler, metalHex, artColor, soloColor, charms, askedKind;
 
     if (!d) return null;
 
@@ -1042,7 +1065,9 @@
 
     d.skin = skinHex(a.skin || (list('skinTones')[1] || {}).id);
     d.hand = 'both';
-    d.shape = shapeOk(at(vibe.shapes, seed([vibe.id, pal.id, sea.id, a.length])));
+    d.shape = (a.shape && a.shape !== 'any')
+      ? shapeOk(a.shape)
+      : shapeOk(at(vibe.shapes, seed([vibe.id, pal.id, sea.id, a.length])));
     d.length = lengthOk(a.length);
     d.qty = 1;
     d.express = false;
@@ -1093,6 +1118,23 @@
         d.nails[key].pattern = {
           kind: filler, color: visibleOn(sh.base, sh.third, sh.accent, metalHex), color2: sh.base, scale: 1
         };
+      }
+    }
+
+    /* She asked for a kind of set by name. That is the set's identity, not a
+       flourish on one nail — a cat-eye set is cat eye on all ten — so it
+       overrides the spread above. Charms below still land on the ring. */
+    if (a.pattern && a.pattern !== 'any') {
+      askedKind = patternKindOf(a.pattern);
+      if (askedKind) {
+        for (i = 0; i < keys.length; i++) {
+          key = keys[i];
+          if (!d.nails[key]) continue;
+          d.nails[key].color = sh.base;
+          d.nails[key].pattern = (askedKind === 'none')
+            ? { kind: 'none', color: sh.accent, color2: sh.base, scale: 1 }
+            : { kind: patternOk(askedKind), color: artColor, color2: sh.base, scale: 1 };
+        }
       }
     }
 
@@ -1318,6 +1360,8 @@
     if (w.indexOf('vibe') !== -1 && Array.isArray(m.vibe) && m.vibe.length && axis('vibe', m.vibe[0])) {
       parts.push(t('quiz.whyVibe', { v: axis('vibe', m.vibe[0]) }));
     }
+    if (w.indexOf('pattern') !== -1) parts.push(t('quiz.whyPattern'));
+    if (w.indexOf('shape') !== -1) parts.push(t('quiz.whyShape'));
     if (w.indexOf('length') !== -1) parts.push(t('quiz.whyLength'));
     if (w.indexOf('skin') !== -1) parts.push(t('quiz.whySkin'));
 
@@ -1409,9 +1453,11 @@
     { key: 'group', q: 'quiz.qGroup', hint: 'quiz.hGroup', art: 'group', cols: 2 },
     { key: 'vibe', q: 'quiz.q2', hint: 'quiz.h2', art: 'thumb', cols: 2 },
     { key: 'palette', q: 'quiz.q3', hint: 'quiz.h3', art: 'strip', cols: 3 },
+    { key: 'pattern', q: 'quiz.qPattern', hint: 'quiz.hPattern', art: 'nail', cols: 2 },
     { key: 'season', q: 'quiz.q4', hint: 'quiz.h4', art: 'thumb', cols: 2 },
     { key: 'attention', q: 'quiz.q5', hint: 'quiz.h5', art: 'thumb', cols: 2 },
     { key: 'metal', q: 'quiz.q6', hint: 'quiz.h6', art: 'nail', cols: 3 },
+    { key: 'shape', q: 'quiz.qShape', hint: 'quiz.hShape', art: 'nail', cols: 3 },
     { key: 'length', q: 'quiz.q7', hint: 'quiz.h7', art: 'len', cols: 2 },
     { key: 'budget', q: 'quiz.qBudget', hint: 'quiz.hBudget', art: 'budget', cols: 2 }
   ];
@@ -1429,10 +1475,27 @@
     return out;
   }
 
+  /* rows the owner has offered as answers. A question she has emptied simply
+     does not exist — the quiz stays as short as she wants it. */
+  function offered(key) {
+    var arr = list(key), out = [], i, r;
+    for (i = 0; i < arr.length; i++) {
+      r = arr[i];
+      if (r && r.id && r.active !== false && r.inQuiz === true) out.push(r);
+    }
+    return out;
+  }
+
   function steps() {
-    var on = activeGroups().length > 0, out = [], i;
+    var on = {
+      group: activeGroups().length > 0,
+      pattern: offered('patterns').length > 0,
+      shape: offered('shapes').length > 0
+    }, out = [], i, k;
     for (i = 0; i < STEPS.length; i++) {
-      if (STEPS[i].key !== 'group' || on) out.push(STEPS[i]);
+      k = STEPS[i].key;
+      if (Object.prototype.hasOwnProperty.call(on, k) && !on[k]) continue;
+      out.push(STEPS[i]);
     }
     return out;
   }
@@ -1457,6 +1520,43 @@
      quiz's length question reads it from there — a separate matching field
      would mean typing the same answer twice and forgetting one of them. An
      explicit match.length still wins, so an older set keeps its own answer. */
+  function patternKindOf(id) {
+    var arr = list('patterns'), i;
+    if (!id || id === 'any') return '';
+    for (i = 0; i < arr.length; i++) if (arr[i] && String(arr[i].id) === String(id)) return String(arr[i].kind || '');
+    return '';
+  }
+
+  /* Which of the owner's patterns this set is. She may have said so in the
+     set's look; otherwise the drawing says it — the kind most of its nails
+     wear, not the ring nail, which is often the odd one out. */
+  function patternIdOf(it) {
+    var look = (it && it.look) || {}, cfg, tally = {}, best = '', bestN = 0, arr, i, k, n, kind;
+    if (look.pattern) return String(look.pattern);
+    cfg = it && it.config;
+    if (!cfg || !cfg.nails) return '';
+    for (k in cfg.nails) {
+      if (!Object.prototype.hasOwnProperty.call(cfg.nails, k)) continue;
+      n = cfg.nails[k];
+      kind = (n && n.pattern) ? String(n.pattern.kind || '') : '';
+      if (!kind) continue;
+      tally[kind] = (tally[kind] || 0) + 1;
+      if (tally[kind] > bestN) { bestN = tally[kind]; best = kind; }
+    }
+    if (!best) return '';
+    arr = list('patterns');
+    for (i = 0; i < arr.length; i++) if (arr[i] && String(arr[i].kind) === best) return String(arr[i].id);
+    return '';
+  }
+
+  function shapeOf(it) {
+    var m = (it && it.match) || {};
+    if (m.shape) return String(m.shape);
+    if (it && it.look && it.look.shape) return String(it.look.shape);
+    if (it && it.config && it.config.shape) return String(it.config.shape);
+    return '';
+  }
+
   function lengthOf(it) {
     var m = (it && it.match) || {};
     if (m.length) return String(m.length);
@@ -1521,6 +1621,13 @@
       arr = activeGroups();
       for (i = 0; i < arr.length; i++) out.push({ id: arr[i].id, label: pick(arr[i].name) || arr[i].id, row: arr[i] });
       out.push({ id: 'any', label: t('quiz.groupAny'), row: null });
+      return out;
+    }
+    /* the kind of set, and the shape of the nail — both are hers to answer */
+    if (key === 'pattern' || key === 'shape') {
+      arr = offered(key === 'pattern' ? 'patterns' : 'shapes');
+      for (i = 0; i < arr.length; i++) out.push({ id: arr[i].id, label: pick(arr[i].name) || arr[i].id, row: arr[i] });
+      out.push({ id: 'any', label: t('quiz.anyOf'), row: null });
       return out;
     }
     if (key === 'length') {
@@ -1590,8 +1697,18 @@
        decoration at all, whatever she answered before it */
     if (step.key === 'metal' && !probe.attention) probe.attention = 'clear';
     if (step.key === 'attention' && !probe.occasion) probe.occasion = 'party';
+    /* the kind-of-set tiles are asked before she has said how much decoration
+       she wants, and a bare nail would show no pattern at all */
+    if (step.key === 'pattern') probe.attention = 'clear';
 
     d = build(probe);
+
+    /* on the kind-of-set tiles the charms are noise: every tile would wear the
+       same gold dot and the same pearl, and the question is about the pattern
+       under them */
+    if (step.key === 'pattern' && d && d.nails) {
+      for (k in d.nails) if (Object.prototype.hasOwnProperty.call(d.nails, k)) d.nails[k].charms = [];
+    }
 
     if (d && SN.Nail) {
       try {
@@ -1785,8 +1902,9 @@
   /* How well one design answers her. Every axis is optional on the design:
      left blank it neither helps nor hurts, so a half-filled design still
      competes on what the owner did fill in. */
-  var W_PALETTE = 34, W_GROUP = 24, W_OCCASION = 22, W_VIBE = 16, W_SKIN = 14,
-      W_SEASON = 12, W_ATTENTION = 10, W_METAL = 8, W_LENGTH = 8;
+  var W_PALETTE = 34, W_GROUP = 24, W_OCCASION = 22, W_PATTERN = 30, W_VIBE = 16,
+      W_SKIN = 14, W_SEASON = 12, W_ATTENTION = 10, W_SHAPE = 10, W_METAL = 8,
+      W_LENGTH = 8;
 
   function budgetMax(id) {
     var arr = list('matchAxes.budget'), i;
@@ -1859,6 +1977,17 @@
     if (m.metal) { max += W_METAL; if (m.metal === a.metal) { score += W_METAL; why.push('metal'); } }
     hit = lengthOf(it);
     if (hit) { max += W_LENGTH; if (hit === a.length) { score += W_LENGTH; why.push('length'); } }
+
+    /* She named the kind of set, or the shape, herself. These only weigh when
+       she answered them — the questions are the owner's to switch off. */
+    if (a.pattern && a.pattern !== 'any') {
+      hit = patternIdOf(it);
+      if (hit) { max += W_PATTERN; if (hit === a.pattern) { score += W_PATTERN; why.push('pattern'); } }
+    }
+    if (a.shape && a.shape !== 'any') {
+      hit = shapeOf(it);
+      if (hit) { max += W_SHAPE; if (hit === a.shape) { score += W_SHAPE; why.push('shape'); } }
+    }
 
     /* only the skin axis scored — the owner has told us nothing else about
        this design, so it cannot be recommended on merit. Her own list counts

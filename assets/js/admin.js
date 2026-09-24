@@ -374,6 +374,9 @@
           tags: 'الوسوم',
           groups: 'ضمن أي قوائم؟',
           lkNone: '— بدون تحديد —',
+          qAsk: 'اعرضيه كخيار في الاختبار',
+          qAskShapeX: 'الأشكال المفعّلة هنا تظهر كسؤال في اختبار الستايل تختار منه الزبونة شكل ظفرها. لو أطفأتِها كلها اختفى السؤال ورجع الاختبار يختار الشكل بنفسه.',
+          qAskPatternX: 'النقشات المفعّلة هنا تظهر كسؤال في اختبار الستايل تختار منه الزبونة نوع طقمها (كات آي، فرنش، كروم…). اختاري القليل والمشهور — كثرتها تتعب الزبونة. ولو أطفأتِها كلها اختفى السؤال.',
           lkPattern: 'نوع النقشة',
           lkPatternX: 'اختاري نوع الطقم — فرنش، كات آي، كروم، نمر، أومبريه… وما تختارينه هنا يُرسم فعلاً في بطاقة الطقم بألوانه. اتركيه بدون تحديد إذا الطقم لون واحد بلا نقشة.',
           lkFinish: 'اللمسة النهائية',
@@ -973,6 +976,9 @@
           tags: 'Tags',
           groups: 'Which lists is it in?',
           lkNone: '— not set —',
+          qAsk: 'Offer it as a quiz answer',
+          qAskShapeX: 'Shapes turned on here become a question in the style quiz where she picks her nail shape. Turn them all off and the question disappears and the quiz picks a shape itself.',
+          qAskPatternX: 'Patterns turned on here become a question where she picks the kind of set she wants (cat eye, french, chrome…). Offer a few popular ones — a long list tires her out. Turn them all off and the question disappears.',
           lkPattern: 'Pattern',
           lkPatternX: 'Pick the kind of set — french, cat eye, chrome, leopard, ombre… and what you pick here is actually drawn on the set\u2019s card in its own colours. Leave it unset for a plain one-colour set.',
           lkFinish: 'Finish',
@@ -2665,6 +2671,7 @@
       case 'shapes': return {
         key: 'shapes',
         fields: [
+          F('inQuiz', 'bool', 'admin.d.qAsk', { hint: 'admin.d.qAskShapeX' }),
           F('name', 't', 'admin.f.name'),
           F('price', 'num', 'admin.f.price', { step: 1, min: 0, hint: 'admin.h.price' }),
           F('desc', 'tarea', 'admin.f.desc', { wide: true, rows: 3 })
@@ -2707,6 +2714,7 @@
       case 'patterns': return {
         key: 'patterns',
         fields: [
+          F('inQuiz', 'bool', 'admin.d.qAsk', { hint: 'admin.d.qAskPatternX' }),
           F('name', 't', 'admin.f.name'),
           F('kind', 'select', 'admin.f.kind', { opts: patternKindOpts }),
           F('price', 'num', 'admin.f.price', { step: 1, min: 0, hint: 'admin.h.price' }),

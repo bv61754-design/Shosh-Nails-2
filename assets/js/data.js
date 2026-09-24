@@ -353,42 +353,42 @@
        ===================================================================== */
     shapes: [
       {
-        id: 'almond', price: 0,
+        id: 'almond', inQuiz: true, price: 0,
         name: { ar: 'لوز', en: 'Almond' },
         desc: { ar: 'أطراف ناعمة مدبّبة قليلاً — تطوّل الأصابع وتناسب كل المناسبات.', en: 'Softly tapered tips that lengthen the finger and suit absolutely everything.' }
       },
       {
-        id: 'coffin', price: 1000,
+        id: 'coffin', inQuiz: true, price: 1000,
         name: { ar: 'كوفن', en: 'Coffin' },
         desc: { ar: 'أطراف مستقيمة مع جوانب مسحوبة — الشكل الأشهر للأطقم الطويلة.', en: 'A straight tip with tapered sides — the signature look for long sets.' }
       },
       {
-        id: 'stiletto', price: 1200,
+        id: 'stiletto', inQuiz: true, price: 1200,
         name: { ar: 'ستيليتو', en: 'Stiletto' },
         desc: { ar: 'مدبّب وجريء، يلفت النظر من أول نظرة ويحتاج طولًا كافيًا.', en: 'Sharp and daring, impossible to miss — and it needs the length to work.' }
       },
       {
-        id: 'square', price: 0,
+        id: 'square', inQuiz: true, price: 0,
         name: { ar: 'مربّع', en: 'Square' },
         desc: { ar: 'حواف مستقيمة وزوايا واضحة — كلاسيكي ومريح للأظافر القصيرة.', en: 'Flat edge, clean corners — a classic that sits beautifully on shorter lengths.' }
       },
       {
-        id: 'squoval', price: 500,
+        id: 'squoval', inQuiz: true, price: 500,
         name: { ar: 'مربّع مدوّر', en: 'Squoval' },
         desc: { ar: 'مربّع بزوايا مخفّفة، ثابت وعملي ويناسب اليد اليومية.', en: 'A square with the corners softened — sturdy, practical, made for everyday hands.' }
       },
       {
-        id: 'round', price: 0,
+        id: 'round', inQuiz: true, price: 0,
         name: { ar: 'دائري', en: 'Round' },
         desc: { ar: 'أبسط شكل وأقربه لخط الظفر الطبيعي، يعطي مظهرًا نظيفًا وهادئًا.', en: 'The simplest shape and the closest to your natural edge — quiet and clean.' }
       },
       {
-        id: 'oval', price: 300,
+        id: 'oval', inQuiz: true, price: 300,
         name: { ar: 'بيضاوي', en: 'Oval' },
         desc: { ar: 'انسيابي وأنثوي، يوهم بأصابع أطول بدون طول زائد.', en: 'Fluid and feminine, it stretches the finger without adding real length.' }
       },
       {
-        id: 'lipstick', price: 1500,
+        id: 'lipstick', inQuiz: true, price: 1500,
         name: { ar: 'ليبستيك', en: 'Lipstick' },
         desc: { ar: 'طرف مائل مقصوص بزاوية مثل قلم أحمر الشفاه — لمسة جريئة ومختلفة.', en: 'A slanted tip cut on an angle like a lipstick bullet — bold and different.' }
       }
@@ -490,33 +490,33 @@
        PATTERNS — `kind` values come from SPEC section 8.
        ===================================================================== */
     patterns: [
-      { id: 'p-none', kind: 'none', price: 0, name: { ar: 'بدون نقشة', en: 'Plain' } },
-      { id: 'p-french', kind: 'french', price: 600, name: { ar: 'فرنش كلاسيك', en: 'Classic French' } },
-      { id: 'p-french-deep', kind: 'frenchDeep', price: 800, name: { ar: 'فرنش عريض', en: 'Deep French' } },
-      { id: 'p-tips-glitter', kind: 'tipsGlitter', price: 700, name: { ar: 'أطراف غليتر', en: 'Glitter Tips' } },
-      { id: 'p-ombre', kind: 'ombre', price: 800, name: { ar: 'أومبريه', en: 'Ombré' } },
-      { id: 'p-ombre-v', kind: 'ombreV', price: 800, name: { ar: 'أومبريه عمودي', en: 'Vertical Ombré' } },
-      { id: 'p-half', kind: 'half', price: 500, name: { ar: 'نصف ونصف', en: 'Half and Half' } },
-      { id: 'p-diagonal', kind: 'diagonal', price: 500, name: { ar: 'قطري', en: 'Diagonal' } },
-      { id: 'p-dots', kind: 'dots', price: 600, name: { ar: 'نقاط', en: 'Polka Dots' } },
-      { id: 'p-stripes', kind: 'stripes', price: 600, name: { ar: 'خطوط', en: 'Stripes' } },
-      { id: 'p-chevron', kind: 'chevron', price: 700, name: { ar: 'شيفرون', en: 'Chevron' } },
-      { id: 'p-checkers', kind: 'checkers', price: 900, name: { ar: 'مربعات', en: 'Checkers' } },
-      { id: 'p-hearts', kind: 'hearts', price: 800, name: { ar: 'قلوب', en: 'Hearts' } },
-      { id: 'p-stars', kind: 'stars', price: 800, name: { ar: 'نجوم', en: 'Stars' } },
-      { id: 'p-aura', kind: 'aura', price: 1000, name: { ar: 'هالة', en: 'Aura' } },
-      { id: 'p-glazed', kind: 'glazed', price: 1000, name: { ar: 'جليزد دونات', en: 'Glazed Donut' } },
-      { id: 'p-flames', kind: 'flames', price: 1100, name: { ar: 'لهب', en: 'Flames' } },
-      { id: 'p-marble', kind: 'marble', price: 1200, name: { ar: 'رخامي', en: 'Marble' } },
-      { id: 'p-chrome', kind: 'chrome', price: 1200, name: { ar: 'كروم مرآة', en: 'Mirror Chrome' } },
-      { id: 'p-leopard', kind: 'leopard', price: 1200, name: { ar: 'نمر', en: 'Leopard' } },
-      { id: 'p-lace', kind: 'lace', price: 1400, name: { ar: 'دانتيل', en: 'Lace' } },
-      { id: 'p-cat-eye', kind: 'catEye', price: 1500, name: { ar: 'كات آي', en: 'Cat Eye' } },
+      { id: 'p-none', inQuiz: true, kind: 'none', price: 0, name: { ar: 'بدون نقشة', en: 'Plain' } },
+      { id: 'p-french', inQuiz: true, kind: 'french', price: 600, name: { ar: 'فرنش كلاسيك', en: 'Classic French' } },
+      { id: 'p-french-deep', inQuiz: false, kind: 'frenchDeep', price: 800, name: { ar: 'فرنش عريض', en: 'Deep French' } },
+      { id: 'p-tips-glitter', inQuiz: false, kind: 'tipsGlitter', price: 700, name: { ar: 'أطراف غليتر', en: 'Glitter Tips' } },
+      { id: 'p-ombre', inQuiz: true, kind: 'ombre', price: 800, name: { ar: 'أومبريه', en: 'Ombré' } },
+      { id: 'p-ombre-v', inQuiz: false, kind: 'ombreV', price: 800, name: { ar: 'أومبريه عمودي', en: 'Vertical Ombré' } },
+      { id: 'p-half', inQuiz: false, kind: 'half', price: 500, name: { ar: 'نصف ونصف', en: 'Half and Half' } },
+      { id: 'p-diagonal', inQuiz: false, kind: 'diagonal', price: 500, name: { ar: 'قطري', en: 'Diagonal' } },
+      { id: 'p-dots', inQuiz: false, kind: 'dots', price: 600, name: { ar: 'نقاط', en: 'Polka Dots' } },
+      { id: 'p-stripes', inQuiz: false, kind: 'stripes', price: 600, name: { ar: 'خطوط', en: 'Stripes' } },
+      { id: 'p-chevron', inQuiz: false, kind: 'chevron', price: 700, name: { ar: 'شيفرون', en: 'Chevron' } },
+      { id: 'p-checkers', inQuiz: false, kind: 'checkers', price: 900, name: { ar: 'مربعات', en: 'Checkers' } },
+      { id: 'p-hearts', inQuiz: false, kind: 'hearts', price: 800, name: { ar: 'قلوب', en: 'Hearts' } },
+      { id: 'p-stars', inQuiz: false, kind: 'stars', price: 800, name: { ar: 'نجوم', en: 'Stars' } },
+      { id: 'p-aura', inQuiz: false, kind: 'aura', price: 1000, name: { ar: 'هالة', en: 'Aura' } },
+      { id: 'p-glazed', inQuiz: true, kind: 'glazed', price: 1000, name: { ar: 'جليزد دونات', en: 'Glazed Donut' } },
+      { id: 'p-flames', inQuiz: false, kind: 'flames', price: 1100, name: { ar: 'لهب', en: 'Flames' } },
+      { id: 'p-marble', inQuiz: false, kind: 'marble', price: 1200, name: { ar: 'رخامي', en: 'Marble' } },
+      { id: 'p-chrome', inQuiz: true, kind: 'chrome', price: 1200, name: { ar: 'كروم مرآة', en: 'Mirror Chrome' } },
+      { id: 'p-leopard', inQuiz: true, kind: 'leopard', price: 1200, name: { ar: 'نمر', en: 'Leopard' } },
+      { id: 'p-lace', inQuiz: false, kind: 'lace', price: 1400, name: { ar: 'دانتيل', en: 'Lace' } },
+      { id: 'p-cat-eye', inQuiz: false, kind: 'catEye', price: 1500, name: { ar: 'كات آي', en: 'Cat Eye' } },
       /* The shop's own signature finish: magnetic gel packed with fine silver
          flakes. `pattern.color` is read as a faint TINT on the silver (gold /
          rose gold), never as a colour, and the nail's own colour is the dark
          base underneath — see SN.Nail PATTERNS.glitterCatEye. */
-      { id: 'p-cat-eye-glitter', kind: 'glitterCatEye', price: 1600, name: { ar: 'كات آي جليتر', en: 'Glitter Cat Eye' } }
+      { id: 'p-cat-eye-glitter', inQuiz: true, kind: 'glitterCatEye', price: 1600, name: { ar: 'كات آي جليتر', en: 'Glitter Cat Eye' } }
     ],
 
     /* =====================================================================
