@@ -455,12 +455,29 @@
      Only an embedded JPEG/PNG/WebP or an https:// address is ever put in
      an <img> — anything else in the data is ignored, not rendered. */
   var MAX_PICS = 4;
-  var PIC_DATA = /^data:image\/(?:jpeg|png|webp);base64,[A-Za-z0-9+\/]+={0,2}$/;
-  var PIC_HTTPS = /^https:\/\/[^\s"'<>\\]+$/i;
+
+  /* The check reads only the HEAD of an embedded picture, never its body.
+     A picture is 150–250 KB of base64 and picSrc() runs for every picture on
+     every search keystroke (the haystack reads the captions of the pictures
+     that will show), so a check that walked the whole body cost up to 0.9 s
+     per keystroke on a mid-range phone with 24 pictures. The head is all
+     that decides what the browser does with the address — a JPEG/PNG/WebP
+     image, never a script or an SVG. The address is handed to the <img> as
+     an attribute value, never as HTML (see picImg), so nothing after the
+     head can be read as markup, and a damaged body just fails to decode. */
+  var PIC_DATA = /^data:image\/(?:jpeg|png|webp);base64,[A-Za-z0-9+\/]/;
+  var PIC_HEAD = 48;                            /* longer than any head above */
+  var PIC_HTTPS = /^https:\/\/[^\s"'<>\\]+$/i;  /* a web address is short */
+  var EDGE_WS = /\s/;
 
   function picSrc(p) {
-    var v = isObj(p) ? trim(p.src) : '';
-    return (PIC_DATA.test(v) || PIC_HTTPS.test(v)) ? v : '';
+    var v = isObj(p) ? str(p.src) : '';
+    if (!v) return '';
+    /* trim() would scan the whole body too — only pay for it when an end
+       really is blank */
+    if (EDGE_WS.test(v.charAt(0)) || EDGE_WS.test(v.charAt(v.length - 1))) v = trim(v);
+    if (PIC_DATA.test(v.slice(0, PIC_HEAD))) return v;
+    return PIC_HTTPS.test(v) ? v : '';
   }
 
   function picsOf(it) {
@@ -483,19 +500,68 @@
     return n > 0 && n <= 10000 ? n : 0;
   }
 
-  /* one picture, below the answer text. The width/height attributes let the
-     browser keep its space before the file arrives, so nothing jumps. */
-  function picHtml(p, n, qText, q) {
-    var src = picSrc(p), cap = trim(pick(p.cap)), w = dimOf(p.w), h = dimOf(p.h);
-    var alt = cap || t('faq.picAlt', { q: stripQ(qText), n: numf(n) });
-    if (!src) return '';
+  /* A picture's <img>, kept across re-renders: "id#n" -> {src, img}.
+     The whole list is rebuilt on every search keystroke, and giving an <img>
+     an embedded address makes the browser decode it there and then — even
+     with loading="lazy", even for an answer that is closed. With 24 pictures
+     that was most of a keystroke on a phone. A kept <img> is simply moved
+     into the new row, already decoded. */
+  var FIG = {};
+
+  function setAttr(node, name, v) {
+    if (v === '' || v === null || v === undefined) node.removeAttribute(name);
+    else node.setAttribute(name, String(v));
+  }
+
+  function picImg(key, src) {
+    var hit = FIG[key], img;
+    /* never steal an <img> that is already on the page (two rows with the
+       same id would otherwise leave the first one without its picture) */
+    if (hit && hit.src === src && !(document.documentElement && document.documentElement.contains(hit.img))) {
+      return hit.img;
+    }
+    /* loading/decoding go on before src, so the browser sees them first */
+    img = el('img', { loading: 'lazy', decoding: 'async' });
+    img.setAttribute('src', src);
+    FIG[key] = { src: src, img: img };
+    return img;
+  }
+
+  /* after the data changes: let go of every kept <img> whose picture is gone
+     or has been replaced, so a deleted picture is not held in memory */
+  function pruneFigs() {
+    var list = faqList(), next = {}, i, k, pics, key, hit;
+    for (i = 0; i < list.length; i++) {
+      pics = picsOf(list[i]);
+      for (k = 0; k < pics.length; k++) {
+        key = str(list[i].id) + '#' + (k + 1);
+        hit = FIG[key];
+        if (hit && hit.src === picSrc(pics[k])) next[key] = hit;
+      }
+    }
+    FIG = next;
+  }
+
+  /* one picture, below the answer text. Built as elements, not as HTML: the
+     address is 150–250 KB of base64 and never goes through the HTML parser,
+     so nothing in it can be read as markup either. The width/height
+     attributes let the browser keep its space before the file arrives, so
+     nothing jumps. */
+  function picNode(p, n, qText, q, id) {
+    var src = picSrc(p), cap, w, h, img;
+    if (!src) return null;
+    cap = trim(pick(p.cap)); w = dimOf(p.w); h = dimOf(p.h);
+    img = picImg(id + '#' + n, src);
+    setAttr(img, 'width', w && h ? w : '');
+    setAttr(img, 'height', w && h ? h : '');
     /* --ar / --w let the CSS narrow a tall picture (or a small one) instead
        of framing it in empty bands — see .faq-fig in faq.html */
-    return '<figure class="faq-fig"><img src="' + esc(src) + '"' +
-      (w && h ? ' width="' + w + '" height="' + h + '" style="--ar:' + (Math.round(w / h * 10000) / 10000) + ';--w:' + w + 'px"' : '') +
-      ' alt="' + esc(alt) + '" loading="lazy" decoding="async">' +
-      (cap ? '<figcaption>' + hl(cap, q) + '</figcaption>' : '') +
-      '</figure>';
+    setAttr(img, 'style', w && h ? '--ar:' + (Math.round(w / h * 10000) / 10000) + ';--w:' + w + 'px' : '');
+    img.setAttribute('alt', cap || t('faq.picAlt', { q: stripQ(qText), n: numf(n) }));
+    return el('figure', { 'class': 'faq-fig' }, [
+      img,
+      cap ? el('figcaption', { html: hl(cap, q) }) : null
+    ]);
   }
 
   /* Both languages go in the haystack, so an English word finds an Arabic
@@ -567,10 +633,10 @@
     return out;
   }
 
-  /* an answer becomes <p> blocks, with any numbered run promoted to <ol>,
-     and then its pictures, in order, below the text */
-  function answerHtml(text, q, pics, qText) {
-    var ls = lines(text), out = '', buf = [], i, ln, m, figs = '';
+  /* an answer becomes <p> blocks, with any numbered run promoted to <ol>;
+     answerNode() then puts its pictures, in order, below the text */
+  function answerHtml(text, q, hasPics) {
+    var ls = lines(text), out = '', buf = [], i, ln, m;
 
     function flush() {
       var k;
@@ -590,9 +656,18 @@
       out += '<p>' + hl(ln, q) + '</p>';
     }
     flush();
-    for (i = 0; pics && i < pics.length; i++) figs += picHtml(pics[i], i + 1, qText, q);
-    if (!out && !figs) out = '<p>' + hl(str(text), q) + '</p>';
-    return out + figs;
+    if (!out && !hasPics) out = '<p>' + hl(str(text), q) + '</p>';
+    return out;
+  }
+
+  function answerNode(it, q) {
+    var pics = picsOf(it), qText = pick(it.q), id = str(it.id), i, fig;
+    var box = el('div', { 'class': 'faq-a', html: answerHtml(pick(it.a), q, pics.length > 0) });
+    for (i = 0; i < pics.length; i++) {
+      fig = picNode(pics[i], i + 1, qText, q, id);
+      if (fig) box.appendChild(fig);
+    }
+    return box;
   }
 
   function clip(s, n) {
@@ -793,7 +868,7 @@
       'aria-labelledby': bid
     }, [
       el('div', { 'class': 'acc-in' }, [
-        el('div', { 'class': 'faq-a', html: answerHtml(pick(it.a), st.q, picsOf(it), pick(it.q)) }),
+        answerNode(it, st.q),
         foot
       ])
     ]);
@@ -1546,6 +1621,7 @@
       try {
         SN.Store.subscribe(debounce(function () {
           if (st.open && !findFaq(st.open)) st.open = '';
+          pruneFigs();
           render();
         }, 90));
       } catch (e) { console.warn('[SN.Faq] could not subscribe to the store', e); }
