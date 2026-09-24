@@ -296,6 +296,7 @@
         whyLead: 'اخترناه لك لأنه',
         whyPalette: 'بعائلة الألوان التي اخترتِها',
         whySeason: 'يليق بجو {s}',
+        whyLength: 'بالطول الذي طلبتِه',
         whyOccasion: 'يصلح لـ{o}',
         whyVibe: 'وطابعه {v}',
         whySkin: 'ويليق على درجة بشرتك',
@@ -514,6 +515,7 @@
         whyLead: 'We picked it because it is',
         whyPalette: 'in the colour family you chose',
         whySeason: 'right for {s}',
+        whyLength: 'in the length you asked for',
         whyOccasion: 'made for {o}',
         whyVibe: 'and its feel is {v}',
         whySkin: 'and it suits your skin tone',
@@ -1316,6 +1318,7 @@
     if (w.indexOf('vibe') !== -1 && Array.isArray(m.vibe) && m.vibe.length && axis('vibe', m.vibe[0])) {
       parts.push(t('quiz.whyVibe', { v: axis('vibe', m.vibe[0]) }));
     }
+    if (w.indexOf('length') !== -1) parts.push(t('quiz.whyLength'));
     if (w.indexOf('skin') !== -1) parts.push(t('quiz.whySkin'));
 
     /* the gate adds nothing to hit.why, so this is tested directly */
@@ -1450,6 +1453,18 @@
      lists she filed it under already say: a set in «أعراس» is for a wedding,
      because that is the character she gave that list. So filing a set is
      enough to make the occasion question work on it too. */
+  /* How long this set is. She chooses it once, in the set's look, and the
+     quiz's length question reads it from there — a separate matching field
+     would mean typing the same answer twice and forgetting one of them. An
+     explicit match.length still wins, so an older set keeps its own answer. */
+  function lengthOf(it) {
+    var m = (it && it.match) || {};
+    if (m.length) return String(m.length);
+    if (it && it.look && it.look.length) return String(it.look.length);
+    if (it && it.config && it.config.length) return String(it.config.length);
+    return '';
+  }
+
   function occasionsOf(it) {
     var m = (it && it.match) || {}, ids, out = [], i, g;
     if (Array.isArray(m.occasion) && m.occasion.length) return m.occasion;
@@ -1842,7 +1857,8 @@
 
     if (m.attention) { max += W_ATTENTION; if (m.attention === a.attention) { score += W_ATTENTION; why.push('attention'); } }
     if (m.metal) { max += W_METAL; if (m.metal === a.metal) { score += W_METAL; why.push('metal'); } }
-    if (m.length) { max += W_LENGTH; if (m.length === a.length) { score += W_LENGTH; why.push('length'); } }
+    hit = lengthOf(it);
+    if (hit) { max += W_LENGTH; if (hit === a.length) { score += W_LENGTH; why.push('length'); } }
 
     /* only the skin axis scored — the owner has told us nothing else about
        this design, so it cannot be recommended on merit. Her own list counts

@@ -3781,8 +3781,6 @@
         F('match.vibe', 'multi', 'admin.d.mVibe', { wide: true, hint: 'admin.d.mVibeX', opts: axisOpts('vibe') }),
         F('match.attention', 'select', 'admin.d.mAtt', { hint: 'admin.d.mAttX', opts: axisOpts('attention', 'any') }),
         F('match.metal', 'select', 'admin.d.mMetal', { hint: 'admin.d.mMetalX', opts: axisOpts('metal', 'any') }),
-        F('match.length', 'select', 'admin.d.mLen', { hint: 'admin.d.mLenX', opts: listOpts('lengths') }),
-        F('match.shape', 'select', 'admin.d.mShape', { hint: 'admin.d.mShapeX', opts: listOpts('shapes') }),
         F('match.skin', 'multi', 'admin.d.mSkin', { wide: true, hint: 'admin.d.mSkinX', opts: listOpts('skinTones', true) }),
         F('match.palette', 'select', 'admin.d.mPal', { hint: 'admin.d.mPalX', opts: axisOpts('palette', 'auto') }),
         F('match.season', 'select', 'admin.d.mSeason', { hint: 'admin.d.mSeasonX', opts: axisOpts('season', 'auto') })
