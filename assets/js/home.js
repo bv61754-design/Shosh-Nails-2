@@ -27,8 +27,8 @@
         note3: 'نصوّر لك طقمك قبل ما ندزّه',
 
         /* the launch offer band */
-        foundingTitle: 'أول {n} زبونة: طقم ثاني مجاني بقيمة {g}',
-        foundingText: 'مهما كان سعر طلبك، ينضاف لطلبك طقم مجاني بقيمة {g}. ولمن يوصلك، نفرح بصورة الطقم على إيدك ورأيك 🤍',
+        foundingTitle: 'أول {n} زبونة: طقم هدية بقيمة {g}',
+        foundingText: 'اطلبي طقمك، ولمن يوصلك قيّمي طلبك واكتبي رأيك — وبطلبك الجاي، مهما كان سعره، يجيك وياه طقم هدية من اختيارك بقيمة {g} 🤍',
 
         /* a design from her own picture */
         yoursTitle: 'تريدين شي مو موجود هنا؟',
@@ -84,8 +84,8 @@
 
         /* the launch offer band */
         foundingEyebrow: 'عرض الافتتاح',
-        foundingTitle: 'أول {n} زبونة: طقم ثانٍ مجاني بقيمة {g}',
-        foundingText: 'مهما كان سعر طلبك، يُضاف لطلبك طقم مجاني بقيمة {g}. وعندما يصلك، نفرح بصورة الطقم على يدك ورأيك 🤍',
+        foundingTitle: 'أول {n} زبونة: طقم هدية بقيمة {g}',
+        foundingText: 'اطلبي طقمك، وبعد أن يصلك قيّمي طلبك واكتبي رأيك — وفي طلبك التالي، مهما كان سعره، يصلك معه طقم هدية من اختيارك بقيمة {g} 🤍',
         foundingCta: 'ابدئي اختبار الستايل',
 
         /* a design from her own picture */
@@ -168,8 +168,8 @@
         note3: 'A photo of your set before it ships',
 
         foundingEyebrow: 'Launch offer',
-        foundingTitle: 'First {n} customers: a second set free, worth {g}',
-        foundingText: 'Whatever your order costs, a free set worth {g} is added to it. And when it arrives, we would love a photo of it on your hand and your review 🤍',
+        foundingTitle: 'First {n} customers: a gift set worth {g}',
+        foundingText: 'Order your set; once it arrives, rate your order and write your review — and your next order, whatever it costs, comes with a gift set of your choice worth {g} 🤍',
         foundingCta: 'Take the style quiz',
 
         yoursEyebrow: 'Your own design',

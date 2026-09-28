@@ -138,9 +138,10 @@
         ar: 'نرد عليك في أقل من ساعة|نتفق على المقاس وطريقة الدفع بالخاص|نصوّر لك الطقم أثناء العمل عليه وقبل إرساله|يصلك الطقم وتدفعين الباقي للمندوب',
         en: 'We reply within the hour|Size and payment agreed in chat|Photos of your set while we make it and before it ships|It arrives and you pay the courier the rest'
       },
-      /* the launch offer: the first N customers get a free set worth `gift`
-         added to their order, whatever the order costs. Turned off from the
-         panel when the twenty are in. */
+      /* the launch offer: the first N customers order, review that order once
+         it arrives, and their next order — whatever it costs — ships with a
+         gift set of their choice worth `gift`. Turned off from the panel when
+         the twenty are in. */
       founding: { on: true, total: 20, gift: 12000 },
 
       repo: 'bv61754-design/Shosh-Nails-2',

@@ -16,7 +16,7 @@
         sizeS: 'صورة إيدك ويّا مسطرة تكفي',
         waS: 'نرد عليك بأقل من ساعة',
         ig: 'دزّي لنا رسالة على إنستغرام',
-        founding: 'عرض الافتتاح: أول {n} زبونة ينضاف لطلبها طقم مجاني بقيمة {g}، مهما كان سعر الطلب.',
+        founding: 'عرض الافتتاح لأول {n} زبونة: قيّمي طلبك الأول، وبطلبك الجاي طقم هدية من اختيارك بقيمة {g} مهما كان سعر الطلب.',
         foot: 'الدفع عند الاستلام · التوصيل لكل المحافظات · نصوّر لك الطقم قبل ما ندزّه'
       }
     },
@@ -35,7 +35,7 @@
         ig: 'راسلينا على إنستغرام',
         igS: '@{h}',
         waMsg: 'مرحباً شوش 💅 أريد أن أطلب طقماً.',
-        founding: 'عرض الافتتاح: أول {n} زبونة يُضاف لطلبها طقم مجاني بقيمة {g}، مهما كان سعر الطلب.',
+        founding: 'عرض الافتتاح لأول {n} زبونة: قيّمي طلبك الأول، وفي طلبك التالي طقم هدية من اختيارك بقيمة {g} مهما كان سعر الطلب.',
         foot: 'الدفع عند الاستلام · التوصيل لكل المحافظات · نصوّر لك الطقم قبل إرساله'
       }
     },
@@ -54,7 +54,7 @@
         ig: 'Message us on Instagram',
         igS: '@{h}',
         waMsg: 'Hi Shosh 💅 I would like to order a set.',
-        founding: 'Launch offer: the first {n} customers get a free set worth {g} added to their order, whatever it costs.',
+        founding: 'Launch offer for the first {n} customers: review your first order, and your next order, whatever it costs, comes with a gift set of your choice worth {g}.',
         foot: 'Cash on delivery · delivery to every governorate · a photo of your set before it ships'
       }
     }
